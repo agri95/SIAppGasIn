@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container">
+    <div class="table-responsive">
+        <table id="customerDatatable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Employee Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Salary</th>
+                    <th>Designation</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+       $(document).ready(function () {
+    $("#customerDatatable").DataTable({
+        "processing": true,
+        "serverSide": true,
+        "filter": true,
+        "ajax": {
+            "url": "/SysUser/GetCustomers",
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columnDefs": [{
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        }],
+        "columns": [
+            { "data": "id", "name": "Id", "autoWidth": true },
+            { "data": "UserName", "name": "First Name", "autoWidth": true },
+            { "data": "lastName", "name": "Last Name", "autoWidth": true },
+            { "data": "contact", "name": "Country", "autoWidth": true },
+            { "data": "Email", "name": "Email", "autoWidth": true },
+            { "data": "dateOfBirth", "name": "Date Of Birth", "autoWidth": true },
+            {
+                "render": function (data,row) { return "<a href='#' class='btn btn-danger' onclick=DeleteCustomer('" + row.id+ "'); >Delete</a>";   }
+            },
+        ]
+    });
+});  
+    </script>
+}

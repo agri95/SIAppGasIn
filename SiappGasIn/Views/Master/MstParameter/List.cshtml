@@ -1,0 +1,317 @@
+﻿@{
+    ViewData["Title"] = "Parameter";
+}
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addParams">
+  Add Data
+</button>
+<div class="container">
+    <div class="table-responsive">
+        <table id="customerDatatable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Customer ID</th>
+                    <th>Param Code</th>
+                    <th>Param Name</th>
+                    <th>Param Value</th>
+                    <th>Param Group</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<!--Add Param-->
+<div class="modal fade" id="addParams" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Data Parameter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Parameter Code:</label>
+            <input type="text" class="form-control" id="paramCode">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Parameter Name:</label>
+            <input type="text" class="form-control" id="paramName">
+          </div>
+         <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Parameter Value:</label>
+            <input type="text" class="form-control" id="paramValue">
+          </div>
+         <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Parameter Group:</label>
+            <input type="text" class="form-control" id="paramGroup">
+          </div>       
+         
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="btnAddParam" class="btn btn-primary">Save Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Edit Param-->
+<div class="modal fade" id="editParams" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Data Parameter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Parameter Code:</label>
+            <input type="text" class="form-control" id="paramCodes">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Parameter Name:</label>
+            <input type="text" class="form-control" id="paramNames">
+          </div>
+         <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Parameter Value:</label>
+            <input type="text" class="form-control" id="paramValues">
+          </div>
+         <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Parameter Group:</label>
+            <input type="text" class="form-control" id="paramGroup">
+          </div>       
+         
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="btnAddParam" class="btn btn-primary">Save Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Success-->
+<div class="modal fade" tabindex="-1" id="successModal"
+     data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <div id="msgText">.</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success"
+                        data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Error-->
+<div id="divError" class="alert alert-danger collapse">
+    <a id="linkClose" href="#" class="close">&times;</a>
+    <div id="divErrorText"></div>
+</div>
+
+
+@section Scripts{
+
+
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js "></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script>
+    $(document).ready(function () {       
+
+        $("#customerDatatable").DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "ajax": {
+                "url": '@Url.Action("LoadData", "MstParameter")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                }],
+            "columns": [
+                { "data": "paramId", "name": "ParamId", "autoWidth": true },
+                { "data": "paramCode", "name": "ParamCode", "autoWidth": true },
+                { "data": "paramName", "name": "ParamName", "autoWidth": true },
+                { "data": "paramValue", "name": "ParamValue", "autoWidth": true },
+                { "data": "paramGroup", "name": "ParamGroup", "autoWidth": true },
+                {
+                    "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.paramId + ')">Edit</a>'; }
+                    //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                },
+                {
+                    data: null, render: function (data, type, row) {
+                        return "<a href='#' class='badge badge-danger' onclick=DeleteData('" + row.CustomerID + "'); >Delete</a>";
+                    }
+                },
+            ]
+
+        });
+
+        //Add
+        $(".add-record").click(function () {
+
+            $(".modal-dialog").css("width", "50%");
+            $(".modal-dialog").css("height", "80%");
+            $('#addModal').modal('show');
+        });
+
+        //Close the bootstrap alert
+        $('#linkClose').click(function () {
+            $('#divError').hide('fade');
+        });
+
+        // Save the new user details
+        $('#btnAddParam').click(function () {
+            alert("hi");
+            $.ajax({
+                url: '@Url.Action("CreateData", "MstParameter")',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(
+                    {
+                        "ParamCode": $("#paramCode").val(),
+                        "ParamName": $("#paramName").val(),
+                        "ParamValue": $("#paramValue").val(),
+                        "ParamGroup": $("#paramGroup").val(),
+                    }
+                ),
+                success: function (data) {
+                    //alert(data);
+                    if (data == true) {
+
+                        $("#paramCode").val("");
+                        $('#paramName').val("");
+                        $('#paramValue').val("");
+                        $('#paramGroup').val("");
+
+                        $('#msgText').text('Parameter data is added Successfully');
+                        $('#successModal').modal('show');
+                    }
+
+                },
+                error: function (jqXHR) {
+                    $('#divErrorText').text(jqXHR.responseText);
+                    $('#divError').show('fade');
+                }
+            });
+        });
+
+
+        //EDIT - Save the new user details
+        $('#btnEditCustomer').click(function () {
+            $.ajax({
+                url: '@Url.Content("~/")' + 'DemoGrid/EditCustomer',
+                type: 'POST',
+                //crossDomain: true,
+                dataType: 'json',
+                //headers: {
+                //    'Accept': 'application/json',
+                //    'Content-Type': 'application/json'
+                //},
+                //headers: { 'Access-Control-Allow-Origin': 'The web site allowed to access' },
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(
+                    {
+                        "CustomerID": $("#txtEditCustomerId").val(),
+                        "CompanyName": $("#txtEditCompany").val(),
+                        "ContactName": $('#txtEditName').val(),
+                        "Phone": $('#txtEditPhone').val(),
+                        //"CategoryId": 2,
+                    }
+                ),
+                success: function (data) {
+                    //alert(data);
+                    if (data == true) {
+
+                        $("#txtAddCompany").val("");
+                        $('#txtAddName').val("");
+                        $('#txtAddPhone').val("");
+
+                        oTable = $('#example').DataTable();
+                        oTable.draw();
+
+                        $('#msgText').text('Customer Info is added Successfully');
+                        $('#successModal').modal('show');
+                    }
+
+                },
+                error: function (jqXHR) {
+                    $('#divErrorText').text(jqXHR.responseText);
+                    $('#divError').show('fade');
+                }
+            });
+        });
+    });
+
+    function EditData(ParamId) {
+        alert(ParamId);
+        
+        $("#editParams").modal("show"); 
+       
+
+
+
+
+
+
+    }
+
+    function DeleteData(CustomerID) {
+        if (confirm("Are you sure you want to delete ...?")) {
+            Delete(CustomerID);
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    function Delete(CustomerID) {
+        var url = '@Url.Content("~/")' + "DemoGrid/Delete";
+
+        $.post(url, { ID: CustomerID }, function (data) {
+            if (data) {
+                oTable = $('#example').DataTable();
+                oTable.draw();
+            }
+            else {
+                alert("Something Went Wrong!");
+            }
+        });
+    }
+
+</script>
+}
