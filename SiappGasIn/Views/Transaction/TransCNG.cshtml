@@ -723,8 +723,8 @@ function HitungHarga() {
    var jmlSewaHeadTruck = (sewaHeadTruck + sewaBedTrailer) * 1.1; // IDR / Unit
    $("#jmlSewaHeadTruck").text(nf.format(jmlSewaHeadTruck));
 
-   //var jarak = $("#jarak").val(); //Jarak Tempuh KM (PP)
-   var jarak = 45; //Jarak Tempuh KM (PP)
+   var jarak = $("#jarak").val(); //Jarak Tempuh KM (PP)
+   //var jarak = 45; //Jarak Tempuh KM (PP)
     var calJarak = jarak * 2;
    $("#jarakTempuh").text(calJarak);
 

@@ -9906,11 +9906,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Engineer\\source\\repos\\SiappGasIn\\SiappGasIn\\SiappGasIn.csproj",
+      "projectUniqueName": "D:\\SIAppGasIn\\SiappGasIn\\SiappGasIn.csproj",
       "projectName": "SiappGasIn",
-      "projectPath": "C:\\Users\\Engineer\\source\\repos\\SiappGasIn\\SiappGasIn\\SiappGasIn.csproj",
+      "projectPath": "D:\\SIAppGasIn\\SiappGasIn\\SiappGasIn.csproj",
       "packagesPath": "C:\\Users\\Engineer\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Engineer\\source\\repos\\SiappGasIn\\SiappGasIn\\obj\\",
+      "outputPath": "D:\\SIAppGasIn\\SiappGasIn\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Engineer\\AppData\\Roaming\\NuGet\\NuGet.Config",

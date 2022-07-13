@@ -1,0 +1,109 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Welcome Email from TCP</title>
+    <style>
+        .button {
+            display: block;
+            width: 115px;
+            height: 25px;
+            background: #ffd800;
+            padding: 5px;
+            text-align: center;
+            font-size: 20px;
+            vertical-align: middle;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td align="center" valign="top" bgcolor="#eaeaea" style="background-color:#eaeaea;">
+                <br>
+                <br>
+                <table width="650" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="left" valign="top" bgcolor="#ffd800" style="background-color:#ffd800; font-family:Arial, Helvetica, sans-serif; padding:10px;">
+                            <div style="font-size:22px; font-weight:bold;">
+                                UTFAMS
+                            </div>
+                            <div style="font-size:12px; font-style:italic">
+                                UT Facility Asset Management Service
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="left" valign="top" bgcolor="#ffffff" style="background-color:#ffffff;">
+                            <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" valign="middle" style="color:#525252; font-family:Arial, Helvetica, sans-serif; padding:10px;">
+                                        <div style="font-size:22px; font-weight:bold;">
+                                            Hi @ViewBag.FullName,
+                                        </div>
+                                        <br />
+                                        <br />
+                                        <div style="font-size:14px;">
+                                            @ViewBag.Message
+                                            <br />
+                                            <br />
+                                            Here is the details :
+                                            <table>
+                                                <tr>
+                                                    <td>Ticket Title</td>
+                                                    <td>:</td>
+                                                    <td style="font-weight:bold;">@ViewBag.Title</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ticket Type</td>
+                                                    <td>:</td>
+                                                    <td style="font-weight:bold;">@ViewBag.Type</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ticket Priority</td>
+                                                    <td>:</td>
+                                                    <td style="font-weight:bold;">@ViewBag.Priority</td>
+                                                </tr>                                               
+                                            </table>
+
+                                            <center>
+                                                <a href="@ViewBag.Callback" class="button">Click Here</a>                                                
+                                            </center>
+                                        </div>
+                                        <br />
+                                        <div style="font-size:12px; font-weight:bold;">
+                                            Thank You,
+                                            <br />
+                                            <br />
+                                            <br />
+                                            PT United Tractors Tbk
+                                            <br />
+                                             - [NOREPLY] Notification Master - 
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="left" valign="middle" style="padding:15px; background-color:#ffd800; font-family:Arial, Helvetica, sans-serif;">
+                                        <div style="font-size:12px; color:#000000; font-weight:bold;">
+                                            PT. United Tractors Tbk. | Copyright © 2020. All rights reserved.
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+            </td>
+        </tr>
+    </table>
+</body>
+</html> 

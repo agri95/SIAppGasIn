@@ -8,93 +8,109 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SiappGasIn
 build_property.RootNamespace = SiappGasIn
-build_property.ProjectDir = C:\Users\Engineer\source\repos\SiappGasIn\SiappGasIn\
+build_property.ProjectDir = D:\SIAppGasIn\SiappGasIn\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Engineer\source\repos\SiappGasIn\SiappGasIn
+build_property.MSBuildProjectDirectory = D:\SIAppGasIn\SiappGasIn
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Account/ForgotPassword.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Account/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Account/ForgotPasswordConfirmation.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Account/ForgotPasswordConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxGb3Jnb3RQYXNzd29yZENvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Account/Lockout.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Account/Lockout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2Nrb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Account/Login.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Account/Logout.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Account/RegisterConfirmation.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Account/RegisterConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RlckNvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Account/ResetPasswordConfirmation.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Account/ResetPasswordConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZXNldFBhc3N3b3JkQ29uZmlybWF0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Account/_ViewImports.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Home/Index.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Home/Privacy.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Master/MstParameter/List.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Master/MstParameter/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdFBhcmFtZXRlclxMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Shared/Error.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Shared/_LoginPartial.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Transaction/TransCNG.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/SimulationCost/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIAppGasIn/SiappGasIn/Views/Transaction/TransCNG.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNhY3Rpb25cVHJhbnNDTkcuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Transport/Index.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/Transport/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNwb3J0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/User/List.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/User/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/_ValidationScriptsPartial.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/_ViewImports.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/_ViewStart.cshtml]
+[D:/SIAppGasIn/SiappGasIn/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Engineer/source/repos/SiappGasIn/SiappGasIn/Views/Shared/_Layout.cshtml]
+[D:/SIAppGasIn/SiappGasIn/wwwroot/plugins/mail/IncidentMail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = d3d3cm9vdFxwbHVnaW5zXG1haWxcSW5jaWRlbnRNYWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIAppGasIn/SiappGasIn/wwwroot/plugins/mail/RegMail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = d3d3cm9vdFxwbHVnaW5zXG1haWxcUmVnTWFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIAppGasIn/SiappGasIn/wwwroot/plugins/mail/StockMail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = d3d3cm9vdFxwbHVnaW5zXG1haWxcU3RvY2tNYWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIAppGasIn/SiappGasIn/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-m60ttds08b

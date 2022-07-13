@@ -35,237 +35,95 @@
 
     <title>@ViewData["Title"] - SiappGasIn</title>
 
-    <!-- Bootstrap -->
-    <link href="~/plugins/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="~/plugins/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="~/plugins/vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- iCheck -->
-    <link href="~/plugins/vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
-    <!-- bootstrap-progressbar -->
-    <link href="~/plugins/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <!-- JQVMap -->
-    <link href="~/plugins/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
-    <!-- bootstrap-daterangepicker -->
-    <link href="~/plugins/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
-
-    <!-- Custom Theme Style -->
-    <link href="~/adminlte/css/custom.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+      <link href="~/css/site.css" rel="stylesheet">
 
     @RenderSection("Styles", required: false)
 
   </head>
-
-  <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-            <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><img src="@Url.Content("~/adminlte/images/logo.png")" style="width: 140px; margin-left:0px;" alt="Logo IT/IS" /></a>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <!-- menu profile quick info -->
-            
-            <!-- /menu profile quick info -->
-
-            <br />
-
-            <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
+  <body>
+<!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Hi, Administrator</a></li> -->
+<nav class="navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">     
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Hi, @userManager.GetUserName(User)<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="@Url.Action("Index", "Home")"><span><i class="fa fa-home" aria-hidden="true"></i></span> Home</a></li>
+              <li><a href="google.com"><span><i class="fa fa-user" aria-hidden="true"></i></span> Profile</a></li>
+              <li><a href="@Url.Action("TransCNG", "Transaction")"><span><i class="fa fa-history" aria-hidden="true"></i></span> History</a></li>
+              <li><a href="@Url.Action("Index", "SimulationCost")"><span><i class="fa fa-gear" aria-hidden="true"></i></span> Simulation Cost</a></li>
+              <li>
+                <a class="dropdown-item" href="#"><span><i class="fa fa-database" aria-hidden="true"></i></span> Master Data &raquo; </a>
+                <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                  <li>
+                    <a class="dropdown-item" href="#">User</a>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Master Data <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="@Url.Action("List", "SysUser")">User</a></li>
-                      <li><a href="@Url.Action("List", "MstParameter")">Parameter</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
-                      <li><a href="form_wizards.html">Form Wizard</a></li>
-                      <li><a href="form_upload.html">Form Upload</a></li>
-                      <li><a href="form_buttons.html">Form Buttons</a></li>
-                    </ul>
+                  <li>
+                    <a class="dropdown-item" href="#">Role</a>
                   </li>
-                  <li><a href="@Url.Action("Index", "TransportCost")"><i class="fa fa-desktop"></i> Transport Cost </span></a>            
+                  <li>
+                    <a class="dropdown-item" href="#">Harga</a>
                   </li>
-                   <li><a><i class="fa fa-home"></i> Transaction <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="@Url.Action("TransCNG", "Transaction")">CNG Cost</a></li>
-                      <li><a href="index2.html">LNG Cost</a></li>
-                      <li><a href="index3.html">Pipeline Cost</a></li>
-                    </ul>
+                  <li>
+                    <a class="dropdown-item" href="#">Data</a>
                   </li>
                 </ul>
-              </div>
+              </li>
+              <br>
+             <div class="row">
+                 <div class="col-md-12">
+                     <div class="col-md-6"><img src="@Url.Content("~/adminlte/images/logos.png")" class="image-responsive" style="width:80px; height:30px; float: center;"></div>
+                     <div class="col-md-6"><form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                            <button type="submit" title="Sign Out" class="btn btn-danger btn-sm">  Sign Out</button>
+                        </form></div>
+                 </div>
+             </div>
+              
+             @* <center>  <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
+                            <button type="submit" title="Sign Out" class="btn btn-danger-outline btn-sm">  Sign Out</button>
+                        </form></center>
+              <center><img src="@Url.Content("~/adminlte/images/logos.png")" class="image-responsive" style="width:80px; height:30px; float: center;"></center>*@
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container body"  style="padding-right: 230px; padding-left: 230px;">     
+        <div class="card">
+          <div class="row ">      
+            <div class="col-md-12 px-3">
+              <div class="card-block" style="border: 1px;">
+                <div class="row">
+                    <div class="col-md-7"><h5 class="card-title font-bold batasAtas" >Cost Structure Simulation Software</h5></div>
+                    <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")" class="image-responsive" style="width:120px; height:40px; float: right;"></div>
+               </div>
 
+               @RenderBody()
+               
+             
+               
+              </div>
             </div>
           </div>
-        </div>
+        </div>     
+</div>
 
-        <!-- top navigation -->
-        <div class="top_nav">
-          <div class="nav_menu">
-              <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-              </div>
-              <nav class="nav navbar-nav">
-              <ul class=" navbar-right">
-                <li class="nav-item dropdown open" style="padding-left: 15px;">
-                  <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="~/adminlte/images/user.png" alt="">Hello,<strong>@userManager.GetUserName(User)</strong>  !
-                  </a>
-                  <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                      <a class="dropdown-item"  href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
-                      </a>
-                  <a class="dropdown-item"  href="javascript:;">Help</a>
-                    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                            <button type="submit" title="Sign Out" class="dropdown-item dropdown-footer"> <i class="fa fa-sign-out pull-right"></i> Sign Out</button>
-                        </form>
-                  </div>
-                </li>
-
-                <li role="presentation" class="nav-item dropdown open">
-                  <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="dropdown-item">
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <div class="text-center">
-                        <a class="dropdown-item">
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-        <!-- /top navigation -->
-
-        <!-- page content -->
-        <div class="right_col" role="main">
-          @RenderBody()
-        </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            &copy; @DateTime.Now.Year - SIApp Gas-In</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
-      </div>
-    </div>
-
-    <!-- jQuery -->
-    <script src="~/plugins/vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="~/plugins/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="~/plugins/vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="~/plugins/vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="~/plugins/vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- gauge.js -->
-    <script src="~/plugins/vendors/gauge.js/dist/gauge.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="~/plugins/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
-    <!-- iCheck -->
-    <script src="~/plugins/vendors/iCheck/icheck.min.js"></script>
-    <!-- Skycons -->
-    <script src="~/plugins/vendors/skycons/skycons.js"></script>
-    <!-- Flot -->
-    <script src="~/plugins/vendors/Flot/jquery.flot.js"></script>
-    <script src="~/plugins/vendors/Flot/jquery.flot.pie.js"></script>
-    <script src="~/plugins/vendors/Flot/jquery.flot.time.js"></script>
-    <script src="~/plugins/vendors/Flot/jquery.flot.stack.js"></script>
-    <script src="~/plugins/vendors/Flot/jquery.flot.resize.js"></script>
-    <!-- Flot plugins -->
-    <script src="~/plugins/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
-    <script src="~/plugins/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
-    <script src="~/plugins/vendors/flot.curvedlines/curvedLines.js"></script>
-    <!-- DateJS -->
-    <script src="~/plugins/vendors/DateJS/build/date.js"></script>
-    <!-- JQVMap -->
-    <script src="~/plugins/vendors/jqvmap/dist/jquery.vmap.js"></script>
-    <script src="~/plugins/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
-    <script src="~/plugins/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="~/plugins/vendors/moment/min/moment.min.js"></script>
-    <script src="~/plugins/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="~/adminlte/js/custom.min.js"></script>
-     
 	@await RenderSectionAsync("Scripts", required: false)
-  </body>
+</body>
+
 </html>
 
