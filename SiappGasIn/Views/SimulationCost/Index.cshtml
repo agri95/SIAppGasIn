@@ -44,8 +44,8 @@ ViewData["Title"] = "Simulation Cost";
                             placeholder="" aria-label=".form-control-sm example">
                     </div>
                     <div class="col-md-1 col-sm-1 " style=" padding-left: 0px;">
-                        <a href="#" onclick="exchangeEnergy()" class="btn btn-primary btn-sm" style="height : 26px;"><span><i
-                                    class="fa fa-exchange" aria-hidden="true"></i></span></a>
+                        <a href="#" onclick="exchangeEnergy()" class="btn btn-primary btn-sm"
+                            style="height : 26px;"><span><i class="fa fa-exchange" aria-hidden="true"></i></span></a>
                     </div>
                     <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
                     <div class="col-md-3 col-sm-3 ">
@@ -168,7 +168,7 @@ ViewData["Title"] = "Simulation Cost";
                             placeholder="" aria-label=".form-control-sm example">
                     </div>
                 </div>
-                 <div class="form-group row ">
+                <div class="form-group row ">
                     <label class="control-label col-md-4 col-sm-4 "></label>
                     <div class="col-md-8 col-sm-8 ">
                         <a href="#" onclick="mapp()" class="btn btn-primary btn-sm pull-right">Convert</a>
@@ -177,39 +177,62 @@ ViewData["Title"] = "Simulation Cost";
 
                 <hr />
 
-                 <div class="form-group row ">
+                <div class="form-group row ">
                     <label class="control-label col-md-4 col-sm-4 ">Demand / M3 / Bulan</label>
                     <div class="col-md-8 col-sm-8 ">
                         <input class="form-control form-control-sm frmInput" id="creator" name="creator" type="text"
                             placeholder="" aria-label=".form-control-sm example">
                     </div>
                 </div>
-                
-               
+
+
             </form>
-             <div class="row">
-        <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-            <button type="submit" onclick="showMaps()" class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
-            <button type="submit" onclick="back()" class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
-        </div>
-    </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                    <button type="submit" onclick="showMaps()"
+                        class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                    <button type="submit" onclick="back()"
+                        class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+                </div>
+            </div>
         </div>
 
     </div>
 
-   
+
 </div>
-<div id="mapShow">
-    <div id="map" class="map"><h3>avbankmcacbobln;b oulhsj ihviaj;;u iihiunna hoa iijv uhadva hfoaihf</h3></div>
+<div id="findMap">
+       <div style="margin-bottom:10px;">
+         <div class="form">
+                <div class="range-wrap">
+                    <input type="text" id="radius" hidden/>
+            <div class="range-value" id="radius-selected"></div>
+            <input
+              id="range-km"
+              name="range-km"
+              type="range"
+              min="0"
+              max="500"
+              value="50"
+              step="5"
+            />
+          </div></div>
+       </div>
+  
+    <div id="map" class="map"></div>
 </div>
 
 @section Styles{
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
-<link rel="stylesheet" href="~/plugins/leaflet/leaflet-routing-machine.css" />
+<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.css" />
+<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
+<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
+<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
 @*
+<link rel="stylesheet" href="~/plugins/map/css/styles.css" />*@
+
 <style>
     .map {
-        height: 450px;
+        height: 400px;
         width: 100%;
     }
 
@@ -223,45 +246,275 @@ ViewData["Title"] = "Simulation Cost";
         height: 480px;
         overflow-y: scroll;
     }
-</style>*@
+
+    #map .leaflet-bar .leaflet-draw-draw-rectangle,
+    #map .leaflet-bar .leaflet-draw-draw-circle,
+    #map .leaflet-bar .leaflet-draw-edit-edit,
+    #map .leaflet-bar .leaflet-draw-edit-remove {
+      display: none;
+    }
+</style>
 }
 
 
 @section Scripts{
-    
-<script type="text/javascript">
-  $(document).ready(function () {
-      $("#pipeLine").checked = true;
-      $("#lng").checked = true;
-      document.getElementById("pipeLine").checked = true;
-      document.getElementById("lng").checked = true;
-      document.getElementById("cng").checked = true;
-      document.getElementById("energyScale").checked = true;
-        $("#costStructure").show();
-        $("#mapShow").hide();
-        $("#convertEnergy").hide();
+<script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>
+@*
+<script type="text/javascript" src="~/plugins/map/js/script.js"></script>*@
+<script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
+<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        let range = $("#range-km");
+        
+  let rangeV = $("#radius-selected");
+        
+  const setValue = () => {
+    let newValue = Number(
+        ((range.val() - range.attr("min")) * 100) /
+          (range.attr("max") - range.attr("min"))
+      ),
+     
+      newPosition = 10 - newValue * 0.2;
+    rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
+    rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
+      $("#radius").val(range.val());
+      changeCircleRadius(range.val());
+  };
+
+  setValue();
   
 
+  range.on("input", setValue);
+        
 
-  });
+        $("#pipeLine").checked = true;
+        $("#lng").checked = true;
+        document.getElementById("pipeLine").checked = true;
+        document.getElementById("lng").checked = true;
+        document.getElementById("cng").checked = true;
+        document.getElementById("energyScale").checked = true;
+        $("#costStructure").show();
+        $("#findMap").hide();
+        $("#convertEnergy").hide();
+
+        // Base map styles
+        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+        map = new L.Map('map', {
+            minZoom: 6,
+            zoom: 9,
+            center: [-6.159907, 106.815383]
+        })
+        osm.addTo(map)
+
+        // This is the circle on the map that will be determine how many markers are around
+        var circle;
+
+        // The marker drawn onto the map
+        var drawn_marker = L.marker();
+
+        // Group for our markers
+        var drawn_markers = L.featureGroup();
+        map.addLayer(drawn_markers);
+
+        // Icons that get placed on map
+        var eco = L.icon({
+            iconSize: [32, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -28],
+            iconUrl: '/plugins/map/images/pertacon.png'
+        });
+
+        // When an icon is clicked
+        function popup(feature, layer) {
+            if (feature.properties && feature.properties.oficina) {
+                layer.bindPopup(feature.properties.oficina, {
+                    closeButton: false,
+                    offset: L.point(0, -20)
+                });
+                layer.on('mouseover', function () {
+                    layer.openPopup();
+                });
+                layer.on('mouseout', function () {
+                    layer.closePopup();
+                });
+            }
+        };
+
+        // Convert miles to meters to set radius of circle
+        function milesToMeters(miles) {
+            return miles * 1069.344;
+        };
+
+        // This figures out how many points are within out circle
+        function pointsInCircle(circle, meters_user_set) {
+            if (circle !== undefined) {
+                // Only run if we have an address entered
+                // Lat, long of circle
+                circle_lat_long = circle.getLatLng();
+
+                var counter_points_in_circle = 0;
+
+                // Loop through each point in JSON file
+                farmacias.eachLayer(function (layer) {
+                    // Lat, long of current point
+                    layer_lat_long = layer.getLatLng();
+
+                    // Distance from our circle marker
+                    // To current point in meters
+                    distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
+
+                    // See if meters is within raduis
+                    // The user has selected
+                    if (distance_from_layer_circle <= meters_user_set) {
+                        counter_points_in_circle += 1;
+
+                        var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
+                        // Convert to miles
+                        ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
+                        
+                        $('#ofi_paf').append(ofi_paf_html);
+                    }
+                });
+
+                // Set number of results on main page
+                $('#ofi_paf_results').html(counter_points_in_circle);
+            }
+            // Close pointsInCircle
+        };
+
+        // Change circle radius when changed on page
+        function changeCircleRadius(jarak) {
+            // Determine which geocode box is filled
+            // And fire click event
+            
+            // This will determine how many markers are within the circle
+            pointsInCircle(circle, milesToMeters(jarak))
+
+            // Set radius of circle only if we already have one on the map
+            if (circle) {
+                circle.setRadius(milesToMeters(jarak));
+            }
+        }
+
+        // Allow user to add marker to map
+        var draw_control = new L.Control.Draw({
+            draw: {
+                polyline: false,
+                polygon: false,
+                circle: true,
+                marker: drawn_marker
+            },
+            edit: {
+                featureGroup: drawn_markers,
+                remove: true
+            }
+        });
+
+        map.on(L.Draw.Event.CREATED, function (event) {
+            var layer = event.layer;
+
+            drawn_markers.addLayer(layer);
+        });
+
+        map.addControl(draw_control);
+
+        // Allow user to search through GeoJSON file
+        //var search_control = new L.Control.Search({
+        //	layer: farmacias,
+        //	propertyName: 'oficina',
+        //	circleLocation: true
+        //});
+
+        //map.addControl(search_control);
+        //L.control.scale().addTo(map);
+
+        // Add GeoJSON layer
+        var farmacias = L.geoJson(ofi_paf, {
+            onEachFeature: popup,
+
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, { icon: eco });
+            }
+        }).addTo(map);
+
+        // This is called after the marker is drawn
+        map.on('draw:created', function (e) {
+            // Add a circle around the marker
+            var marker_lat_long = e.layer._latlng
+            var radius = milesToMeters($('#radius').val());
+            circle = L.circle(marker_lat_long, radius)
+            circle.addTo(map);
+
+            // Calculate the number of eco icons within the circle
+            // So we can put it on the DOM
+            pointsInCircle(circle, radius)
+
+            // Make the marker draggable
+            e.layer.dragging.enable();
+
+            // If you drag the marker, make sure the circle goes with it
+            e.layer.on('dragend', function (event) {
+                map.setView(event.target.getLatLng());
+                circle.setLatLng(event.target.getLatLng());
+
+                // Clear out results
+                $('#ofi_paf').html('');
+
+                // This will determine how many markers are within the circle
+                pointsInCircle(circle, milesToMeters($('#radius').val()));
+
+                // Redraw: Leaflet function
+                circle.redraw();
+            });
+
+            $('.leaflet-draw-draw-marker').hide();
+        });
+
+        // Reset map view on marker drag
+        drawn_marker.on('dragend', function (event) {
+            map.setView(event.target.getLatLng());
+            circle.setLatLng(event.target.getLatLng());
+
+            // This will determine how many markers are within the circle
+            pointsInCircle(circle, milesToMeters($('#radius').val()));
+
+            // Redraw: Leaflet function
+            circle.redraw();
+        });
+
+        // Radius dropdown
+        //$("input", "change").change(function () {
+        //    changeCircleRadius();
+        //});
+    });
 
 
 
 
-   
+
 
     function mapp() {
         $("#costStructure").hide();
+        $("#findMap").show();
+        $("#convertEnergy").hide();
+        map.invalidateSize();
     }
     function back() {
         $("#costStructure").show();
         $("#convertEnergy").hide();
+        $("#findMap").hide();
     }
     function exchangeEnergy() {
         $("#costStructure").hide();
         $("#convertEnergy").show();
+        $("#findMap").hide();
     }
-    
-    </script>
+
+</script>
 }
