@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DataTables-Editor-Server" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
@@ -210,6 +211,10 @@
     <None Include="wwwroot\plugins\vendors\parsleyjs\bower_components\uwidget\LICENSE" />
     <None Include="wwwroot\plugins\vendors\parsleyjs\bower_components\uwidget\uwidget.js" />
     <None Include="wwwroot\plugins\vendors\parsleyjs\bower_components\uwidget\uwidget.less" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\js\NewFolder\" />
   </ItemGroup>
 
 </Project>

@@ -542,3 +542,4 @@ D:\SIAppGasIn\SiappGasIn\obj\Debug\net6.0\refint\SiappGasIn.dll
 D:\SIAppGasIn\SiappGasIn\obj\Debug\net6.0\SiappGasIn.pdb
 D:\SIAppGasIn\SiappGasIn\obj\Debug\net6.0\SiappGasIn.genruntimeconfig.cache
 D:\SIAppGasIn\SiappGasIn\obj\Debug\net6.0\ref\SiappGasIn.dll
+D:\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\DataTables-Editor-Server.dll

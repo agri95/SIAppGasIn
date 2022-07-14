@@ -9,6 +9,8 @@
                 <th>Bahan Bakar</th>
                 <th>Nilai Kalori</th>
                 <th>Satuan</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
        
@@ -51,6 +53,47 @@
     </div>
   </div>
 </div>
+
+<!--Edit Modal-->
+
+
+<div class="modal" tabindex="-1" role="dialog" id="editData">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ubah Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Bahan Bakar</label>
+            <input type="text" class="form-control" id="Energys" name="Energy">
+            <input type="text" class="form-control" id="EnergyIDs" name="EnergyIDs">
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
+            <input type="number" class="form-control" id="NilaiKaloris">
+          </div>
+         <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Satuan</label>
+            <input type="text" class="form-control" id="Satuans">
+          </div>
+           
+         
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnEditEnergy">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @section Styles{
     <style type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"></style>
     <style type="text/css" src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"></style>
@@ -86,7 +129,11 @@
   text-align: left;
   vertical-align: middle;
 }
-
+ th, td { white-space: nowrap; }
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
+ 
     </style>
     @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">*@
 }
@@ -103,9 +150,92 @@
      function addData() {
     $('#addData').modal('show');
 }
+$('#btnEditEnergy').click(function () {
+            $.ajax({
+                
+            url: '@Url.Action("EditData", "MstEnergy")',
+                type: 'POST',
+                //crossDomain: true,
+                dataType: 'json',
+                //headers: {
+                //    'Accept': 'application/json',
+                //    'Content-Type': 'application/json'
+                //},
+                //headers: { 'Access-Control-Allow-Origin': 'The web site allowed to access' },
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(
+                    {
+                        "EnergyID": $("#EnergyIDs").val(),
+                        "Energy": $("#Energys").val(),
+                        "NilaiKalori": $("#NilaiKaloris").val(),
+                        "Satuan": $("#Satuans").val(),
+                    }
+                ),
+                success: function (data) {
+                    //alert(data);
+                    if (data == true) {
+
+                        $("#Energys").val("");
+                        $('#NilaiKaloris').val("");
+                        $('#Satuans').val("");
+
+                        oTable = $('#example').DataTable();
+                        oTable.draw();
+
+                        $('#msgText').text('Customer Info is added Successfully');
+                        $('#successModal').modal('show');
+                        location.reload();
+                    }
+
+                },
+                error: function (jqXHR) {
+                    $('#divErrorText').text(jqXHR.responseText);
+                    $('#divError').show('fade');
+                }
+            });
+        });
+   
+
+function EditData(dataID) {
+        $.ajax({
+            url: '@Url.Action("SelectData", "MstEnergy")?id=' + dataID,
+            type: 'get',
+            //crossDomain: true,
+            dataType: 'json',
+            //headers: {
+            //    'Accept': 'application/json',
+            //    'Content-Type': 'application/json'
+            //},
+            //headers: { 'Access-Control-Allow-Origin': 'The web site allowed to access' },
+            contentType: "application/json; charset=utf-8",
+            data: "{}", //JSON.stringify({ CustomerID : CustomerID }),
+            success: function (data) {
+                if (data.status == true) {
+                    $("#Energys").val(data.data.energy);
+                    $('#NilaiKaloris').val(data.data.nilaiKalori);
+                    $('#Satuans').val(data.data.satuan);
+                    $('#EnergyIDs').val(data.data.energyID);
+                    
+                    $("#editData").modal("show");
+                    
+                }
+                else {
+                    alert("HUHAUHDA");
+                }
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+
+
+
+
+
+    }
 
 $('#saveEnergy').click(function () {
-            alert("hi");
             $.ajax({
                 url: '@Url.Action("CreateData", "MstEnergy")',
                 type: 'POST',
@@ -129,6 +259,7 @@ $('#saveEnergy').click(function () {
                         $('#msgText').text('Parameter data is added Successfully');
                         $('#successModal').modal('show'); 
                         alert("SUKSES");
+                        location.reload();
                     }
 
                 },
@@ -138,6 +269,39 @@ $('#saveEnergy').click(function () {
                 }
             });
         });
+
+        function DeleteData(id) {
+        if (confirm("Are you sure you want to delete ...?")) {
+            Delete(id);
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    function Delete(id) {
+       
+        $.ajax({
+    url: '@Url.Action("Delete", "MstEnergy")?EnergyID=' +id,
+    
+    method: 'POST',
+    contentType: 'application/json',
+            success: function(data) {
+                if (data) {
+                    oTable = $('#example').DataTable();
+                    oTable.draw();
+                }
+                else {
+                    alert("Something Went Wrong!");
+                }
+            },
+    error: function(request,msg,error) {
+        // handle failure
+    }
+});
+    }
+
  </script>
  <script type="text/javascript">
 
@@ -168,15 +332,35 @@ $('#saveEnergy').click(function () {
                 "type": "POST",
                 "datatype": "json"
             },
+  "aoColumns" : [
+    { "sWidth": '5%' },
+    { "sWidth": '25%' },
+    { "sWidth": '55%' },
+    { "sWidth": '55%' },
+    { "sWidth": '3%' },
+    { "sWidth": '3%' }
+  ],
            "columns": [
+              
                 { "data": "energyID", "name": "ParamId", "autoWidth": true },
                 { "data": "energy", "name": "ParamCode", "autoWidth": true },
                 { "data": "nilaiKalori", "name": "ParamName", "autoWidth": true },
-                { "data": "satuan", "name": "ParamValue", "autoWidth": true }
-            ]
+                { "data": "satuan", "name": "ParamValue", "autoWidth": true },
+                
+                {
+                    "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.energyID + ')">Edit</a>'; }
+                    //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                },
+                {
+                    data: null, render: function (data, type, row) {
+                        return "<a href='#' class='badge badge-danger' onclick=DeleteData('" + row.energyID + "'); >Delete</a>";
+                    }
+                },
 
-        });
+        ]
   });
+  });
+  
 
 
 

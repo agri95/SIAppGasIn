@@ -78,5 +78,72 @@ namespace SiappGasIn.Controllers.Api
             return Json(data: true);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> SelectData(int id)
+        {
+            var isStatus = true;
+
+            MstEnergy prm = await _dbContext.MstEnergy.Where(x => x.EnergyID.Equals(id)).FirstOrDefaultAsync<MstEnergy>();
+
+            if (prm == null)
+            {
+                isStatus = false;
+                prm = new MstEnergy();
+            }
+
+            return Ok
+                    (
+                        new { data = prm, status = isStatus }
+                    );
+
+        }
+
+
+        [HttpPost]
+        public IActionResult EditData([FromBody] MstEnergy param)
+        {
+            try
+            {
+                if (param != null)
+                {
+                    if (param.Energy != null && param.Energy != "")
+                    {
+                        if (param.EnergyID > 0)
+                        {
+                            var cust = _dbContext.MstEnergy.Find(param.EnergyID);
+                            if (cust != null)
+                            {
+                                cust.Energy = param.Energy;
+                                cust.NilaiKalori = param.NilaiKalori;
+                                cust.Satuan = param.Satuan;
+                                cust.CreatedBy = this.User.Identity.Name;
+                                cust.CreatedDate = DateTimeOffset.Now;
+                                _dbContext.SaveChanges();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(data: false);
+            }
+
+            return Json(data: true);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int EnergyID)
+        {
+
+            MstEnergy std = _dbContext.MstEnergy.Where(x => x.EnergyID == EnergyID).FirstOrDefault<MstEnergy>();
+            _dbContext.MstEnergy.Remove(std);
+            _dbContext.SaveChanges();
+           
+
+            return RedirectToAction("List", "MstEnergy");
+
+        }
     }
 }
