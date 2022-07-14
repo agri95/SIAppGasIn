@@ -220,6 +220,14 @@ ViewData["Title"] = "Simulation Cost";
        </div>
   
     <div id="map" class="map"></div>
+    <div class="row">
+                <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                    <button type="submit" onclick="showMaps()"
+                        class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                    <button type="submit" onclick="back()"
+                        class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+                </div>
+            </div>
 </div>
 
 @section Styles{
@@ -232,7 +240,7 @@ ViewData["Title"] = "Simulation Cost";
 
 <style>
     .map {
-        height: 400px;
+        height: 370px;
         width: 100%;
     }
 

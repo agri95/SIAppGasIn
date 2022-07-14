@@ -17,6 +17,7 @@ namespace SiappGasIn.Data
         { }
   
         public DbSet<MstParameter> MstParameter { get; set; }
+        public DbSet<MstEnergy> MstEnergy { get; set; }
       
         protected override void OnModelCreating(ModelBuilder builder)
         {
