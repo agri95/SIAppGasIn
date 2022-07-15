@@ -60,6 +60,7 @@ namespace SiappGasIn.Controllers.Api
                         _dbContext.MstEnergy.Add(new MstEnergy()
                         {
                             Energy = energy.Energy,
+                            Harga = energy.Harga,
                             NilaiKalori = energy.NilaiKalori,
                             Satuan = energy.Satuan,
                             CreatedBy = this.User.Identity.Name,
@@ -115,6 +116,7 @@ namespace SiappGasIn.Controllers.Api
                             if (cust != null)
                             {
                                 cust.Energy = param.Energy;
+                                cust.Harga = param.Harga;
                                 cust.NilaiKalori = param.NilaiKalori;
                                 cust.Satuan = param.Satuan;
                                 cust.CreatedBy = this.User.Identity.Name;

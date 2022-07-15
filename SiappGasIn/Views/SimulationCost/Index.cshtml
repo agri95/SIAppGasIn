@@ -40,7 +40,7 @@
 					<div class="form-group row ">
 						<label class="control-label col-md-3 col-sm-3 ">Demand Usage/M³</label>
 						<div class="col-md-2 col-sm-2 ">
-							<input class="form-control form-control-sm frmInput" type="number" id="name" name="name"
+							<input class="form-control form-control-sm frmInput" type="number" id="demandUsage" name="demandUsage"
 								placeholder="" aria-label=".form-control-sm example">
 						</div>
 						<div class="col-md-1 col-sm-1 " style=" padding-left: 0px;">
@@ -150,10 +150,11 @@
 	</div>
 	
 	<div id="convertEnergy">
-		<div class="card" style="margin-top: 7px;">
+		<div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin" style="margin-top: 7px;">
 			<div class="card-body" style="margin: 15px ;">
 				<form class="form-horizontal form-label-left">
 					<input type="hidden" id="energyName"/>
+					<input type="hidden" id="hargaBBM"/>
 					<label>Convert Energy</label>
 					<div class="form-group row ">
 						<label class="control-label col-md-4 col-sm-4 ">Bahan Bakar Existing</label>
@@ -188,7 +189,7 @@
 	
 	
 				</form>
-				<table class="table table-bordered">
+				<table class="table table-bordered" id="tableConvert">
 				<thead>
 				  <tr>
 					<th style="width:40%; text-align:center; font-size:12px;">ITEM</th>
@@ -244,12 +245,16 @@
 						<label class="control-label col-md-4 col-sm-4 ">Pemakaian / M3 / Bulan</label>
 						<div class="col-md-8 col-sm-8 ">
 							<input class="form-control form-control-sm" id="resultConvert" name="resultConvert" type="text"
-								placeholder="" aria-label=".form-control-sm example" >
+								placeholder="" aria-label=".form-control-sm example" readonly>
 						</div>
 					</div>
+			</div>
+			</div>
+		
+				
 				<div class="row">
 					<div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-						<button type="submit" onclick="showMaps()"
+						<button type="submit" onclick="submitEnergy()"
 							class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
 						<button type="submit" onclick="back()"
 							class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
@@ -257,10 +262,7 @@
 				</div>
 			</div>
 	
-		</div>
-	
-	
-	</div>
+		
 	<div id="findMap">
 		   <div style="margin-bottom:10px;">
 			 <div class="form">
@@ -342,12 +344,14 @@
 	<script type="text/javascript">
 
 function convertEnergy() {
+	$("#tableConvert").show();
+	let nf = new Intl.NumberFormat('en-US')
     var energyName = $("#energyName").val();
     var demand = $("#pemakaian").val();
     var satuan = $("#satuan").text();
     var satuanPemakaian = $("#satuanPemakaian").text();
     var nilaiKal = $("#nilaiKalori").val();
-    var hargaBB = 6000;
+    var hargaBB = $("#hargaBBM").val();
     var hargaGasBumi = 8945.142;
     var hargaBerlaku = 3650;
 
@@ -356,36 +360,46 @@ function convertEnergy() {
     } else {
 		$("#tblHeader").text(energyName);
 
-		$("#tblNilaiKalori").text(nilaiKal);
+		$("#tblNilaiKalori").text(nf.format(nilaiKal));
 		$("#tblSatuan").text(satuan);
-		$("#tblHargaGasBumi").text(hargaGasBumi);
+		$("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
 
 		$("#tblKonversi").text("1");
 		$("#tblKonversiSatuan").text(satuanPemakaian);
         var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
-		$("#tblKonversiGas").text(hitKonversi);
+		$("#tblKonversiGas").text(nf.format(hitKonversi));
 
-		$("#tblPemakaian").text(demand);
+		$("#tblPemakaian").text(nf.format(demand));
 		$("#tblPemakaianSatuan").text(satuanPemakaian);
-        var hitPemakaian = parseFloat(demand) * parseFloat(hitKonversi);
-		$("#tblPemakaianGas").text(hitPemakaian);
+        var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
+		$("#tblPemakaianGas").text(nf.format(hitPemakaian));
 
-		$("#tblBB").text(hargaBB);
+		$("#tblBB").text(nf.format(hargaBB));
 		$("#tblBBSatuan").text("Rp / " + satuanPemakaian);
-		$("#tblBBGas").text(hargaBerlaku);
+		$("#tblBBGas").text(nf.format(hargaBerlaku));
 
         var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
-		$("#tblBiaya").text(hitBiaya);
+		$("#tblBiaya").text(nf.format(hitBiaya));
 		$("#tblBiayaSatuan").text("Rp / Bln");
         var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
-		$("#tblBiayaGas").text(hitBiayaGas);
+		$("#tblBiayaGas").text(nf.format(hitBiayaGas));
 
         var hitResult = hitBiaya - hitBiayaGas;
-		$("#tblPenghematan").text(hitResult);
+		$("#tblPenghematan").text(nf.format(hitResult));
 
-		$("#resultConvert").val(hitPemakaian);
+		$("#resultConvert").val(nf.format(hitPemakaian));
 	}
     
+}
+
+function submitEnergy() {
+	
+	$("#convertEnergy").hide();
+	$("#costStructure").show();
+
+    var demand = $("#resultConvert").val();
+	$("#demandUsage").val(demand);
+	
 }
 
 		$(document).ready(function () {
@@ -429,6 +443,7 @@ function convertEnergy() {
 						$("#nilaiKalori").val(response.data[i].nilaiKalori);
 						$("#satuan").text(response.data[i].satuan);
 						$("#energyName").val(response.data[i].energy);
+						$("#hargaBBM").val(response.data[i].harga);
                         if (energy == "LPG" || energy == "Batu Bara") {
                             $("#satuanPemakaian").text("Kg");
                         } else {
@@ -470,6 +485,7 @@ function convertEnergy() {
 			document.getElementById("lng").checked = true;
 			document.getElementById("cng").checked = true;
 			document.getElementById("energyScale").checked = true;
+			$("#tableConvert").hide();
 			$("#costStructure").hide();
 			$("#findMap").hide();
 			$("#convertEnergy").show();

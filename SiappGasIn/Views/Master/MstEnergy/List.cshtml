@@ -7,6 +7,7 @@
 		   <tr>
 			   <th>ID</th>
 			   <th>Bahan Bakar</th>
+			   <th>Harga</th>
 			   <th>Nilai Kalori</th>
 			   <th>Satuan</th>
 			   <th></th>
@@ -23,7 +24,7 @@
  <div class="modal-dialog modal-dialog-centered" role="document">
    <div class="modal-content">
 	 <div class="modal-header">
-	   <h5 class="modal-title">Modal title</h5>
+	   <h5 class="modal-title">Tambah Data Bahan Bakar</h5>
 	   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		 <span aria-hidden="true">&times;</span>
 	   </button>
@@ -33,14 +34,18 @@
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Bahan Bakar</label>
 		   <input type="text" class="form-control" id="Energy">
+		 </div> 
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Harga</label>
+		   <input type="number" class="form-control" id="Harga">
 		 </div>
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
-		   <input type="number" class="form-control" id="NilaiKalori">
+		   <input type="number" class="form-control" id="NilaiKalori" >
 		 </div>
 		<div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Satuan</label>
-		   <input type="text" class="form-control" id="Satuan">
+		   <input type="text" class="form-control" id="Satuan" placeholder="Ex: Kg / Ltr">
 		 </div>
 		  
 		
@@ -68,10 +73,15 @@
 	 </div>
 	 <div class="modal-body">
 	   <form>
+		   
+		   <input type="hidden" class="form-control" id="EnergyIDs" name="EnergyIDs" hidden>
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Bahan Bakar</label>
-		   <input type="text" class="form-control" id="Energys" name="Energy">
-		   <input type="text" class="form-control" id="EnergyIDs" name="EnergyIDs">
+		   <input type="text" class="form-control" id="Energys" name="Energys" >
+		 </div>
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Harga</label>
+		   <input type="number" class="form-control" id="Hargas">
 		 </div>
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
@@ -167,6 +177,7 @@ $('#btnEditEnergy').click(function () {
 				   {
 					   "EnergyID": $("#EnergyIDs").val(),
 					   "Energy": $("#Energys").val(),
+					   "Harga": $("#Hargas").val(),
 					   "NilaiKalori": $("#NilaiKaloris").val(),
 					   "Satuan": $("#Satuans").val(),
 				   }
@@ -176,6 +187,7 @@ $('#btnEditEnergy').click(function () {
 				   if (data == true) {
 
 					   $("#Energys").val("");
+					   $("Hargas").val("");
 					   $('#NilaiKaloris').val("");
 					   $('#Satuans').val("");
 
@@ -212,6 +224,7 @@ function EditData(dataID) {
 		   success: function (data) {
 			   if (data.status == true) {
 				   $("#Energys").val(data.data.energy);
+				   $("#Hargas").val(data.data.harga);
 				   $('#NilaiKaloris').val(data.data.nilaiKalori);
 				   $('#Satuans').val(data.data.satuan);
 				   $('#EnergyIDs').val(data.data.energyID);
@@ -344,6 +357,7 @@ $('#saveEnergy').click(function () {
 			 
 			   { "data": "energyID", "name": "ParamId", "autoWidth": true },
 			   { "data": "energy", "name": "ParamCode", "autoWidth": true },
+			   { "data": "harga", "name": "ParamCode", "autoWidth": true },
 			   { "data": "nilaiKalori", "name": "ParamName", "autoWidth": true },
 			   { "data": "satuan", "name": "ParamValue", "autoWidth": true },
 			   
