@@ -55,8 +55,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SIAppGasIn/SiappGasIn/Views/Master/MstCraddle/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdENyYWRkbGVcTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SIAppGasIn/SiappGasIn/Views/Master/MstEnergy/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdEVuZXJneVxMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIAppGasIn/SiappGasIn/Views/Master/MstGaji/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdEdhamlcTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIAppGasIn/SiappGasIn/Views/Master/MstHargaPRS/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdEhhcmdhUFJTXExpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIAppGasIn/SiappGasIn/Views/Master/MstHeadTruck/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdEhlYWRUcnVja1xMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIAppGasIn/SiappGasIn/Views/Master/MstLokasiSPBG/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdExva2FzaVNQQkdcTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SIAppGasIn/SiappGasIn/Views/Master/MstParameter/List.cshtml]

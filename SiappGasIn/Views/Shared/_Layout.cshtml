@@ -73,12 +73,29 @@
                   </li>
                   <li>
                     <a class="dropdown-item" href="#">Role</a>
-                  </li>
+                  </li>                 
                   <li>
-                    <a class="dropdown-item" href="@Url.Action("List", "MstParameter")">Konversi</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#">Data</a>
+                    <a class="dropdown-item" href="#"><span><i class="fa fa-database" aria-hidden="true"></i></span> CNG &raquo; </a>
+                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                      <li>
+                        <a class="dropdown-item" href="@Url.Action("List", "MstHargaPRS")">Harga PRS</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="@Url.Action("List", "MstCraddle")">Craddle GTM</a>
+                      </li>                 
+                      <li>
+                        <a class="dropdown-item" href="@Url.Action("List", "MstHeadTruck")">Head Truck</a>
+                      </li> 
+                      <li>
+                        <a class="dropdown-item" href="@Url.Action("List", "MstLokasiSPBG")">Lokasi SPBG</a>
+                      </li> 
+                      <li>
+                        <a class="dropdown-item" href="@Url.Action("List", "MstGaji")">Gaji Driver & Operator</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="@Url.Action("List", "MstEnergy")">Energy</a>
+                      </li>
+                    </ul>
                   </li>
                   <li>
                     <a class="dropdown-item" href="@Url.Action("List", "MstEnergy")">Energy</a>

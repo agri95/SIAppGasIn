@@ -18,6 +18,11 @@ namespace SiappGasIn.Data
   
         public DbSet<MstParameter> MstParameter { get; set; }
         public DbSet<MstEnergy> MstEnergy { get; set; }
+        public DbSet<MstHargaPRS> MstHargaPRS { get; set; }
+        public DbSet<MstCraddle> MstCraddle { get; set; }
+        public DbSet<MstHeadTruck> MstHeadTruck { get; set; }
+        public DbSet<MstLokasiSPBG> MstLokasiSPBG { get; set; }
+        public DbSet<MstGaji> MstGaji { get; set; }
       
         protected override void OnModelCreating(ModelBuilder builder)
         {
