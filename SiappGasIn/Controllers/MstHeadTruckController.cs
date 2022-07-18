@@ -110,19 +110,16 @@ namespace SiappGasIn.Controllers.Api
                 {
                     if (param.GTM != null && param.GTM != "")
                     {
-                        if (param.HeadTruckID > 0)
+                        var prs = _dbContext.MstHeadTruck.Find(param.HeadTruckID);
+                        if (prs != null)
                         {
-                            var prs = _dbContext.MstHeadTruck.Find(param.HeadTruckID);
-                            if (prs != null)
-                            {
-                                prs.GTM = param.GTM;
-                                prs.HargaSewa = param.HargaSewa;
-                                prs.RasioBBM = param.RasioBBM;
-                                prs.Kecepatan = param.Kecepatan;
-                                prs.ModifiedBy = this.User.Identity.Name;
-                                prs.ModifiedDate = DateTimeOffset.Now;
-                                _dbContext.SaveChanges();
-                            }
+                            prs.GTM = param.GTM;
+                            prs.HargaSewa = param.HargaSewa;
+                            prs.RasioBBM = param.RasioBBM;
+                            prs.Kecepatan = param.Kecepatan;
+                            prs.ModifiedBy = this.User.Identity.Name;
+                            prs.ModifiedDate = DateTimeOffset.Now;
+                            _dbContext.SaveChanges();
                         }
                     }
                 }

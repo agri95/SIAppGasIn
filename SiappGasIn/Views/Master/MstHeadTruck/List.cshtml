@@ -6,10 +6,10 @@
 	   <thead>
 		   <tr>
 			   <th>ID</th>
-			   <th>Bahan Bakar</th>
-			   <th>Harga</th>
-			   <th>Nilai Kalori</th>
-			   <th>Satuan</th>
+			   <th>GTM</th>
+			   <th>Harga Sewa (Rp/Unit/Bulan)</th>
+			   <th>Rasio BBM/liter</th>
+			   <th>Kecepatan (km/jam)</th>
 			   <th></th>
 			   <th></th>
 		   </tr>
@@ -21,33 +21,33 @@
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" id="addData">
- <div class="modal-dialog modal-dialog-centered" role="document">
+ <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
    <div class="modal-content">
 	 <div class="modal-header">
-	   <h5 class="modal-title">Tambah Data Bahan Bakar</h5>
+	   <h5 class="modal-title">Tambah Data Craddle</h5>
 	   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		 <span aria-hidden="true">&times;</span>
 	   </button>
 	 </div>
 	 <div class="modal-body">
 	   <form>
+		
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Bahan Bakar</label>
-		   <input type="text" class="form-control" id="Energy">
-		 </div> 
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Harga</label>
-		   <input type="number" class="form-control" id="Harga">
-		 </div>
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
-		   <input type="number" class="form-control" id="NilaiKalori" >
+		   <label for="recipient-name" class="col-form-label">GTM</label>
+		   <input type="text" class="form-control" id="GTM"  placeholder="Rp / Unit">
 		 </div>
 		<div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Satuan</label>
-		   <input type="text" class="form-control" id="Satuan" placeholder="Ex: Kg / Ltr">
+		   <label for="recipient-name" class="col-form-label">Harga Sewa (Rp/Unit/Bulan)</label>
+		   <input type="number" class="form-control" id="HargaSewa" placeholder="Rp / Unit / Bulan">
 		 </div>
-		  
+		  <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Rasio BBM/liter</label>
+		   <input type="number" class="form-control" id="RasioBBM" placeholder="Rp / Lumpsum">
+		 </div>
+		  <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Kecepatan (km/jam)</label>
+		   <input type="number" class="form-control" id="Kecepatan" >
+		 </div>	  
 		
 	   </form>
 	 </div>
@@ -74,24 +74,23 @@
 	 <div class="modal-body">
 	   <form>
 		   
-		   <input type="hidden" class="form-control" id="EnergyIDs" name="EnergyIDs" hidden>
+		 <input type="hidden" class="form-control" id="HeadTruckIDs" name="HeadTruckIDs" hidden>
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Bahan Bakar</label>
-		   <input type="text" class="form-control" id="Energys" name="Energys" >
-		 </div>
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Harga</label>
-		   <input type="number" class="form-control" id="Hargas">
-		 </div>
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
-		   <input type="number" class="form-control" id="NilaiKaloris">
+		   <label for="recipient-name" class="col-form-label">GTM</label>
+		   <input type="text" class="form-control" id="GTMs"  placeholder="Rp / Unit">
 		 </div>
 		<div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Satuan</label>
-		   <input type="text" class="form-control" id="Satuans">
+		   <label for="recipient-name" class="col-form-label">Harga Sewa (Rp/Unit/Bulan)</label>
+		   <input type="number" class="form-control" id="HargaSewas" placeholder="Rp / Unit / Bulan">
 		 </div>
-		  
+		  <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Rasio BBM/liter</label>
+		   <input type="number" class="form-control" id="RasioBBMs" placeholder="Rp / Lumpsum">
+		 </div>
+		  <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Kecepatan (km/jam)</label>
+		   <input type="number" class="form-control" id="Kecepatans" >
+		 </div>	  
 		
 	   </form>
 	 </div>
@@ -124,6 +123,12 @@
 .modal {
  text-align: center;
  padding: 0!important;
+ overflow-y:scroll;
+}
+
+.modal-body{
+    height: 350px;
+    overflow-y: auto;
 }
 
 .modal:before {
@@ -161,9 +166,10 @@ th, td { white-space: nowrap; }
    $('#addData').modal('show');
 }
 $('#btnEditEnergy').click(function () {
+    
 		   $.ajax({
 			   
-		   url: '@Url.Action("EditData", "MstEnergy")',
+		   url: '@Url.Action("EditData", "MstHeadTruck")',
 			   type: 'POST',
 			   //crossDomain: true,
 			   dataType: 'json',
@@ -174,22 +180,23 @@ $('#btnEditEnergy').click(function () {
 			   //headers: { 'Access-Control-Allow-Origin': 'The web site allowed to access' },
 			   contentType: "application/json; charset=utf-8",
 			   data: JSON.stringify(
-				   {
-					   "EnergyID": $("#EnergyIDs").val(),
-					   "Energy": $("#Energys").val(),
-					   "Harga": $("#Hargas").val(),
-					   "NilaiKalori": $("#NilaiKaloris").val(),
-					   "Satuan": $("#Satuans").val(),
+				   {		
+					   "HeadTruckID": $("#HeadTruckIDs").val(),
+					   "GTM": $("#GTMs").val(),
+					   "HargaSewa": $("#HargaSewas").val(),
+					   "RasioBBM": $("#RasioBBMs").val(),
+					   "Kecepatan": $("#Kecepatans").val(),
 				   }
 			   ),
 			   success: function (data) {
 				   //alert(data);
 				   if (data == true) {
 
-					   $("#Energys").val("");
-					   $("Hargas").val("");
-					   $('#NilaiKaloris').val("");
-					   $('#Satuans').val("");
+					   $("#HeadTruckIDs").val("");
+					   $("#GTMs").val("");
+					   $('#HargaSewas').val("");
+					   $('#RasioBBMs').val("");
+					   $('#Kecepatans').val("");
 
 					   oTable = $('#example').DataTable();
 					   oTable.draw();
@@ -210,7 +217,7 @@ $('#btnEditEnergy').click(function () {
 
 function EditData(dataID) {
 	   $.ajax({
-		   url: '@Url.Action("SelectData", "MstEnergy")?id=' + dataID,
+		   url: '@Url.Action("SelectData", "MstHeadTruck")?id=' + dataID,
 		   type: 'get',
 		   //crossDomain: true,
 		   dataType: 'json',
@@ -223,11 +230,12 @@ function EditData(dataID) {
 		   data: "{}", //JSON.stringify({ CustomerID : CustomerID }),
 		   success: function (data) {
 			   if (data.status == true) {
-				   $("#Energys").val(data.data.energy);
-				   $("#Hargas").val(data.data.harga);
-				   $('#NilaiKaloris').val(data.data.nilaiKalori);
-				   $('#Satuans').val(data.data.satuan);
-				   $('#EnergyIDs').val(data.data.energyID);
+					$("#HeadTruckIDs").val(data.data.headTruckID);
+					   $("#GTMs").val(data.data.gtm);
+					   $('#HargaSewas').val(data.data.hargaSewa);
+					   $('#RasioBBMs').val(data.data.rasioBBM);
+					   $('#Kecepatans').val(data.data.kecepatan);			  
+				   
 				   
 				   $("#editData").modal("show");
 				   
@@ -250,26 +258,29 @@ function EditData(dataID) {
 
 $('#saveEnergy').click(function () {
 		   $.ajax({
-			   url: '@Url.Action("CreateData", "MstEnergy")',
+			   url: '@Url.Action("CreateData", "MstHeadTruck")',
 			   type: 'POST',
 			   dataType: 'json',
 			   contentType: "application/json; charset=utf-8",
 			   data: JSON.stringify(
 				   {
-					   "Energy": $("#Energy").val(),
-					   "NilaiKalori": $("#NilaiKalori").val(),
-					   "Satuan": $("#Satuan").val(),
+					   	
+					   "GTM": $("#GTM").val(),
+					   "HargaSewa": $("#HargaSewa").val(),
+					   "RasioBBM": $("#RasioBBM").val(),
+					   "Kecepatan": $("#Kecepatan").val(),
 				   }
 			   ),
 			   success: function (data) {
 				   //alert(data);
 				   if (data == true) {
 
-					   $("#Energy").val("");
-					   $('#NilaiKalori').val("");
-					   $('#Satuan').val("");
+					   $("#GTM").val("");
+					   $('#HargaSewa').val("");
+					   $('#RasioBBM').val("");
+					   $('#Kecepatan').val("");
 
-					   $('#msgText').text('Parameter data is added Successfully');
+					   $('#msgText').text('Data is added Successfully');
 					   $('#successModal').modal('show'); 
 					   alert("SUKSES");
 					   location.reload();
@@ -296,7 +307,7 @@ $('#saveEnergy').click(function () {
    function Delete(id) {
 	  
 	   $.ajax({
-   url: '@Url.Action("Delete", "MstEnergy")?EnergyID=' +id,
+   url: '@Url.Action("Delete", "MstHeadTruck")?HeadTruckID=' +id,
    
    method: 'POST',
    contentType: 'application/json',
@@ -327,6 +338,7 @@ $('#saveEnergy').click(function () {
  //} )
 
  $("#example").DataTable({
+			"scrollX": true,
 		   "processing": true, // for show progress bar
 		   "serverSide": false, // for process server side
 		   "filter": true, // this is for disable filter (search box)
@@ -341,33 +353,26 @@ $('#saveEnergy').click(function () {
 		 }
 	 },
 		   "ajax": {
-			   "url": '@Url.Action("Retrieve", "MstEnergy")',
+			   "url": '@Url.Action("Retrieve", "MstHeadTruck")',
 			   "type": "POST",
 			   "datatype": "json"
 		   },
- "aoColumns" : [
-   { "sWidth": '5%' },
-   { "sWidth": '25%' },
-   { "sWidth": '55%' },
-   { "sWidth": '55%' },
-   { "sWidth": '3%' },
-   { "sWidth": '3%' }
- ],
+
 		  "columns": [
 			 
-			   { "data": "energyID", "name": "ParamId", "autoWidth": true },
-			   { "data": "energy", "name": "ParamCode", "autoWidth": true },
-			   { "data": "harga", "name": "ParamCode", "autoWidth": true },
-			   { "data": "nilaiKalori", "name": "ParamName", "autoWidth": true },
-			   { "data": "satuan", "name": "ParamValue", "autoWidth": true },
+			   { "data": "headTruckID", "name": "headTruckID", "autoWidth": true },
+			   { "data": "gtm", "name": "gtm", "autoWidth": true },
+			   { "data": "hargaSewa", "name": "hargaSewa", "autoWidth": true },
+			   { "data": "rasioBBM", "name": "rasioBBM", "autoWidth": true },
+			   { "data": "kecepatan", "name": "kecepatan", "autoWidth": true },
 			   
 			   {
-				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.energyID + ')">Edit</a>'; }
+				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.headTruckID + ')">Edit</a>'; }
 				   //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
 			   },
 			   {
 				   data: null, render: function (data, type, row) {
-					   return "<a href='#' class='badge badge-danger' onclick=DeleteData('" + row.energyID + "'); >Delete</a>";
+					   return "<a href='#' class='badge badge-danger' onclick=DeleteData('" + row.headTruckID + "'); >Delete</a>";
 				   }
 			   },
 
