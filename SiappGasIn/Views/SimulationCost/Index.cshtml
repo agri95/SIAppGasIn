@@ -24,7 +24,7 @@
 					<div class="form-group row ">
 						<label class="control-label col-md-3 col-sm-3 ">Date</label>
 						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm frmInput" type="date" id="date" name="date"
+							<input class="form-control form-control-sm frmInput" type="date" id="projectDate" name="projectDate"
 								placeholder="" aria-label=".form-control-sm example">
 						</div>
 					</div>
@@ -54,7 +54,7 @@
 					</div>
 					<div class="form-group row ">
 	
-						<label class="control-label col-md-3 col-sm-3 ">Hour Day</label>
+						<label class="control-label col-md-3 col-sm-3 ">Jam / Hari</label>
 						<div class="col-md-3 col-sm-3 ">
 							<input class="form-control form-control-sm frmInput" type="number" id="hourDay" name="hourDay"
 								placeholder="" aria-label=".form-control-sm example">
@@ -67,7 +67,7 @@
 					</div>
 					<div class="form-group row">
 	
-						<label class="control-label col-md-3 col-sm-3 ">Work Day</label>
+						<label class="control-label col-md-3 col-sm-3 ">Hari / Bulan</label>
 						<div class="col-md-3 col-sm-3 ">
 							<input class="form-control form-control-sm frmInput" type="number" id="workDay" name="workDay"
 								placeholder="" aria-label=".form-control-sm example">
@@ -285,7 +285,7 @@
 		
 		<div class="row">
 					<div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-						<button type="submit" onclick="showMaps()"
+						<button type="submit" onclick="back()"
 							class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
 						<button type="submit" onclick="back()"
 							class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
@@ -481,7 +481,7 @@
     </tr>
      <tr>
       <td>Lokasi Capel</td>
-      <td><span id="#"></span></td>
+      <td><span id="lokasiCapel"></span></td>
       <td></td>
     </tr>
      
@@ -828,10 +828,31 @@ function submitEnergy() {
 }
 
 function calculateCost() {
-	    $("#calculateSimulation").show();
-	$("#costStructure").hide();
-    var distance = results.length;
-
+	//    $("#calculateSimulation").show();
+	//$("#costStructure").hide();
+     var a = $("#projectName").val();
+     var b = $("#creator").val();
+     var c = $("#projectDate").val();
+     var d = $("#customerName").val();
+     var e = $("#targetCOD").val();
+	 $.ajax({
+			   url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+			   type: 'POST',
+			   dataType: 'json',
+			   contentType: "application/json; charset=utf-8",
+			   data: JSON.stringify(
+				   {
+					   	
+					   "ProjectName": a,
+					   "Creator": b,
+					   "ProjectDate": c,
+					   "CustomerName": d,
+					   "TargetCOD": e,
+				   }
+			   ),
+			   success: function (data) {
+				   if (data.status == true) {
+					      var distance = results.length;
     for (i = 0; i < results.length; i++) {
         var rsLokasi = results[i].lokasi;
         var rsJarak = results[i].jarak;
@@ -1103,10 +1124,147 @@ $("#biayaTransUS").text(nf.format(biayaTransUS));
     var resultLaba = resulPendapatanKotor - (parseFloat(resultBiayaOperasi) + parseFloat(resultDepresiasi));
     $("#resultLaba").text(nf.format(resultLaba));
 		
+
+	$.ajax({
+			   url: '@Url.Action("SaveData", "SimulationCost")',
+			   type: 'POST',
+			   dataType: 'json',
+			   contentType: "application/json; charset=utf-8",
+			   data: JSON.stringify(
+				   {
+					   	"HeaderSimulationID":data.data,
+					  "kurs": kurs,
+					  "volume2": volume,
+					  "operasiHari":operasiHari,
+						"operasiMinggu": operasiMinggu,
+						"operasiBulan": operasiBulan,
+						"m3hari": m3hari,
+						"m3jam": m3jam,
+						"mmbtu": mmbtu,
+						"mmbtuBln": mmbtuBln,
+						"mmbtuHari": mmbtuHari,
+						"mmbtuJam": mmbtuJam,
+						"gajiOperator": gajiOperator,
+						"jumlahOperator": jumlahOperator,
+						"investasiPRS": investasiPRS,
+						"depresiasi": depresiasi,
+						"depresiasiBulan": depresiasiBulan,
+						"invGTM": invGTM,
+						"depresiasiGTM": depresiasiGTM,
+						"depresiasiGTMBulan": depresiasiGTMBulan,
+						"kebutuhanGTM": kebutuhanGTM,
+						"jmlGTMbeli": jmlGTMbeli,
+						"jmlGTMsewa": jmlGTMsewa,
+						"jmlSewaHeadTruck": jmlSewaHeadTruck,
+						"sewaHeadTruck": sewaHeadTruck,
+						"sewaBedTrailer": sewaBedTrailer,
+						"jmlHeadTruck": jmlHeadTruck,
+						"jmlBedTrailer": jmlBedTrailer,
+						"biayaTransport": biayaTransport,
+						"jmlSupir": jmlSupir,
+						"gajiSupir": gajiSupir,
+						"jarakTempuh": jarak,	
+						"sewaGTM": sewaGTM,
+						"asalStation": rsLokasi,
+						"lokasiCapel": "Cksss",
+						"hargaGas": hargaGas,
+						"hargaGasRp": hargaGasRp,
+						"compressed": compressed,
+
+						"compressedRp": compressedRp,
+						"totalTransportasiCost": totalTransportasiCost,
+						"totalTransportasiCostRp": totalTransportasiCostRp,
+						"prsCost": prsCost,
+						"prsCostRp": prsCostRp,
+						"operatorCost": operatorCost,
+						"operatorCostRp": operatorCostRp,
+						"gtmCost": gtmCost,
+						"gtmCostRp": gtmCostRp,
+						"gtmSewaCost": gtmSewaCost,
+						"gtmSewaCostRp": gtmSewaCostRp,
+						"headTruckSewaCost": headTruckSewaCost,
+						"headTruckSewaCostRp": headTruckSewaCostRp,
+						"lainLain": lainLain,
+						"lainLainRp": lainLainRp,
+						"overheadCost": overheadCost,
+
+						"overheadCostRp": overheadCostRp,
+						"marginCost": marginCost,
+						"marginCostRp": marginCostRp,
+						"hargaJual": hargaJual,
+						"hargaJualRp": hargaJualRp,
+						"hargaM3": hargaM3,
+						"hargaBBM": hargaBBM,
+						"costBBMRitase": costBBMRitase,
+						"ritaseBulan": ritaseBulan,
+
+						"kapasitasGTM": kapasitasGTM,
+						"kapasitasGTMbeli": kapasitasGTMbeli,
+						"kapasitasGTMsewa": kapasitasGTMsewa,
+						"biayaBBMBulan": biayaBBMBulan,
+						"biayaBBMIDRM3": biayaBBMIDRM3,
+						"biayaBBMUS": biayaBBMUS,
+						"gajiSopirBulan": gajiSopirBulan,
+						"gajiSopirBulanIDRM3": gajiSopirBulanIDRM3,
+						"gajiSopirUS": gajiSopirUS,
+						"biayaTransIDR": biayaTransIDR,
+						"biayaTransUS": biayaTransUS,
+						"resultPendapatan": resultPendapatan,
+						"resultHPP": resultHPP,
+						"resulPendapatanKotor": resulPendapatanKotor,
+						"resultBiayaOperasi": resultBiayaOperasi,
+						"resultDepresiasi": resultDepresiasi,
+						"resultLaba": resultLaba,
+				   }
+			   ),
+			   success: function (data) {
+				   //alert(data);
+				   if (data == true) {
+
+					   $("#GTM").val("");
+					   $('#HargaSewa').val("");
+					   $('#RasioBBM').val("");
+					   $('#Kecepatan').val("");
+
+					   $('#msgText').text('Data is added Successfully');
+					   $('#successModal').modal('show'); 
+					   alert("SUKSES");
+					   location.reload();
+				   }
+
+			   },
+			   error: function (jqXHR) {
+				   $('#divErrorText').text(jqXHR.responseText);
+				   $('#divError').show('fade');
+			   }
+		   });
 	}
+					   alert("SUKSES");
+					   location.reload();
+				   }
+
+			   },
+			   error: function (jqXHR) {
+				   $('#divErrorText').text(jqXHR.responseText);
+				   $('#divError').show('fade');
+			   }
+		   });
+
+
+    
     
 
+	
+	 
 
+	   }
+	   function DeleteData(id) {
+	   if (confirm("Are you sure you want to delete ...?")) {
+		   Delete(id);
+	   }
+	   else {
+		   return false;
+	   }
 
     
 }

@@ -22,13 +22,16 @@ namespace SiappGasIn.Data
         public DbSet<MstCraddle> MstCraddle { get; set; }
         public DbSet<MstHeadTruck> MstHeadTruck { get; set; }
         public DbSet<MstLokasiSPBG> MstLokasiSPBG { get; set; }
+        public DbSet<SimulationCost> SimulationCost { get; set; }
+        public DbSet<HeaderSimulationCost> HeaderSimulationCost { get; set; }
         public DbSet<MstGaji> MstGaji { get; set; }
       
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-          
+            builder.Entity<MstListGaji>().HasNoKey();
+
         }
 
     }

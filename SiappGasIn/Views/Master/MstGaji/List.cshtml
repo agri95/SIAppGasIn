@@ -6,10 +6,9 @@
 	   <thead>
 		   <tr>
 			   <th>ID</th>
-			   <th>Bahan Bakar</th>
-			   <th>Harga</th>
-			   <th>Nilai Kalori</th>
-			   <th>Satuan</th>
+			   <th>Lokasi SPBG</th>
+			   <th>Pekerjaan</th>
+			   <th>Gaji</th>
 			   <th></th>
 			   <th></th>
 		   </tr>
@@ -24,7 +23,7 @@
  <div class="modal-dialog modal-dialog-centered" role="document">
    <div class="modal-content">
 	 <div class="modal-header">
-	   <h5 class="modal-title">Tambah Data Bahan Bakar</h5>
+	   <h5 class="modal-title">Tambah Data Gaji</h5>
 	   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		 <span aria-hidden="true">&times;</span>
 	   </button>
@@ -32,22 +31,23 @@
 	 <div class="modal-body">
 	   <form>
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Bahan Bakar</label>
-		   <input type="text" class="form-control" id="Energy">
+		   <label for="recipient-name" class="col-form-label">Lokasi SPBG</label>
+		   <select class="form-control form-control-sm " id="LokasiID">
+				<option value="0">- Pilih Lokasi SPBG -</option>
+			</select>
 		 </div> 
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Harga</label>
-		   <input type="number" class="form-control" id="Harga">
+		   <label for="recipient-name" class="col-form-label">Pekerjaan</label>
+		    <select class="form-control form-control-sm " id="TypeID">
+				<option value="0">- Pilih Pekerjaan -</option>
+				<option value="1">Supir</option>
+				<option value="2">Operator</option>
+			</select>
 		 </div>
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
-		   <input type="number" class="form-control" id="NilaiKalori" >
-		 </div>
-		<div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Satuan</label>
-		   <input type="text" class="form-control" id="Satuan" placeholder="Ex: Kg / Ltr">
-		 </div>
-		  
+		   <label for="recipient-name" class="col-form-label">Gaji</label>
+		   <input type="number" class="form-control" id="Gaji" >
+		 </div>				  
 		
 	   </form>
 	 </div>
@@ -72,27 +72,26 @@
 	   </button>
 	 </div>
 	 <div class="modal-body">
-	   <form>
-		   
-		   <input type="hidden" class="form-control" id="EnergyIDs" name="EnergyIDs" hidden>
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Bahan Bakar</label>
-		   <input type="text" class="form-control" id="Energys" name="Energys" >
-		 </div>
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Harga</label>
-		   <input type="number" class="form-control" id="Hargas">
-		 </div>
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
-		   <input type="number" class="form-control" id="NilaiKaloris">
-		 </div>
+	   <form>		   
+		   <input type="hidden" class="form-control" id="GajiIDs" name="GajiIDs" hidden>
 		<div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Satuan</label>
-		   <input type="text" class="form-control" id="Satuans">
+		   <label for="recipient-name" class="col-form-label">Lokasi SPBG</label>
+		   <select class="form-control form-control-sm " id="LokasiIDs">
+				<option value="0">- Pilih Lokasi SPBG -</option>
+			</select>
+		 </div> 
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Pekerjaan</label>
+		    <select class="form-control form-control-sm " id="TypeIDs">
+				<option value="0">- Pilih Pekerjaan -</option>
+				<option value="1">Supir</option>
+				<option value="2">Operator</option>
+			</select>
 		 </div>
-		  
-		
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Gaji</label>
+		   <input type="number" class="form-control" id="Gajis" >
+		 </div>				  
 	   </form>
 	 </div>
 	 <div class="modal-footer">
@@ -163,7 +162,7 @@ th, td { white-space: nowrap; }
 $('#btnEditEnergy').click(function () {
 		   $.ajax({
 			   
-		   url: '@Url.Action("EditData", "MstEnergy")',
+		   url: '@Url.Action("EditData", "MstGaji")',
 			   type: 'POST',
 			   //crossDomain: true,
 			   dataType: 'json',
@@ -175,21 +174,20 @@ $('#btnEditEnergy').click(function () {
 			   contentType: "application/json; charset=utf-8",
 			   data: JSON.stringify(
 				   {
-					   "EnergyID": $("#EnergyIDs").val(),
-					   "Energy": $("#Energys").val(),
-					   "Harga": $("#Hargas").val(),
-					   "NilaiKalori": $("#NilaiKaloris").val(),
-					   "Satuan": $("#Satuans").val(),
+					   "GajiID": $("#GajiIDs").val(),
+					   "LokasiID": $("#LokasiIDs").val(),
+					   "TypeID": $("#TypeIDs").val(),
+					   "Gaji": $("#Gajis").val(),
 				   }
 			   ),
 			   success: function (data) {
 				   //alert(data);
 				   if (data == true) {
 
-					   $("#Energys").val("");
-					   $("Hargas").val("");
-					   $('#NilaiKaloris').val("");
-					   $('#Satuans').val("");
+					   $("#GajiIDs").val("");
+					   $("LokasiIDs").val("");
+					   $('#TypeIDs').val("");
+					   $('#Gajis').val("");
 
 					   oTable = $('#example').DataTable();
 					   oTable.draw();
@@ -210,7 +208,7 @@ $('#btnEditEnergy').click(function () {
 
 function EditData(dataID) {
 	   $.ajax({
-		   url: '@Url.Action("SelectData", "MstEnergy")?id=' + dataID,
+		   url: '@Url.Action("SelectData", "MstGaji")?id=' + dataID,
 		   type: 'get',
 		   //crossDomain: true,
 		   dataType: 'json',
@@ -223,11 +221,10 @@ function EditData(dataID) {
 		   data: "{}", //JSON.stringify({ CustomerID : CustomerID }),
 		   success: function (data) {
 			   if (data.status == true) {
-				   $("#Energys").val(data.data.energy);
-				   $("#Hargas").val(data.data.harga);
-				   $('#NilaiKaloris').val(data.data.nilaiKalori);
-				   $('#Satuans').val(data.data.satuan);
-				   $('#EnergyIDs').val(data.data.energyID);
+				   $("#GajiIDs").val(data.data.gajiID);
+				   $("#LokasiIDs").val(data.data.lokasiID);
+				   $('#TypeIDs').val(data.data.typeID);
+				   $('#Gajis').val(data.data.gaji);
 				   
 				   $("#editData").modal("show");
 				   
@@ -250,24 +247,24 @@ function EditData(dataID) {
 
 $('#saveEnergy').click(function () {
 		   $.ajax({
-			   url: '@Url.Action("CreateData", "MstEnergy")',
+			   url: '@Url.Action("CreateData", "MstGaji")',
 			   type: 'POST',
 			   dataType: 'json',
 			   contentType: "application/json; charset=utf-8",
 			   data: JSON.stringify(
 				   {
-					   "Energy": $("#Energy").val(),
-					   "NilaiKalori": $("#NilaiKalori").val(),
-					   "Satuan": $("#Satuan").val(),
+					   "LokasiID": $("#LokasiID").val(),
+					   "TypeID": $("#TypeID").val(),
+					   "Gaji": $("#Gaji").val(),
 				   }
 			   ),
 			   success: function (data) {
 				   //alert(data);
 				   if (data == true) {
 
-					   $("#Energy").val("");
-					   $('#NilaiKalori').val("");
-					   $('#Satuan').val("");
+					   $("#LokasiID").val("");
+					   $('#TypeID').val("");
+					   $('#Gaji').val("");
 
 					   $('#msgText').text('Parameter data is added Successfully');
 					   $('#successModal').modal('show'); 
@@ -296,7 +293,7 @@ $('#saveEnergy').click(function () {
    function Delete(id) {
 	  
 	   $.ajax({
-   url: '@Url.Action("Delete", "MstEnergy")?EnergyID=' +id,
+   url: '@Url.Action("Delete", "MstGaji")?GajiID=' +id,
    
    method: 'POST',
    contentType: 'application/json',
@@ -321,11 +318,40 @@ $('#saveEnergy').click(function () {
 	
 
    $(document).ready(function () {
- //  var table = $('#example').DataTable( {
- //  pageLength : 5,
- //  lengthMenu: [[5, 10, 20, -1], [5, 10, 20, 'Todos']]
- //} )
+ $.ajax({
+            url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+            type: 'post',
+            dataType: 'json',
+            success:function(response){
 
+                var len = response.data.length;
+               
+                for( var i = 0; i<len; i++){
+                    var id = response.data[i].lokasiID;
+                    var name = response.data[i].namaSPBG;
+                    $("#LokasiID").append("<option value='"+id+"'>"+name+"</option>");
+                    
+
+                }
+            }
+			 });
+ $.ajax({
+            url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+            type: 'post',
+            dataType: 'json',
+            success:function(response){
+
+                var len = response.data.length;
+               
+                for( var i = 0; i<len; i++){
+                    var id = response.data[i].lokasiID;
+                    var name = response.data[i].namaSPBG;
+                    $("#LokasiIDs").append("<option value='"+id+"'>"+name+"</option>");
+                    
+
+                }
+            }
+			 });
  $("#example").DataTable({
 		   "processing": true, // for show progress bar
 		   "serverSide": false, // for process server side
@@ -341,7 +367,7 @@ $('#saveEnergy').click(function () {
 		 }
 	 },
 		   "ajax": {
-			   "url": '@Url.Action("Retrieve", "MstEnergy")',
+			   "url": '@Url.Action("Retrieve", "MstGaji")',
 			   "type": "POST",
 			   "datatype": "json"
 		   },
@@ -355,19 +381,18 @@ $('#saveEnergy').click(function () {
  ],
 		  "columns": [
 			 
-			   { "data": "energyID", "name": "ParamId", "autoWidth": true },
-			   { "data": "energy", "name": "ParamCode", "autoWidth": true },
-			   { "data": "harga", "name": "ParamCode", "autoWidth": true },
-			   { "data": "nilaiKalori", "name": "ParamName", "autoWidth": true },
-			   { "data": "satuan", "name": "ParamValue", "autoWidth": true },
+			   { "data": "gajiID", "name": "gajiID", "autoWidth": true },
+			   { "data": "namaSPBG", "name": "namaLokasi", "autoWidth": true },
+			   { "data": "profesi", "name": "profesi", "autoWidth": true },
+			   { "data": "gaji", "name": "gaji", "autoWidth": true },
 			   
 			   {
-				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.energyID + ')">Edit</a>'; }
+				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.gajiID + ')">Edit</a>'; }
 				   //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
 			   },
 			   {
 				   data: null, render: function (data, type, row) {
-					   return "<a href='#' class='badge badge-danger' onclick=DeleteData('" + row.energyID + "'); >Delete</a>";
+					   return "<a href='#' class='badge badge-danger' onclick=DeleteData('" + row.gajiID + "'); >Delete</a>";
 				   }
 			   },
 

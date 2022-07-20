@@ -36,11 +36,8 @@ namespace SiappGasIn.Controllers.Api
         [HttpPost]
         public IActionResult Retrieve()
         {
-            var tempData = (from temp in _dbContext.MstGaji
-                            select temp);
-
-            var data = tempData.ToList();
-
+            var data = _dbContext.Set<MstListGaji>().FromSqlRaw("[dbo].[SP_GajiKaryawan]").ToList();
+            
             return Ok
                     (
                         new { data = data }

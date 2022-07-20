@@ -18,6 +18,15 @@ namespace SiappGasIn.Models
         public string? ModifiedBy { get; set; }
         public DateTimeOffset? ModifiedDate { get; set; }
     }
+
+    public class MstListGaji
+    {
+        [Key]
+        public int GajiID { get; set; }
+        public string NamaSPBG { get; set; }
+        public string Profesi { get; set; }
+        public decimal Gaji { get; set; }
+    }
 }
 
 
