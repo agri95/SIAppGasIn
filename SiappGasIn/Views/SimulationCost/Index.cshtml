@@ -1,1607 +1,901 @@
 ﻿@{
-	ViewData["Title"] = "Simulation Cost";
-	}
-	
-	<div id="costStructure">
-		<div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin" style="margin-top: 7px;">
-			<div class="card-body" style="margin: 15px ;">
-				<form class="form-horizontal form-label-left">
-					<label>Input Form</label>
-					<div class="form-group row ">
-						<label class="control-label col-md-3 col-sm-3 ">Project Name</label>
-						<div class="col-md-9 col-sm-9 ">
-							<input class="form-control form-control-sm frmInput" id="projectName" name="projectName"
-								type="text" placeholder="" aria-label=".form-control-sm example">
-						</div>
-					</div>
-					<div class="form-group row ">
-						<label class="control-label col-md-3 col-sm-3 ">Creator</label>
-						<div class="col-md-9 col-sm-9 ">
-							<input class="form-control form-control-sm frmInput" id="creator" name="creator" type="text"
-								placeholder="" aria-label=".form-control-sm example">
-						</div>
-					</div>
-					<div class="form-group row ">
-						<label class="control-label col-md-3 col-sm-3 ">Date</label>
-						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm frmInput" type="date" id="projectDate" name="projectDate"
-								placeholder="" aria-label=".form-control-sm example">
-						</div>
-					</div>
-					<label><strong>Prosfective Customer Data</strong></label>
-					<br />
-					<div class="form-group row ">
-						<label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
-						<div class="col-md-9 col-sm-9 ">
-							<input class="form-control form-control-sm frmInput" type="text" id="customerName"
-								name="customerName" placeholder="" aria-label=".form-control-sm example">
-						</div>
-					</div>
-					<div class="form-group row ">
-						<label class="control-label col-md-3 col-sm-3 ">Demand Usage/M³</label>
-						<div class="col-md-2 col-sm-2 ">
-							<input class="form-control form-control-sm frmInput" type="text" id="demandUsage" name="demandUsage"
-								placeholder="" aria-label=".form-control-sm example">
-						</div>
-						<div class="col-md-1 col-sm-1 " style=" padding-left: 0px;">
-							<a href="#" onclick="exchangeEnergy()" class="btn btn-primary btn-sm"
-								style="height : 26px;"><span><i class="fa fa-exchange" aria-hidden="true"></i></span></a>
-						</div>
-						<label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
-						<div class="col-md-3 col-sm-3 ">
-							<a href="#" onclick="mapp()" class="btn btn-warning btn-sm">Find Location</a>
-						</div>
-					</div>
-					<div class="form-group row ">
-	
-						<label class="control-label col-md-3 col-sm-3 ">Jam / Hari</label>
-						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm frmInput" type="number" id="hourDay" name="hourDay"
-								placeholder="" aria-label=".form-control-sm example">
-						</div>
-						<label class="control-label col-md-3 col-sm-3 ">Target COD</label>
-						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm frmInput" type="date" id="targetCOD" name="targetCOD"
-								placeholder="" aria-label=".form-control-sm example">
-						</div>
-					</div>
-					<div class="form-group row">
-	
-						<label class="control-label col-md-3 col-sm-3 ">Hari / Bulan</label>
-						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm frmInput" type="number" id="workDay" name="workDay"
-								placeholder="" aria-label=".form-control-sm example">
-						</div>
-					</div>
-					<label><strong>Supply Data</strong></label>
-					<br />
-					<div class="form-group row ">
-						<label class="control-label col-md-3 col-sm-3 ">Gas Source</label>
-						<div class="control-label col-md-3 col-sm-3 ">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" id="pipeLine" value=""> Pipeline
-								</label>
-							</div>
-						</div>
-						<div class="control-label col-md-3 col-sm-3 ">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" id="cng" value=""> CNG
-								</label>
-							</div>
-						</div>
-						<div class="control-label col-md-3 col-sm-3 ">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" id="lng" value=""> LNG
-								</label>
-							</div>
-						</div>
-					</div>
-	
-					<div class="form-group row ">
-						<label class="control-label col-md-3 col-sm-3 ">Target Price</label>
-						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm frmInput" type="number" id="minValue" name="minValue"
-								placeholder="USD/MMBTU" aria-label=".form-control-sm example">
-						</div>
-						<label class="control-label col-md-1 col-sm-1 " style="padding-left: 0px;">(Min)</label>
-						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm frmInput" type="number" id="maxValue" name="maxValue"
-								placeholder="USD/MMBTU" aria-label=".form-control-sm example">
-						</div>
-						<label class="control-label col-md-1 col-sm-1 " style="padding-left: 0px;">(Max)</label>
-					</div>
-	
-					<div class="form-group row ">
-						<label class="control-label col-md-3 col-sm-3 ">Output Scale</label>
-	
-						<div class="control-label col-md-3 col-sm-3 ">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" id="energyScale" value=""> Energy
-								</label>
-							</div>
-						</div>
-						<div class="control-label col-md-3 col-sm-3 ">
-							<div class="checkbox">
-								<label>
-									<input type="checkbox" id="volumeScale" value=""> Volume
-								</label>
-							</div>
-						</div>
-					</div>
-	
-					<div class="ln_solid"></div>
-	
-	
-				</form>
-			</div>
-	
-		</div>
-	
-		<div class="row">
-			<div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-				<button type="submit" onclick="calculateCost()" class="btn btn-primary pull-right RbtnMargin">Run</button>
-				<button type="reset" class="btn btn-warning pull-right RbtnMargin">Reset</button>
-			</div>
-		</div>
-	</div>
-	
-	<div id="convertEnergy">
-		<div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin" style="margin-top: 7px;">
-			<div class="card-body" style="margin: 15px ;">
-				<form class="form-horizontal form-label-left">
-					<input type="hidden" id="energyName"/>
-					<input type="hidden" id="hargaBBM"/>
-					<label>Convert Energy</label>
-					<div class="form-group row ">
-						<label class="control-label col-md-4 col-sm-4 ">Bahan Bakar Existing</label>
-						<div class="col-md-8 col-sm-8 ">
-							<select class="form-control form-control-sm " id="bahanBakar">
-							   <option value="0">- Pilih Bahan Bakar -</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group row ">
-						<label class="control-label col-md-4 col-sm-4 ">Pemakaian / Bulan</label>
-						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm" id="pemakaian" name="pemakaian" type="text"
-								placeholder="" aria-label=".form-control-sm example">
-						</div>
-						<span class="col-md-5 col-sm-5" style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;" id="satuanPemakaian"></span>
-					</div>
-					<div class="form-group row ">
-						<label class="control-label col-md-4 col-sm-4 ">Nilai Kalori</label>
-						<div class="col-md-3 col-sm-3 ">
-							<input class="form-control form-control-sm" id="nilaiKalori" name="nilaiKalori" type="text"
-								placeholder="" aria-label=".form-control-sm example" readonly>
-						</div>
-						<span class="col-md-3 col-sm-3" style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;" id="satuan"></span>
-						<div class="col-md-2 col-sm-2 ">
-							<a href="#" onclick="convertEnergy()" class="btn btn-primary btn-sm pull-right">Convert</a>
-						</div>
-					</div>
-					
-	
-					<hr style="border: 2px solid #ededf0;"/>			
-	
-	
-				</form>
-				<table class="table table-bordered" id="tableConvert">
-				<thead>
-				  <tr>
-					<th style="width:40%; text-align:center; font-size:12px;">ITEM</th>
-					<th style="width:30%; text-align:center; font-size:12px;" colspan="2"><span id="tblHeader"></span></th>
-					<th style="width:30%; text-align:center; font-size:12px;" colspan="2">GAS BUMI</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  <tr>
-					<td style="font-size:12px;">NILAI KALORI</td>
-					<td class="tblConvert"><span id="tblNilaiKalori"></span></td>
-					<td class="tblConvert"><span id="tblSatuan"></span></td>
-					<td class="tblConvert"><span id="tblHargaGasBumi"></span></td>
-					<td class="tblConvert"><span id="">Kkal/m3</span></td>
-				  </tr>
-				  <tr>
-					<td style="font-size:12px;">KONVERSI</td>
-					<td class="tblConvert"><span id="tblKonversi"></span></td>
-					<td class="tblConvert"><span id="tblKonversiSatuan"></span></td>
-					<td class="tblConvert"><span id="tblKonversiGas"></span></td>
-					<td class="tblConvert"><span id="">m3</span></td>
-				  </tr>
-				  <tr>
-					<td style="font-size:12px;">PEMAKAIAN BAHAN BAKAR PER BULAN</td>
-					<td class="tblConvert"><span id="tblPemakaian"></span></td>
-					<td class="tblConvert"><span id="tblPemakaianSatuan"></span></td>
-					<td class="tblConvert"><span id="tblPemakaianGas"></span></td>
-					<td class="tblConvert"><span id="">m3</span></td>
-				  </tr>
-				  <tr>
-					<td style="font-size:12px;">HARGA BAHAN BAKAR</td>
-					<td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;"><span id="tblBB"></span></td>
-					<td class="tblConvert"><span id="tblBBSatuan"></span></td>
-					<td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;"><span id="tblBBGas"></span></td>
-					<td class="tblConvert"><span id="">Rp/m3</span></td>
-				  </tr>
-				  <tr>
-					<td style="font-size:12px;">BIAYA UNTUK BAHAN BAKAR PER BULAN </td>
-					<td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;"><span id="tblBiaya"></span></td>
-					<td class="tblConvert"><span id="tblBiayaSatuan"></span></td>
-					<td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;"><span id="tblBiayaGas"></span></td>
-					<td class="tblConvert"><span id="">Rp/Bln</span></td>
-				  </tr>
-				  <tr>
-					<td style="font-size:12px;">PENGHEMATAN DGN GAS BUMI</td>
-					<td class="tblConvert" style="background-color: #eeff1a; font-weight:bold;" colspan="3"><span id="tblPenghematan"></span></td>
-					<td class="tblConvert"><span id="">Rp/Bln</span></td>
-				  </tr>
-				  
-				</tbody>
-				</table>
-				<div class="form-group row ">
-						<label class="control-label col-md-4 col-sm-4 ">Pemakaian / M3 / Bulan</label>
-						<div class="col-md-8 col-sm-8 ">
-							<input class="form-control form-control-sm" id="resultConvert" name="resultConvert" type="text"
-								placeholder="" aria-label=".form-control-sm example" readonly>
-						</div>
-					</div>
-			</div>
-			</div>
-		
-				
-				<div class="row">
-					<div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-						<button type="submit" onclick="submitEnergy()"
-							class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
-						<button type="submit" onclick="back()"
-							class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
-					</div>
-				</div>
-			</div>
-	
-		
-	<div id="findMap">
-		   <div style="margin-bottom:10px;">
-			 <div class="form">
-					<div class="range-wrap">
-						<input type="text" id="radius" hidden/>
-				<div class="range-value" id="radius-selected"></div>
-				<input
-				  id="range-km"
-				  name="range-km"
-				  type="range"
-				  min="0"
-				  max="500"
-				  value="50"
-				  step="5"
-				/>
-			  </div></div>
-		   </div>
-	  
-		<div id="map" class="map"></div>
-		
-		<div class="row">
-					<div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-						<button type="submit" onclick="back()"
-							class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
-						<button type="submit" onclick="back()"
-							class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
-						
-					</div>
-				</div>
-	</div>
+ViewData["Title"] = "Simulation Cost";
+}
 
-	<div id="calculateSimulation">
-		<div class="col-md-6">
-    <table class="table  table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col" colspan="4" ><center>Parameter</center></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>KURS</td>
-      <td><span id="kurs"></span></td>
-       <td>IDR</td>
-    </tr>
-    <tr>
-      <td>Volume</td>
-      <td><span id="volume2"></span></td>
-      <td>M3/Bln</td>
-    </tr>
-    <tr>
-      <td>Jumlah Jam Operasi</td>
-      <td><span id="operasiHari"></span></td>
-      <td>Jam/hari</td>
-    </tr>
-    <tr>
-      <td>Jumlah Hari Operasi</td>
-      <td><span id="operasiMinggu"></span></td>
-      <td>Hari/minggu</td>
-    </tr>
-    <tr>
-      <td>Jumlah Hari Operasi</td>
-      <td><span id="operasiBulan"></span></td>
-      <td>Hari/Bln</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><span id="m3hari"></span></td>
-      <td>M3/Hari</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><span id="m3jam"></span></td>      
-      <td>M3/jam</td>
-    </tr>
-    <tr>
-      <td>MMBTU</td>
-      <td><span id="mmbtu"></span></td>
-      <td>M3</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><span id="mmbtuBln"></span></td>
-      <td>Mmbtu/bln</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><span id="mmbtuHari"></span></td>
-      <td>Mmbtu/hari</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><span id="mmbtuJam"></span></td>
-      <td>Mmbtu/jam</td>
-    </tr>
-    <tr>
-      <td colspan="3"><strong>PRS & Operator</strong></td>
-    </tr>
-    <tr>
-      <td>Gaji Operator</td>
-      <td><span id="gajiOperator"></span></td>
-      <td>IDR/shift</td>
-    </tr>
-    <tr>
-      <td>Jumlah Operator</td>
-      <td><span id="jumlahOperator"></span></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>Investasi PRS</td>
-      <td><span id="investasiPRS"></span></td>
-      <td>IDR</td>
-    </tr>
-    <tr>
-      <td>Depresiasi</td>
-      <td><span id="depresiasi"></span></td>
-      <td>Tahun</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><span id="depresiasiBulan"></span></td>
-      <td>Bulan</td>
-    </tr>
-    <tr>
-      <td colspan="3"><strong>GTM & Head Truck</strong></td>
-    </tr>
-    <tr>
-      <td>Inv GTM Type 1/2 (5")</td>
-      <td><span id="invGTM"></span></td>
-      <td>USD</td>
-    </tr>
-     <tr>
-      <td>Depresiasi</td>
-      <td><span id="depresiasiGTM"></span></td>
-      <td>Tahun</td>
-    </tr>
-     <tr>
-      <td></td>
-      <td><span id="depresiasiGTMBulan"></span></td>
-      <td>Bulan</td>
-    </tr>
-     <tr>
-      <td>Kebutuhan GTM</td>
-      <td><span id="kebutuhanGTM"></span></td>
-      <td></td>
-    </tr>
-     <tr>
-      <td>Jumlah GTM Beli</td>
-      <td><span id="jmlGTMbeli"></span></td>
-      <td>unit</td>
-    </tr>
-     <tr>
-      <td>Jumlah GTM Sewa</td>
-      <td><span id="jmlGTMsewa"></span></td>
-      <td>unit</td>
-    </tr>
-     <tr>
-      <td colspan="3"></td>
-    </tr>
-     <tr>
-      <td>Sewa Head Truck + Maintc.</td>
-      <td><span id="jmlSewaHeadTruck"></span></td>
-      <td>IDR/unit</td>
-    </tr>
-     <tr>
-      <td>Sewa Head Truck</td>
-      <td><span id="sewaHeadTruck"></span></td>
-      <td>IDR/unit</td>
-    </tr>
-     <tr>
-      <td>Sewa Bed Trailer (Trmk Mtc)</td>
-      <td><span id="sewaBedTrailer"></span></td>
-      <td>IDR/unit</td>
-    </tr>
-     <tr>
-      <td>Jumlah Head Truck</td>
-      <td><span id="jmlHeadTruck"></span></td>
-      <td>unit</td>
-    </tr>
-     <tr>
-      <td>Jumlah Bed Trailer</td>
-      <td><span id="jmlBedTrailer"></span></td>
-      <td>unit</td>
-    </tr>
-    <tr>
-      <td>Biaya Transport (Tol & Other)</td>
-      <td><span id="biayaTransport"></span></td>
-      <td>per rit</td>
-    </tr>
-     <tr>
-      <td>Jumlah Supir</td>
-      <td><span id="jmlSupir"></span></td>
-      <td></td>
-    </tr>
-     <tr>
-      <td>Gaji Supir</td>
-      <td><span id="gajiSupir"></span></td>
-      <td>1 org/bln</td>
-    </tr>
-     <tr>
-      <td colspan="3"></td>
-    </tr>
-     <tr>
-      <td>Jarak Tempuh</td>
-      <td><span id="jarakTempuh"></span></td>
-      <td>Km (PP)</td>
-    </tr>
-     <tr>
-      <td>Sewa GTM</td>
-      <td><span id="sewaGTM"></span></td>
-      <td></td>
-    </tr>
-     <tr>
-      <td>Asal Station</td>
-      <td colspan="2"><span id="asalStation"></span></td>
-    </tr>
-     <tr>
-      <td>Lokasi Capel</td>
-      <td><span id="lokasiCapel"></span></td>
-      <td></td>
-    </tr>
-     
+     <div class="alert alert-warning alert-dismissible agri" id="_alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError"></span> is required.
+    </div>
 
-  </tbody>
-</table>
-</div>
-<div class="col-md-6">
-    <table class="table table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col" colspan="3" ><center>MS (Milik Sendiri)</center></th>
-    </tr>
-    <tr>
-      <th scope="col"  ><center></center></th>
-      <th scope="col"  ><center>$/MMBtu</center></th>
-      <th scope="col"  ><center>Rp/MMBtu</center></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>HARGA GAS</td>
-      <td><span id="hargaGas"></span></td>
-      <td><span id="hargaGasRp"></span></td>
-    </tr>
-    <tr>
-      <td>B. COMPRESSED</td>
-      <td><span id="compressed"></span></td>
-      <td><span id="compressedRp"></span></td>
-    </tr>
-    <tr>
-      <td>Total Transportasi Cost</td>
-      <td><span id="totalTransportasiCost"></span></td>
-      <td><span id="totalTransportasiCostRp"></span></td>
-    </tr>
-    <tr>
-      <td>PRS</td>
-      <td><span id="prsCost"></span></td>
-      <td><span id="prsCostRp"></span></td>
-    </tr>
-    <tr>
-      <td>OPERATOR</td>
-      <td><span id="operatorCost"></span></td>
-      <td><span id="operatorCostRp"></span></td>
-    </tr>
-    <tr>
-      <td>GTM (MILIK)</td>
-      <td><span id="gtmCost"></span></td>
-      <td><span id="gtmCostRp"></span></td>
-    </tr>
-    <tr>
-      <td>GTM (SEWA)</td>
-      <td><span id="gtmSewaCost"></span></td>      
-      <td><span id="gtmSewaCostRp"></span></td>  
-    </tr>
-    <tr>
-      <td>HEAD TRUCK (SEWA)</td>
-      <td><span id="headTruckSewaCost"></span></td>
-      <td><span id="headTruckSewaCostRp"></span></td>
-    </tr>
-    <tr>
-      <td>B. FUEL + LAIN-LAIN</td>
-      <td><span id="lainLain"></span></td>
-      <td><span id="lainLainRp"></span></td>
-    </tr>
-    <tr>
-      <td>OVERHEAD COST</td>
-      <td><span id="overheadCost"></span></td>
-      <td><span id="overheadCostRp"></span></td>
-    </tr>
-    <tr>
-      <td>MARGIN</td>
-      <td><span id="marginCost"></span></td>
-      <td><span id="marginCostRp"></span></td>
-    </tr>
-    <tr>
-      <td>HARGA JUAL</td>
-      <td><span id="hargaJual"></span></td>
-      <td><span id="hargaJualRp"></span></td>
-    </tr>
-    <tr>
-      <td>Harga Rp/M3</td>
-      <td></td>
-      <td><span id="hargaM3"></span></td>
-    </tr>
-
-  </tbody>
-</table>
-
-<br />
-<table class="table table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col" colspan="2" ><center>BIAYA TRANSPORTASI</center></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>HARGA BBM</td>
-      <td><span id="hargaBBM"></span></td>
-    </tr>
-    <tr>
-      <td>(Cost BBM/Ritase 1 : 7) IDR/Rite</td>
-      <td><span id="costBBMRitase"></span></td>
-    </tr>
-    <tr>
-      <td>Jumlah Ritase / bln</td>
-      <td><span id="ritaseBulan"></span></td>
-    </tr>
-    <tr>
-      <td>Kapasitas GTM</td>
-      <td><span id="kapasitasGTM"></span></td>
-    </tr>
-    <tr>
-      <td>Kapasitas GTM Beli</td>
-      <td><span id="kapasitasGTMbeli"></span></td>
-    </tr>
-    <tr>
-      <td>Kapasitas GTM Sewa</td>
-      <td><span id="kapasitasGTMsewa"></span></td>
-    </tr>
-    <tr>
-      <td>Biaya BBM/bulan</td>
-      <td><span id="biayaBBMBulan"></span></td>   
-    </tr>
-    <tr>
-      <td>Biaya BBM IDR/M3</td>
-      <td><span id="biayaBBMIDRM3"></span></td>
-    </tr>
-    <tr>
-      <td>Biaya BBM US$/MMbtu</td>
-      <td><span id="biayaBBMUS"></span></td>
-    </tr>
-    <tr>
-      <td>Gaji Supir & Tol/Other per bulan</td>
-      <td><span id="gajiSopirBulan"></span></td>
-    </tr>
-    <tr>
-      <td>Gaji Supir & Tol/Other (IDR/M3)</td>
-      <td><span id="gajiSopirBulanIDRM3"></span></td>
-    </tr>
-    <tr>
-      <td>Gaji Supir & Tol/Other (US$/MMbtu)</td>
-      <td><span id="gajiSopirUS"></span></td>
-    </tr>
-    <tr>
-      <td colspan="2"></td>      
-    </tr>
-    <tr>
-      <td>Total Biaya Transportasi IDR/M3</td>
-      <td><span id="biayaTransIDR"></span></td>
-    </tr>
-    <tr>
-      <td>Total Biaya Transportasi US$/MMbtu</td>
-      <td><span id="biayaTransUS"></span></td>
-    </tr>
-
-  </tbody>
-</table>
-
-<br />
-<table class="table table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col" colspan="2" ><center>HASIL AKHIR</center></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Pendapatan</td>
-      <td><span id="resultPendapatan"></span></td>
-    </tr>
-    <tr>
-      <td>hpp</td>
-      <td><span id="resultHPP"></span></td>
-    </tr>
-    <tr>
-      <td>Pendapatan Kotor</td>
-      <td><span id="resulPendapatanKotor"></span></td>
-    </tr>
-    <tr>
-      <td>Biaya Operasi</td>
-      <td><span id="resultBiayaOperasi"></span></td>
-    </tr>
-    <tr>
-      <td>Depresiasi dan lain-lain</td>
-      <td><span id="resultDepresiasi"></span></td>
-    </tr>
-    <tr>
-      <td>Laba</td>
-      <td><span id="resultLaba"></span></td>
-    </tr>
+<div class="container body koes" style="padding-left:230px;padding-right:230px;right: 0px;left: 0px;">    
     
+    <div class="card">
+          <div class="row ">      
+            <div class="col-md-12 px-3">
+              <div class="card-block" style="border: 1px;">
+                <div class="row">
+                    <div class="col-md-7"><h5 class="card-title font-bold batasAtas" >Cost Structure Simulation Software</h5></div>
+                    <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")" class="image-responsive" style="width:120px; height:40px; float: right;"></div>
+               </div>
 
-  </tbody>
-</table>
+               <div id="costStructure">
+    <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin" style="margin-top: 7px;">
+        <div class="card-body" style="margin: 15px ;">
+            <form class="form-horizontal form-label-left">
+                <label>Input Form</label>
+                <div class="form-group row ">
+                    <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <input class="form-control form-control-sm frmInput" id="projectName" name="projectName"
+                            type="text" placeholder="" aria-label=".form-control-sm example">
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <input class="form-control form-control-sm frmInput" id="creator" name="creator" type="text"
+                            placeholder="" aria-label=".form-control-sm example">
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <input class="form-control form-control-sm frmInput" type="date" id="projectDate"
+                            name="projectDate" placeholder="" aria-label=".form-control-sm example">
+                    </div>
+                </div>
+                <label><strong>Prosfective Customer Data</strong></label>
+                <br />
+                <div class="form-group row ">
+                    <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                    <div class="col-md-9 col-sm-9 ">
+                        <input class="form-control form-control-sm frmInput" type="text" id="customerName"
+                            name="customerName" placeholder="" aria-label=".form-control-sm example">
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <label class="control-label col-md-3 col-sm-3 ">Demand Usage/M³</label>
+                    <div class="col-md-2 col-sm-2 ">
+                        <input class="form-control form-control-sm frmInput" type="text" id="demandUsage"
+                            name="demandUsage" placeholder="" aria-label=".form-control-sm example">
+                    </div>
+                    <div class="col-md-1 col-sm-1 " style=" padding-left: 0px;">
+                        <a href="#" onclick="exchangeEnergy()" class="btn btn-primary btn-sm"
+                            style="height : 26px;"><span><i class="fa fa-exchange" aria-hidden="true"></i></span></a>
+                    </div>
+                    <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <a href="#" onclick="mapp()" class="btn btn-warning btn-sm">Find Location</a>
+                    </div>
+                </div>
+                <div class="form-group row ">
+
+                    <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i class="fas fa-info-circle" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <input class="form-control form-control-sm frmInput" type="number" id="hourDay" name="hourDay"
+                            placeholder="" aria-label=".form-control-sm example" min="0" max="24">
+                    </div>
+                    <label class="control-label col-md-3 col-sm-3 ">Target COD</label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <input class="form-control form-control-sm frmInput" type="date" id="targetCOD" name="targetCOD"
+                            placeholder="" aria-label=".form-control-sm example">
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan</label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <input class="form-control form-control-sm frmInput" type="number" id="workDay" name="workDay"
+                            placeholder="" aria-label=".form-control-sm example"  min="0" max="31">
+                    </div>
+                </div>
+                <label><strong>Supply Data</strong></label>
+                <br />
+                <div class="form-group row ">
+                    <label class="control-label col-md-3 col-sm-3 ">Gas Source</label>
+                    <div class="control-label col-md-3 col-sm-3 ">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="pipeLine" value=""> Pipeline
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-label col-md-3 col-sm-3 ">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="cng" value=""> CNG
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-label col-md-3 col-sm-3 ">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="lng" value=""> LNG
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row ">
+                    <label class="control-label col-md-3 col-sm-3 ">Target Price</label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <input class="form-control form-control-sm frmInput" type="number" id="minValue" name="minValue"
+                            placeholder="USD/MMBTU" aria-label=".form-control-sm example">
+                    </div>
+                    <label class="control-label col-md-1 col-sm-1 " style="padding-left: 0px;">(Min)</label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <input class="form-control form-control-sm frmInput" type="number" id="maxValue" name="maxValue"
+                            placeholder="USD/MMBTU" aria-label=".form-control-sm example">
+                    </div>
+                    <label class="control-label col-md-1 col-sm-1 " style="padding-left: 0px;">(Max)</label>
+                </div>
+
+                <div class="form-group row ">
+                    <label class="control-label col-md-3 col-sm-3 ">Output Scale</label>
+
+                    <div class="control-label col-md-3 col-sm-3 ">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="energyScale" value=""> Energy
+                            </label>
+                        </div>
+                    </div>
+                    <div class="control-label col-md-3 col-sm-3 ">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="volumeScale" value=""> Volume
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ln_solid"></div>
+
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+            <button type="submit" onclick="calculateCost()" class="btn btn-primary pull-right RbtnMargin">Run</button>
+            <button type="reset" class="btn btn-warning pull-right RbtnMargin">Reset</button>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-					<div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-						<button type="submit" onclick="submitEnergy()"
-							class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
-						<button type="submit" onclick="back()"
-							class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
-					</div>
-				</div>
-	</div>
-	
-	@section Styles{
-	<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.css" />
-	<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
-	<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
-	<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
-	<link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+<div id="convertEnergy">
+    <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin" style="margin-top: 7px;">
+        <div class="card-body" style="margin: 15px ;">
+            <form class="form-horizontal form-label-left">
+                <input type="hidden" id="energyName" />
+                <input type="hidden" id="hargaBBM" />
+                <label>Convert Energy</label>
+                <div class="form-group row ">
+                    <label class="control-label col-md-4 col-sm-4 ">Bahan Bakar Existing</label>
+                    <div class="col-md-8 col-sm-8 ">
+                        <select class="form-control form-control-sm " id="bahanBakar">
+                            <option value="0">- Pilih Bahan Bakar -</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row ">
+                    <label class="control-label col-md-4 col-sm-4 ">Pemakaian / Bulan</label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <input class="form-control form-control-sm" id="pemakaian" name="pemakaian" type="text"
+                            placeholder="" aria-label=".form-control-sm example">
+                    </div>
+                    <span class="col-md-5 col-sm-5"
+                        style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
+                        id="satuanPemakaian"></span>
+                </div>
+                <div class="form-group row ">
+                    <label class="control-label col-md-4 col-sm-4 ">Nilai Kalori</label>
+                    <div class="col-md-3 col-sm-3 ">
+                        <input class="form-control form-control-sm" id="nilaiKalori" name="nilaiKalori" type="text"
+                            placeholder="" aria-label=".form-control-sm example" readonly>
+                    </div>
+                    <span class="col-md-3 col-sm-3"
+                        style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
+                        id="satuan"></span>
+                    <div class="col-md-2 col-sm-2 ">
+                        <a href="#" onclick="convertEnergy()" class="btn btn-primary btn-sm pull-right">Convert</a>
+                    </div>
+                </div>
 
-	@*
-	<link rel="stylesheet" href="~/plugins/map/css/styles.css" />*@
-	
-	<style>
-		.map {
-			height: 370px;
-			width: 100%;
-		}
 
-		#mapSearchContainer{
-  position:fixed;
-  top:20px;
-  right: 40px;
-  height:30px;
-  width:180px;
-  z-index:110;
-  font-size:10pt;
-  color:#5d5d5d;
-  border:solid 1px #bbb;
-  background-color:#f8f8f8;
-}
-.geocoder-control-input leaflet-bar {
-	height:30px;
-  width:180px;
-}
-.pointer{
-  position:absolute;
-  top:86px;
-  left:60px;
-  z-index:99999;
-}
-	
-		.results {
-			background-color: white;
-			opacity: 0.8;
-			position: absolute;
-			top: 12px;
-			right: 12px;
-			width: 320px;
-			height: 480px;
-			overflow-y: scroll;
-		}
-	
-		#map .leaflet-bar .leaflet-draw-draw-rectangle,
-		#map .leaflet-bar .leaflet-draw-draw-circle,
-		#map .leaflet-bar .leaflet-draw-edit-edit,
-		#map .leaflet-bar .leaflet-draw-edit-remove {
-		  display: none;
-		}
+                <hr style="border: 2px solid #ededf0;" />
 
-		.tblConvert{
-			width:15%;
-			text-align:center;
-			font-size:12px;
-		}
-	</style>
-	}
-	
-	
-	@section Scripts{
-	<script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>
-	@*
-	<script type="text/javascript" src="~/plugins/map/js/script.js"></script>*@
-	<script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
-	<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
-	<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
-	<script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+
+            </form>
+            <table class="table table-bordered" id="tableConvert">
+                <thead>
+                    <tr>
+                        <th style="width:40%; text-align:center; font-size:12px;">ITEM</th>
+                        <th style="width:30%; text-align:center; font-size:12px;" colspan="2"><span
+                                id="tblHeader"></span></th>
+                        <th style="width:30%; text-align:center; font-size:12px;" colspan="2">GAS BUMI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size:12px;">NILAI KALORI</td>
+                        <td class="tblConvert"><span id="tblNilaiKalori"></span></td>
+                        <td class="tblConvert"><span id="tblSatuan"></span></td>
+                        <td class="tblConvert"><span id="tblHargaGasBumi"></span></td>
+                        <td class="tblConvert"><span id="">Kkal/m3</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:12px;">KONVERSI</td>
+                        <td class="tblConvert"><span id="tblKonversi"></span></td>
+                        <td class="tblConvert"><span id="tblKonversiSatuan"></span></td>
+                        <td class="tblConvert"><span id="tblKonversiGas"></span></td>
+                        <td class="tblConvert"><span id="">m3</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:12px;">PEMAKAIAN BAHAN BAKAR PER BULAN</td>
+                        <td class="tblConvert"><span id="tblPemakaian"></span></td>
+                        <td class="tblConvert"><span id="tblPemakaianSatuan"></span></td>
+                        <td class="tblConvert"><span id="tblPemakaianGas"></span></td>
+                        <td class="tblConvert"><span id="">m3</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:12px;">HARGA BAHAN BAKAR</td>
+                        <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;"><span
+                                id="tblBB"></span></td>
+                        <td class="tblConvert"><span id="tblBBSatuan"></span></td>
+                        <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;"><span
+                                id="tblBBGas"></span></td>
+                        <td class="tblConvert"><span id="">Rp/m3</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:12px;">BIAYA UNTUK BAHAN BAKAR PER BULAN </td>
+                        <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;"><span
+                                id="tblBiaya"></span></td>
+                        <td class="tblConvert"><span id="tblBiayaSatuan"></span></td>
+                        <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;"><span
+                                id="tblBiayaGas"></span></td>
+                        <td class="tblConvert"><span id="">Rp/Bln</span></td>
+                    </tr>
+                    <tr>
+                        <td style="font-size:12px;">PENGHEMATAN DGN GAS BUMI</td>
+                        <td class="tblConvert" style="background-color: #eeff1a; font-weight:bold;" colspan="3"><span
+                                id="tblPenghematan"></span></td>
+                        <td class="tblConvert"><span id="">Rp/Bln</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <div class="form-group row ">
+                <label class="control-label col-md-4 col-sm-4 ">Pemakaian / M3 / Bulan</label>
+                <div class="col-md-8 col-sm-8 ">
+                    <input class="form-control form-control-sm" id="resultConvert" name="resultConvert" type="text"
+                        placeholder="" aria-label=".form-control-sm example" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+            <button type="submit" onclick="submitEnergy()"
+                class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+            <button type="submit" onclick="back()" class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+        </div>
+    </div>
+</div>
+
+
+<div id="findMap">
+    <div style="margin-bottom:10px;">
+        <div class="form">
+            <div class="range-wrap">
+                <input type="text" id="radius" hidden />
+                <div class="range-value" id="radius-selected"></div>
+                <input id="range-km" name="range-km" type="range" min="0" max="500" value="50" step="5" />
+            </div>
+        </div>
+    </div>
+
+    <div id="map" class="map"></div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+            <button type="submit" onclick="back()" class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+            <button type="submit" onclick="back()" class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+
+        </div>
+    </div>
+</div>
+
+               
+               
+             
+               
+              </div>
+            </div>
+          </div>
+        </div>  
+          
+</div>
+ 
+
+@section Styles{
+<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.css" />
+<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
+<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
+<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
+<link rel="stylesheet" type="text/css"
+    href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+
+@*
+<link rel="stylesheet" href="~/plugins/map/css/styles.css" />*@
+
+<style>
+    .koes{
+        position: absolute;
+
+  top: 45px;
+  z-index: -2;
+    }
+    .agri{
+        margin-left:70%;
+        margin-right:1%;
+        margin-top:10px;
+    }
+    .map {
+        height: 370px;
+        width: 100%;
+    }
+
+    #mapSearchContainer {
+        position: fixed;
+        top: 20px;
+        right: 40px;
+        height: 30px;
+        width: 180px;
+        z-index: 110;
+        font-size: 10pt;
+        color: #5d5d5d;
+        border: solid 1px #bbb;
+        background-color: #f8f8f8;
+    }
+
+    .geocoder-control-input leaflet-bar {
+        height: 30px;
+        width: 180px;
+    }
+
+    .pointer {
+        position: absolute;
+        top: 86px;
+        left: 60px;
+        z-index: 99999;
+    }
+
+    .results {
+        background-color: white;
+        opacity: 0.8;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 320px;
+        height: 480px;
+        overflow-y: scroll;
+    }
+
+    #map .leaflet-bar .leaflet-draw-draw-rectangle,
+    #map .leaflet-bar .leaflet-draw-draw-circle,
+    #map .leaflet-bar .leaflet-draw-edit-edit,
+    #map .leaflet-bar .leaflet-draw-edit-remove {
+        display: none;
+    }
+
+    .tblConvert {
+        width: 15%;
+        text-align: center;
+        font-size: 12px;
+    }
+</style>
+}
+
+
+@section Scripts{
+<script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>
+@*
+<script type="text/javascript" src="~/plugins/map/js/script.js"></script>*@
+<script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
+<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
+<script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
 <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
-	
-	<script type="text/javascript">
-		var results = [];
-function convertEnergy() {
-	$("#tableConvert").show();
-	let nf = new Intl.NumberFormat('en-US')
-    var energyName = $("#energyName").val();
-    var demand = $("#pemakaian").val();
-    var satuan = $("#satuan").text();
-    var satuanPemakaian = $("#satuanPemakaian").text();
-    var nilaiKal = $("#nilaiKalori").val();
-    var hargaBB = $("#hargaBBM").val();
-    var hargaGasBumi = 8945.142;
-    var hargaBerlaku = 3650;
-
-    if (demand == "" || demand == null) {
-        alert("Jumlah pemakaian wajib diisi");
-    } else {
-		$("#tblHeader").text(energyName);
-
-		$("#tblNilaiKalori").text(nf.format(nilaiKal));
-		$("#tblSatuan").text(satuan);
-		$("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
-
-		$("#tblKonversi").text("1");
-		$("#tblKonversiSatuan").text(satuanPemakaian);
-        var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
-		$("#tblKonversiGas").text(nf.format(hitKonversi));
-
-		$("#tblPemakaian").text(nf.format(demand));
-		$("#tblPemakaianSatuan").text(satuanPemakaian);
-        var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
-		$("#tblPemakaianGas").text(nf.format(hitPemakaian));
-
-		$("#tblBB").text(nf.format(hargaBB));
-		$("#tblBBSatuan").text("Rp / " + satuanPemakaian);
-		$("#tblBBGas").text(nf.format(hargaBerlaku));
-
-        var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
-		$("#tblBiaya").text(nf.format(hitBiaya));
-		$("#tblBiayaSatuan").text("Rp / Bln");
-        var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
-		$("#tblBiayaGas").text(nf.format(hitBiayaGas));
-
-        var hitResult = hitBiaya - hitBiayaGas;
-		$("#tblPenghematan").text(nf.format(hitResult));
-
-		$("#resultConvert").val(nf.format(hitPemakaian));
-	}
-    
-}
-
-function submitEnergy() {
-	
-	$("#convertEnergy").hide();
-	$("#costStructure").show();
-
-    var demand = $("#resultConvert").val();
-	$("#demandUsage").val(demand);
-	
-}
-
-function calculateCost() {
-	//    $("#calculateSimulation").show();
-	//$("#costStructure").hide();
-     var a = $("#projectName").val();
-     var b = $("#creator").val();
-     var c = $("#projectDate").val();
-     var d = $("#customerName").val();
-     var e = $("#targetCOD").val();
-	 $.ajax({
-			   url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-			   type: 'POST',
-			   dataType: 'json',
-			   contentType: "application/json; charset=utf-8",
-			   data: JSON.stringify(
-				   {
-					   	
-					   "ProjectName": a,
-					   "Creator": b,
-					   "ProjectDate": c,
-					   "CustomerName": d,
-					   "TargetCOD": e,
-				   }
-			   ),
-			   success: function (data) {
-				   if (data.status == true) {
-					      var distance = results.length;
-    for (i = 0; i < results.length; i++) {
-        var rsLokasi = results[i].lokasi;
-        var rsJarak = results[i].jarak;
-        $("#asalStation").text(rsLokasi);
-		    let nf = new Intl.NumberFormat('en-US');
-   var kurs = 13400; //IDR    
-   $("#kurs").text(nf.format(kurs));
-   var volume = $("#demandUsage").val(); // M3/Bln
-   volume=volume.replace(/\,/g,'')
-volume=Number(volume)
-   $("#volume2").text(nf.format(volume));
-   var operasiHari = $("#hourDay").val(); // (Jam / Hari)
-   $("#operasiHari").text(operasiHari);
-   var operasiMinggu =  7 ; // (Hari / Minggu)
-   $("#operasiMinggu").text(operasiMinggu);
-   var operasiBulan =  $("#workDay").val(); // (Hari / Bulan)
-   $("#operasiBulan").text(operasiBulan);
-   var m3hari = volume / operasiBulan ; // (M3 / Hari)
-   $("#m3hari").text(m3hari);
-   var m3jam = Math.round(m3hari / operasiHari) ; // (M3 / Jam)   
-   $("#m3jam").text(m3jam);
-   var mmbtu = 28.5; // (M3 / Jam)
-   $("#mmbtu").text(mmbtu);
-   var mmbtuBln = Math.round(volume / mmbtu); // (MMBTU / Bln)
-   $("#mmbtuBln").text(mmbtuBln);
-   var mmbtuHari = (mmbtuBln / operasiBulan).toFixed(2); // (MMBTU / Hari)
-   $("#mmbtuHari").text(mmbtuHari);
-   var mmbtuJam = (mmbtuHari / operasiHari).toFixed(1); // (MMBTU / Jam)
-   $("#mmbtuJam").text(mmbtuJam);
-
-   //PRS & OPERATOR
-
-   var gajiOperator = 4000000; // IDR/Shift
-   $("#gajiOperator").text(nf.format(gajiOperator));
-
-   var jumlahOperator = 1; 
-   $("#jumlahOperator").text(jumlahOperator);
-
-   var investasiPRS = 130000000; //IDR
-   $("#investasiPRS").text(nf.format(investasiPRS));
-
-   var depresiasi = 8; // Tahun
-   $("#depresiasi").text(depresiasi);
-
-   var depresiasiBulan = depresiasi * 12; // Bulan
-   $("#depresiasiBulan").text(depresiasiBulan);
-
-   //GTM & Head Truck
-   var invGTM = 20800; //USD
-   $("#invGTM").text(nf.format(invGTM));
-
-   var depresiasiGTM = 8; // Tahun
-   $("#depresiasiGTM").text(depresiasiGTM);
-
-   var depresiasiGTMBulan = depresiasiGTM * 12; // Bulan
-   $("#depresiasiGTMBulan").text(depresiasiGTMBulan);
-
-   var jmlGTMbeli = 2; //unit
-   $("#jmlGTMbeli").text(jmlGTMbeli);
-
-   var jmlGTMsewa = 0; //unit
-   $("#jmlGTMsewa").text(jmlGTMsewa);
-
-   var kapasitasGTMbeli = 300; // GTM Beli 
-   $("#kapasitasGTMbeli").text(kapasitasGTMbeli);
-
-   var kapasitasGTMsewa = 0; // GTM Sewa 
-   $("#kapasitasGTMsewa").text(kapasitasGTMsewa);
-
-   var kapasitasGTM = ((kapasitasGTMbeli * jmlGTMbeli) + ( kapasitasGTMsewa * jmlGTMsewa ) ) / (jmlGTMbeli + jmlGTMsewa);
-   $("#kapasitasGTM").text(kapasitasGTM);
-
-   var kebutuhanGTM = (m3hari / kapasitasGTM).toFixed(2) ; // Kebutuhan GTM
-   $("#kebutuhanGTM").text(kebutuhanGTM);
-
-   var sewaHeadTruck = (7500000 + 750000); // Sewa Head Truck IDR/Unit
-   $("#sewaHeadTruck").text(nf.format(sewaHeadTruck));
-
-   var sewaBedTrailer = 0; // Sewa Bed Trailer IDR/Unit
-   $("#sewaBedTrailer").text(sewaBedTrailer);
-
-   var jmlHeadTruck = 2; // Jumlah Head Truck /Unit
-   $("#jmlHeadTruck").text(jmlHeadTruck);
-
-   var jmlBedTrailer = 0; // Jumlah Bed Trailer / Unit
-   $("#jmlBedTrailer").text(jmlBedTrailer);
-
-   var biayaTransport = 100000; // per rit
-   $("#biayaTransport").text(nf.format(biayaTransport));
-
-   var jmlSupir = 1; //Jumlah Supir
-   $("#jmlSupir").text(jmlSupir);
-
-   var gajiSupir = 4000000; // 1 org / Bulan
-   $("#gajiSupir").text(nf.format(gajiSupir));
-
-   var jmlSewaHeadTruck = (sewaHeadTruck + sewaBedTrailer) * 1.1; // IDR / Unit
-   $("#jmlSewaHeadTruck").text(nf.format(jmlSewaHeadTruck));
-
-   //var jarak = $("#jarak").val(); //Jarak Tempuh KM (PP)
-   //var jarak = 45; //Jarak Tempuh KM (PP)
-    var jarak = rsJarak * 2;
-   $("#jarakTempuh").text(jarak);
-
-   var sewaGTM = 0; 
-   $("#sewaGTM").text(sewaGTM);
-
-
-   // Milik Sendiri
-   //Harga Gas        
-           // $/MMBtu                                   
-                    var hargaGas = ((7.56) + (450 * mmbtu / kurs)).toFixed(2); 
-                    $("#hargaGas").text(nf.format(hargaGas));
-           //Rp/MMBtu
-                    var hargaGasRp = hargaGas * kurs;        
-                    $("#hargaGasRp").text(nf.format(hargaGasRp));
-    //B. COMPRESSED        
-           // $/MMBtu                                   
-                    var compressed = 1.5; 
-                    $("#compressed").text(compressed);
-           //Rp/MMBtu
-                    var compressedRp = compressed * kurs;  
-                    $("#compressedRp").text(nf.format(compressedRp));
-      //PRS        
-           // $/MMBtu                                   
-                    var param1 = (investasiPRS / mmbtuBln); 
-                    var param2 = (param1 / kurs); 
-                    var prsCost = (param2 / depresiasiBulan).toFixed(2); 
-                    $("#prsCost").text(nf.format(prsCost));
-           //Rp/MMBtu
-                    var prsCostRp = (prsCost * kurs).toFixed();  
-                    $("#prsCostRp").text(nf.format(prsCostRp));
-      //Operator      
-           // $/MMBtu                                   
-                    var oper1 = (gajiOperator * jumlahOperator) / mmbtuBln;
-                    var operatorCost = (oper1 / kurs).toFixed(2);
-                    $("#operatorCost").text(operatorCost);
-           //Rp/MMBtu
-                    var operatorCostRp = operatorCost * kurs;  
-                    $("#operatorCostRp").text(nf.format(operatorCostRp));
-      //GTM(Milik Sendiri)       
-           // $/MMBtu                                   
-                    var gtm1 =(invGTM*jmlGTMbeli)/mmbtuBln; 
-                    var gtmCost =(gtm1/depresiasiGTMBulan).toFixed(2); 
-                    $("#gtmCost").text(gtmCost);
-           //Rp/MMBtu
-                    var gtmCostRp = gtmCost * kurs;  
-                    $("#gtmCostRp").text(nf.format(gtmCostRp));
-      //GTM (Sewa)        
-           // $/MMBtu                                   
-                    var gtmSewa1 = (sewaGTM/kurs)*jmlGTMsewa; 
-                    var gtmSewaCost = gtmSewa1/mmbtuBln; 
-                    $("#gtmSewaCost").text(gtmSewaCost);
-           //Rp/MMBtu
-                    var gtmSewaCostRp = gtmSewaCost * kurs;  
-                    $("#gtmSewaCostRp").text(nf.format(gtmSewaCostRp));
-      //Head Truck (Sewa)        
-           // $/MMBtu                                   
-                     var head1 = (sewaHeadTruck * jmlHeadTruck) / kurs / mmbtuBln;
-                     var head2 = (sewaBedTrailer * jmlBedTrailer) / kurs / mmbtuBln;
-                     var headTruckSewaCost = (head1+head2).toFixed(2);
-                    $("#headTruckSewaCost").text(nf.format(headTruckSewaCost));
-           //Rp/MMBtu
-                    var headTruckSewaCostRp = (headTruckSewaCost * kurs).toFixed(2);  
-                    $("#headTruckSewaCostRp").text(nf.format(headTruckSewaCostRp));
-      //B Fuel & Lain - lain        
-           // $/MMBtu                                   
-                    var lainLain = 1.8; 
-                    $("#lainLain").text(lainLain);
-           //Rp/MMBtu
-                    var lainLainRp = lainLain * kurs;  
-                    $("#lainLainRp").text(nf.format(lainLainRp));
-           
-    //OVERHEAD COST        
-           // $/MMBtu                                   
-                    var overheadCost = 0.6; 
-                    $("#overheadCost").text(overheadCost);
-           //Rp/MMBtu
-                    var overheadCostRp = overheadCost * kurs;      
-                    $("#overheadCostRp").text(nf.format(overheadCostRp));
-    //MARGIN       
-           // $/MMBtu                                   
-                    var marginCost = 1; 
-                    $("#marginCost").text(marginCost);
-           //Rp/MMBtu
-                    var marginCostRp = marginCost * kurs;    
-                    $("#marginCostRp").text(nf.format(marginCostRp));
-    //Total Transportasi Cost    
-           // $/MMBtu                                   
-                    var totalTransportasiCost = parseFloat(prsCost) + parseFloat(operatorCost) + parseFloat(gtmCost) + parseFloat(gtmSewaCost) + parseFloat(headTruckSewaCost) + parseFloat(lainLain); 
-                    $("#totalTransportasiCost").text(totalTransportasiCost);
-           //Rp/MMBtu
-                    var totalTransportasiCostRp = totalTransportasiCost * kurs;    
-                    $("#totalTransportasiCostRp").text(nf.format(totalTransportasiCostRp));
-            
-    //HARGA JUAL      
-           // $/MMBtu                                   
-                    var hargaJual = parseFloat(hargaGas) + parseFloat(compressed) + parseFloat(totalTransportasiCost) + parseFloat(overheadCost) + parseFloat(marginCost); 
-                    $("#hargaJual").text(nf.format(hargaJual));
-           //Rp/MMBtu
-                    var hargaJualRp = hargaJual * kurs;    
-                    $("#hargaJualRp").text(nf.format(hargaJualRp));
-    //HARGA Rp/M3    
-           //Rp/MMBtu
-                    var hargaM3 =  (hargaJualRp / mmbtu).toFixed(); 
-                    $("#hargaM3").text(nf.format(hargaM3));
-
-//Harga BBM 
-var hargaBBM = 6500;
-$("#hargaBBM").text(nf.format(hargaBBM));
-                   
-//Cost BBM/Ritase 1 : 7) IDR/rite
-var costBBMRitase = ((hargaBBM * jarak) / 7).toFixed();
-$("#costBBMRitase").text(nf.format(costBBMRitase));
-
-//Jumlah Ritase /bln
-var ritaseBulan = volume / kapasitasGTM;
-$("#ritaseBulan").text(ritaseBulan);
-
-//Biaya BBM/bulan
-var biayaBBMBulan = (costBBMRitase * ritaseBulan).toFixed();
-$("#biayaBBMBulan").text(nf.format(biayaBBMBulan));
-
-//Biaya BBM IDR/M3
-var biayaBBMIDRM3 = (biayaBBMBulan / volume).toFixed();
-$("#biayaBBMIDRM3").text(biayaBBMIDRM3);
-
-//Biaya BBM US$ /MMbtu
-var biayaBBMUS = (biayaBBMIDRM3 / kurs * mmbtu).toFixed(2);
-$("#biayaBBMUS").text(biayaBBMUS);
-
-//Gaji Sopir & Toll/Other per bulan 
-var gajiSopirBulan =(gajiSupir*jmlSupir)+(biayaTransport*ritaseBulan) ;
-$("#gajiSopirBulan").text(nf.format(gajiSopirBulan));
-
-//Gaji Sopir & Toll/Other (IDR/M3)
-var gajiSopirBulanIDRM3 =gajiSopirBulan/volume ;
-$("#gajiSopirBulanIDRM3").text(gajiSopirBulanIDRM3);
-
-//Gaji Sopir & Toll/Others US$/Mmbtu
-var gajiSopirUS = (gajiSopirBulanIDRM3/kurs*mmbtu).toFixed(2) ;
-$("#gajiSopirUS").text(gajiSopirUS);
-
-//T. By Transportasi IDR/ M3
-var biayaTransIDR =(parseFloat(biayaBBMIDRM3) + parseFloat(gajiSopirBulanIDRM3))*110/100;
-$("#biayaTransIDR").text(nf.format(biayaTransIDR));
-//T. By Transportasi US$/ MMbtu
-var biayaTransUS  =(parseFloat(biayaBBMUS) + parseFloat(gajiSopirUS));
-$("#biayaTransUS").text(nf.format(biayaTransUS));
-
-// RESULT //
-
-//Pendapatan
-    var resultPendapatan = (hargaJualRp*mmbtuBln).toFixed(0);
-    $("#resultPendapatan").text(nf.format(resultPendapatan));
-//HPP
-    var resultHPP =hargaGasRp*mmbtuBln;
-    $("#resultHPP").text(nf.format(resultHPP));
-//Pendapatan kotor
-    var resulPendapatanKotor = resultPendapatan - resultHPP; 
-    $("#resulPendapatanKotor").text(nf.format(resulPendapatanKotor));
-//Biaya Operasi
-    var resultBiayaOperasi = (parseFloat(operatorCostRp) + parseFloat(lainLainRp) + parseFloat(overheadCostRp)) * mmbtuBln;
-    $("#resultBiayaOperasi").text(nf.format(resultBiayaOperasi));
-//Depresiasi dan lain-lain
-    var resultDepresiasi = (parseFloat(prsCostRp) + parseFloat(gtmCostRp)) * mmbtuBln;
-    $("#resultDepresiasi").text(nf.format(resultDepresiasi));
-//Laba
-    var resultLaba = resulPendapatanKotor - (parseFloat(resultBiayaOperasi) + parseFloat(resultDepresiasi));
-    $("#resultLaba").text(nf.format(resultLaba));
-		
-
-	$.ajax({
-			   url: '@Url.Action("SaveData", "SimulationCost")',
-			   type: 'POST',
-			   dataType: 'json',
-			   contentType: "application/json; charset=utf-8",
-			   data: JSON.stringify(
-				   {
-					   	"HeaderSimulationID":data.data,
-					  "kurs": kurs,
-					  "volume2": volume,
-					  "operasiHari":operasiHari,
-						"operasiMinggu": operasiMinggu,
-						"operasiBulan": operasiBulan,
-						"m3hari": m3hari,
-						"m3jam": m3jam,
-						"mmbtu": mmbtu,
-						"mmbtuBln": mmbtuBln,
-						"mmbtuHari": mmbtuHari,
-						"mmbtuJam": mmbtuJam,
-						"gajiOperator": gajiOperator,
-						"jumlahOperator": jumlahOperator,
-						"investasiPRS": investasiPRS,
-						"depresiasi": depresiasi,
-						"depresiasiBulan": depresiasiBulan,
-						"invGTM": invGTM,
-						"depresiasiGTM": depresiasiGTM,
-						"depresiasiGTMBulan": depresiasiGTMBulan,
-						"kebutuhanGTM": kebutuhanGTM,
-						"jmlGTMbeli": jmlGTMbeli,
-						"jmlGTMsewa": jmlGTMsewa,
-						"jmlSewaHeadTruck": jmlSewaHeadTruck,
-						"sewaHeadTruck": sewaHeadTruck,
-						"sewaBedTrailer": sewaBedTrailer,
-						"jmlHeadTruck": jmlHeadTruck,
-						"jmlBedTrailer": jmlBedTrailer,
-						"biayaTransport": biayaTransport,
-						"jmlSupir": jmlSupir,
-						"gajiSupir": gajiSupir,
-						"jarakTempuh": jarak,	
-						"sewaGTM": sewaGTM,
-						"asalStation": rsLokasi,
-						"lokasiCapel": "Cksss",
-						"hargaGas": hargaGas,
-						"hargaGasRp": hargaGasRp,
-						"compressed": compressed,
-
-						"compressedRp": compressedRp,
-						"totalTransportasiCost": totalTransportasiCost,
-						"totalTransportasiCostRp": totalTransportasiCostRp,
-						"prsCost": prsCost,
-						"prsCostRp": prsCostRp,
-						"operatorCost": operatorCost,
-						"operatorCostRp": operatorCostRp,
-						"gtmCost": gtmCost,
-						"gtmCostRp": gtmCostRp,
-						"gtmSewaCost": gtmSewaCost,
-						"gtmSewaCostRp": gtmSewaCostRp,
-						"headTruckSewaCost": headTruckSewaCost,
-						"headTruckSewaCostRp": headTruckSewaCostRp,
-						"lainLain": lainLain,
-						"lainLainRp": lainLainRp,
-						"overheadCost": overheadCost,
-
-						"overheadCostRp": overheadCostRp,
-						"marginCost": marginCost,
-						"marginCostRp": marginCostRp,
-						"hargaJual": hargaJual,
-						"hargaJualRp": hargaJualRp,
-						"hargaM3": hargaM3,
-						"hargaBBM": hargaBBM,
-						"costBBMRitase": costBBMRitase,
-						"ritaseBulan": ritaseBulan,
-
-						"kapasitasGTM": kapasitasGTM,
-						"kapasitasGTMbeli": kapasitasGTMbeli,
-						"kapasitasGTMsewa": kapasitasGTMsewa,
-						"biayaBBMBulan": biayaBBMBulan,
-						"biayaBBMIDRM3": biayaBBMIDRM3,
-						"biayaBBMUS": biayaBBMUS,
-						"gajiSopirBulan": gajiSopirBulan,
-						"gajiSopirBulanIDRM3": gajiSopirBulanIDRM3,
-						"gajiSopirUS": gajiSopirUS,
-						"biayaTransIDR": biayaTransIDR,
-						"biayaTransUS": biayaTransUS,
-						"resultPendapatan": resultPendapatan,
-						"resultHPP": resultHPP,
-						"resulPendapatanKotor": resulPendapatanKotor,
-						"resultBiayaOperasi": resultBiayaOperasi,
-						"resultDepresiasi": resultDepresiasi,
-						"resultLaba": resultLaba,
-				   }
-			   ),
-			   success: function (data) {
-				   //alert(data);
-				   if (data == true) {
-
-					   $("#GTM").val("");
-					   $('#HargaSewa').val("");
-					   $('#RasioBBM').val("");
-					   $('#Kecepatan').val("");
-
-					   $('#msgText').text('Data is added Successfully');
-					   $('#successModal').modal('show'); 
-					   alert("SUKSES");
-					   location.reload();
-				   }
-
-			   },
-			   error: function (jqXHR) {
-				   $('#divErrorText').text(jqXHR.responseText);
-				   $('#divError').show('fade');
-			   }
-		   });
-	}
-					   alert("SUKSES");
-					   location.reload();
-				   }
-
-			   },
-			   error: function (jqXHR) {
-				   $('#divErrorText').text(jqXHR.responseText);
-				   $('#divError').show('fade');
-			   }
-		   });
-
-
-    
-    
-
-	
-	 
-
-	   }
-	   function DeleteData(id) {
-	   if (confirm("Are you sure you want to delete ...?")) {
-		   Delete(id);
-	   }
-	   else {
-		   return false;
-	   }
-
-    
-}
-
-		
-		$(document).ready(function () {
-
-			$.ajax({
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+    var results = [];
+    function convertEnergy() {
+        $("#tableConvert").show();
+        let nf = new Intl.NumberFormat('en-US')
+        var energyName = $("#energyName").val();
+        var demand = $("#pemakaian").val();
+        var satuan = $("#satuan").text();
+        var satuanPemakaian = $("#satuanPemakaian").text();
+        var nilaiKal = $("#nilaiKalori").val();
+        var hargaBB = $("#hargaBBM").val();
+        var hargaGasBumi = 8945.142;
+        var hargaBerlaku = 3650;
+
+        if (demand == "" || demand == null) {
+            alert("Jumlah pemakaian wajib diisi");
+        } else {
+            $("#tblHeader").text(energyName);
+
+            $("#tblNilaiKalori").text(nf.format(nilaiKal));
+            $("#tblSatuan").text(satuan);
+            $("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
+
+            $("#tblKonversi").text("1");
+            $("#tblKonversiSatuan").text(satuanPemakaian);
+            var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
+            $("#tblKonversiGas").text(nf.format(hitKonversi));
+
+            $("#tblPemakaian").text(nf.format(demand));
+            $("#tblPemakaianSatuan").text(satuanPemakaian);
+            var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
+            $("#tblPemakaianGas").text(nf.format(hitPemakaian));
+
+            $("#tblBB").text(nf.format(hargaBB));
+            $("#tblBBSatuan").text("Rp / " + satuanPemakaian);
+            $("#tblBBGas").text(nf.format(hargaBerlaku));
+
+            var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
+            $("#tblBiaya").text(nf.format(hitBiaya));
+            $("#tblBiayaSatuan").text("Rp / Bln");
+            var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
+            $("#tblBiayaGas").text(nf.format(hitBiayaGas));
+
+            var hitResult = hitBiaya - hitBiayaGas;
+            $("#tblPenghematan").text(nf.format(hitResult));
+
+            $("#resultConvert").val(nf.format(hitPemakaian));
+        }
+
+    }
+
+    function submitEnergy() {
+
+        $("#convertEnergy").hide();
+        $("#costStructure").show();
+
+        var demand = $("#resultConvert").val();
+        $("#demandUsage").val(demand);
+
+    }
+
+    function calculateCost() {      
+        
+        var projectName = $("#projectName").val();
+        var creator = $("#creator").val();
+        var projectDate = $("#projectDate").val();
+        var customerName = $("#customerName").val();
+        var targetCOD = $("#targetCOD").val();
+        if (projectName == "" || projectName == null) {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+              $("#_alert").slideUp(500);
+            });
+            $("#textError").text("Project Name ");
+        }        
+        else if (creator == "" || creator == null) {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+              $("#_alert").slideUp(500);
+            });
+            $("#textError").text("Creator ");
+        }
+        else if (projectDate == "" || projectDate == null) {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+              $("#_alert").slideUp(500);
+            });
+            $("#textError").text("Project Date ");
+        }
+        else if (customerName == "" || customerName == null) {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+              $("#_alert").slideUp(500);
+            });
+            $("#textError").text("Customer Name ");
+        }
+        else if (targetCOD == "" || targetCOD == null) {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+              $("#_alert").slideUp(500);
+            });
+            $("#textError").text("Target COD ");
+        }
+        
+       
+
+        //$.ajax({
+        //    url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+        //    type: 'POST',
+        //    dataType: 'json',
+        //    contentType: "application/json; charset=utf-8",
+        //    data: JSON.stringify(
+        //        {
+
+        //            "ProjectName": a,
+        //            "Creator": b,
+        //            "ProjectDate": c,
+        //            "CustomerName": d,
+        //            "TargetCOD": e,
+        //        }
+        //    ),
+        //    success: function (data) {
+        //        if (data.status == true) {
+        //            var distance = results.length;
+        //            //calculate();                    
+        //            alert(JSON.stringify(data.data));
+        //            alert("SUKSES");
+        //            location.reload();
+        //        }
+
+        //    },
+        //    error: function (jqXHR) {
+        //        $('#divErrorText').text(jqXHR.responseText);
+        //        $('#divError').show('fade');
+        //    }
+        //});
+
+
+
+
+
+
+
+
+    }
+    function DeleteData(id) {
+        if (confirm("Are you sure you want to delete ...?")) {
+            Delete(id);
+        }
+        else {
+            return false;
+        }
+
+
+    }
+
+
+    $(document).ready(function () {
+        $("#_alert").hide();
+        $.ajax({
             url: '@Url.Action("Retrieve", "MstEnergy")',
             type: 'post',
             dataType: 'json',
-            success:function(response){
+            success: function (response) {
 
                 var len = response.data.length;
-               
-                for( var i = 0; i<len; i++){
+
+                for (var i = 0; i < len; i++) {
                     var id = response.data[i].energyID;
                     var name = response.data[i].energy;
                     var nilai = response.data[i].nilaiKalori;
                     var satuan = response.data[i].satuan;
-                    
-                    $("#bahanBakar").append("<option value='"+id+"'>"+name+"</option>");
-                    
+
+                    $("#bahanBakar").append("<option value='" + id + "'>" + name + "</option>");
+
 
                 }
             }
         });
 
-            $("#bahanBakar").change(function() {
-                var deptid = $(this).val();
+        $("#bahanBakar").change(function () {
+            var deptid = $(this).val();
 
-				$.ajax({
-            url: '@Url.Action("Retrieve", "MstEnergy")',
-            type: 'post',
-            dataType: 'json',
-            success:function(response){
+            $.ajax({
+                url: '@Url.Action("Retrieve", "MstEnergy")',
+                type: 'post',
+                dataType: 'json',
+                success: function (response) {
 
-                var len = response.data.length;
-               
-                for( var i = 0; i<len; i++){
-                    var id = response.data[i].energyID;
-                    var energy = response.data[i].energy;
-                    if (id == deptid) {
-						$("#nilaiKalori").val(response.data[i].nilaiKalori);
-						$("#satuan").text(response.data[i].satuan);
-						$("#energyName").val(response.data[i].energy);
-						$("#hargaBBM").val(response.data[i].harga);
-                        if (energy == "LPG" || energy == "Batu Bara") {
-                            $("#satuanPemakaian").text("Kg");
-                        } else {
-							 $("#satuanPemakaian").text("Ltr");
-						}
-						
-					}  
+                    var len = response.data.length;
+
+                    for (var i = 0; i < len; i++) {
+                        var id = response.data[i].energyID;
+                        var energy = response.data[i].energy;
+                        if (id == deptid) {
+                            $("#nilaiKalori").val(response.data[i].nilaiKalori);
+                            $("#satuan").text(response.data[i].satuan);
+                            $("#energyName").val(response.data[i].energy);
+                            $("#hargaBBM").val(response.data[i].harga);
+                            if (energy == "LPG" || energy == "Batu Bara") {
+                                $("#satuanPemakaian").text("Kg");
+                            } else {
+                                $("#satuanPemakaian").text("Ltr");
+                            }
+
+                        }
+                    }
                 }
+            });
+        });
+
+        let range = $("#range-km");
+
+        let rangeV = $("#radius-selected");
+
+        const setValue = () => {
+            let newValue = Number(
+                ((range.val() - range.attr("min")) * 100) /
+                (range.attr("max") - range.attr("min"))
+            ),
+
+                newPosition = 10 - newValue * 0.2;
+            rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
+            rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
+            $("#radius").val(range.val());
+            changeCircleRadius(range.val());
+        };
+
+        setValue();
+
+
+        range.on("input", setValue);
+
+
+        $("#pipeLine").checked = true;
+        $("#lng").checked = true;
+        document.getElementById("pipeLine").checked = true;
+        document.getElementById("lng").checked = true;
+        document.getElementById("cng").checked = true;
+        document.getElementById("energyScale").checked = true;
+        $("#tableConvert").hide();
+        $("#costStructure").show();
+        $("#findMap").hide();
+        $("#convertEnergy").hide();
+        $("#calculateSimulation").hide();
+
+        // Base map styles
+        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+        map = new L.Map('map', {
+            minZoom: 6,
+            zoom: 9,
+            center: [-6.159907, 106.815383]
+        })
+        osm.addTo(map)
+
+
+
+        // This is the circle on the map that will be determine how many markers are around
+        var circle;
+
+        // The marker drawn onto the map
+        var drawn_marker = L.marker();
+
+        // Group for our markers
+        var drawn_markers = L.featureGroup();
+        map.addLayer(drawn_markers);
+
+        // Icons that get placed on map
+        var eco = L.icon({
+            iconSize: [32, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -28],
+            iconUrl: '/plugins/map/images/pertacon.png'
+        });
+
+        // When an icon is clicked
+        function popup(feature, layer) {
+            if (feature.properties && feature.properties.oficina) {
+                layer.bindPopup(feature.properties.oficina, {
+                    closeButton: false,
+                    offset: L.point(0, -20)
+                });
+                layer.on('mouseover', function () {
+                    layer.openPopup();
+                });
+                layer.on('mouseout', function () {
+                    layer.closePopup();
+                });
             }
+        };
+
+        // Convert miles to meters to set radius of circle
+        function milesToMeters(miles) {
+            return miles * 1069.344;
+        };
+
+
+
+
+
+        // This figures out how many points are within out circle
+        function pointsInCircle(circle, meters_user_set) {
+            if (circle !== undefined) {
+                // Only run if we have an address entered
+                // Lat, long of circle
+                circle_lat_long = circle.getLatLng();
+
+                var counter_points_in_circle = 0;
+
+                // Loop through each point in JSON file
+                farmacias.eachLayer(function (layer) {
+                    // Lat, long of current point
+                    layer_lat_long = layer.getLatLng();
+
+                    // Distance from our circle marker
+                    // To current point in meters
+                    distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
+
+                    // See if meters is within raduis
+                    // The user has selected
+                    if (distance_from_layer_circle <= meters_user_set) {
+                        counter_points_in_circle += 1;
+
+                        var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
+                        // Convert to miles
+                        ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
+
+                        $('#ofi_paf').append(ofi_paf_html);
+
+                        let temp = {
+                            "lokasi": layer.feature.properties.oficina,
+                            "jarak": (distance_from_layer_circle / 1000).toFixed(2)
+                        }
+                        results.push(temp);
+                    }
+
+                });
+
+                // Set number of results on main page
+                $('#ofi_paf_results').html(counter_points_in_circle);
+            }
+            // Close pointsInCircle
+        };
+
+        // Change circle radius when changed on page
+        function changeCircleRadius(jarak) {
+            // Determine which geocode box is filled
+            // And fire click event
+
+            // This will determine how many markers are within the circle
+            pointsInCircle(circle, milesToMeters(jarak))
+
+            // Set radius of circle only if we already have one on the map
+            if (circle) {
+                circle.setRadius(milesToMeters(jarak));
+            }
+        }
+
+        // Allow user to add marker to map
+        var draw_control = new L.Control.Draw({
+            draw: {
+                polyline: false,
+                polygon: false,
+                circle: true,
+                marker: drawn_marker
+            },
+            edit: {
+                featureGroup: drawn_markers,
+                remove: true
+            }
+        });
+
+        map.on(L.Draw.Event.CREATED, function (event) {
+            var layer = event.layer;
+
+            drawn_markers.addLayer(layer);
+        });
+
+        map.addControl(draw_control);
+
+        // Allow user to search through GeoJSON file
+        //var search_control = new L.Control.Search({
+        //	layer: farmacias,
+        //	propertyName: 'oficina',
+        //	circleLocation: true
+        //});
+
+        //map.addControl(search_control);
+        //L.control.scale().addTo(map);
+
+
+
+        //  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+
+        //  var results = new L.LayerGroup().addTo(map);
+
+        //  searchControl.on('results', function(data){
+        //	results.clearLayers();
+        //	for (var i = data.results.length - 1; i >= 0; i--) {
+        //	  results.addLayer(L.marker(data.results[i].latlng));
+        //	}
+        //  }).addTo(map);
+        //  L.control.scale().addTo(map);
+
+        //setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
+        // Add GeoJSON layer
+        var farmacias = L.geoJson(ofi_paf, {
+            onEachFeature: popup,
+
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, { icon: eco });
+            }
+        }).addTo(map);
+
+        // This is called after the marker is drawn
+        map.on('draw:created', function (e) {
+            // Add a circle around the marker
+            var marker_lat_long = e.layer._latlng
+            var radius = milesToMeters($('#radius').val());
+            circle = L.circle(marker_lat_long, radius)
+            circle.addTo(map);
+
+            // Calculate the number of eco icons within the circle
+            // So we can put it on the DOM
+            pointsInCircle(circle, radius)
+
+            // Make the marker draggable
+            e.layer.dragging.enable();
+
+            // If you drag the marker, make sure the circle goes with it
+            e.layer.on('dragend', function (event) {
+                map.setView(event.target.getLatLng());
+                circle.setLatLng(event.target.getLatLng());
+
+                // Clear out results
+                $('#ofi_paf').html('');
+
+                // This will determine how many markers are within the circle
+                pointsInCircle(circle, milesToMeters($('#radius').val()));
+
+                // Redraw: Leaflet function
+                circle.redraw();
             });
-            });
-	
-			let range = $("#range-km");
-			
-	  let rangeV = $("#radius-selected");
-			
-	  const setValue = () => {
-		let newValue = Number(
-			((range.val() - range.attr("min")) * 100) /
-			  (range.attr("max") - range.attr("min"))
-		  ),
-		 
-		  newPosition = 10 - newValue * 0.2;
-		rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
-		rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
-		  $("#radius").val(range.val());
-		  changeCircleRadius(range.val());
-	  };
-	
-	  setValue();
-	  
-	
-	  range.on("input", setValue);
-			
-	
-			$("#pipeLine").checked = true;
-			$("#lng").checked = true;
-			document.getElementById("pipeLine").checked = true;
-			document.getElementById("lng").checked = true;
-			document.getElementById("cng").checked = true;
-			document.getElementById("energyScale").checked = true;
-			$("#tableConvert").hide();
-			$("#costStructure").show();
-			$("#findMap").hide();
-			$("#convertEnergy").hide();
-			$("#calculateSimulation").hide();
-	
-			// Base map styles
-			var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-				osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-				osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
-			map = new L.Map('map', {
-				minZoom: 6,
-				zoom: 9,
-				center: [-6.159907, 106.815383]
-			})
-			osm.addTo(map)
 
-			
-	
-			// This is the circle on the map that will be determine how many markers are around
-			var circle;
-	
-			// The marker drawn onto the map
-			var drawn_marker = L.marker();
-	
-			// Group for our markers
-			var drawn_markers = L.featureGroup();
-			map.addLayer(drawn_markers);
-	
-			// Icons that get placed on map
-			var eco = L.icon({
-				iconSize: [32, 37],
-				iconAnchor: [16, 37],
-				popupAnchor: [0, -28],
-				iconUrl: '/plugins/map/images/pertacon.png'
-			});
-	
-			// When an icon is clicked
-			function popup(feature, layer) {
-				if (feature.properties && feature.properties.oficina) {
-					layer.bindPopup(feature.properties.oficina, {
-						closeButton: false,
-						offset: L.point(0, -20)
-					});
-					layer.on('mouseover', function () {
-						layer.openPopup();
-					});
-					layer.on('mouseout', function () {
-						layer.closePopup();
-					});
-				}
-			};
-	
-			// Convert miles to meters to set radius of circle
-			function milesToMeters(miles) {
-				return miles * 1069.344;
-			};
+            $('.leaflet-draw-draw-marker').hide();
+        });
 
-            
+        // Reset map view on marker drag
+        drawn_marker.on('dragend', function (event) {
+            map.setView(event.target.getLatLng());
+            circle.setLatLng(event.target.getLatLng());
 
-			
-            
-			// This figures out how many points are within out circle
-			function pointsInCircle(circle, meters_user_set) {
-				if (circle !== undefined) {
-					// Only run if we have an address entered
-					// Lat, long of circle
-					circle_lat_long = circle.getLatLng();
-	
-					var counter_points_in_circle = 0;
-	
-					// Loop through each point in JSON file
-					farmacias.eachLayer(function (layer) {
-						// Lat, long of current point
-						layer_lat_long = layer.getLatLng();
-	
-						// Distance from our circle marker
-						// To current point in meters
-						distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
-	
-						// See if meters is within raduis
-						// The user has selected
-						if (distance_from_layer_circle <= meters_user_set) {
-							counter_points_in_circle += 1;
-	
-							var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
-							// Convert to miles
-							ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
-							
-							$('#ofi_paf').append(ofi_paf_html);
+            // This will determine how many markers are within the circle
+            pointsInCircle(circle, milesToMeters($('#radius').val()));
 
-                            let temp = {
-                                "lokasi": layer.feature.properties.oficina,
-                                "jarak": (distance_from_layer_circle / 1000).toFixed(2)
-							}
-                            results.push(temp);
-						}
-						
-					});
-	
-					// Set number of results on main page
-					$('#ofi_paf_results').html(counter_points_in_circle);
-				}
-				// Close pointsInCircle
-			};
-	
-			// Change circle radius when changed on page
-			function changeCircleRadius(jarak) {
-				// Determine which geocode box is filled
-				// And fire click event
-				
-				// This will determine how many markers are within the circle
-				pointsInCircle(circle, milesToMeters(jarak))
-	
-				// Set radius of circle only if we already have one on the map
-				if (circle) {
-					circle.setRadius(milesToMeters(jarak));
-				}
-			}
-	
-			// Allow user to add marker to map
-			var draw_control = new L.Control.Draw({
-				draw: {
-					polyline: false,
-					polygon: false,
-					circle: true,
-					marker: drawn_marker
-				},
-				edit: {
-					featureGroup: drawn_markers,
-					remove: true
-				}
-			});
-	
-			map.on(L.Draw.Event.CREATED, function (event) {
-				var layer = event.layer;
-	
-				drawn_markers.addLayer(layer);
-			});
-	
-			map.addControl(draw_control);
-	
-			// Allow user to search through GeoJSON file
-			//var search_control = new L.Control.Search({
-			//	layer: farmacias,
-			//	propertyName: 'oficina',
-			//	circleLocation: true
-			//});
-	
-			//map.addControl(search_control);
-			//L.control.scale().addTo(map);
-	
+            // Redraw: Leaflet function
+            circle.redraw();
+        });
+
+        // Radius dropdown
+        //$("input", "change").change(function () {
+        //    changeCircleRadius();
+        //});
+    });
 
 
-			//  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
 
-			//  var results = new L.LayerGroup().addTo(map);
 
-			//  searchControl.on('results', function(data){
-			//	results.clearLayers();
-			//	for (var i = data.results.length - 1; i >= 0; i--) {
-			//	  results.addLayer(L.marker(data.results[i].latlng));
-			//	}
-			//  }).addTo(map);
-			//  L.control.scale().addTo(map);
 
-			//setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
-			// Add GeoJSON layer
-			var farmacias = L.geoJson(ofi_paf, {
-				onEachFeature: popup,
-	
-				pointToLayer: function (feature, latlng) {
-					return L.marker(latlng, { icon: eco });
-				}
-			}).addTo(map);
-	
-			// This is called after the marker is drawn
-			map.on('draw:created', function (e) {
-				// Add a circle around the marker
-				var marker_lat_long = e.layer._latlng
-				var radius = milesToMeters($('#radius').val());
-				circle = L.circle(marker_lat_long, radius)
-				circle.addTo(map);
-	
-				// Calculate the number of eco icons within the circle
-				// So we can put it on the DOM
-				pointsInCircle(circle, radius)
-	
-				// Make the marker draggable
-				e.layer.dragging.enable();
-	
-				// If you drag the marker, make sure the circle goes with it
-				e.layer.on('dragend', function (event) {
-					map.setView(event.target.getLatLng());
-					circle.setLatLng(event.target.getLatLng());
-	
-					// Clear out results
-					$('#ofi_paf').html('');
-	
-					// This will determine how many markers are within the circle
-					pointsInCircle(circle, milesToMeters($('#radius').val()));
-	
-					// Redraw: Leaflet function
-					circle.redraw();
-				});
-	
-				$('.leaflet-draw-draw-marker').hide();
-			});
-	
-			// Reset map view on marker drag
-			drawn_marker.on('dragend', function (event) {
-				map.setView(event.target.getLatLng());
-				circle.setLatLng(event.target.getLatLng());
-	
-				// This will determine how many markers are within the circle
-				pointsInCircle(circle, milesToMeters($('#radius').val()));
-	
-				// Redraw: Leaflet function
-				circle.redraw();
-			});
-	
-			// Radius dropdown
-			//$("input", "change").change(function () {
-			//    changeCircleRadius();
-			//});
-		});
-	
-	
-	
-	
-	
-	
-		function mapp() {
-			$("#costStructure").hide();
-			$("#findMap").show();
-			$("#convertEnergy").hide();
-			map.invalidateSize();
-		}
-		function back() {
-			$("#costStructure").show();
-			$("#convertEnergy").hide();
-			$("#calculateSimulation").hide();
-			$("#findMap").hide();
-		}
-		function exchangeEnergy() {
-			$("#costStructure").hide();
-			$("#convertEnergy").show();
-			$("#findMap").hide();
-		}
-	
-	</script>
-	}
+
+    function mapp() {
+        $("#costStructure").hide();
+        $("#findMap").show();
+        $("#convertEnergy").hide();
+        map.invalidateSize();
+    }
+    function back() {
+        $("#costStructure").show();
+        $("#convertEnergy").hide();
+        $("#calculateSimulation").hide();
+        $("#findMap").hide();
+    }
+    function exchangeEnergy() {
+        $("#costStructure").hide();
+        $("#convertEnergy").show();
+        $("#findMap").hide();
+    }
+
+</script>
+}

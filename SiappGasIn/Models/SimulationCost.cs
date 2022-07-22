@@ -102,4 +102,27 @@ namespace SiappGasIn.Models
 
         public SimulationCost() { }
     }
+
+    public class SP_HeaderSimulation
+    {
+        public int HeaderSimulationID { get; set; }
+        public string ProjectName { get; set; }
+        public string Creator { get; set; }
+        public DateTime? ProjectDate { get; set; }
+        public string CustomerName { get; set; }
+        public DateTime? TargetCOD { get; set; }
+        public int HourVolume { get; set; }
+        public int Volume { get; set; }
+    }
+
+    public class SP_DetailSimulation
+    {
+        public int SimulationID { get; set; }
+        public int HeaderSimulationID { get; set; }
+        public string Infrastructure { get; set; }
+        public decimal HargaJual { get; set; }
+        public int TargetCOD { get; set; }
+        public string AsalStation { get; set; }
+
+    }
 }

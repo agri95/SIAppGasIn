@@ -122,25 +122,8 @@
     </div>
   </div>
 </nav>
-<div class="container body"  style="padding-right: 230px; padding-left: 230px;">     
-        <div class="card">
-          <div class="row ">      
-            <div class="col-md-12 px-3">
-              <div class="card-block" style="border: 1px;">
-                <div class="row">
-                    <div class="col-md-7"><h5 class="card-title font-bold batasAtas" >Cost Structure Simulation Software</h5></div>
-                    <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")" class="image-responsive" style="width:120px; height:40px; float: right;"></div>
-               </div>
+@RenderBody()
 
-               @RenderBody()
-               
-             
-               
-              </div>
-            </div>
-          </div>
-        </div>     
-</div>
 
 	@await RenderSectionAsync("Scripts", required: false)
 </body>

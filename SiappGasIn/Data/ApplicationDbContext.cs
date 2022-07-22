@@ -15,7 +15,7 @@ namespace SiappGasIn.Data
     {
         public GasDbContext(DbContextOptions<GasDbContext> options) : base(options)
         { }
-  
+
         public DbSet<MstParameter> MstParameter { get; set; }
         public DbSet<MstEnergy> MstEnergy { get; set; }
         public DbSet<MstHargaPRS> MstHargaPRS { get; set; }
@@ -25,12 +25,14 @@ namespace SiappGasIn.Data
         public DbSet<SimulationCost> SimulationCost { get; set; }
         public DbSet<HeaderSimulationCost> HeaderSimulationCost { get; set; }
         public DbSet<MstGaji> MstGaji { get; set; }
-      
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
             builder.Entity<MstListGaji>().HasNoKey();
+            builder.Entity<SP_HeaderSimulation>().HasNoKey();
+            builder.Entity<SP_DetailSimulation>().HasNoKey();
 
         }
 
@@ -47,7 +49,7 @@ namespace SiappGasIn.Data
         }
 
 
-       
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
                 => optionsBuilder
                     .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));

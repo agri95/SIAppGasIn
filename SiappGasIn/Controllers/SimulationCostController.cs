@@ -8,6 +8,13 @@ namespace SiappGasIn.Controllers
 {
     public class SimulationCostController : Controller
     {
+        private readonly GasDbContext _dbContext;
+
+        public SimulationCostController(GasDbContext dbContext)
+        {
+            _dbContext = dbContext;
+
+        }
         public IActionResult Index()
         {
             return View();
@@ -15,6 +22,20 @@ namespace SiappGasIn.Controllers
         public IActionResult List()
         {
             return View("~/Views/Master/MstEnergy/List.cshtml");
+        }
+
+        [HttpGet]
+        public IActionResult Result(int Id)
+        {
+            Id = 14;
+
+            string StoredProc = "exec SP_HeaderSimulation " + Id;
+
+            //var data = new SP_HeaderSimulation();
+            SP_HeaderSimulation model = null;
+            //SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw("[dbo].[SP_HeaderSimulation] @Id", Id).AsEnumerable().FirstOrDefault();
+            SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+            return View("~/Views/SimulationCost/Result.cshtml", data);
         }
     }
 }
@@ -30,6 +51,20 @@ namespace SiappGasIn.Controllers.Api
         public SimulationCostController(GasDbContext dbContext)
         {
             _dbContext = dbContext;
+
+        }
+
+        [HttpPost]
+        public IActionResult Retrieves(string id)
+        {
+            string StoredProc = "exec SP_DetailSimulation " + id;
+
+            var data = _dbContext.Set<SP_DetailSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+
+            return Ok
+                    (
+                        new { data = data }
+                    );
 
         }
 
