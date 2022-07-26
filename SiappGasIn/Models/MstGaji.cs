@@ -27,6 +27,14 @@ namespace SiappGasIn.Models
         public string Profesi { get; set; }
         public decimal Gaji { get; set; }
     }
+    
+    public class SP_GetGajiByLocationName
+    {
+       
+        public string NamaSPBG { get; set; }
+        public decimal GajiSupir { get; set; }
+        public decimal GajiOpeator { get; set; }
+    }
 }
 
 

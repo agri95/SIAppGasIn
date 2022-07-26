@@ -10015,11 +10015,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\SIApp Gas In\\SIAppGasIn\\SiappGasIn\\SiappGasIn.csproj",
+      "projectUniqueName": "D:\\SIApp Gas In\\App\\SIAppGasIn\\SiappGasIn\\SiappGasIn.csproj",
       "projectName": "SiappGasIn",
-      "projectPath": "D:\\SIApp Gas In\\SIAppGasIn\\SiappGasIn\\SiappGasIn.csproj",
+      "projectPath": "D:\\SIApp Gas In\\App\\SIAppGasIn\\SiappGasIn\\SiappGasIn.csproj",
       "packagesPath": "C:\\Users\\Engineer\\.nuget\\packages\\",
-      "outputPath": "D:\\SIApp Gas In\\SIAppGasIn\\SiappGasIn\\obj\\",
+      "outputPath": "D:\\SIApp Gas In\\App\\SIAppGasIn\\SiappGasIn\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Engineer\\AppData\\Roaming\\NuGet\\NuGet.Config",

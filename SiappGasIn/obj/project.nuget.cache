@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H3zEWCgToKCwswpW7rdTdPUYj8+8HRZlKKqfzMj1ByTncUtb9RWHBWE2Le6Ddq5XJlUYzGtbIyO5GyCusFC1yQ==",
+  "dgSpecHash": "ZGeLLJFXLQqd+i7WoudcwGSc/Vng9VKGKbdx4x0ZZS3k3SbnB1DSN7TrbQMLZOdz9Dy+36oFxsfqgRUdlldgEw==",
   "success": true,
-  "projectFilePath": "D:\\SIApp Gas In\\SIAppGasIn\\SiappGasIn\\SiappGasIn.csproj",
+  "projectFilePath": "D:\\SIApp Gas In\\App\\SIAppGasIn\\SiappGasIn\\SiappGasIn.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Engineer\\.nuget\\packages\\datatables-editor-server\\2.0.8\\datatables-editor-server.2.0.8.nupkg.sha512",
     "C:\\Users\\Engineer\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

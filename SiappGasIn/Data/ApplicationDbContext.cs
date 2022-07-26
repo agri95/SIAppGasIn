@@ -24,12 +24,13 @@ namespace SiappGasIn.Data
         public DbSet<MstLokasiSPBG> MstLokasiSPBG { get; set; }
         public DbSet<SimulationCost> SimulationCost { get; set; }
         public DbSet<HeaderSimulationCost> HeaderSimulationCost { get; set; }
+        public DbSet<SP_GetGajiByLocationName> SP_GetGajiByLocationName { get; set; }
         public DbSet<MstGaji> MstGaji { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
+            builder.Entity<SP_GetGajiByLocationName>().HasNoKey();
             builder.Entity<MstListGaji>().HasNoKey();
             builder.Entity<SP_HeaderSimulation>().HasNoKey();
             builder.Entity<SP_DetailSimulation>().HasNoKey();

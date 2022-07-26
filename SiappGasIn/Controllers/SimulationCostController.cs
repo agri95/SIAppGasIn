@@ -27,8 +27,7 @@ namespace SiappGasIn.Controllers
         [HttpGet]
         public IActionResult Result(int Id)
         {
-            Id = 14;
-
+            
             string StoredProc = "exec SP_HeaderSimulation " + Id;
 
             //var data = new SP_HeaderSimulation();
@@ -36,6 +35,19 @@ namespace SiappGasIn.Controllers
             //SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw("[dbo].[SP_HeaderSimulation] @Id", Id).AsEnumerable().FirstOrDefault();
             SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
             return View("~/Views/SimulationCost/Result.cshtml", data);
+        }
+        
+        [HttpGet]
+        public IActionResult Detail(int Id)
+        {
+
+            SimulationCost data = _dbContext.SimulationCost.Where(x => x.SimulationID.Equals(Id)).FirstOrDefault<SimulationCost>();
+
+            if (data == null)
+            {
+                data = new SimulationCost();
+            }
+            return View("~/Views/SimulationCost/Detail.cshtml", data);
         }
     }
 }
@@ -59,7 +71,7 @@ namespace SiappGasIn.Controllers.Api
         {
             string StoredProc = "exec SP_DetailSimulation " + id;
 
-            var data = _dbContext.Set<SP_DetailSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+            var data = _dbContext.Set<SP_DetailSimulation>().FromSqlRaw(StoredProc).AsEnumerable().ToList();
 
             return Ok
                     (
@@ -251,6 +263,18 @@ namespace SiappGasIn.Controllers.Api
 
             return RedirectToAction("List", "MstEnergy");
 
+        }
+
+        [HttpPost]
+        public IActionResult GetGaji(string NamaSPBG)
+        {
+            string StoredProc = "exec SP_GetGajiByLocationName '"+NamaSPBG+"'" ;
+
+           var data = _dbContext.Set<SP_GetGajiByLocationName>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+            return Ok
+                    (
+                        new { data = data }
+                    );
         }
     }
 }

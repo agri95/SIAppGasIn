@@ -351,23 +351,7 @@ $('#saveEnergy').click(function () {
                 }
             }
 			 });
- $.ajax({
-            url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
-            type: 'post',
-            dataType: 'json',
-            success:function(response){
 
-                var len = response.data.length;
-               
-                for( var i = 0; i<len; i++){
-                    var id = response.data[i].lokasiID;
-                    var name = response.data[i].namaSPBG;
-                    $("#LokasiIDs").append("<option value='"+id+"'>"+name+"</option>");
-                    
-
-                }
-            }
-			 });
  $("#example").DataTable({
 		   "processing": true, // for show progress bar
 		   "serverSide": false, // for process server side
