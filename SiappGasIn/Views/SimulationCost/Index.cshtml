@@ -356,7 +356,8 @@ ViewData["Title"] = "Simulation Cost";
     </div>
 
 </div>
-
+<span hidden id="gajiSupir"></span>
+<span hidden id="gajiOperator"></span>
 @section Styles{
 <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.css" />
 <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
@@ -564,8 +565,9 @@ ViewData["Title"] = "Simulation Cost";
             ),
             success: function (data) {
                 if (data.status == true) {
-                    var distance = results.length;
+                    
                     calculate(data.data);        
+
                     alert("SUKSES");
 
                     var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
@@ -589,213 +591,13 @@ ViewData["Title"] = "Simulation Cost";
         if (results.length > 0) {
             for (i = 0; i < results.length; i++) {
                         var rsLokasi = results[i].lokasi;
-                        var rsJarak = results[i].jarak;                       
-                        
-                        $.post('@Url.Action("GetGaji", "SimulationCost")', { NamaSPBG: rsLokasi }, function (data) {
-                                        //sessionStorage.removeItem('gajiOperator'); 
-                                        //sessionStorage.removeItem('gajiSupir');
-                                        sessionStorage.setItem("gajiOperator", data.data.gajiOpeator);
-                                        sessionStorage.setItem("gajiSupir", data.data.gajiSupir);
-
-                        }, "json");
-                             
-                        var kurs = 13400; //IDR    
-                        var volume = $("#demandUsage").val(); // M3/Bln
-                        volume=volume.replace(/\,/g,'')
+                        var rsJarak = results[i].jarak;                   
+                var jarak = rsJarak * 2;
+                var volume = $("#demandUsage").val(); // M3/Bln
+                        volume = volume.replace(/\,/g, '')
                         volume = Number(volume)
-                        var operasiHari = $("#hourDay").val(); // (Jam / Hari)
-                        var operasiMinggu =  7 ; // (Hari / Minggu)    
-                        var operasiBulan =  $("#workDay").val(); // (Hari / Bulan)
-                        var m3hari = volume / operasiBulan ; // (M3 / Hari)
-                        var m3jam = Math.round(m3hari / operasiHari) ; // (M3 / Jam)   
-                        var mmbtu = 28.5; // (M3 / Jam)
-                        var mmbtuBln = Math.round(volume / mmbtu); // (MMBTU / Bln)
-                        var mmbtuHari = (mmbtuBln / operasiBulan).toFixed(2); // (MMBTU / Hari)
-                        var mmbtuJam = (mmbtuHari / operasiHari).toFixed(1); // (MMBTU / Jam)
-
-                        //PRS & OPERATOR
-                
-                       var gajiOperator = sessionStorage.getItem('gajiOperator');
-                       
-                       var jumlahOperator = 1; 
-
-                       var investasiPRS = 130000000; //IDR
-
-                       var depresiasi = 8; // Tahun
-
-                       var depresiasiBulan = depresiasi * 12; // Bulan 
-
-                       //GTM & Head Truck
-
-                       var invGTM = 20800; //USD
-
-                       var depresiasiGTM = 8; // Tahun
-
-                       var depresiasiGTMBulan = depresiasiGTM * 12; // Bulan
-
-                       var jmlGTMbeli = 2; //unit
-
-                       var jmlGTMsewa = 0; //unit
-
-                       var kapasitasGTMbeli = 300; // GTM Beli 
-
-                       var kapasitasGTMsewa = 0; // GTM Sewa 
-
-                       var kapasitasGTM = ((kapasitasGTMbeli * jmlGTMbeli) + ( kapasitasGTMsewa * jmlGTMsewa ) ) / (jmlGTMbeli + jmlGTMsewa);
-                      
-                       var kebutuhanGTM = (m3hari / kapasitasGTM).toFixed(2) ; // Kebutuhan GTM
-
-                       var sewaHeadTruck = (7500000 + 750000); // Sewa Head Truck IDR/Unit
-
-                       var sewaBedTrailer = 0; // Sewa Bed Trailer IDR/Unit
-
-                       var jmlHeadTruck = 2; // Jumlah Head Truck /Unit
-
-                       var jmlBedTrailer = 0; // Jumlah Bed Trailer / Unit
-
-                       var biayaTransport = 100000; // per rit
-
-                       var gajiSupir = sessionStorage.getItem('gajiSupir'); // 1 org / Bulan
-
-                       var jmlSupir = 1; //Jumlah Supir
-
-                       
-          
-
-                       var jmlSewaHeadTruck = (sewaHeadTruck + sewaBedTrailer) * 1.1; // IDR / Unit
-
-                       var jarak = rsJarak; //Jarak Tempuh KM (PP)
-                        var calJarak = jarak * 2;
-
-                       var sewaGTM = 0;
-                       
-                       // Milik Sendiri
-       //Harga Gas        
-               // $/MMBtu                                   
-                        var hargaGas = ((7.56) + (450 * mmbtu / kurs)).toFixed(2); 
-               //Rp/MMBtu
-                        var hargaGasRp = hargaGas * kurs;        
-        //B. COMPRESSED        
-               // $/MMBtu                                   
-                        var compressed = 1.5; 
-               //Rp/MMBtu
-                        var compressedRp = compressed * kurs;  
-          //PRS        
-               // $/MMBtu                                   
-                        var param1 = (investasiPRS / mmbtuBln); 
-                        var param2 = (param1 / kurs); 
-                        var prsCost = (param2 / depresiasiBulan).toFixed(2); 
-               //Rp/MMBtu
-                        var prsCostRp = (prsCost * kurs).toFixed(); 
-          //Operator      
-               // $/MMBtu                                   
-                        var oper1 = (gajiOperator * jumlahOperator) / mmbtuBln;
-                        var operatorCost = (oper1 / kurs).toFixed(2);
-               //Rp/MMBtu
-                        var operatorCostRp = operatorCost * kurs;  
-          //GTM(Milik Sendiri)       
-               // $/MMBtu                                   
-                        var gtm1 =(invGTM*jmlGTMbeli)/mmbtuBln; 
-                        var gtmCost =(gtm1/depresiasiGTMBulan).toFixed(2); 
-               //Rp/MMBtu
-                        var gtmCostRp = gtmCost * kurs;  
-               // $/MMBtu                                   
-                        var gtmSewa1 = (sewaGTM/kurs)*jmlGTMsewa; 
-                        var gtmSewaCost = gtmSewa1/mmbtuBln; 
-               //Rp/MMBtu
-                        var gtmSewaCostRp = gtmSewaCost * kurs;  
-          //Head Truck (Sewa)        
-               // $/MMBtu                                   
-                         var head1 = (sewaHeadTruck * jmlHeadTruck) / kurs / mmbtuBln;
-                         var head2 = (sewaBedTrailer * jmlBedTrailer) / kurs / mmbtuBln;
-                         var headTruckSewaCost = (head1+head2).toFixed(2);
-               //Rp/MMBtu
-                        var headTruckSewaCostRp = (headTruckSewaCost * kurs).toFixed(2);  
-
-                        //Harga BBM 
-            var hargaBBM = 6500;
-                   
-            //Cost BBM/Ritase 1 : 7) IDR/rite
-            var costBBMRitase = ((hargaBBM * jarak) / 7).toFixed();
-
-            //Jumlah Ritase /bln
-            var ritaseBulan = volume / kapasitasGTM;
-
-            //Biaya BBM/bulan
-            var biayaBBMBulan = (costBBMRitase * ritaseBulan).toFixed();
-
-            //Biaya BBM IDR/M3
-            var biayaBBMIDRM3 = (biayaBBMBulan / volume).toFixed();
-
-            //Biaya BBM US$ /MMbtu
-            var biayaBBMUS = (biayaBBMIDRM3 / kurs * mmbtu).toFixed(2);
-
-            //Gaji Sopir & Toll/Other per bulan 
-            var gajiSopirBulan =(gajiSupir*jmlSupir)+(biayaTransport*ritaseBulan) ;
-
-            //Gaji Sopir & Toll/Other (IDR/M3)
-            var gajiSopirBulanIDRM3 =gajiSopirBulan/volume ;
-
-            //Gaji Sopir & Toll/Others US$/Mmbtu
-            var gajiSopirUS = (gajiSopirBulanIDRM3/kurs*mmbtu).toFixed(2) ;
-
-            //T. By Transportasi IDR/ M3
-            var biayaTransIDR =(parseFloat(biayaBBMIDRM3) + parseFloat(gajiSopirBulanIDRM3))*110/100;
-            //T. By Transportasi US$/ MMbtu
-            var biayaTransUS  =(parseFloat(biayaBBMUS) + parseFloat(gajiSopirUS));
-
-          //B Fuel & Lain - lain        
-               // $/MMBtu                                   
-                        var lainLain = (parseFloat(biayaBBMUS) + parseFloat(gajiSopirUS));; 
-               //Rp/MMBtu
-                        var lainLainRp = lainLain * kurs;  
-           
-        //OVERHEAD COST        
-               // $/MMBtu                                   
-                        var overheadCost = 0.6; 
-               //Rp/MMBtu
-                        var overheadCostRp = overheadCost * kurs;      
-        //MARGIN       
-               // $/MMBtu                                   
-                        var marginCost = 1; 
-               //Rp/MMBtu
-                        var marginCostRp = marginCost * kurs;    
-        //Total Transportasi Cost    
-               // $/MMBtu                                   
-                        var totalTransportasiCost = parseFloat(prsCost) + parseFloat(operatorCost) + parseFloat(gtmCost) + parseFloat(gtmSewaCost) + parseFloat(headTruckSewaCost) + parseFloat(lainLain); 
-               //Rp/MMBtu
-                        var totalTransportasiCostRp = totalTransportasiCost * kurs;    
-            
-        //HARGA JUAL      
-               // $/MMBtu                                   
-                        var hargaJual = parseFloat(hargaGas) + parseFloat(compressed) + parseFloat(totalTransportasiCost) + parseFloat(overheadCost) + parseFloat(marginCost); 
-                        
-               //Rp/MMBtu
-                        var hargaJualRp = hargaJual * kurs;    
-        //HARGA Rp/M3    
-               //Rp/MMBtu
-                        var hargaM3 =  (hargaJualRp / mmbtu).toFixed(); 
-
-            
-
-            // RESULT //
-
-            //Pendapatan
-                var resultPendapatan = (hargaJualRp*mmbtuBln).toFixed(0);
-            //HPP
-                var resultHPP =hargaGasRp*mmbtuBln;
-            //Pendapatan kotor
-                var resulPendapatanKotor = resultPendapatan - resultHPP; 
-            //Biaya Operasi
-                var resultBiayaOperasi = (parseFloat(operatorCostRp) + parseFloat(lainLainRp) + parseFloat(overheadCostRp)) * mmbtuBln;
-               
-            //Depresiasi dan lain-lain
-                var resultDepresiasi = (parseFloat(prsCostRp) + parseFloat(gtmCostRp)) * mmbtuBln;
-            //Laba
-                var resultLaba = resulPendapatanKotor - (parseFloat(resultBiayaOperasi) + parseFloat(resultDepresiasi));
-             
-                
-
+                        var operasiHari = $("#hourDay").val();
+                       var operasiBulan = $("#workDay").val();
                         $.ajax({
                             url: '@Url.Action("SaveData", "SimulationCost")',
                             type: 'POST',
@@ -803,95 +605,20 @@ ViewData["Title"] = "Simulation Cost";
                             contentType: "application/json; charset=utf-8",
                             data: JSON.stringify(
                                 {
-                                    "HeaderSimulationID": data,
-                                    "kurs": kurs,
-                                    "volume2": volume,
+                                    "HeaderSimulationID": data,                                   
+                                    "volume": volume,
+                                    "jarak" : jarak,
                                     "operasiHari": operasiHari,
-                                    "operasiMinggu": operasiMinggu,
                                     "operasiBulan": operasiBulan,
-                                    "m3hari": m3hari,
-                                    "m3jam": m3jam,
-                                    "mmbtu": mmbtu,
-                                    "mmbtuBln": mmbtuBln,
-                                    "mmbtuHari": mmbtuHari,
-                                    "mmbtuJam": mmbtuJam,
-                                    "gajiOperator": gajiOperator,
-                                    "jumlahOperator": jumlahOperator,
-                                    "investasiPRS": investasiPRS,
-                                    "depresiasi": depresiasi,
-                                    "depresiasiBulan": depresiasiBulan,
-                                    "invGTM": invGTM,
-                                    "depresiasiGTM": depresiasiGTM,
-                                    "depresiasiGTMBulan": depresiasiGTMBulan,
-                                    "kebutuhanGTM": kebutuhanGTM,
-                                    "jmlGTMbeli": jmlGTMbeli,
-                                    "jmlGTMsewa": jmlGTMsewa,
-                                    "jmlSewaHeadTruck": jmlSewaHeadTruck,
-                                    "sewaHeadTruck": sewaHeadTruck,
-                                    "sewaBedTrailer": sewaBedTrailer,
-                                    "jmlHeadTruck": jmlHeadTruck,
-                                    "jmlBedTrailer": jmlBedTrailer,
-                                    "biayaTransport": biayaTransport,
-                                    "jmlSupir": jmlSupir,
-                                    "gajiSupir": gajiSupir,
-                                    "jarakTempuh": jarak,
-                                    "sewaGTM": sewaGTM,
                                     "asalStation": rsLokasi,
-                                    "lokasiCapel": "Cksss",
-                                    "hargaGas": hargaGas,
-                                    "hargaGasRp": hargaGasRp,
-                                    "compressed": compressed,
-
-                                    "compressedRp": compressedRp,
-                                    "totalTransportasiCost": totalTransportasiCost,
-                                    "totalTransportasiCostRp": totalTransportasiCostRp,
-                                    "prsCost": prsCost,
-                                    "prsCostRp": prsCostRp,
-                                    "operatorCost": operatorCost,
-                                    "operatorCostRp": operatorCostRp,
-                                    "gtmCost": gtmCost,
-                                    "gtmCostRp": gtmCostRp,
-                                    "gtmSewaCost": gtmSewaCost,
-                                    "gtmSewaCostRp": gtmSewaCostRp,
-                                    "headTruckSewaCost": headTruckSewaCost,
-                                    "headTruckSewaCostRp": headTruckSewaCostRp,
-                                    "lainLain": lainLain,
-                                    "lainLainRp": lainLainRp,
-                                    "overheadCost": overheadCost,
-
-                                    "overheadCostRp": overheadCostRp,
-                                    "marginCost": marginCost,
-                                    "marginCostRp": marginCostRp,
-                                    "hargaJual": hargaJual,
-                                    "hargaJualRp": hargaJualRp,
-                                    "hargaM3": hargaM3,
-                                    "hargaBBM": hargaBBM,
-                                    "costBBMRitase": costBBMRitase,
-                                    "ritaseBulan": ritaseBulan,
-
-                                    "kapasitasGTM": kapasitasGTM,
-                                    "kapasitasGTMbeli": kapasitasGTMbeli,
-                                    "kapasitasGTMsewa": kapasitasGTMsewa,
-                                    "biayaBBMBulan": biayaBBMBulan,
-                                    "biayaBBMIDRM3": biayaBBMIDRM3,
-                                    "biayaBBMUS": biayaBBMUS,
-                                    "gajiSopirBulan": gajiSopirBulan,
-                                    "gajiSopirBulanIDRM3": gajiSopirBulanIDRM3,
-                                    "gajiSopirUS": gajiSopirUS,
-                                    "biayaTransIDR": biayaTransIDR,
-                                    "biayaTransUS": biayaTransUS,
-                                    "resultPendapatan": resultPendapatan,
-                                    "resultHPP": resultHPP,
-                                    "resulPendapatanKotor": resulPendapatanKotor,
-                                    "resultBiayaOperasi": resultBiayaOperasi,
-                                    "resultDepresiasi": resultDepresiasi,
-                                    "resultLaba": resultLaba,
+                                    "lokasiCapel": "None"
                                 }
                             ),
                             success: function (data) {
                                 //alert(data);
                                 if (data == true) {
-                                    
+                                    sessionStorage.removeItem('gajiOperator'); 
+                                    sessionStorage.removeItem('gajiSupir');
                                     $("#GTM").val("");
                                     $('#HargaSewa').val("");
                                     $('#RasioBBM').val("");

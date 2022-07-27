@@ -34,6 +34,7 @@ namespace SiappGasIn.Data
             builder.Entity<MstListGaji>().HasNoKey();
             builder.Entity<SP_HeaderSimulation>().HasNoKey();
             builder.Entity<SP_DetailSimulation>().HasNoKey();
+            builder.Entity<SP_CostSimulation>().HasNoKey();
 
         }
 

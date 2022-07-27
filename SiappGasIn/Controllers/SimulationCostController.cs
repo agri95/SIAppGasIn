@@ -171,21 +171,17 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpPost]
-        public IActionResult SaveData([FromBody] SimulationCost energy)
+        public IActionResult SaveData([FromBody] SP_CostSimulation energy)
         {
             try
-            {
-                SimulationCost parameter = energy;
+            {                
                 if (energy != null)
                 {
+                    string StoredProc = "exec SP_CostSimulation " + energy.headerSimulationID + "," + energy.volume + "," + energy.jarak + "," + energy.operasiHari + "," + energy.operasiBulan + "," + "'"+ energy.asalStation +"'" + ","+ "'" + energy.lokasiCapel + "'";
+
+                    var data = _dbContext.Set<SP_CostSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
 
 
-                    parameter.CreatedBy = this.User.Identity.Name;
-                    parameter.CreatedDate = DateTimeOffset.Now;
-                    _dbContext.SimulationCost.AddAsync(parameter);
-
-
-                    _dbContext.SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -271,6 +267,18 @@ namespace SiappGasIn.Controllers.Api
             string StoredProc = "exec SP_GetGajiByLocationName '"+NamaSPBG+"'" ;
 
            var data = _dbContext.Set<SP_GetGajiByLocationName>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+            return Ok
+                    (
+                        new { data = data }
+                    );
+        }
+        
+        [HttpPost]
+        public IActionResult GetPRS(int flowRate)
+        {
+            string StoredProc = "exec SP_GetHargaPRS" + flowRate;
+
+           var data = _dbContext.Set<MstHargaPRS>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
             return Ok
                     (
                         new { data = data }

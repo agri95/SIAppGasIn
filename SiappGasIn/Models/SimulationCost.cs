@@ -45,6 +45,8 @@ namespace SiappGasIn.Models
         public decimal sewaGTM { get; set; }
         public string asalStation { get; set; }
         public string lokasiCapel { get; set; }
+        public string GTM { get; set; }
+        public string PRS { get; set; }
         public decimal hargaGas { get; set; }
         public decimal hargaGasRp { get; set; }
         public decimal compressed { get; set; }
@@ -92,7 +94,7 @@ namespace SiappGasIn.Models
         public decimal resultLaba { get; set; }
 
 
-        public string CreatedBy { get; set; }
+        public string? CreatedBy { get; set; }
 
         public DateTimeOffset? CreatedDate { get; set; }
 
@@ -124,5 +126,16 @@ namespace SiappGasIn.Models
         public int TargetCOD { get; set; }
         public string AsalStation { get; set; }
 
+    }
+
+    public class SP_CostSimulation
+    {
+        public int headerSimulationID { get; set; }
+        public decimal volume { get; set; }
+        public decimal jarak { get; set; }
+        public int operasiHari { get; set; }
+        public int operasiBulan { get; set; }
+        public string asalStation { get; set; }
+        public string lokasiCapel { get; set; }
     }
 }
