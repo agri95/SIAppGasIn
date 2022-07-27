@@ -11,13 +11,28 @@
  <div class="modal-dialog modal-dialog-scrollable" role="document">
    <div class="modal-content">
 	<div class="modal-header">
-        <h4 class="modal-title">Term of Use</h4>
-      </div>
+        <h4 class="modal-title">Term of Use
+		<a href="#" onclick="ukBtn()" style=" border-radius:3px;" class="pull-right flag-icon flag-icon-gb" id="ukBtn" title="English"></a> 
+		<a href="#" onclick="idBtn()"style="margin-right:10px; border-radius:3px;" class="pull-right flag-icon flag-icon-id" title="Bahasa Indonesia" id="idBtn"></a>
+		</h4>	
+		     </div>
 	 <div class="modal-body">
 
-	   <blockquote class="blockquote text-center">
-		   <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-		  	</blockquote>
+	   <blockquote class="blockquote">
+		   <div id="termIndo">
+			   <h5><mark>PT Perusahaan Gas Negara Tbk ("PGN")</mark> adalah pemilik dan operator Aplikasi SIAPP GAS IN.</h5>  
+			
+		<h5>Informasi yang terdapat di dalam Aplikasi SIAPP GAS IN telah dipersiapkan sebaik mungkin serta dari sumber terpercaya dan bertanggung jawab, yang terus menerus diperbaharui dan dikebangkan sesuai dengan keadaan sebenarnya. Tujuan dari informasi ini sebgai referensi atas aset operasi yang dikelola atau dioperasikan oleh PGN Group beserta utilitas lain di sekitar aset tersebut.
+		</h5>
+		<h5>Seluruh informasi yang terdapat dalam Aplikasi SIAPP GAS IN ini bersifat rahasia, hanya pengguna yang diberikan kewenangan yang dapat menggunakan Aplikasi SIAPP GAS IN. Dilarang untuk menyingkap, menyimpan, mendistribusikan atau menggunakan informasi yang diperoleh dari aplikasi SIAPP GAS IN untuk kepentingan komersil dan/atau kepentingan lain apapun selain untuk kepentingan PGN tanpa persetujuan tertulis dari PGN dan wajib mencantumkan keterangan SIAPP GAS IN sebagai sumber dan/atau referensi atas informasi tersebut.
+		</h5><h5>Seluruh informasi yang terdapat dalam Aplikasi SIAPP GAS IN ini bersifat rahasia, hanya pengguna yang diberikan kewenangan yang dapat menggunakan Aplikasi SIAPP GAS IN. Dilarang untuk menyingkap, menyimpan, mendistribusikan atau menggunakan informasi yang diperoleh dari aplikasi SIAPP GAS IN untuk kepentingan komersil dan/atau kepentingan lain apapun selain untuk kepentingan PGN tanpa persetujuan tertulis dari PGN dan wajib mencantumkan keterangan SIAPP GAS IN sebagai sumber dan/atau referensi atas informasi tersebut.
+		</h5><h5>Seluruh informasi yang terdapat dalam Aplikasi SIAPP GAS IN ini bersifat rahasia, hanya pengguna yang diberikan kewenangan yang dapat menggunakan Aplikasi SIAPP GAS IN. Dilarang untuk menyingkap, menyimpan, mendistribusikan atau menggunakan informasi yang diperoleh dari aplikasi SIAPP GAS IN untuk kepentingan komersil dan/atau kepentingan lain apapun selain untuk kepentingan PGN tanpa persetujuan tertulis dari PGN dan wajib mencantumkan keterangan SIAPP GAS IN sebagai sumber dan/atau referensi atas informasi tersebut.
+		</h5>
+		   </div>
+		   <div id="termUK">
+			   <h5><mark>PT Perusahaan Gas Negara Tbk ("PGN")</mark> bla bla bla</h5>
+		   </div>
+	   </blockquote>
 
 	
 							
@@ -35,7 +50,7 @@
 							  <div class="col-md-5" style="margin-left:30px;">
 				  
 				  <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-					  <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" id="goAhead">Go Ahead</button>
+					  <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close" id="goAhead">Gass In</button>
                             <button type="submit" class="btn btn-danger">Close</button>
                         </form>
 			 </div>
@@ -51,6 +66,7 @@
 @section Styles{
  <style type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"></style>
    <style type="text/css" src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"></style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/0.8.2/css/flag-icon.min.css" rel="stylesheet"/>
    <style>
 	   #example_filter input {
  border-radius: 5px;
@@ -62,12 +78,22 @@
    width: 246px;
 
 }
-
+a:hover {
+  background-color: blue;
+}
 .modal {
  text-align: center;
  padding: 0!important;
 }
-
+.modal-header{
+	border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    -webkit-border-top-left-radius: 6px;
+    -webkit-border-top-right-radius: 6px;
+    -moz-border-radius-topleft: 6px;
+    -moz-border-radius-topright: 6px;
+     background-color:#fff817;
+}
 .modal:before {
  content: '';
  display: inline-block;
@@ -117,6 +143,9 @@ th, td { white-space: nowrap; }
 $(document).ready(function() { 
     $('#addData').modal('show');
     $("#goAhead").hide();
+
+    $("#termUK").hide();
+
    const checkbox = document.getElementById('termOfUse')
 
 	checkbox.addEventListener('change', (event) => {
@@ -129,5 +158,14 @@ $(document).ready(function() {
    
  
 });
+
+function idBtn() {
+   $("#termUK").hide();
+   $("#termIndo").show();
+}
+function ukBtn() {
+    $("#termUK").show();
+   $("#termIndo").hide();
+}
   </script>
 }
