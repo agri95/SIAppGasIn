@@ -131,10 +131,11 @@ namespace SiappGasIn.Models
     public class SP_CostSimulation
     {
         public int headerSimulationID { get; set; }
-        public decimal volume { get; set; }
+        public decimal volume2 { get; set; }
         public decimal jarak { get; set; }
         public int operasiHari { get; set; }
         public int operasiBulan { get; set; }
+        public string energyName { get; set; }
         public string asalStation { get; set; }
         public string lokasiCapel { get; set; }
     }

@@ -1,218 +1,252 @@
 ﻿@model SiappGasIn.Models.SimulationCost
 
-<div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;"> 
+<div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
     <div class="card">
-          <div class="row ">      
+        <div class="row ">
             <div class="col-md-12 px-3">
-              <div class="card-block" style="border: 1px;">
-                <div class="row">
-                    <div class="col-md-7"><h5 class="card-title font-bold batasAtas" >Cost Structure Simulation Software</h5></div>
-                    <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")" class="image-responsive" style="width:120px; height:40px; float: right;"></div>
-               </div>
+                <div class="card-block" style="border: 1px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                        </div>
+                        <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
+                                class="image-responsive" style="width:120px; height:40px; float: right;"></div>
+                    </div>
 
-               <div id="convertEnergy">
-		<div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin" style="margin-top: 7px;">
-			<div class="card-body" style="margin: 15px ;">
-				<form class="form-horizontal form-label-left">
-					
-<div class="row">
-    <div class="col-md-12">
-        <div class="col-md-7">
-        <table class="table table-bordered">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col"  ><center></center></th>
-      <th scope="col"  ><center>$/MMBtu</center></th>
-      <th scope="col"  ><center>Rp/MMBtu</center></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="font-weight:bold;">HARGA GAS</td>
-      <td><span id="hargaGas">@Model.hargaGas</span></td>
-      <td><span id="hargaGasRp">@Model.hargaGasRp</span></td>
-    </tr>
-    <tr>
-      <td  style="font-weight:bold;">B. COMPRESSED</td>
-      <td><span id="compressed">@Model.compressed</span></td>
-      <td><span id="compressedRp">@Model.compressedRp</span></td>
-    </tr>
-    <tr>
-      <td  style="font-weight:bold;">Total Transportasi Cost</td>
-      <td><span id="totalTransportasiCost">@Model.totalTransportasiCost</span></td>
-      <td><span id="totalTransportasiCostRp">@Model.totalTransportasiCostRp</span></td>
-    </tr>
-    <tr>
-      <td>PRS</td>
-      <td><span id="prsCost">@Model.prsCost</span></td>
-      <td><span id="prsCostRp">@Model.prsCostRp</span></td>
-    </tr>
-    <tr>
-      <td>OPERATOR</td>
-      <td><span id="operatorCost">@Model.operatorCost</span></td>
-      <td><span id="operatorCostRp">@Model.operatorCostRp</span></td>
-    </tr>
-    <tr>
-      <td>GTM (MILIK)</td>
-      <td><span id="gtmCost">@Model.gtmCost</span></td>
-      <td><span id="gtmCostRp">@Model.gtmCostRp</span></td>
-    </tr>
-    <tr>
-      <td>GTM (SEWA)</td>
-      <td><span id="gtmSewaCost">@Model.gtmSewaCost</span></td>      
-      <td><span id="gtmSewaCostRp">@Model.gtmSewaCost</span></td>  
-    </tr>
-    <tr>
-      <td>HEAD TRUCK (SEWA)</td>
-      <td><span id="headTruckSewaCost">@Model.headTruckSewaCost</span></td>
-      <td><span id="headTruckSewaCostRp">@Model.headTruckSewaCostRp</span></td>
-    </tr>
-    <tr>
-      <td>B. FUEL + LAIN-LAIN</td>
-      <td><span id="lainLain">@Model.lainLain</span></td>
-      <td><span id="lainLainRp">@Model.lainLainRp</span></td>
-    </tr>
-    <tr>
-      <td  style="font-weight:bold;">OVERHEAD COST</td>
-      <td><span id="overheadCost">@Model.overheadCost</span></td>
-      <td><span id="overheadCostRp">@Model.overheadCostRp</span></td>
-    </tr>
-    <tr>
-      <td  style="font-weight:bold;">MARGIN</td>
-      <td><span id="marginCost">@Model.marginCost</span></td>
-      <td><span id="marginCostRp">@Model.marginCostRp</span></td>
-    </tr>
-   
+                    <div id="convertEnergy">
+                        <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                            style="margin-top: 7px;">
+                            <div class="card-body" style="margin: 15px ;">
+                                <form class="form-horizontal form-label-left">
 
-  </tbody>
-</table>
-    </div>
-    <div class="col-md-5">
-         <table class="table table-bordered">
-  <thead class="thead-dark">
-    
-  </thead>
-  <tbody>
-    <tr>
-      <td style="font-weight:bold; font-size:12px;" rowspan="2">HARGA JUAL</td>
-      <td><span id="hargaGas">@Model.hargaJual $/MMBtu</span></td>
-    </tr>
-    <tr>
-      <td><span id="compressed">@Model.hargaJualRp Rp/MMBtu</span></td>
-    </tr>
-    <tr>
-      <td style="font-weight:bold; font-size:12px;" >HARGA Rp/MMBtu</td>
-      <td><span id="hargaGas">@Model.hargaJual $/mmbtu</span></td>
-    </tr>
-   
-    
-   
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-7">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th scope="col">
+                                                                <center></center>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <center>$/MMBtu</center>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <center>Rp/MMBtu</center>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">HARGA GAS</td>
+                                                            <td><span id="hargaGas">@Model.hargaGas</span></td>
+                                                            <td><span id="hargaGasRp">@Model.hargaGasRp</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">B. COMPRESSED</td>
+                                                            <td><span id="compressed">@Model.compressed</span></td>
+                                                            <td><span id="compressedRp">@Model.compressedRp</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">Total Transportasi Cost</td>
+                                                            <td><span
+                                                                    id="totalTransportasiCost">@Model.totalTransportasiCost</span>
+                                                            </td>
+                                                            <td><span
+                                                                    id="totalTransportasiCostRp">@Model.totalTransportasiCostRp</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>PRS</td>
+                                                            <td><span id="prsCost">@Model.prsCost</span></td>
+                                                            <td><span id="prsCostRp">@Model.prsCostRp</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>OPERATOR</td>
+                                                            <td><span id="operatorCost">@Model.operatorCost</span></td>
+                                                            <td><span id="operatorCostRp">@Model.operatorCostRp</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>GTM (MILIK)</td>
+                                                            <td><span id="gtmCost">@Model.gtmCost</span></td>
+                                                            <td><span id="gtmCostRp">@Model.gtmCostRp</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>GTM (SEWA)</td>
+                                                            <td><span id="gtmSewaCost">@Model.gtmSewaCost</span></td>
+                                                            <td><span id="gtmSewaCostRp">@Model.gtmSewaCost</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>HEAD TRUCK (SEWA)</td>
+                                                            <td><span
+                                                                    id="headTruckSewaCost">@Model.headTruckSewaCost</span>
+                                                            </td>
+                                                            <td><span
+                                                                    id="headTruckSewaCostRp">@Model.headTruckSewaCostRp</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>B. FUEL + LAIN-LAIN</td>
+                                                            <td><span id="lainLain">@Model.lainLain</span></td>
+                                                            <td><span id="lainLainRp">@Model.lainLainRp</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">OVERHEAD COST</td>
+                                                            <td><span id="overheadCost">@Model.overheadCost</span></td>
+                                                            <td><span id="overheadCostRp">@Model.overheadCostRp</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">MARGIN</td>
+                                                            <td><span id="marginCost">@Model.marginCost</span></td>
+                                                            <td><span id="marginCostRp">@Model.marginCostRp</span></td>
+                                                        </tr>
 
-  </tbody>
-</table>
 
-    <table class="table table-bordered">
-      <thead class="thead-dark">
-    
-      </thead>
-      <tbody>        
-        <tr>
-          <td style="font-weight:bold; font-size:12px;" >PRS Type</td>
-          <td><span id="hargaGas">@Model.PRS</span></td>
-        </tr>
-         <tr>
-          <td style="font-weight:bold; font-size:12px;" >GTM Type</td>
-          <td><span id="hargaGas">@Model.GTM</span></td>
-        </tr>
-   
-    
-   
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-dark">
 
-      </tbody>
-    </table>
-    </div>
-    </div>
-</div>
-	
-				</form>
-				
-			</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-					<button type="submit" onclick="back()" class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>
-					<button type="submit" onclick="history.go(-1)" class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
-				</div>
-			</div>
-</div>
-               
-             
-               
-              </div>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;" rowspan="2">
+                                                                HARGA JUAL</td>
+                                                            <td><span id="hargaGas">@Model.hargaJual $/MMBtu</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><span id="compressed">@Model.hargaJualRp Rp/MMBtu</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">HARGA Rp/MMBtu
+                                                            </td>
+                                                            <td><span id="hargaGas">@Model.hargaJual $/mmbtu</span></td>
+                                                        </tr>
+
+
+
+
+                                                    </tbody>
+                                                </table>
+
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-dark">
+
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">PRS Type</td>
+                                                            <td><span id="hargaGas">@Model.PRS</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">GTM Type</td>
+                                                            <td><span id="hargaGas">@Model.GTM</span></td>
+                                                        </tr>
+
+
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                <button type="submit" onclick="back()"
+                                    class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>
+                                <button type="submit" onclick="history.go(-1)"
+                                    class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
             </div>
-          </div>
-        </div>   
-    </div>   
+        </div>
+    </div>
+</div>
 
 @section Styles{
-   <style type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css"></style>
-   <style type="text/css" src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"></style>
-   <style>
-	   #example_filter input {
- border-radius: 5px;
- height: 24px;
- float:right;
- 
-   margin-left: -20;
-   margin-left: 10px;
-   width: 246px;
+<style type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+</style>
+<style type="text/css" src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"></style>
+<style>
+    #example_filter input {
+        border-radius: 5px;
+        height: 24px;
+        float: right;
 
-}
-.modal-backdrop {
-	background-color: rgba(0,0,0,.0001) !important;
-}
-.modal {
- text-align: center;
- padding: 0!important;
-}
+        margin-left: -20;
+        margin-left: 10px;
+        width: 246px;
 
-.modal:before {
- content: '';
- display: inline-block;
- height: 100%;
- vertical-align: middle;
- margin-right: -4px; /* Adjusts for spacing */
-}
+    }
 
-.modal-dialog {
- display: inline-block;
- text-align: left;
- vertical-align: middle;
-}
-th, td { white-space: nowrap; }
-   div.dataTables_wrapper {
-	   margin: 0 auto;
-   }
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, .0001) !important;
+    }
 
-   </style>
-   @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">*@
+    .modal {
+        text-align: center;
+        padding: 0 !important;
+    }
+
+    .modal:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -4px;
+        /* Adjusts for spacing */
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    th,
+    td {
+        white-space: nowrap;
+    }
+
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
+</style>
+@*
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">*@
 }
 @section Scripts{
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>                   
-<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>                   
-<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>  
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-	<script  type="text/javascript">
-function back() {
-	var url = '@Url.Action("Index", "SimulationCost")';
-                    window.location.href = url;
-}
+<script type="text/javascript">
+    function back() {
+        var url = '@Url.Action("Index", "SimulationCost")';
+        window.location.href = url;
+    }
 
-function Details(Id) {
-   var url = '@Url.Action("Index", "SimulationCost")?Id=' + Id;
-                    window.location.href = url;
-}
-	
-	</script>
+    function Details(Id) {
+        var url = '@Url.Action("Index", "SimulationCost")?Id=' + Id;
+        window.location.href = url;
+    }
+
+</script>
 }

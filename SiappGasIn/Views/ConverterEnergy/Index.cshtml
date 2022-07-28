@@ -1,166 +1,178 @@
-﻿<div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;"> 
+﻿<div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
     <div class="card">
-          <div class="row ">      
+        <div class="row ">
             <div class="col-md-12 px-3">
-              <div class="card-block" style="border: 1px;">
-                <div class="row">
-                    <div class="col-md-7"><h5 class="card-title font-bold batasAtas" >Cost Structure Simulation Software</h5></div>
-                    <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")" class="image-responsive" style="width:120px; height:40px; float: right;"></div>
-               </div>
-
-               
-               <div id="convertEnergy">
-    <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin" style="margin-top: 7px;">
-        <div class="card-body" style="margin: 15px ;">
-            <form class="form-horizontal form-label-left">
-                <input type="hidden" id="energyName" />
-                <input type="hidden" id="hargaBBM" />
-                <label>Convert Energy</label>
-                <div class="form-group row ">
-                    <label class="control-label col-md-4 col-sm-4 ">Bahan Bakar Existing</label>
-                    <div class="col-md-8 col-sm-8 ">
-                        <select class="form-control form-control-sm " id="bahanBakar">
-                            <option value="0">- Pilih Bahan Bakar -</option>
-                        </select>
+                <div class="card-block" style="border: 1px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                        </div>
+                        <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
+                                class="image-responsive" style="width:120px; height:40px; float: right;"></div>
                     </div>
-                </div>
-                <div class="form-group row ">
-                    <label class="control-label col-md-4 col-sm-4 ">Pemakaian / Bulan</label>
-                    <div class="col-md-3 col-sm-3 ">
-                        <input class="form-control form-control-sm" id="pemakaian" name="pemakaian" type="text"
-                            placeholder="" aria-label=".form-control-sm example">
+
+
+                    <div id="convertEnergy">
+                        <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                            style="margin-top: 7px;">
+                            <div class="card-body" style="margin: 15px ;">
+                                <form class="form-horizontal form-label-left">
+                                    <input type="hidden" id="energyName" />
+                                    <input type="hidden" id="hargaBBM" />
+                                    <label>Convert Energy</label>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Bahan Bakar Existing</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <select class="form-control form-control-sm " id="bahanBakar">
+                                                <option value="0">- Pilih Bahan Bakar -</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Pemakaian / Bulan</label>
+                                        <div class="col-md-3 col-sm-3 ">
+                                            <input class="form-control form-control-sm" id="pemakaian" name="pemakaian"
+                                                type="text" placeholder="" aria-label=".form-control-sm example">
+                                        </div>
+                                        <span class="col-md-5 col-sm-5"
+                                            style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
+                                            id="satuanPemakaian"></span>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Nilai Kalori</label>
+                                        <div class="col-md-3 col-sm-3 ">
+                                            <input class="form-control form-control-sm" id="nilaiKalori"
+                                                name="nilaiKalori" type="text" placeholder=""
+                                                aria-label=".form-control-sm example" readonly>
+                                        </div>
+                                        <span class="col-md-3 col-sm-3"
+                                            style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
+                                            id="satuan"></span>
+                                        <div class="col-md-2 col-sm-2 ">
+                                            <a href="#" onclick="convertEnergy()"
+                                                class="btn btn-primary btn-sm pull-right">Convert</a>
+                                        </div>
+                                    </div>
+
+
+                                    <hr style="border: 2px solid #ededf0;" />
+
+
+                                </form>
+                                <table class="table table-bordered" id="tableConvert">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:40%; text-align:center; font-size:12px;">ITEM</th>
+                                            <th style="width:30%; text-align:center; font-size:12px;" colspan="2"><span
+                                                    id="tblHeader"></span></th>
+                                            <th style="width:30%; text-align:center; font-size:12px;" colspan="2">GAS
+                                                BUMI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-size:12px;">NILAI KALORI</td>
+                                            <td class="tblConvert"><span id="tblNilaiKalori"></span></td>
+                                            <td class="tblConvert"><span id="tblSatuan"></span></td>
+                                            <td class="tblConvert"><span id="tblHargaGasBumi"></span></td>
+                                            <td class="tblConvert"><span id="">Kkal/m3</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size:12px;">KONVERSI</td>
+                                            <td class="tblConvert"><span id="tblKonversi"></span></td>
+                                            <td class="tblConvert"><span id="tblKonversiSatuan"></span></td>
+                                            <td class="tblConvert"><span id="tblKonversiGas"></span></td>
+                                            <td class="tblConvert"><span id="">m3</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size:12px;">PEMAKAIAN BAHAN BAKAR PER BULAN</td>
+                                            <td class="tblConvert"><span id="tblPemakaian"></span></td>
+                                            <td class="tblConvert"><span id="tblPemakaianSatuan"></span></td>
+                                            <td class="tblConvert"><span id="tblPemakaianGas"></span></td>
+                                            <td class="tblConvert"><span id="">m3</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size:12px;">HARGA BAHAN BAKAR</td>
+                                            <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;">
+                                                <span id="tblBB"></span></td>
+                                            <td class="tblConvert"><span id="tblBBSatuan"></span></td>
+                                            <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;">
+                                                <span id="tblBBGas"></span></td>
+                                            <td class="tblConvert"><span id="">Rp/m3</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size:12px;">BIAYA UNTUK BAHAN BAKAR PER BULAN </td>
+                                            <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;">
+                                                <span id="tblBiaya"></span></td>
+                                            <td class="tblConvert"><span id="tblBiayaSatuan"></span></td>
+                                            <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;">
+                                                <span id="tblBiayaGas"></span></td>
+                                            <td class="tblConvert"><span id="">Rp/Bln</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size:12px;">PENGHEMATAN DGN GAS BUMI</td>
+                                            <td class="tblConvert" style="background-color: #eeff1a; font-weight:bold;"
+                                                colspan="3"><span id="tblPenghematan"></span></td>
+                                            <td class="tblConvert"><span id="">Rp/Bln</span></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <div class="form-group row ">
+                                    <label class="control-label col-md-4 col-sm-4 ">Pemakaian / M3 / Bulan</label>
+                                    <div class="col-md-8 col-sm-8 ">
+                                        <input class="form-control form-control-sm" id="resultConvert"
+                                            name="resultConvert" type="text" placeholder=""
+                                            aria-label=".form-control-sm example" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                <button type="submit" onclick="submitEnergy()"
+                                    class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                <button type="submit" onclick="resetInput()"
+                                    class="btn btn-warning btn-sm pull-right RbtnMargin">Reset</button>
+                            </div>
+                        </div>
                     </div>
-                    <span class="col-md-5 col-sm-5"
-                        style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
-                        id="satuanPemakaian"></span>
-                </div>
-                <div class="form-group row ">
-                    <label class="control-label col-md-4 col-sm-4 ">Nilai Kalori</label>
-                    <div class="col-md-3 col-sm-3 ">
-                        <input class="form-control form-control-sm" id="nilaiKalori" name="nilaiKalori" type="text"
-                            placeholder="" aria-label=".form-control-sm example" readonly>
-                    </div>
-                    <span class="col-md-3 col-sm-3"
-                        style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
-                        id="satuan"></span>
-                    <div class="col-md-2 col-sm-2 ">
-                        <a href="#" onclick="convertEnergy()" class="btn btn-primary btn-sm pull-right">Convert</a>
-                    </div>
-                </div>
 
 
-                <hr style="border: 2px solid #ededf0;" />
-
-
-            </form>
-            <table class="table table-bordered" id="tableConvert">
-                <thead>
-                    <tr>
-                        <th style="width:40%; text-align:center; font-size:12px;">ITEM</th>
-                        <th style="width:30%; text-align:center; font-size:12px;" colspan="2"><span
-                                id="tblHeader"></span></th>
-                        <th style="width:30%; text-align:center; font-size:12px;" colspan="2">GAS BUMI</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-size:12px;">NILAI KALORI</td>
-                        <td class="tblConvert"><span id="tblNilaiKalori"></span></td>
-                        <td class="tblConvert"><span id="tblSatuan"></span></td>
-                        <td class="tblConvert"><span id="tblHargaGasBumi"></span></td>
-                        <td class="tblConvert"><span id="">Kkal/m3</span></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:12px;">KONVERSI</td>
-                        <td class="tblConvert"><span id="tblKonversi"></span></td>
-                        <td class="tblConvert"><span id="tblKonversiSatuan"></span></td>
-                        <td class="tblConvert"><span id="tblKonversiGas"></span></td>
-                        <td class="tblConvert"><span id="">m3</span></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:12px;">PEMAKAIAN BAHAN BAKAR PER BULAN</td>
-                        <td class="tblConvert"><span id="tblPemakaian"></span></td>
-                        <td class="tblConvert"><span id="tblPemakaianSatuan"></span></td>
-                        <td class="tblConvert"><span id="tblPemakaianGas"></span></td>
-                        <td class="tblConvert"><span id="">m3</span></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:12px;">HARGA BAHAN BAKAR</td>
-                        <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;"><span
-                                id="tblBB"></span></td>
-                        <td class="tblConvert"><span id="tblBBSatuan"></span></td>
-                        <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;"><span
-                                id="tblBBGas"></span></td>
-                        <td class="tblConvert"><span id="">Rp/m3</span></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:12px;">BIAYA UNTUK BAHAN BAKAR PER BULAN </td>
-                        <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;"><span
-                                id="tblBiaya"></span></td>
-                        <td class="tblConvert"><span id="tblBiayaSatuan"></span></td>
-                        <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;"><span
-                                id="tblBiayaGas"></span></td>
-                        <td class="tblConvert"><span id="">Rp/Bln</span></td>
-                    </tr>
-                    <tr>
-                        <td style="font-size:12px;">PENGHEMATAN DGN GAS BUMI</td>
-                        <td class="tblConvert" style="background-color: #eeff1a; font-weight:bold;" colspan="3"><span
-                                id="tblPenghematan"></span></td>
-                        <td class="tblConvert"><span id="">Rp/Bln</span></td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <div class="form-group row ">
-                <label class="control-label col-md-4 col-sm-4 ">Pemakaian / M3 / Bulan</label>
-                <div class="col-md-8 col-sm-8 ">
-                    <input class="form-control form-control-sm" id="resultConvert" name="resultConvert" type="text"
-                        placeholder="" aria-label=".form-control-sm example" readonly>
                 </div>
             </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-            <button type="submit" onclick="submitEnergy()"
-                class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
-            <button type="submit" onclick="resetInput()" class="btn btn-warning btn-sm pull-right RbtnMargin">Reset</button>
         </div>
     </div>
 </div>
-             
-               
-              </div>
-            </div>
-          </div>
-        </div>   
-    </div>   
 
-        
+
 @section Styles{
 <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.css" />
 <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
 <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
 <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
-<link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+<link rel="stylesheet" type="text/css"
+    href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
 
 @*
 <link rel="stylesheet" href="~/plugins/map/css/styles.css" />*@
 
 <style>
-    .koes{
+    .koes {
         position: absolute;
 
-  top: 45px;
-  z-index: -2;
+        top: 45px;
+        z-index: -2;
     }
-    .agri{
-        margin-left:70%;
-        margin-right:1%;
-        margin-top:10px;
+
+    .agri {
+        margin-left: 70%;
+        margin-right: 1%;
+        margin-top: 10px;
     }
+
     .map {
         height: 370px;
         width: 100%;
@@ -221,7 +233,7 @@
 @section Scripts{
 
 <script type="text/javascript">
-    
+
     function convertEnergy() {
         $("#tableConvert").show();
         let nf = new Intl.NumberFormat('en-US')
@@ -269,21 +281,21 @@
             $("#resultConvert").val(nf.format(hitPemakaian));
         }
 
-    }       
+    }
 
-function resetInput() {
-    $("#tableConvert").hide();
-    $("#bahanBakar").val("");
-    $("#pemakaian").val("");
-    $("#nilaiKalori").val("");
-    $("#resultConvert").val("");
+    function resetInput() {
+        $("#tableConvert").hide();
+        $("#bahanBakar").val("");
+        $("#pemakaian").val("");
+        $("#nilaiKalori").val("");
+        $("#resultConvert").val("");
 
-}
+    }
 
 
-$(document).ready(function() {
-     $("#tableConvert").hide();
-     $.ajax({
+    $(document).ready(function () {
+        $("#tableConvert").hide();
+        $.ajax({
             url: '@Url.Action("Retrieve", "MstEnergy")',
             type: 'post',
             dataType: 'json',
@@ -303,37 +315,37 @@ $(document).ready(function() {
                 }
             }
         });
-    $("#bahanBakar").change(function() {
-        var deptid = $(this).val();
+        $("#bahanBakar").change(function () {
+            var deptid = $(this).val();
 
-        $.ajax({
-            url: '@Url.Action("Retrieve", "MstEnergy")',
-            type: 'post',
-            dataType: 'json',
-            success: function(response) {
+            $.ajax({
+                url: '@Url.Action("Retrieve", "MstEnergy")',
+                type: 'post',
+                dataType: 'json',
+                success: function (response) {
 
-                var len = response.data.length;
+                    var len = response.data.length;
 
-                for (var i = 0; i < len; i++) {
-                    var id = response.data[i].energyID;
-                    var energy = response.data[i].energy;
-                    if (id == deptid) {
-                        $("#nilaiKalori").val(response.data[i].nilaiKalori);
-                        $("#satuan").text(response.data[i].satuan);
-                        $("#energyName").val(response.data[i].energy);
-                        $("#hargaBBM").val(response.data[i].harga);
-                        if (energy == "LPG" || energy == "Batu Bara") {
-                            $("#satuanPemakaian").text("Kg");
-                        } else {
-                            $("#satuanPemakaian").text("Ltr");
+                    for (var i = 0; i < len; i++) {
+                        var id = response.data[i].energyID;
+                        var energy = response.data[i].energy;
+                        if (id == deptid) {
+                            $("#nilaiKalori").val(response.data[i].nilaiKalori);
+                            $("#satuan").text(response.data[i].satuan);
+                            $("#energyName").val(response.data[i].energy);
+                            $("#hargaBBM").val(response.data[i].harga);
+                            if (energy == "LPG" || energy == "Batu Bara") {
+                                $("#satuanPemakaian").text("Kg");
+                            } else {
+                                $("#satuanPemakaian").text("Ltr");
+                            }
+
                         }
-
                     }
                 }
-            }
+            });
         });
-    });
 
-});
+    });
 </script>
 }

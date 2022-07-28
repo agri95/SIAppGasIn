@@ -1,4 +1,30 @@
-﻿@{
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.EntityFrameworkCore;
+@using SiappGasIn.Models
+@inject IOptions<SiappGasIn.Services.IdentityDefaultOptions> identityDefaultOptionsAcc
+@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
+@inject SiappGasIn.Data.ApplicationDbContext dbContext
+
+@{
+
+    SiappGasIn.Services.IdentityDefaultOptions identityOptions = null;
+
+    try
+    {
+        var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+        var users = await userManager.FindByIdAsync(currentUserId);
+        
+        identityOptions = identityDefaultOptionsAcc.Value;
+
+    }
+    catch
+    {
+
+    }
+
+}
+
+@{
 ViewData["Title"] = "Simulation Cost";
 }
 
@@ -40,7 +66,7 @@ ViewData["Title"] = "Simulation Cost";
                                         <div class="col-md-9 col-sm-9 ">
                                             <input class="form-control form-control-sm frmInput" id="creator"
                                                 name="creator" type="text" placeholder=""
-                                                aria-label=".form-control-sm example">
+                                                aria-label=".form-control-sm example" value="@userManager.GetUserName(User)" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
@@ -51,7 +77,7 @@ ViewData["Title"] = "Simulation Cost";
                                                 aria-label=".form-control-sm example">
                                         </div>
                                     </div>
-                                    <label><strong>Prosfective Customer Data</strong></label>
+                                    <label><strong>Prospective Customer Data</strong></label>
                                     <br />
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
@@ -63,21 +89,30 @@ ViewData["Title"] = "Simulation Cost";
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Demand Usage/M³</label>
-                                        <div class="col-md-2 col-sm-2 ">
-                                            <input class="form-control form-control-sm frmInput" type="text"
+                                        <div class="col-md-3 col-sm-3 ">
+                                            <input class="form-control form-control-sm frmInput" type="number"
                                                 id="demandUsage" name="demandUsage" placeholder=""
                                                 aria-label=".form-control-sm example">
                                         </div>
-                                        <div class="col-md-1 col-sm-1 " style=" padding-left: 0px;">
-                                            <a href="#" onclick="exchangeEnergy()" class="btn btn-primary btn-sm"
-                                                style="height : 26px;"><span><i class="fa fa-exchange"
-                                                        aria-hidden="true"></i></span></a>
+                                        <span class="col-md-1 col-sm-1"
+                                            style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                            id="satuanPemakaian">
+                                        </span>
+                                        <div class="col-md-4 col-sm-4 ">
+                                            <select class="form-control form-control-sm frmInput" id="bahanBakar" style="padding-top: 2px;padding-bottom: 2px;">
+                                                
+                                            </select>
                                         </div>
+                                         <input class="form-control form-control-sm" id="nilaiKalori" name="nilaiKalori" type="hidden" placeholder="" aria-label=".form-control-sm example" >
+                                         <input type="hidden" id="energyName" />
+                                        
+                                    </div>
+                                    <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
-                                        <div class="col-md-3 col-sm-3 ">
+                                        <div class="col-md-9 col-sm-9 ">
                                             <a href="#" onclick="mapp()" class="btn btn-warning btn-sm">Find
                                                 Location</a>
-                                        </div>
+                                        </div>                                       
                                     </div>
                                     <div class="form-group row ">
 
@@ -187,140 +222,7 @@ ViewData["Title"] = "Simulation Cost";
                             </div>
                         </div>
                     </div>
-
-                    <div id="convertEnergy">
-                        <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
-                            style="margin-top: 7px;">
-                            <div class="card-body" style="margin: 15px ;">
-                                <form class="form-horizontal form-label-left">
-                                    <input type="hidden" id="energyName" />
-                                    <input type="hidden" id="hargaBBM" />
-                                    <label>Convert Energy</label>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-4 col-sm-4 ">Bahan Bakar Existing</label>
-                                        <div class="col-md-8 col-sm-8 ">
-                                            <select class="form-control form-control-sm " id="bahanBakar">
-                                                <option value="0">- Pilih Bahan Bakar -</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-4 col-sm-4 ">Pemakaian / Bulan</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm" id="pemakaian" name="pemakaian"
-                                                type="text" placeholder="" aria-label=".form-control-sm example">
-                                        </div>
-                                        <span class="col-md-5 col-sm-5"
-                                            style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
-                                            id="satuanPemakaian"></span>
-                                    </div>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-4 col-sm-4 ">Nilai Kalori</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm" id="nilaiKalori"
-                                                name="nilaiKalori" type="text" placeholder=""
-                                                aria-label=".form-control-sm example" readonly>
-                                        </div>
-                                        <span class="col-md-3 col-sm-3"
-                                            style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
-                                            id="satuan"></span>
-                                        <div class="col-md-2 col-sm-2 ">
-                                            <a href="#" onclick="convertEnergy()"
-                                                class="btn btn-primary btn-sm pull-right">Convert</a>
-                                        </div>
-                                    </div>
-
-
-                                    <hr style="border: 2px solid #ededf0;" />
-
-
-                                </form>
-                                <table class="table table-bordered" id="tableConvert">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40%; text-align:center; font-size:12px;">ITEM</th>
-                                            <th style="width:30%; text-align:center; font-size:12px;" colspan="2"><span
-                                                    id="tblHeader"></span></th>
-                                            <th style="width:30%; text-align:center; font-size:12px;" colspan="2">GAS
-                                                BUMI</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td style="font-size:12px;">NILAI KALORI</td>
-                                            <td class="tblConvert"><span id="tblNilaiKalori"></span></td>
-                                            <td class="tblConvert"><span id="tblSatuan"></span></td>
-                                            <td class="tblConvert"><span id="tblHargaGasBumi"></span></td>
-                                            <td class="tblConvert"><span id="">Kkal/m3</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size:12px;">KONVERSI</td>
-                                            <td class="tblConvert"><span id="tblKonversi"></span></td>
-                                            <td class="tblConvert"><span id="tblKonversiSatuan"></span></td>
-                                            <td class="tblConvert"><span id="tblKonversiGas"></span></td>
-                                            <td class="tblConvert"><span id="">m3</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size:12px;">PEMAKAIAN BAHAN BAKAR PER BULAN</td>
-                                            <td class="tblConvert"><span id="tblPemakaian"></span></td>
-                                            <td class="tblConvert"><span id="tblPemakaianSatuan"></span></td>
-                                            <td class="tblConvert"><span id="tblPemakaianGas"></span></td>
-                                            <td class="tblConvert"><span id="">m3</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size:12px;">HARGA BAHAN BAKAR</td>
-                                            <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;">
-                                                <span id="tblBB"></span>
-                                            </td>
-                                            <td class="tblConvert"><span id="tblBBSatuan"></span></td>
-                                            <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;">
-                                                <span id="tblBBGas"></span>
-                                            </td>
-                                            <td class="tblConvert"><span id="">Rp/m3</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size:12px;">BIAYA UNTUK BAHAN BAKAR PER BULAN </td>
-                                            <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;">
-                                                <span id="tblBiaya"></span>
-                                            </td>
-                                            <td class="tblConvert"><span id="tblBiayaSatuan"></span></td>
-                                            <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;">
-                                                <span id="tblBiayaGas"></span>
-                                            </td>
-                                            <td class="tblConvert"><span id="">Rp/Bln</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size:12px;">PENGHEMATAN DGN GAS BUMI</td>
-                                            <td class="tblConvert" style="background-color: #eeff1a; font-weight:bold;"
-                                                colspan="3"><span id="tblPenghematan"></span></td>
-                                            <td class="tblConvert"><span id="">Rp/Bln</span></td>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                                <div class="form-group row ">
-                                    <label class="control-label col-md-4 col-sm-4 ">Pemakaian / M3 / Bulan</label>
-                                    <div class="col-md-8 col-sm-8 ">
-                                        <input class="form-control form-control-sm" id="resultConvert"
-                                            name="resultConvert" type="text" placeholder=""
-                                            aria-label=".form-control-sm example" readonly>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-                                <button type="submit" onclick="submitEnergy()"
-                                    class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
-                                <button type="submit" onclick="back()"
-                                    class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
-                            </div>
-                        </div>
-                    </div>
-
-
+                    <!--Batas-->
                     <div id="findMap">
                         <div style="margin-bottom:10px;">
                             <div class="form">
@@ -511,7 +413,7 @@ ViewData["Title"] = "Simulation Cost";
 
     }
 
-    function calculateCost() {
+    function calculateCost() {      
 
         var projectName = $("#projectName").val();
         var creator = $("#creator").val();
@@ -519,126 +421,133 @@ ViewData["Title"] = "Simulation Cost";
         var customerName = $("#customerName").val();
         var targetCOD = $("#targetCOD").val();
         if (projectName == "" || projectName == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
                 $("#_alert").slideUp(500);
             });
             $("#textError").text("Project Name ");
         }
         else if (creator == "" || creator == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
                 $("#_alert").slideUp(500);
             });
             $("#textError").text("Creator ");
         }
         else if (projectDate == "" || projectDate == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
                 $("#_alert").slideUp(500);
             });
             $("#textError").text("Project Date ");
         }
         else if (customerName == "" || customerName == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
                 $("#_alert").slideUp(500);
             });
             $("#textError").text("Customer Name ");
         }
         else if (targetCOD == "" || targetCOD == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
                 $("#_alert").slideUp(500);
             });
             $("#textError").text("Target COD ");
+        }else if (demandUsage == "" || demandUsage == null) {
+            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
+                $("#_alert").slideUp(500);
+            });
+            $("#textError").text("Demand Usage ");
         } else {
             $.ajax({
-            url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-            type: 'POST',
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(
-                {
+                url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(
+                    {
 
-                    "ProjectName": projectName,
-                    "Creator": creator,
-                    "ProjectDate": projectDate,
-                    "CustomerName": customerName,
-                    "TargetCOD": targetCOD,
+                        "ProjectName": projectName,
+                        "Creator": creator,
+                        "ProjectDate": projectDate,
+                        "CustomerName": customerName,
+                        "TargetCOD": targetCOD,
+                    }
+                ),
+                success: function (data) {
+                    if (data.status == true) {
+
+                        calculate(data.data);
+
+                        alert("SUKSES");
+
+                        var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                        window.location.href = url;
+
+
+                    }
+
+                },
+                error: function (jqXHR) {
+                    $('#divErrorText').text(jqXHR.responseText);
+                    $('#divError').show('fade');
                 }
-            ),
-            success: function (data) {
-                if (data.status == true) {
-                    
-                    calculate(data.data);        
-
-                    alert("SUKSES");
-
-                    var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                    window.location.href = url;
-                     
-                    
-                }
-
-            },
-            error: function (jqXHR) {
-                $('#divErrorText').text(jqXHR.responseText);
-                $('#divError').show('fade');
-            }
-        });
-        }    
+            });
+        }
 
     }
 
-    
+
     function calculate(data) {
         if (results.length > 0) {
             for (i = 0; i < results.length; i++) {
-                        var rsLokasi = results[i].lokasi;
-                        var rsJarak = results[i].jarak;                   
+                var rsLokasi = results[i].lokasi;
+                var rsJarak = results[i].jarak;
                 var jarak = rsJarak * 2;
                 var volume = $("#demandUsage").val(); // M3/Bln
-                        volume = volume.replace(/\,/g, '')
-                        volume = Number(volume)
-                        var operasiHari = $("#hourDay").val();
-                       var operasiBulan = $("#workDay").val();
-                        $.ajax({
-                            url: '@Url.Action("SaveData", "SimulationCost")',
-                            type: 'POST',
-                            dataType: 'json',
-                            contentType: "application/json; charset=utf-8",
-                            data: JSON.stringify(
-                                {
-                                    "HeaderSimulationID": data,                                   
-                                    "volume": volume,
-                                    "jarak" : jarak,
-                                    "operasiHari": operasiHari,
-                                    "operasiBulan": operasiBulan,
-                                    "asalStation": rsLokasi,
-                                    "lokasiCapel": "None"
-                                }
-                            ),
-                            success: function (data) {
-                                //alert(data);
-                                if (data == true) {
-                                    sessionStorage.removeItem('gajiOperator'); 
-                                    sessionStorage.removeItem('gajiSupir');
-                                    $("#GTM").val("");
-                                    $('#HargaSewa').val("");
-                                    $('#RasioBBM').val("");
-                                    $('#Kecepatan').val("");
+                volume = volume.replace(/\,/g, '')
+                volume = Number(volume)
+                var operasiHari = $("#hourDay").val();
+                var operasiBulan = $("#workDay").val();
+                var energyName = $("#energyName").val();
+                $.ajax({
+                    url: '@Url.Action("SaveData", "SimulationCost")',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(
+                        {
+                            "HeaderSimulationID": data,
+                            "volume2": volume,
+                            "jarak": jarak,
+                            "operasiHari": operasiHari,
+                            "operasiBulan": operasiBulan,
+                            "energyName": energyName, 
+                            "asalStation": rsLokasi,
+                            "lokasiCapel": "None"
+                        }
+                    ),
+                    success: function (data) {
+                        //alert(data);
+                        if (data == true) {
+                            sessionStorage.removeItem('gajiOperator');
+                            sessionStorage.removeItem('gajiSupir');
+                            $("#GTM").val("");
+                            $('#HargaSewa').val("");
+                            $('#RasioBBM').val("");
+                            $('#Kecepatan').val("");
 
-                                    $('#msgText').text('Data is added Successfully');
-                                    $('#successModal').modal('show');
-                                }
+                            $('#msgText').text('Data is added Successfully');
+                            $('#successModal').modal('show');
+                        }
 
-                            },
-                            error: function (jqXHR) {
-                                $('#divErrorText').text(jqXHR.responseText);
-                                $('#divError').show('fade');
-                            }
-                        });
-
-                        
+                    },
+                    error: function (jqXHR) {
+                        $('#divErrorText').text(jqXHR.responseText);
+                        $('#divError').show('fade');
                     }
-                   
-        }    
+                });
+
+
+            }
+
+        }
     }
     function DeleteData(id) {
         if (confirm("Are you sure you want to delete ...?")) {
@@ -653,7 +562,7 @@ ViewData["Title"] = "Simulation Cost";
 
 
     $(document).ready(function () {
-       
+
         $("#_alert").hide();
         $.ajax({
             url: '@Url.Action("Retrieve", "MstEnergy")',
@@ -670,12 +579,14 @@ ViewData["Title"] = "Simulation Cost";
                     var satuan = response.data[i].satuan;
 
                     $("#bahanBakar").append("<option value='" + id + "'>" + name + "</option>");
-
+                    $("#energyName").val(name);
 
                 }
+                 $("#bahanBakar").val(8);
+                 $("#satuanPemakaian").text("M3");
             }
         });
-
+       
         $("#bahanBakar").change(function () {
             var deptid = $(this).val();
 
@@ -697,6 +608,8 @@ ViewData["Title"] = "Simulation Cost";
                             $("#hargaBBM").val(response.data[i].harga);
                             if (energy == "LPG" || energy == "Batu Bara") {
                                 $("#satuanPemakaian").text("Kg");
+                            } else if (energy == "Gas Bumi") {
+                                $("#satuanPemakaian").text("M3");
                             } else {
                                 $("#satuanPemakaian").text("Ltr");
                             }

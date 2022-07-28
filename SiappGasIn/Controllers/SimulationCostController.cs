@@ -177,7 +177,7 @@ namespace SiappGasIn.Controllers.Api
             {                
                 if (energy != null)
                 {
-                    string StoredProc = "exec SP_CostSimulation " + energy.headerSimulationID + "," + energy.volume + "," + energy.jarak + "," + energy.operasiHari + "," + energy.operasiBulan + "," + "'"+ energy.asalStation +"'" + ","+ "'" + energy.lokasiCapel + "'";
+                    string StoredProc = "exec SP_CostSimulation " + energy.headerSimulationID + "," + energy.volume2 + "," + energy.jarak + "," + energy.operasiHari + "," + energy.operasiBulan + "," + "'"+ energy.energyName +"'" + ","+ "'"+ energy.asalStation +"'" + ","+ "'" + energy.lokasiCapel + "'";
 
                     var data = _dbContext.Set<SP_CostSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
 
