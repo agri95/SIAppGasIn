@@ -45,6 +45,7 @@ namespace SiappGasIn.Models
         public decimal sewaGTM { get; set; }
         public string asalStation { get; set; }
         public string lokasiCapel { get; set; }
+        public string UkuranGTM { get; set; }
         public string GTM { get; set; }
         public string PRS { get; set; }
         public decimal hargaGas { get; set; }

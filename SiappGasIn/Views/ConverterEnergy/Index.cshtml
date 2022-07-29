@@ -16,57 +16,136 @@
                         <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                             style="margin-top: 7px;">
                             <div class="card-body" style="margin: 15px ;">
-                                <form class="form-horizontal form-label-left">
-                                    <input type="hidden" id="energyName" />
-                                    <input type="hidden" id="hargaBBM" />
-                                    <label>Convert Energy</label>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-4 col-sm-4 ">Bahan Bakar Existing</label>
-                                        <div class="col-md-8 col-sm-8 ">
-                                            <select class="form-control form-control-sm " id="bahanBakar">
-                                                <option value="0">- Pilih Bahan Bakar -</option>
-                                            </select>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <form class="form-horizontal form-label-left">
+                                                <input type="hidden" id="energyName" />
+                                                <label style="margin-left:10px;">Dari</label>
+                                                <br />
+                                                <div class="form-group row ">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-5 col-sm-5 ">
+                                                            <input class="form-control form-control-sm frmInput"
+                                                                id="pemakaian" name="pemakaian" type="number"
+                                                                style="padding: 2px;" placeholder=""
+                                                                aria-label=".form-control-sm example">
+                                                        </div>
+                                                        <span class="col-md-1 col-sm-1 frmInput"
+                                                            style="padding-left: 2px;" id="satuanPemakaian"></span>
+                                                        <div class="col-md-6 col-sm-6 "
+                                                            style="padding: 2px;bottom: 2px;">
+                                                            <select class="form-control form-control-sm frmInput"
+                                                                id="bahanBakar" style="padding: 2px; width:92%;">
+                                                                <option value="0">- Pilih Bahan Bakar -</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row ">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-5 col-sm-5 ">
+                                                            <input class="form-control form-control-sm frmInput"
+                                                                id="hargaBBM" name="hargaBBM" type="number"
+                                                                style="padding: 2px;" placeholder=""
+                                                                aria-label=".form-control-sm example">
+                                                        </div>
+                                                        <span class="col-md-3 col-sm-3 frmInput"
+                                                            style="padding-left: 2px;" id="satuanHarga"></span>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row ">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-5 col-sm-5 ">
+                                                            <input class="form-control form-control-sm frmInput"
+                                                                id="nilaiKalori" name="nilaiKalori" type="number"
+                                                                style="padding: 2px;" placeholder=""
+                                                                aria-label=".form-control-sm example">
+                                                        </div>
+                                                        <span class="col-md-3 col-sm-3 frmInput"
+                                                            style="padding-left: 2px;" id="satuan"></span>
+
+                                                    </div>
+
+
+                                                </div>
+
+                                            </form>
                                         </div>
                                     </div>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-4 col-sm-4 ">Pemakaian / Bulan</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm" id="pemakaian" name="pemakaian"
-                                                type="text" placeholder="" aria-label=".form-control-sm example">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <form class="form-horizontal form-label-left">
+                                                <input type="hidden" id="energyNames" />
+                                                <label style="margin-left:10px;">Ke</label>
+                                                <br />
+                                                <div class="form-group row ">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-5 col-sm-5 ">
+                                                            <input class="form-control form-control-sm frmInput"
+                                                                id="pemakaians" name="pemakaians" type="number"
+                                                                style="padding: 2px;" placeholder=""
+                                                                aria-label=".form-control-sm example">
+                                                        </div>
+                                                        <span class="col-md-1 col-sm-1 frmInput"
+                                                            style="padding-left: 2px;" id="satuanPemakaians"></span>
+                                                        <div class="col-md-6 col-sm-6 "
+                                                            style="padding: 2px;bottom: 2px;">
+                                                            <select class="form-control form-control-sm frmInput"
+                                                                id="bahanBakars" style="padding: 2px; width:92%;">
+                                                                <option value="0">- Pilih Bahan Bakar -</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row ">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-5 col-sm-5 ">
+                                                            <input class="form-control form-control-sm frmInput"
+                                                                id="hargaBBMs" name="hargaBBMs" type="number"
+                                                                style="padding: 2px;" placeholder=""
+                                                                aria-label=".form-control-sm example">
+                                                        </div>
+                                                        <span class="col-md-3 col-sm-3 frmInput"
+                                                            style="padding-left: 2px;" id="satuanHargas"></span>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row ">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-5 col-sm-5 ">
+                                                            <input class="form-control form-control-sm frmInput"
+                                                                id="nilaiKaloris" name="nilaiKaloris" type="number"
+                                                                style="padding: 2px;" placeholder=""
+                                                                aria-label=".form-control-sm example">
+                                                        </div>
+                                                        <span class="col-md-3 col-sm-3 frmInput"
+                                                            style="padding-left: 2px;" id="satuans"></span>
+
+                                                    </div>
+
+
+                                                </div>
+
+                                            </form>
                                         </div>
-                                        <span class="col-md-5 col-sm-5"
-                                            style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
-                                            id="satuanPemakaian"></span>
                                     </div>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-4 col-sm-4 ">Nilai Kalori</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm" id="nilaiKalori"
-                                                name="nilaiKalori" type="text" placeholder=""
-                                                aria-label=".form-control-sm example" readonly>
-                                        </div>
-                                        <span class="col-md-3 col-sm-3"
-                                            style="padding-left: -10; padding-left: -10; padding-left: 0px; padding-top: 7px;"
-                                            id="satuan"></span>
-                                        <div class="col-md-2 col-sm-2 ">
-                                            <a href="#" onclick="convertEnergy()"
-                                                class="btn btn-primary btn-sm pull-right">Convert</a>
-                                        </div>
-                                    </div>
-
-
-                                    <hr style="border: 2px solid #ededf0;" />
-
-
-                                </form>
+                                </div>
+                                <div class="col-md-12 col-sm-12 " style="margin:10px;">
+                                    <a href="#" onclick="convertEnergy()"
+                                        class="btn btn-primary btn-sm pull-right">Convert</a>
+                                </div>
                                 <table class="table table-bordered" id="tableConvert">
                                     <thead>
                                         <tr>
                                             <th style="width:40%; text-align:center; font-size:12px;">ITEM</th>
                                             <th style="width:30%; text-align:center; font-size:12px;" colspan="2"><span
                                                     id="tblHeader"></span></th>
-                                            <th style="width:30%; text-align:center; font-size:12px;" colspan="2">GAS
-                                                BUMI</th>
+                                           @* <th style="width:20%; text-align:center; font-size:12px;" colspan="2">GAS
+                                                BUMI</th>*@
+                                            <th style="width:30%; text-align:center; font-size:12px;" colspan="2"><span
+                                                    id="tblConv"></span></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -74,52 +153,68 @@
                                             <td style="font-size:12px;">NILAI KALORI</td>
                                             <td class="tblConvert"><span id="tblNilaiKalori"></span></td>
                                             <td class="tblConvert"><span id="tblSatuan"></span></td>
-                                            <td class="tblConvert"><span id="tblHargaGasBumi"></span></td>
-                                            <td class="tblConvert"><span id="">Kkal/m3</span></td>
+                                           @* <td class="tblConvert"><span id="tblHargaGasBumi"></span></td>
+                                            <td class="tblConvert"><span id="">Kkal/m3</span></td>*@
+                                            <td class="tblConvert"><span id="tblNilaiKaloriConv"></span></td>
+                                            <td class="tblConvert"><span id="tblSatuanConv"></span></td>
                                         </tr>
                                         <tr>
                                             <td style="font-size:12px;">KONVERSI</td>
                                             <td class="tblConvert"><span id="tblKonversi"></span></td>
                                             <td class="tblConvert"><span id="tblKonversiSatuan"></span></td>
-                                            <td class="tblConvert"><span id="tblKonversiGas"></span></td>
-                                            <td class="tblConvert"><span id="">m3</span></td>
+                                           @* <td class="tblConvert"><span id="tblKonversiGas"></span></td>
+                                            <td class="tblConvert"><span id="">m3</span></td>*@
+                                            <td class="tblConvert"><span id="tblKonversiConv"></span></td>
+                                            <td class="tblConvert"><span id="tblKonversiSatuanConv"></span></td>
                                         </tr>
                                         <tr>
                                             <td style="font-size:12px;">PEMAKAIAN BAHAN BAKAR PER BULAN</td>
                                             <td class="tblConvert"><span id="tblPemakaian"></span></td>
                                             <td class="tblConvert"><span id="tblPemakaianSatuan"></span></td>
-                                            <td class="tblConvert"><span id="tblPemakaianGas"></span></td>
-                                            <td class="tblConvert"><span id="">m3</span></td>
+                                           @* <td class="tblConvert"><span id="tblPemakaianGas"></span></td>
+                                            <td class="tblConvert"><span id="">m3</span></td>*@
+                                            <td class="tblConvert"><span id="tblPemakaianConv"></span></td>
+                                            <td class="tblConvert"><span id="tblPemakaianSatuanConv"></span></td>
                                         </tr>
                                         <tr>
                                             <td style="font-size:12px;">HARGA BAHAN BAKAR</td>
                                             <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;">
-                                                <span id="tblBB"></span></td>
+                                                <span id="tblBB"></span>
+                                            </td>
                                             <td class="tblConvert"><span id="tblBBSatuan"></span></td>
-                                            <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;">
-                                                <span id="tblBBGas"></span></td>
-                                            <td class="tblConvert"><span id="">Rp/m3</span></td>
+                                           @* <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;">
+                                                <span id="tblBBGas"></span>
+                                            </td>
+                                            <td class="tblConvert"><span id="">Rp/m3</span></td>*@
+                                            <td class="tblConvert" style="background-color: #ffd333; font-weight:bold;">
+                                                <span id="tblBBConv"></span>
+                                            </td>
+                                            <td class="tblConvert"><span id="tblBBSatuanConv"></span></td>
                                         </tr>
                                         <tr>
                                             <td style="font-size:12px;">BIAYA UNTUK BAHAN BAKAR PER BULAN </td>
                                             <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;">
-                                                <span id="tblBiaya"></span></td>
+                                                <span id="tblBiaya"></span>
+                                            </td>
                                             <td class="tblConvert"><span id="tblBiayaSatuan"></span></td>
-                                            <td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;">
-                                                <span id="tblBiayaGas"></span></td>
-                                            <td class="tblConvert"><span id="">Rp/Bln</span></td>
+                                            @*<td class="tblConvert" style="background-color: #8cffc8; font-weight:bold;">
+                                                <span id="tblBiayaGas"></span>
+                                            </td>
+                                            <td class="tblConvert"><span id="">Rp/Bln</span></td>*@
+                                            <td class="tblConvert" style="background-color: #ffd333; font-weight:bold;">
+                                                <span id="tblBiayaConv"></span>
+                                            </td>
+                                            <td class="tblConvert"><span id="tblBiayaSatuanConv"></span></td>
                                         </tr>
-                                        <tr>
-                                            <td style="font-size:12px;">PENGHEMATAN DGN GAS BUMI</td>
-                                            <td class="tblConvert" style="background-color: #eeff1a; font-weight:bold;"
-                                                colspan="3"><span id="tblPenghematan"></span></td>
-                                            <td class="tblConvert"><span id="">Rp/Bln</span></td>
-                                        </tr>
+
 
                                     </tbody>
                                 </table>
+
+
+                                <br />
                                 <div class="form-group row ">
-                                    <label class="control-label col-md-4 col-sm-4 ">Pemakaian / M3 / Bulan</label>
+                                    <label class="control-label col-md-4 col-sm-4 ">Pemakaian / <span id="resultSatuanPemakaian"></span> / Bulan</label>
                                     <div class="col-md-8 col-sm-8 ">
                                         <input class="form-control form-control-sm" id="resultConvert"
                                             name="resultConvert" type="text" placeholder=""
@@ -233,9 +328,8 @@
 @section Scripts{
 
 <script type="text/javascript">
-
     function convertEnergy() {
-        $("#tableConvert").show();
+
         let nf = new Intl.NumberFormat('en-US')
         var energyName = $("#energyName").val();
         var demand = $("#pemakaian").val();
@@ -243,42 +337,71 @@
         var satuanPemakaian = $("#satuanPemakaian").text();
         var nilaiKal = $("#nilaiKalori").val();
         var hargaBB = $("#hargaBBM").val();
-        var hargaGasBumi = 8945.142;
+        var hargaGasBumi = 8945.14;
         var hargaBerlaku = 3650;
+
+        var energyNames = $("#energyNames").val();
+        var demands = $("#pemakaians").val();
+        var satuans = $("#satuans").text();
+        var satuanPemakaians = $("#satuanPemakaians").text();
+        var nilaiKals = $("#nilaiKaloris").val();
+        var hargaBBs = $("#hargaBBMs").val();
 
         if (demand == "" || demand == null) {
             alert("Jumlah pemakaian wajib diisi");
         } else {
+            $("#tableConvert").show();
+
             $("#tblHeader").text(energyName);
+            $("#tblConv").text(energyNames);
 
             $("#tblNilaiKalori").text(nf.format(nilaiKal));
+            $("#tblNilaiKaloriConv").text(nf.format(nilaiKals));
+
             $("#tblSatuan").text(satuan);
+            $("#tblSatuanConv").text(satuans);
+
             $("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
 
             $("#tblKonversi").text("1");
             $("#tblKonversiSatuan").text(satuanPemakaian);
+            $("#tblKonversiSatuanConv").text(satuanPemakaians);
+
             var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
             $("#tblKonversiGas").text(nf.format(hitKonversi));
+            var hitKonversiConv = parseFloat(nilaiKals) / parseFloat(hargaGasBumi);
+            $("#tblKonversiConv").text(nf.format(hitKonversiConv));
 
             $("#tblPemakaian").text(nf.format(demand));
             $("#tblPemakaianSatuan").text(satuanPemakaian);
+            $("#tblPemakaianSatuanConv").text(satuanPemakaians);
             var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
             $("#tblPemakaianGas").text(nf.format(hitPemakaian));
+            var hitPemakaianConv = (parseFloat(demand) * parseFloat(hitKonversiConv)).toFixed(0);
+            $("#tblPemakaianConv").text(nf.format(hitPemakaianConv));
 
             $("#tblBB").text(nf.format(hargaBB));
+            $("#tblBBConv").text(nf.format(hargaBBs));
             $("#tblBBSatuan").text("Rp / " + satuanPemakaian);
+            $("#tblBBSatuanConv").text("Rp / " + satuanPemakaians);
             $("#tblBBGas").text(nf.format(hargaBerlaku));
 
             var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
             $("#tblBiaya").text(nf.format(hitBiaya));
             $("#tblBiayaSatuan").text("Rp / Bln");
+            $("#tblBiayaSatuanConv").text("Rp / Bln");
             var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
             $("#tblBiayaGas").text(nf.format(hitBiayaGas));
+            var hitBiayaConv = parseFloat(hitPemakaianConv) * parseFloat(hargaBBs);
+            $("#tblBiayaConv").text(nf.format(hitBiayaConv));
 
             var hitResult = hitBiaya - hitBiayaGas;
             $("#tblPenghematan").text(nf.format(hitResult));
 
-            $("#resultConvert").val(nf.format(hitPemakaian));
+            $("#resultConvert").val(nf.format(hitPemakaianConv));
+            $("#resultSatuanPemakaian").text(energyNames);
+            $("#pemakaians").val(hitPemakaianConv);
+
         }
 
     }
@@ -289,7 +412,13 @@
         $("#pemakaian").val("");
         $("#nilaiKalori").val("");
         $("#resultConvert").val("");
-
+        $("#hargaBBM").val(""); 
+        
+        $("#bahanBakars").val("");
+        $("#pemakaians").val("");
+        $("#nilaiKaloris").val("");
+        $("#resultConverts").val("");
+        $("#hargaBBMs").val("");
     }
 
 
@@ -336,8 +465,13 @@
                             $("#hargaBBM").val(response.data[i].harga);
                             if (energy == "LPG" || energy == "Batu Bara") {
                                 $("#satuanPemakaian").text("Kg");
+                                $("#satuanHarga").text("Rp / Kg");
+                            } else if (energy == "Gas Bumi") {
+                                $("#satuanPemakaian").text("M3");
+                                $("#satuanHarga").text("Rp / M3");
                             } else {
                                 $("#satuanPemakaian").text("Ltr");
+                                $("#satuanHarga").text("Rp / Ltr");
                             }
 
                         }
@@ -346,6 +480,61 @@
             });
         });
 
+        $.ajax({
+            url: '@Url.Action("Retrieve", "MstEnergy")',
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+
+                var len = response.data.length;
+
+                for (var i = 0; i < len; i++) {
+                    var id = response.data[i].energyID;
+                    var name = response.data[i].energy;
+                    var nilai = response.data[i].nilaiKalori;
+                    var satuan = response.data[i].satuan;
+
+                    $("#bahanBakars").append("<option value='" + id + "'>" + name + "</option>");
+
+
+                }
+            }
+        });
+        $("#bahanBakars").change(function () {
+            var deptid = $(this).val();
+
+            $.ajax({
+                url: '@Url.Action("Retrieve", "MstEnergy")',
+                type: 'post',
+                dataType: 'json',
+                success: function (response) {
+
+                    var len = response.data.length;
+
+                    for (var i = 0; i < len; i++) {
+                        var id = response.data[i].energyID;
+                        var energy = response.data[i].energy;
+                        if (id == deptid) {
+                            $("#nilaiKaloris").val(response.data[i].nilaiKalori);
+                            $("#satuans").text(response.data[i].satuan);
+                            $("#energyNames").val(response.data[i].energy);
+                            $("#hargaBBMs").val(response.data[i].harga);
+                            if (energy == "LPG" || energy == "Batu Bara") {
+                                $("#satuanPemakaians").text("Kg");
+                                $("#satuanHargas").text("Rp / Kg");
+                            } else if (energy == "Gas Bumi") {
+                                $("#satuanPemakaians").text("M3");
+                                $("#satuanHargas").text("Rp / M3");
+                            } else {
+                                $("#satuanPemakaians").text("Ltr");
+                                $("#satuanHargas").text("Rp / Ltr");
+                            }
+
+                        }
+                    }
+                }
+            });
+        });
     });
 </script>
 }
