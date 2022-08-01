@@ -6,6 +6,7 @@ using SiappGasIn.Models;
 
 namespace SiappGasIn.Controllers
 {
+    [Authorize]
     public class MstLokasiSPBGController : Controller
     {
         public IActionResult Index()

@@ -58,7 +58,7 @@ namespace SiappGasIn.Data
 
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
-        //public DbSet<SysUserProfile> SysUserProfile { get; set; }
+        public DbSet<SysUserProfile> SysUserProfile { get; set; }
 
 
 

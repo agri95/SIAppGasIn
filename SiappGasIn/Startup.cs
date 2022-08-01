@@ -42,7 +42,7 @@ namespace SiappGasIn
             IConfigurationSection identityDefaultOptionsConfigurationSection = Configuration.GetSection("IdentityDefaultOptions");
 
             services.Configure<IdentityDefaultOptions>(identityDefaultOptionsConfigurationSection);
-
+            services.Configure<DefaultUserOptions>(Configuration.GetSection("DefautUserOptions"));
             var identityDefaultOptions = identityDefaultOptionsConfigurationSection.Get<IdentityDefaultOptions>();
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -77,11 +77,20 @@ namespace SiappGasIn
 
                 //                options.Cookie.Expiration = TimeSpan.FromDays(identityDefaultOptions.CookieExpiration);
 
-                options.ExpireTimeSpan = TimeSpan.FromDays(identityDefaultOptions.CookieExpiration);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(identityDefaultOptions.CookieExpiration);
                 options.LoginPath = identityDefaultOptions.LoginPath; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
                 options.LogoutPath = identityDefaultOptions.LogoutPath; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
                 options.AccessDeniedPath = identityDefaultOptions.AccessDeniedPath; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
                 options.SlidingExpiration = identityDefaultOptions.SlidingExpiration;
+            });
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
             });
 
             services.AddHsts(options =>
@@ -152,7 +161,7 @@ namespace SiappGasIn
             app.UsePathBase(strVirDir);
 
             app.UseRouting();
-
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -6,6 +6,7 @@ using SiappGasIn.Models;
 
 namespace SiappGasIn.Controllers
 {
+    [Authorize]
     public class MstHargaPRSController : Controller
     {
         public IActionResult Index()

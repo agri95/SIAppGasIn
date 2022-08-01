@@ -14,6 +14,7 @@ using SiappGasIn.Models;
 
 namespace SiappGasIn.Controllers
 {
+    [Authorize]
     public class TransactionController : Controller
     {
         public IActionResult Index()
