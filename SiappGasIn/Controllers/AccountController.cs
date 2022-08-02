@@ -112,5 +112,11 @@ namespace SiappGasIn.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View("~/Views/Home/AccessDenied.cshtml");
+        }
     }
 }

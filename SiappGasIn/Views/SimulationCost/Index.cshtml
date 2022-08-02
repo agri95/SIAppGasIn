@@ -28,11 +28,42 @@
 ViewData["Title"] = "Simulation Cost";
 }
 
-<div class="alert alert-warning alert-dismissible agri" id="_alert">
+<div class="alert alert-warning alert-dismissible agri" id="_alert1">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError"></span> is required.
+    <strong>Warning!</strong> <span id="textError1"></span> is required.
 </div>
-
+<div class="alert alert-warning alert-dismissible agri" id="_alert2">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError2"></span> is required.
+</div>
+<div class="alert alert-warning alert-dismissible agri" id="_alert3">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError3"></span> is required.
+</div>
+<div class="alert alert-warning alert-dismissible agri" id="_alert4">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError4"></span> is required.
+</div>
+<div class="alert alert-warning alert-dismissible agri" id="_alert5">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError5"></span> is required.
+</div>
+<div class="alert alert-warning alert-dismissible agri" id="_alert6">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError6"></span> is required.
+</div>
+<div class="alert alert-warning alert-dismissible agri" id="_alert7">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError7"></span> is required.
+</div>
+<div class="alert alert-warning alert-dismissible agri" id="_alert8">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError8"></span> is required.
+</div>
+<div class="alert alert-warning alert-dismissible agri" id="_alert9">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Warning!</strong> <span id="textError9"></span> is required.
+</div>
 <div class="container body koes" style="padding-left:230px;padding-right:230px;right: 0px;left: 0px;">
 
     <div class="card">
@@ -275,7 +306,7 @@ ViewData["Title"] = "Simulation Cost";
     .koes {
         position: absolute;
 
-        top: 45px;
+        top: 55px;
         z-index: -2;
     }
 
@@ -419,77 +450,88 @@ ViewData["Title"] = "Simulation Cost";
         var creator = $("#creator").val();
         var projectDate = $("#projectDate").val();
         var customerName = $("#customerName").val();
+        var demandUsage = $("#demandUsage").val();
         var targetCOD = $("#targetCOD").val();
+        var hourDay = $("#hourDay").val();
+        var workDay = $("#workDay").val();
         if (projectName == "" || projectName == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#_alert").slideUp(500);
+            $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
+                $("#_alert1").slideUp(500);
             });
-            $("#textError").text("Project Name ");
+            $("#textError1").text("Project Name ");
         }
-        else if (creator == "" || creator == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#_alert").slideUp(500);
+        if (projectDate == "" || projectDate == null) {
+            $("#_alert2").fadeTo(3000, 500).slideUp(500, function () {
+                $("#_alert2").slideUp(500);
             });
-            $("#textError").text("Creator ");
+            $("#textError2").text("Project Date ");
         }
-        else if (projectDate == "" || projectDate == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#_alert").slideUp(500);
+        if (customerName == "" || customerName == null) {
+            $("#_alert3").fadeTo(4000, 500).slideUp(500, function () {
+                $("#_alert3").slideUp(500);
             });
-            $("#textError").text("Project Date ");
+            $("#textError3").text("Customer Name ");
+        }        
+        if (demandUsage == "" || demandUsage == null) {
+            $("#_alert4").fadeTo(5000, 500).slideUp(500, function () {
+                $("#_alert4").slideUp(500);
+            });
+            $("#textError4").text("Demand Usage ");
+        } 
+        if (hourDay == "" || hourDay == null) {
+            $("#_alert5").fadeTo(6000, 500).slideUp(500, function () {
+                $("#_alert5").slideUp(500);
+            });
+            $("#textError5").text("Hour Day ");
+        }  
+        if (workDay == "" || workDay == null) {
+            $("#_alert6").fadeTo(7000, 500).slideUp(500, function () {
+                $("#_alert6").slideUp(500);
+            });
+            $("#textError6").text("Work Day ");
+        } 
+        if (targetCOD == "" || targetCOD == null) {
+            $("#_alert7").fadeTo(8000, 500).slideUp(500, function () {
+                $("#_alert7").slideUp(500);
+            });
+            $("#textError7").text("Target COD ");
         }
-        else if (customerName == "" || customerName == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#_alert").slideUp(500);
-            });
-            $("#textError").text("Customer Name ");
-        }
-        else if (targetCOD == "" || targetCOD == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#_alert").slideUp(500);
-            });
-            $("#textError").text("Target COD ");
-        }else if (demandUsage == "" || demandUsage == null) {
-            $("#_alert").fadeTo(2000, 500).slideUp(500, function () {
-                $("#_alert").slideUp(500);
-            });
-            $("#textError").text("Demand Usage ");
-        } else {
-            $.ajax({
-                url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-                type: 'POST',
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(
-                    {
+        //else {
+        //    $.ajax({
+        //        url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        contentType: "application/json; charset=utf-8",
+        //        data: JSON.stringify(
+        //            {
 
-                        "ProjectName": projectName,
-                        "Creator": creator,
-                        "ProjectDate": projectDate,
-                        "CustomerName": customerName,
-                        "TargetCOD": targetCOD,
-                    }
-                ),
-                success: function (data) {
-                    if (data.status == true) {
+        //                "ProjectName": projectName,
+        //                "Creator": creator,
+        //                "ProjectDate": projectDate,
+        //                "CustomerName": customerName,
+        //                "TargetCOD": targetCOD,
+        //            }
+        //        ),
+        //        success: function (data) {
+        //            if (data.status == true) {
 
-                        calculate(data.data);
+        //                calculate(data.data);
 
-                        alert("SUKSES");
+        //                alert("SUKSES");
 
-                        var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                        window.location.href = url;
+        //                var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+        //                window.location.href = url;
 
 
-                    }
+        //            }
 
-                },
-                error: function (jqXHR) {
-                    $('#divErrorText').text(jqXHR.responseText);
-                    $('#divError').show('fade');
-                }
-            });
-        }
+        //        },
+        //        error: function (jqXHR) {
+        //            $('#divErrorText').text(jqXHR.responseText);
+        //            $('#divError').show('fade');
+        //        }
+        //    });
+        //}
 
     }
 
@@ -563,7 +605,15 @@ ViewData["Title"] = "Simulation Cost";
 
     $(document).ready(function () {
 
-        $("#_alert").hide();
+        $("#_alert1").hide();
+        $("#_alert2").hide();
+        $("#_alert3").hide();
+        $("#_alert4").hide();
+        $("#_alert5").hide();
+        $("#_alert6").hide();
+        $("#_alert7").hide();
+        $("#_alert8").hide();
+        $("#_alert9").hide();
         $.ajax({
             url: '@Url.Action("Retrieve", "MstEnergy")',
             type: 'post',
