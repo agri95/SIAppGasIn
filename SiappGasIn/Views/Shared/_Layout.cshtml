@@ -65,42 +65,53 @@
               <li><a href="google.com"><span><i class="fa fa-user" aria-hidden="true"></i></span> Profile</a></li>
               <li><a href="@Url.Action("TransCNG", "Transaction")"><span><i class="fa fa-history" aria-hidden="true"></i></span> History</a></li>
               <li><a href="@Url.Action("Index", "SimulationCost")"><span><i class="fa fa-gear" aria-hidden="true"></i></span> Simulation Cost</a></li>
-              <li>
-                <a class="dropdown-item" href="#"><span><i class="fa fa-database" aria-hidden="true"></i></span> Master Data &raquo; </a>
-                <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                  <li>
-                    <a class="dropdown-item" href="@Url.Action("List", "SysUser")"><i class="fa fa-users" aria-hidden="true"></i><span> User</span></a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="@Url.Action("List", "SysRole")"><i class="fab fa-creative-commons-by" aria-hidden="true"></i> Role</a>
-                  </li>                 
-                  <li>
-                    <a class="dropdown-item" href="#"><span><i class="fa-solid fa-fire"></i></span> CNG &raquo; </a>
-                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
-                      <li>
-                        <a class="dropdown-item" href="@Url.Action("List", "MstHargaPRS")"><i class="fas fa-comments-dollar" aria-hidden="true"></i> Harga PRS</a>
-                      </li>
-                      <li>
-                        <a class="dropdown-item" href="@Url.Action("List", "MstCraddle")"><i class="fas fa-truck-loading" aria-hidden="true"></i> Craddle GTM</a>
-                      </li>                 
-                      <li>
-                        <a class="dropdown-item" href="@Url.Action("List", "MstHeadTruck")"><i class="fas fa-truck-moving" aria-hidden="true"></i> Head Truck</a>
-                      </li> 
-                      <li>
-                        <a class="dropdown-item" href="@Url.Action("List", "MstLokasiSPBG")"><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Lokasi SPBG</a>
-                      </li> 
-                      <li>
-                        <a class="dropdown-item" href="@Url.Action("List", "MstGaji")"><i class="far fa-money-bill-alt" aria-hidden="true"></i> Gaji Driver & Operator</a>
-                      </li>
-                     
-                    </ul>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="@Url.Action("List", "MstEnergy")"><i class="fa-solid fa-explosion" aria-hidden="true"></i><span> Energy</span></a>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="@Url.Action("Index", "ConverterEnergy")"><span><i class="fa fa-exchange" aria-hidden="true"></i></span> Converter Energy</a></li>
+                            @if (this.User.IsInRole("Super Admin") || this.User.IsInRole("Admin"))
+                            {
+                                <li>
+                                    <a class="dropdown-item" href="#"><span><i class="fa fa-database" aria-hidden="true"></i></span> Master Data &raquo; </a>
+                                    <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                                        @if (this.User.IsInRole("Super Admin"))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("List", "SysUser")"><i class="fa fa-users" aria-hidden="true"></i><span> User</span></a>
+                                            </li>
+
+
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("List", "SysRole")"><i class="fab fa-creative-commons-by" aria-hidden="true"></i> Role</a>
+                                            </li>
+                                        }
+                                        @if (this.User.IsInRole("Super Admin") || this.User.IsInRole("Admin"))
+                                        {
+                                            <li>
+                                                <a class="dropdown-item" href="#"><span><i class="fa-solid fa-fire"></i></span> CNG &raquo; </a>
+                                                <ul class="dropdown-menu dropdown-submenu dropdown-submenu-left">
+                                                    <li>
+                                                        <a class="dropdown-item" href="@Url.Action("List", "MstHargaPRS")"><i class="fas fa-comments-dollar" aria-hidden="true"></i> Harga PRS</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="@Url.Action("List", "MstCraddle")"><i class="fas fa-truck-loading" aria-hidden="true"></i> Craddle GTM</a>
+                                                    </li>                 
+                                                    <li>
+                                                        <a class="dropdown-item" href="@Url.Action("List", "MstHeadTruck")"><i class="fas fa-truck-moving" aria-hidden="true"></i> Head Truck</a>
+                                                    </li> 
+                                                    <li>
+                                                        <a class="dropdown-item" href="@Url.Action("List", "MstLokasiSPBG")"><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Lokasi SPBG</a>
+                                                    </li> 
+                                                    <li>
+                                                        <a class="dropdown-item" href="@Url.Action("List", "MstGaji")"><i class="far fa-money-bill-alt" aria-hidden="true"></i> Gaji Driver & Operator</a>
+                                                    </li>
+
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("List", "MstEnergy")"><i class="fa-solid fa-explosion" aria-hidden="true"></i><span> Energy</span></a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            <li><a href="@Url.Action("Index", "ConverterEnergy")"><span><i class="fa fa-exchange" aria-hidden="true"></i></span> Converter Energy</a></li>
               
               <br>
              <div class="row">

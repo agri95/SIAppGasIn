@@ -31,5 +31,6 @@ namespace SiappGasIn.Models
         }
 
         public IFormFile? Image { get; set; }
+        public string RoleID { get; set; }
     }
 }

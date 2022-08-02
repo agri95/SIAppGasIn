@@ -180,9 +180,12 @@ namespace SiappGasIn.Controllers.Api
                                 userProfile.ProfilePicture = "~/adminlte/images/" + fileName;
                             }
 
-                            await _dbContext.SysUserProfile.AddAsync(userProfile);
-
-                            await _dbContext.SaveChangesAsync();
+                            
+                        var addUser = await _userManager.FindByIdAsync(newUser.Id);
+                        var addRole = await _roleManager.FindByIdAsync(model.RoleID);
+                        await _userManager.AddToRoleAsync(addUser, addRole.Name);
+                        await _dbContext.SysUserProfile.AddAsync(userProfile);
+                        await _dbContext.SaveChangesAsync();
                         }
                     
                 }
