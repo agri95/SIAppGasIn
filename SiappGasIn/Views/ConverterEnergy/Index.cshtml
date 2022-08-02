@@ -176,7 +176,8 @@
                                             <td class="tblConvert"><span id="tblPemakaianConv"></span></td>
                                             <td class="tblConvert"><span id="tblPemakaianSatuanConv"></span></td>
                                         </tr>
-                                        <tr>
+                                        
+                                        <tr id="hrgConvert1">
                                             <td style="font-size:12px;">HARGA BAHAN BAKAR</td>
                                             <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;">
                                                 <span id="tblBB"></span>
@@ -191,7 +192,7 @@
                                             </td>
                                             <td class="tblConvert"><span id="tblBBSatuanConv"></span></td>
                                         </tr>
-                                        <tr>
+                                        <tr id="hrgConvert2">
                                             <td style="font-size:12px;">BIAYA UNTUK BAHAN BAKAR PER BULAN </td>
                                             <td class="tblConvert" style="background-color: #f77e7e; font-weight:bold;">
                                                 <span id="tblBiaya"></span>
@@ -337,8 +338,6 @@
         var satuanPemakaian = $("#satuanPemakaian").text();
         var nilaiKal = $("#nilaiKalori").val();
         var hargaBB = $("#hargaBBM").val();
-        var hargaGasBumi = 8945.14;
-        var hargaBerlaku = 3650;
 
         var energyNames = $("#energyNames").val();
         var demands = $("#pemakaians").val();
@@ -349,6 +348,53 @@
 
         if (demand == "" || demand == null) {
             alert("Jumlah pemakaian wajib diisi");
+        } else if (energyName == "" || energyName == null) {
+            alert("Bahan bakar 'dari' wajib diisi");
+        } else if (energyNames == "" || energyNames == null) {
+            alert("Bahan bakar 'ke' wajib diisi");
+        } else if (hargaBB == "" || hargaBB == null || hargaBBs == "" || hargaBBs == null) {
+            $("#hrgConvert1").hide();
+            $("#hrgConvert2").hide();
+
+             $("#tblHeader").text(energyName);
+            $("#tblConv").text(energyNames);
+
+            $("#tblNilaiKalori").text(nf.format(nilaiKal));
+            $("#tblNilaiKaloriConv").text(nf.format(nilaiKals));
+
+            $("#tblSatuan").text(satuan);
+            $("#tblSatuanConv").text(satuans);
+
+            $("#tblKonversi").text("1");
+            $("#tblKonversiSatuan").text(satuanPemakaian);
+            $("#tblKonversiSatuanConv").text(satuanPemakaians);
+
+         
+            var hitKonversiConv = parseFloat(nilaiKal) / parseFloat(nilaiKals);
+            $("#tblKonversiConv").text(nf.format(hitKonversiConv));
+
+            $("#tblPemakaian").text(nf.format(demand));
+            $("#tblPemakaianSatuan").text(satuanPemakaian);
+            $("#tblPemakaianSatuanConv").text(satuanPemakaians);
+            var hitPemakaianConv = (parseFloat(demand) * parseFloat(hitKonversiConv)).toFixed(0);
+            $("#tblPemakaianConv").text(nf.format(hitPemakaianConv));
+
+            $("#tblBB").text(nf.format(hargaBB));
+            $("#tblBBConv").text(nf.format(hargaBBs));
+            $("#tblBBSatuan").text("Rp / " + satuanPemakaian);
+            $("#tblBBSatuanConv").text("Rp / " + satuanPemakaians);
+
+            var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
+            $("#tblBiaya").text(nf.format(hitBiaya));
+            $("#tblBiayaSatuan").text("Rp / Bln");
+            $("#tblBiayaSatuanConv").text("Rp / Bln");
+            var hitBiayaConv = parseFloat(hitPemakaianConv) * parseFloat(hargaBBs);
+            $("#tblBiayaConv").text(nf.format(hitBiayaConv));
+
+          
+            $("#resultConvert").val(nf.format(hitPemakaianConv));
+            $("#resultSatuanPemakaian").text(energyNames);
+            $("#pemakaians").val(hitPemakaianConv);
         } else {
             $("#tableConvert").show();
 
@@ -361,22 +407,17 @@
             $("#tblSatuan").text(satuan);
             $("#tblSatuanConv").text(satuans);
 
-            $("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
-
             $("#tblKonversi").text("1");
             $("#tblKonversiSatuan").text(satuanPemakaian);
             $("#tblKonversiSatuanConv").text(satuanPemakaians);
 
-            var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
-            $("#tblKonversiGas").text(nf.format(hitKonversi));
-            var hitKonversiConv = parseFloat(nilaiKals) / parseFloat(hargaGasBumi);
+         
+            var hitKonversiConv = parseFloat(nilaiKal) / parseFloat(nilaiKals);
             $("#tblKonversiConv").text(nf.format(hitKonversiConv));
 
             $("#tblPemakaian").text(nf.format(demand));
             $("#tblPemakaianSatuan").text(satuanPemakaian);
             $("#tblPemakaianSatuanConv").text(satuanPemakaians);
-            var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
-            $("#tblPemakaianGas").text(nf.format(hitPemakaian));
             var hitPemakaianConv = (parseFloat(demand) * parseFloat(hitKonversiConv)).toFixed(0);
             $("#tblPemakaianConv").text(nf.format(hitPemakaianConv));
 
@@ -384,20 +425,15 @@
             $("#tblBBConv").text(nf.format(hargaBBs));
             $("#tblBBSatuan").text("Rp / " + satuanPemakaian);
             $("#tblBBSatuanConv").text("Rp / " + satuanPemakaians);
-            $("#tblBBGas").text(nf.format(hargaBerlaku));
 
             var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
             $("#tblBiaya").text(nf.format(hitBiaya));
             $("#tblBiayaSatuan").text("Rp / Bln");
             $("#tblBiayaSatuanConv").text("Rp / Bln");
-            var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
-            $("#tblBiayaGas").text(nf.format(hitBiayaGas));
             var hitBiayaConv = parseFloat(hitPemakaianConv) * parseFloat(hargaBBs);
             $("#tblBiayaConv").text(nf.format(hitBiayaConv));
 
-            var hitResult = hitBiaya - hitBiayaGas;
-            $("#tblPenghematan").text(nf.format(hitResult));
-
+          
             $("#resultConvert").val(nf.format(hitPemakaianConv));
             $("#resultSatuanPemakaian").text(energyNames);
             $("#pemakaians").val(hitPemakaianConv);

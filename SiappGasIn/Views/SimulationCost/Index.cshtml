@@ -496,42 +496,43 @@ ViewData["Title"] = "Simulation Cost";
             });
             $("#textError7").text("Target COD ");
         }
-        //else {
-        //    $.ajax({
-        //        url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-        //        type: 'POST',
-        //        dataType: 'json',
-        //        contentType: "application/json; charset=utf-8",
-        //        data: JSON.stringify(
-        //            {
+        
+        else {
+            $.ajax({
+                url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+                type: 'POST',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(
+                    {
 
-        //                "ProjectName": projectName,
-        //                "Creator": creator,
-        //                "ProjectDate": projectDate,
-        //                "CustomerName": customerName,
-        //                "TargetCOD": targetCOD,
-        //            }
-        //        ),
-        //        success: function (data) {
-        //            if (data.status == true) {
+                        "ProjectName": projectName,
+                        "Creator": creator,
+                        "ProjectDate": projectDate,
+                        "CustomerName": customerName,
+                        "TargetCOD": targetCOD,
+                    }
+                ),
+                success: function (data) {
+                    if (data.status == true) {
 
-        //                calculate(data.data);
+                        calculate(data.data);
 
-        //                alert("SUKSES");
+                        alert("SUKSES");
 
-        //                var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-        //                window.location.href = url;
+                        var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                        window.location.href = url;
 
 
-        //            }
+                    }
 
-        //        },
-        //        error: function (jqXHR) {
-        //            $('#divErrorText').text(jqXHR.responseText);
-        //            $('#divError').show('fade');
-        //        }
-        //    });
-        //}
+                },
+                error: function (jqXHR) {
+                    $('#divErrorText').text(jqXHR.responseText);
+                    $('#divError').show('fade');
+                }
+            });
+        }
 
     }
 
