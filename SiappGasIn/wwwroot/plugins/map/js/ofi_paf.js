@@ -1,12 +1,23 @@
-var ofi_paf={
-"type": "FeatureCollection",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-    { "type": "Feature", "properties": { "sucursal": "PLAN ADMINISTRACION FARMACIAS", "suc_estado": "Activa", "oficina": "SPBG Pondok Ungu", "direccion1": "AV. 24 DE MAYO S\/N Y JUAN GUEVARA", "ofi_latitu": "S 1g21m13.0s", "ofi_longit": "W 78g36m59.6s", "estado": "A", "ofw_latitu": -6.093486, "ofw_longit": 106.8424565, "num": 40 }, "geometry": { "type": "Point", "coordinates": [ 106.97578400373459, -6.199784212304551 ] } },
-    { "type": "Feature", "properties": { "sucursal": "PLAN ADMINISTRACION FARMACIAS", "suc_estado": "Activa", "oficina": "SPBG Bogor", "direccion1": "AV. 24 DE MAYO S\/N Y JUAN GUEVARA", "ofi_latitu": "S 1g21m13.0s", "ofi_longit": "W 78g36m59.6s", "estado": "A", "ofw_latitu": -6.093486, "ofw_longit": 106.8424565, "num": 40 }, "geometry": { "type": "Point", "coordinates": [106.7857924, -6.5894417] } },
-    { "type": "Feature", "properties": { "sucursal": "PLAN ADMINISTRACION FARMACIAS", "suc_estado": "Activa", "oficina": "SPBG Sukabumi", "direccion1": "AV. 24 DE MAYO S\/N Y JUAN GUEVARA", "ofi_latitu": "S 1g21m13.0s", "ofi_longit": "W 78g36m59.6s", "estado": "A", "ofw_latitu": -6.093486, "ofw_longit": 106.8424565, "num": 40 }, "geometry": { "type": "Point", "coordinates": [106.8000242, -6.7621686] } },
-    { "type": "Feature", "properties": { "sucursal": "PLAN ADMINISTRACION FARMACIAS", "suc_estado": "Activa", "oficina": "SPBG Purwakarta", "direccion1": "AV. 24 DE MAYO S\/N Y JUAN GUEVARA", "ofi_latitu": "S 1g21m13.0s", "ofi_longit": "W 78g36m59.6s", "estado": "A", "ofw_latitu": -6.093486, "ofw_longit": 106.8424565, "num": 40 }, "geometry": { "type": "Point", "coordinates": [107.4754292, - 6.5083018 ] } },
-    { "type": "Feature", "properties": { "sucursal": "PLAN ADMINISTRACION FARMACIAS", "suc_estado": "Activa", "oficina": "SPBG Kantor Pusat", "direccion1": "AV. 24 DE MAYO S\/N Y JUAN GUEVARA", "ofi_latitu": "S 1g21m13.0s", "ofi_longit": "W 78g36m59.6s", "estado": "A", "ofw_latitu": -6.093486, "ofw_longit": 106.8424565, "num": 40 }, "geometry": { "type": "Point", "coordinates": [106.8123863, -6.1602197] } },
-    { "type": "Feature", "properties": { "sucursal": "PLAN ADMINISTRACION FARMACIAS", "suc_estado": "Activa", "oficina": "SPBG Klender", "direccion1": "AV. 24 DE MAYO S\/N Y JUAN GUEVARA", "ofi_latitu": "S 1g21m13.0s", "ofi_longit": "W 78g36m59.6s", "estado": "A", "ofw_latitu": -6.093486, "ofw_longit": 106.8424565, "num": 40 }, "geometry": { "type": "Point", "coordinates": [106.8683388, - 6.2060207] } },
-]
-}
+var locationMaps = {};
+locationMaps["features"] = [];
+$.ajax({
+    url: 'MstLokasiSPBG/Retrieve',
+    type: 'post',
+    dataType: 'json',
+    success: function (response) {
+
+        var len = response.data.length;
+
+        for (var i = 0; i < len; i++) {
+
+            let temp = {
+                "type": "Feature",
+                "properties": { "oficina": response.data[i].namaSPBG },
+                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+            }
+            locationMaps.features.push(temp);
+        }
+    }
+});
+
+var ofi_paf = locationMaps;

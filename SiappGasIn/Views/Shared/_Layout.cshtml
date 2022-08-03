@@ -59,7 +59,7 @@
     <div class="collapse navbar-collapse" id="myNavbar">     
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="~/adminlte/images/blank-person.png" alt="User Avatar" class="img-size-50 mr-3 img-circle" style="width:30px;"> Hi, @userManager.GetUserName(User)<b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="~/adminlte/images/blank-person.png" alt="User Avatar" class="img-size-50 mr-3 img-circle" style="width:30px;"> Hi,<strong> @userManager.GetUserName(User)</strong><b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="@Url.Action("Index", "Home")"><span><i class="fa fa-home" aria-hidden="true"></i></span> Home</a></li>
               <li><a href="google.com"><span><i class="fa fa-user" aria-hidden="true"></i></span> Profile</a></li>

@@ -305,22 +305,18 @@ ViewData["Title"] = "Simulation Cost";
 <style>
     .koes {
         position: absolute;
-
         top: 55px;
         z-index: -2;
     }
-
     .agri {
         margin-left: 70%;
         margin-right: 1%;
         margin-top: 10px;
     }
-
     .map {
         height: 370px;
         width: 100%;
     }
-
     #mapSearchContainer {
         position: fixed;
         top: 20px;
@@ -333,19 +329,16 @@ ViewData["Title"] = "Simulation Cost";
         border: solid 1px #bbb;
         background-color: #f8f8f8;
     }
-
     .geocoder-control-input leaflet-bar {
         height: 30px;
         width: 180px;
     }
-
     .pointer {
         position: absolute;
         top: 86px;
         left: 60px;
         z-index: 99999;
     }
-
     .results {
         background-color: white;
         opacity: 0.8;
@@ -356,14 +349,12 @@ ViewData["Title"] = "Simulation Cost";
         height: 480px;
         overflow-y: scroll;
     }
-
     #map .leaflet-bar .leaflet-draw-draw-rectangle,
     #map .leaflet-bar .leaflet-draw-draw-circle,
     #map .leaflet-bar .leaflet-draw-edit-edit,
     #map .leaflet-bar .leaflet-draw-edit-remove {
         display: none;
     }
-
     .tblConvert {
         width: 15%;
         text-align: center;
@@ -396,56 +387,41 @@ ViewData["Title"] = "Simulation Cost";
         var hargaBB = $("#hargaBBM").val();
         var hargaGasBumi = 8945.142;
         var hargaBerlaku = 3650;
-
         if (demand == "" || demand == null) {
             alert("Jumlah pemakaian wajib diisi");
         } else {
             $("#tblHeader").text(energyName);
-
             $("#tblNilaiKalori").text(nf.format(nilaiKal));
             $("#tblSatuan").text(satuan);
             $("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
-
             $("#tblKonversi").text("1");
             $("#tblKonversiSatuan").text(satuanPemakaian);
             var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
             $("#tblKonversiGas").text(nf.format(hitKonversi));
-
             $("#tblPemakaian").text(nf.format(demand));
             $("#tblPemakaianSatuan").text(satuanPemakaian);
             var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
             $("#tblPemakaianGas").text(nf.format(hitPemakaian));
-
             $("#tblBB").text(nf.format(hargaBB));
             $("#tblBBSatuan").text("Rp / " + satuanPemakaian);
             $("#tblBBGas").text(nf.format(hargaBerlaku));
-
             var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
             $("#tblBiaya").text(nf.format(hitBiaya));
             $("#tblBiayaSatuan").text("Rp / Bln");
             var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
             $("#tblBiayaGas").text(nf.format(hitBiayaGas));
-
             var hitResult = hitBiaya - hitBiayaGas;
             $("#tblPenghematan").text(nf.format(hitResult));
-
             $("#resultConvert").val(nf.format(hitPemakaian));
         }
-
     }
-
     function submitEnergy() {
-
         $("#convertEnergy").hide();
         $("#costStructure").show();
-
         var demand = $("#resultConvert").val();
         $("#demandUsage").val(demand);
-
     }
-
     function calculateCost() {      
-
         var projectName = $("#projectName").val();
         var creator = $("#creator").val();
         var projectDate = $("#projectDate").val();
@@ -454,7 +430,6 @@ ViewData["Title"] = "Simulation Cost";
         var targetCOD = $("#targetCOD").val();
         var hourDay = $("#hourDay").val();
         var workDay = $("#workDay").val();        
-
         if (projectName == "" || projectName == null) {
             $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
                 $("#_alert1").slideUp(500);
@@ -506,7 +481,6 @@ ViewData["Title"] = "Simulation Cost";
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(
                     {
-
                         "ProjectName": projectName,
                         "Creator": creator,
                         "ProjectDate": projectDate,
@@ -516,17 +490,11 @@ ViewData["Title"] = "Simulation Cost";
                 ),
                 success: function (data) {
                     if (data.status == true) {
-
                         calculate(data.data);
-
                         alert("SUKSES");
-
                         var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
                         window.location.href = url;
-
-
                     }
-
                 },
                 error: function (jqXHR) {
                     $('#divErrorText').text(jqXHR.responseText);
@@ -534,10 +502,7 @@ ViewData["Title"] = "Simulation Cost";
                 }
             });
         }
-
     }
-
-
     function calculate(data) {
         if (results.length > 0) {
             for (i = 0; i < results.length; i++) {
@@ -586,21 +551,16 @@ ViewData["Title"] = "Simulation Cost";
                             $('#HargaSewa').val("");
                             $('#RasioBBM').val("");
                             $('#Kecepatan').val("");
-
                             $('#msgText').text('Data is added Successfully');
                             $('#successModal').modal('show');
                         }
-
                     },
                     error: function (jqXHR) {
                         $('#divErrorText').text(jqXHR.responseText);
                         $('#divError').show('fade');
                     }
                 });
-
-
             }
-
         }
     }
     function DeleteData(id) {
@@ -610,13 +570,8 @@ ViewData["Title"] = "Simulation Cost";
         else {
             return false;
         }
-
-
     }
-
-
     $(document).ready(function () {
-
         $("#_alert1").hide();
         $("#_alert2").hide();
         $("#_alert3").hide();
@@ -631,18 +586,14 @@ ViewData["Title"] = "Simulation Cost";
             type: 'post',
             dataType: 'json',
             success: function (response) {
-
                 var len = response.data.length;
-
                 for (var i = 0; i < len; i++) {
                     var id = response.data[i].energyID;
                     var name = response.data[i].energy;
                     var nilai = response.data[i].nilaiKalori;
                     var satuan = response.data[i].satuan;
-
                     $("#bahanBakar").append("<option value='" + id + "'>" + name + "</option>");
                     $("#energyName").val(name);
-
                 }
                  $("#bahanBakar").val(8);
                  $("#satuanPemakaian").text("M3");
@@ -651,15 +602,12 @@ ViewData["Title"] = "Simulation Cost";
        
         $("#bahanBakar").change(function () {
             var deptid = $(this).val();
-
             $.ajax({
                 url: '@Url.Action("Retrieve", "MstEnergy")',
                 type: 'post',
                 dataType: 'json',
                 success: function (response) {
-
                     var len = response.data.length;
-
                     for (var i = 0; i < len; i++) {
                         var id = response.data[i].energyID;
                         var energy = response.data[i].energy;
@@ -675,36 +623,26 @@ ViewData["Title"] = "Simulation Cost";
                             } else {
                                 $("#satuanPemakaian").text("Ltr");
                             }
-
                         }
                     }
                 }
             });
         });
-
         let range = $("#range-km");
-
         let rangeV = $("#radius-selected");
-
         const setValue = () => {
             let newValue = Number(
                 ((range.val() - range.attr("min")) * 100) /
                 (range.attr("max") - range.attr("min"))
             ),
-
                 newPosition = 10 - newValue * 0.2;
             rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
             rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
             $("#radius").val(range.val());
             changeCircleRadius(range.val());
         };
-
         setValue();
-
-
         range.on("input", setValue);
-
-
         $("#pipeLine").checked = true;
         $("#lng").checked = true;
         document.getElementById("pipeLine").checked = true;
@@ -716,7 +654,6 @@ ViewData["Title"] = "Simulation Cost";
         $("#findMap").hide();
         $("#convertEnergy").hide();
         $("#calculateSimulation").hide();
-
         // Base map styles
         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -727,19 +664,13 @@ ViewData["Title"] = "Simulation Cost";
             center: [-6.159907, 106.815383]
         })
         osm.addTo(map)
-
-
-
         // This is the circle on the map that will be determine how many markers are around
         var circle;
-
         // The marker drawn onto the map
         var drawn_marker = L.marker();
-
         // Group for our markers
         var drawn_markers = L.featureGroup();
         map.addLayer(drawn_markers);
-
         // Icons that get placed on map
         var eco = L.icon({
             iconSize: [32, 37],
@@ -747,7 +678,6 @@ ViewData["Title"] = "Simulation Cost";
             popupAnchor: [0, -28],
             iconUrl: '/plugins/map/images/pertacon.png'
         });
-
         // When an icon is clicked
         function popup(feature, layer) {
             if (feature.properties && feature.properties.oficina) {
@@ -763,12 +693,10 @@ ViewData["Title"] = "Simulation Cost";
                 });
             }
         };
-
         // Convert miles to meters to set radius of circle
         function milesToMeters(miles) {
             return miles * 1069.344;
         };
-
         // This figures out how many points are within out circle
         function pointsInCircle(circle, meters_user_set) {
             results = [];
@@ -776,58 +704,45 @@ ViewData["Title"] = "Simulation Cost";
                 // Only run if we have an address entered
                 // Lat, long of circle
                 circle_lat_long = circle.getLatLng();
-
                 var counter_points_in_circle = 0;
-
                 // Loop through each point in JSON file
                 farmacias.eachLayer(function (layer) {
                     // Lat, long of current point
                     layer_lat_long = layer.getLatLng();
-
                     // Distance from our circle marker
                     // To current point in meters
                     distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
-
                     // See if meters is within raduis
                     // The user has selected
                     if (distance_from_layer_circle <= meters_user_set) {
                         counter_points_in_circle += 1;
-
                         var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
                         // Convert to miles
                         ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
-
                         $('#ofi_paf').append(ofi_paf_html);
-
                         let temp = {
                             "lokasi": layer.feature.properties.oficina,
                             "jarak": (distance_from_layer_circle / 1000).toFixed(2)
                         }
                         results.push(temp);
                     }
-
                 });
-
                 // Set number of results on main page
                 $('#ofi_paf_results').html(counter_points_in_circle);
             }
             // Close pointsInCircle
         };
-
         // Change circle radius when changed on page
         function changeCircleRadius(jarak) {
             // Determine which geocode box is filled
             // And fire click event
-
             // This will determine how many markers are within the circle
             pointsInCircle(circle, milesToMeters(jarak))
-
             // Set radius of circle only if we already have one on the map
             if (circle) {
                 circle.setRadius(milesToMeters(jarak));
             }
         }
-
         // Allow user to add marker to map
         var draw_control = new L.Control.Draw({
             draw: {
@@ -841,31 +756,21 @@ ViewData["Title"] = "Simulation Cost";
                 remove: true
             }
         });
-
         map.on(L.Draw.Event.CREATED, function (event) {
             var layer = event.layer;
-
             drawn_markers.addLayer(layer);
         });
-
         map.addControl(draw_control);
-
         // Allow user to search through GeoJSON file
         //var search_control = new L.Control.Search({
         //	layer: farmacias,
         //	propertyName: 'oficina',
         //	circleLocation: true
         //});
-
         //map.addControl(search_control);
         //L.control.scale().addTo(map);
-
-
-
         //  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-
         //  var results = new L.LayerGroup().addTo(map);
-
         //  searchControl.on('results', function(data){
         //	results.clearLayers();
         //	for (var i = data.results.length - 1; i >= 0; i--) {
@@ -873,17 +778,14 @@ ViewData["Title"] = "Simulation Cost";
         //	}
         //  }).addTo(map);
         //  L.control.scale().addTo(map);
-
         //setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
         // Add GeoJSON layer
         var farmacias = L.geoJson(ofi_paf, {
             onEachFeature: popup,
-
             pointToLayer: function (feature, latlng) {
                 return L.marker(latlng, { icon: eco });
             }
         }).addTo(map);
-
         // This is called after the marker is drawn
         map.on('draw:created', function (e) {
             // Add a circle around the marker
@@ -891,55 +793,38 @@ ViewData["Title"] = "Simulation Cost";
             var radius = milesToMeters($('#radius').val());
             circle = L.circle(marker_lat_long, radius)
             circle.addTo(map);
-
             // Calculate the number of eco icons within the circle
             // So we can put it on the DOM
             pointsInCircle(circle, radius)
-
             // Make the marker draggable
             e.layer.dragging.enable();
-
             // If you drag the marker, make sure the circle goes with it
             e.layer.on('dragend', function (event) {
                 map.setView(event.target.getLatLng());
                 circle.setLatLng(event.target.getLatLng());
-
                 // Clear out results
                 $('#ofi_paf').html('');
-
                 // This will determine how many markers are within the circle
                 pointsInCircle(circle, milesToMeters($('#radius').val()));
-
                 // Redraw: Leaflet function
                 circle.redraw();
             });
-
             $('.leaflet-draw-draw-marker').hide();
         });
-
         // Reset map view on marker drag
         drawn_marker.on('dragend', function (event) {
             map.setView(event.target.getLatLng());
             circle.setLatLng(event.target.getLatLng());
-
             // This will determine how many markers are within the circle
             pointsInCircle(circle, milesToMeters($('#radius').val()));
-
             // Redraw: Leaflet function
             circle.redraw();
         });
-
         // Radius dropdown
         //$("input", "change").change(function () {
         //    changeCircleRadius();
         //});
     });
-
-
-
-
-
-
     function mapp() {
         $("#costStructure").hide();
         $("#findMap").show();
@@ -957,6 +842,5 @@ ViewData["Title"] = "Simulation Cost";
         $("#convertEnergy").show();
         $("#findMap").hide();
     }
-
 </script>
 }
