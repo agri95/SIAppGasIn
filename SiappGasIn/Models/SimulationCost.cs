@@ -93,7 +93,8 @@ namespace SiappGasIn.Models
         public decimal resultBiayaOperasi { get; set; }
         public decimal resultDepresiasi { get; set; }
         public decimal resultLaba { get; set; }
-
+        public decimal minPrice { get; set; }
+        public decimal maxPrice { get; set; }
 
         public string? CreatedBy { get; set; }
 
@@ -126,6 +127,7 @@ namespace SiappGasIn.Models
         public decimal HargaJual { get; set; }
         public int TargetCOD { get; set; }
         public string AsalStation { get; set; }
+        public int FlagPrice { get; set; }
 
     }
 
@@ -139,5 +141,7 @@ namespace SiappGasIn.Models
         public string energyName { get; set; }
         public string asalStation { get; set; }
         public string lokasiCapel { get; set; }
+        public decimal minPrice { get; set; }
+        public decimal maxPrice { get; set; }
     }
 }

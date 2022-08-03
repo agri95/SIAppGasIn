@@ -204,14 +204,14 @@ ViewData["Title"] = "Simulation Cost";
                                         <label class="control-label col-md-3 col-sm-3 ">Target Price</label>
                                         <div class="col-md-3 col-sm-3 ">
                                             <input class="form-control form-control-sm frmInput" type="number"
-                                                id="minValue" name="minValue" placeholder="USD/MMBTU"
+                                                id="minPrice" name="minPrice" placeholder="USD/MMBTU"
                                                 aria-label=".form-control-sm example">
                                         </div>
                                         <label class="control-label col-md-1 col-sm-1 "
                                             style="padding-left: 0px;">(Min)</label>
                                         <div class="col-md-3 col-sm-3 ">
                                             <input class="form-control form-control-sm frmInput" type="number"
-                                                id="maxValue" name="maxValue" placeholder="USD/MMBTU"
+                                                id="maxPrice" name="maxPrice" placeholder="USD/MMBTU"
                                                 aria-label=".form-control-sm example">
                                         </div>
                                         <label class="control-label col-md-1 col-sm-1 "
@@ -453,7 +453,8 @@ ViewData["Title"] = "Simulation Cost";
         var demandUsage = $("#demandUsage").val();
         var targetCOD = $("#targetCOD").val();
         var hourDay = $("#hourDay").val();
-        var workDay = $("#workDay").val();
+        var workDay = $("#workDay").val();        
+
         if (projectName == "" || projectName == null) {
             $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
                 $("#_alert1").slideUp(500);
@@ -549,6 +550,14 @@ ViewData["Title"] = "Simulation Cost";
                 var operasiHari = $("#hourDay").val();
                 var operasiBulan = $("#workDay").val();
                 var energyName = $("#energyName").val();
+                var minPrice = $("#minPrice").val();
+                var maxPrice = $("#maxPrice").val();
+                if (minPrice == 0 || minPrice == null) {
+                    minPrice = 0;
+                }
+                if (maxPrice == 0 || maxPrice == null) {
+                    maxPrice = 0;
+                }
                 $.ajax({
                     url: '@Url.Action("SaveData", "SimulationCost")',
                     type: 'POST',
@@ -563,7 +572,9 @@ ViewData["Title"] = "Simulation Cost";
                             "operasiBulan": operasiBulan,
                             "energyName": energyName, 
                             "asalStation": rsLokasi,
-                            "lokasiCapel": "None"
+                            "lokasiCapel": "None",
+                            "minPrice": minPrice,
+                            "maxPrice": maxPrice
                         }
                     ),
                     success: function (data) {

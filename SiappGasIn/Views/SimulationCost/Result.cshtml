@@ -164,6 +164,14 @@
     div.dataTables_wrapper {
         margin: 0 auto;
     }
+    .redCell{
+    color:red;
+    font-weight:bold;
+    }
+    .greenCell{
+        color:forestgreen;
+    font-weight:bold;
+    }
 </style>
 @*
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">*@
@@ -202,8 +210,14 @@
                 if (data.data.length > 0) {
                     for (i = 0; i < data.data.length; i++) {
                         var num = i + 1;
-                        table.append('<tr><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
-                    }
+                        if (data.data[i].flagPrice == 2) {
+                            table.append('<tr><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
+                        }else if (data.data[i].flagPrice == 0) {
+                            table.append('<tr style="color:green; font-weight:bold;"><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
+                        } else {
+                            table.append('<tr style="color:red; font-weight:bold;"><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
+                        }
+                        }
                     ;
                 }
 
