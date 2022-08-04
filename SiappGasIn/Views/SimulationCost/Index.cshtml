@@ -140,7 +140,18 @@ ViewData["Title"] = "Simulation Cost";
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
-                                        <div class="col-md-9 col-sm-9 ">
+                                        
+                                        <div class="col-md-3 col-sm-3 ">
+                                           <input class="form-control form-control-sm frmInput" type="text"
+                                                id="longitude" name="longitude" placeholder="Longitude"
+                                                aria-label=".form-control-sm example">
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 ">
+                                           <input class="form-control form-control-sm frmInput" type="text"
+                                                id="latitude" name="latitude" placeholder="Latitude"
+                                                aria-label=".form-control-sm example">
+                                        </div>
+                                        <div class="col-md-3 col-sm-3 ">
                                             <a href="#" onclick="mapp()" class="btn btn-warning btn-sm">Find
                                                 Location</a>
                                         </div>                                       
@@ -255,16 +266,17 @@ ViewData["Title"] = "Simulation Cost";
                     </div>
                     <!--Batas-->
                     <div id="findMap">
-                        <div style="margin-bottom:10px;">
+                    <input type="text" id="radius" value="50" hidden />
+                       @* <div style="margin-bottom:10px;">
                             <div class="form">
                                 <div class="range-wrap">
                                     <input type="text" id="radius" hidden />
                                     <div class="range-value" id="radius-selected"></div>
                                     <input id="range-km" name="range-km" type="range" min="0" max="500" value="50"
-                                        step="5" />
+                                        step="5"/>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
 
                         <div id="map" class="map"></div>
 
@@ -421,7 +433,21 @@ ViewData["Title"] = "Simulation Cost";
         var demand = $("#resultConvert").val();
         $("#demandUsage").val(demand);
     }
+
+function pointMap(lat,long) {
+    var titik = L.latLng(lat, long);
+            L.marker(titik).addTo(map);
+       
+        var circle;
+        var radius = milesToMeters($("#radius").val());
+        circle = L.circle(titik, radius);
+        circle.addTo(map);
+
+        pointsInCircle(circle, radius);
+}
+
     function calculateCost() {      
+        results = [];
         var projectName = $("#projectName").val();
         var creator = $("#creator").val();
         var projectDate = $("#projectDate").val();
@@ -430,7 +456,9 @@ ViewData["Title"] = "Simulation Cost";
         var targetCOD = $("#targetCOD").val();
         var hourDay = $("#hourDay").val();
         var workDay = $("#workDay").val();        
-        if (projectName == "" || projectName == null) {
+        var lat = $("#latitude").val();        
+        var long = $("#longitude").val(); 
+                if (projectName == "" || projectName == null) {
             $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
                 $("#_alert1").slideUp(500);
             });
@@ -472,37 +500,149 @@ ViewData["Title"] = "Simulation Cost";
             });
             $("#textError7").text("Target COD ");
         }
-        
-        else {
-            $.ajax({
-                url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-                type: 'POST',
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify(
-                    {
-                        "ProjectName": projectName,
-                        "Creator": creator,
-                        "ProjectDate": projectDate,
-                        "CustomerName": customerName,
-                        "TargetCOD": targetCOD,
-                    }
-                ),
-                success: function (data) {
-                    if (data.status == true) {
-                        calculate(data.data);
-                        alert("SUKSES");
-                        var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                        window.location.href = url;
-                    }
-                },
-                error: function (jqXHR) {
-                    $('#divErrorText').text(jqXHR.responseText);
-                    $('#divError').show('fade');
-                }
+        if (lat == "" || lat == null) {
+            $("#_alert8").fadeTo(8000, 500).slideUp(500, function () {
+                $("#_alert8").slideUp(500);
             });
+            $("#textError8").text("Latitude ");
         }
+        if (long == "" || long == null) {
+            $("#_alert9").fadeTo(8000, 500).slideUp(500, function () {
+                $("#_alert9").slideUp(500);
+            });
+            $("#textError9").text("Longitude ");
+        }        
+        else
+        {           
+            pointMap(lat, long);
+            if (results.length > 0) {
+    var currentRadius = $("#radius").val();
+                console.log(results);
+    $.ajax({
+        url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+        type: 'POST',
+        dataType: 'json',
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(
+            {
+                "ProjectName": projectName,
+                "Creator": creator,
+                "ProjectDate": projectDate,
+                "CustomerName": customerName,
+                "TargetCOD": targetCOD,
+            }
+        ),
+        success: function (data) {
+            if (data.status == true) {
+                calculate(data.data);
+                alert("SUKSES");
+                var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                window.location.href = url;
+            }
+        },
+        error: function (jqXHR) {
+            $('#divErrorText').text(jqXHR.responseText);
+            $('#divError').show('fade');
+        }
+    });
+
+}else{            
+    var currentRadius = $("#radius").val();
+    var upRadius = parseInt(currentRadius) + 50;
+    $("#radius").val(upRadius);
+    calculateCost();
+}
+        }
+           
+        
+
+        
+        
+        
+
+       
     }
+  
+    function changeCircleRadius(jarak) {
+        alert(jarak);
+            // Determine which geocode box is filled
+            // And fire click event
+            // This will determine how many markers are within the circle
+            pointsInCircle(circle, milesToMeters(jarak))
+            // Set radius of circle only if we already have one on the map
+            if (circle) {
+                circle.setRadius(milesToMeters(jarak));
+            }
+        }
+    function milesToMeters(miles) {
+            return miles * 1069.344;
+        };
+    function pointsInCircle(circle, meters_user_set) {
+        var locationMaps = ofi_paf ;
+        let mapping = [];
+                    for (var i = 0; i < locationMaps.features.length; i++) {
+                        var long = locationMaps.features[i].geometry.coordinates[0];
+                        var lat = locationMaps.features[i].geometry.coordinates[1];
+                        var loc = locationMaps.features[i].properties.oficina;
+                        let temp = {
+                            "loc" : loc,
+                            "lat" : lat,
+                            "long" : long
+                        }
+                        mapping.push(temp);
+                    }
+            
+            if (circle !== undefined) {
+                // Only run if we have an address entered
+                // Lat, long of circle
+                circle_lat_long = circle.getLatLng();
+                var counter_points_in_circle = 0;
+                // Loop through each point in JSON file
+                for (var i = 0; i < mapping.length; i++) {
+                    // Lat, long of current point
+                    let latA = mapping[i].coord;
+                    var latlng = L.latLng(mapping[i].lat, mapping[i].long);
+                    layer_lat_long = latA;
+                    
+                    // Distance from our circle marker
+                    // To current point in meters
+                    distance_from_layer_circle = latlng.distanceTo(circle_lat_long);
+                    //calculateDistance(latlng, latB)
+                    // See if meters is within raduis
+                    // The user has selected
+                    if (distance_from_layer_circle <= meters_user_set) {
+                        counter_points_in_circle += 1;
+                        let temp = {
+                            "lokasi": mapping[i].loc,
+                            "jarak": (distance_from_layer_circle / 1000).toFixed(2)
+                        }
+                        results.push(temp);
+                    }
+                };
+                //farmacias.eachLayer(function (layer) {
+                    
+                //});
+                // Set number of results on main page
+                $('#ofi_paf_results').html(counter_points_in_circle);
+            }
+            
+            // Close pointsInCircle
+        };
+    function popup(feature, layer) {
+            if (feature.properties && feature.properties.oficina) {
+                layer.bindPopup(feature.properties.oficina, {
+                    closeButton: false,
+                    offset: L.point(0, -20)
+                });
+                layer.on('mouseover', function () {
+                    layer.openPopup();
+                });
+                layer.on('mouseout', function () {
+                    layer.closePopup();
+                });
+            }
+        };
+
     function calculate(data) {
         if (results.length > 0) {
             for (i = 0; i < results.length; i++) {
@@ -563,6 +703,7 @@ ViewData["Title"] = "Simulation Cost";
             }
         }
     }
+
     function DeleteData(id) {
         if (confirm("Are you sure you want to delete ...?")) {
             Delete(id);
@@ -571,6 +712,7 @@ ViewData["Title"] = "Simulation Cost";
             return false;
         }
     }
+
     $(document).ready(function () {
         $("#_alert1").hide();
         $("#_alert2").hide();
@@ -581,6 +723,7 @@ ViewData["Title"] = "Simulation Cost";
         $("#_alert7").hide();
         $("#_alert8").hide();
         $("#_alert9").hide();
+
         $.ajax({
             url: '@Url.Action("Retrieve", "MstEnergy")',
             type: 'post',
@@ -628,32 +771,37 @@ ViewData["Title"] = "Simulation Cost";
                 }
             });
         });
-        let range = $("#range-km");
-        let rangeV = $("#radius-selected");
-        const setValue = () => {
-            let newValue = Number(
-                ((range.val() - range.attr("min")) * 100) /
-                (range.attr("max") - range.attr("min"))
-            ),
-                newPosition = 10 - newValue * 0.2;
-            rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
-            rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
-            $("#radius").val(range.val());
-            changeCircleRadius(range.val());
-        };
-        setValue();
-        range.on("input", setValue);
+
+        //let range = $("#range-km");
+        //let rangeV = $("#radius-selected");
+        //const setValue = () => {
+        //    let newValue = Number(
+        //        ((range.val() - range.attr("min")) * 100) /
+        //        (range.attr("max") - range.attr("min"))
+        //    ),
+        //        newPosition = 10 - newValue * 0.2;
+        //    rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
+        //    rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
+        //    $("#radius").val(range.val());
+        //    changeCircleRadius(range.val());
+        //};
+        //setValue();
+        //range.on("input", setValue);
+        //changeCircleRadius(50);
         $("#pipeLine").checked = true;
         $("#lng").checked = true;
+
         document.getElementById("pipeLine").checked = true;
         document.getElementById("lng").checked = true;
         document.getElementById("cng").checked = true;
         document.getElementById("energyScale").checked = true;
+
         $("#tableConvert").hide();
         $("#costStructure").show();
         $("#findMap").hide();
         $("#convertEnergy").hide();
         $("#calculateSimulation").hide();
+
         // Base map styles
         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
@@ -758,6 +906,7 @@ ViewData["Title"] = "Simulation Cost";
         });
         map.on(L.Draw.Event.CREATED, function (event) {
             var layer = event.layer;
+            console.log((layer));
             drawn_markers.addLayer(layer);
         });
         map.addControl(draw_control);
@@ -790,7 +939,7 @@ ViewData["Title"] = "Simulation Cost";
         map.on('draw:created', function (e) {
             // Add a circle around the marker
             var marker_lat_long = e.layer._latlng
-            var radius = milesToMeters($('#radius').val());
+            var radius = milesToMeters($("#radius").val());
             circle = L.circle(marker_lat_long, radius)
             circle.addTo(map);
             // Calculate the number of eco icons within the circle
