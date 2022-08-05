@@ -114,6 +114,8 @@ namespace SiappGasIn.Models
         public string Creator { get; set; }
         public DateTime? ProjectDate { get; set; }
         public string CustomerName { get; set; }
+
+        public string lokasiCapel { get; set; }
         public DateTime? TargetCOD { get; set; }
         public int HourVolume { get; set; }
         public int Volume { get; set; }

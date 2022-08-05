@@ -6,7 +6,7 @@ using SiappGasIn.Models;
 
 namespace SiappGasIn.Controllers
 {
-    [Authorize(Roles = "Super Admin")]
+    [Authorize(Roles = "Super Admin, Admin")]
     public class MstHargaPRSController : Controller
     {
         public IActionResult Index()

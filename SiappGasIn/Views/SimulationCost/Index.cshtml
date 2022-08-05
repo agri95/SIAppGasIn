@@ -2,994 +2,1106 @@
 @using Microsoft.EntityFrameworkCore;
 @using SiappGasIn.Models
 @inject IOptions<SiappGasIn.Services.IdentityDefaultOptions> identityDefaultOptionsAcc
-@inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
-@inject SiappGasIn.Data.ApplicationDbContext dbContext
+    @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
+        @inject SiappGasIn.Data.ApplicationDbContext dbContext
 
-@{
+        @{
 
-    SiappGasIn.Services.IdentityDefaultOptions identityOptions = null;
+        SiappGasIn.Services.IdentityDefaultOptions identityOptions = null;
 
-    try
-    {
+        try
+        {
         var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
         var users = await userManager.FindByIdAsync(currentUserId);
-        
+
         identityOptions = identityDefaultOptionsAcc.Value;
 
-    }
-    catch
-    {
+        }
+        catch
+        {
 
-    }
+        }
 
-}
+        }
 
-@{
-ViewData["Title"] = "Simulation Cost";
-}
+        @{
+        ViewData["Title"] = "Simulation Cost";
+        }
 
-<div class="alert alert-warning alert-dismissible agri" id="_alert1">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError1"></span> is required.
-</div>
-<div class="alert alert-warning alert-dismissible agri" id="_alert2">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError2"></span> is required.
-</div>
-<div class="alert alert-warning alert-dismissible agri" id="_alert3">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError3"></span> is required.
-</div>
-<div class="alert alert-warning alert-dismissible agri" id="_alert4">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError4"></span> is required.
-</div>
-<div class="alert alert-warning alert-dismissible agri" id="_alert5">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError5"></span> is required.
-</div>
-<div class="alert alert-warning alert-dismissible agri" id="_alert6">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError6"></span> is required.
-</div>
-<div class="alert alert-warning alert-dismissible agri" id="_alert7">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError7"></span> is required.
-</div>
-<div class="alert alert-warning alert-dismissible agri" id="_alert8">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError8"></span> is required.
-</div>
-<div class="alert alert-warning alert-dismissible agri" id="_alert9">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Warning!</strong> <span id="textError9"></span> is required.
-</div>
-<div class="container body koes" style="padding-left:230px;padding-right:230px;right: 0px;left: 0px;">
+        <div class="alert alert-warning alert-dismissible agri" id="_alert1">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError1"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert2">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError2"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError3"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert4">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError4"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert5">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError5"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert6">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError6"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert7">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError7"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert8">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError8"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert9">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError9"></span> is required.
+        </div>
+        <div class="container body koes" style="padding-left:230px;padding-right:230px;right: 0px;left: 0px;">
 
-    <div class="card">
-        <div class="row ">
-            <div class="col-md-12 px-3">
-                <div class="card-block" style="border: 1px;">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
-                        </div>
-                        <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
-                                class="image-responsive" style="width:120px; height:40px; float: right;"></div>
-                    </div>
-
-                    <div id="costStructure">
-                        <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
-                            style="margin-top: 7px;">
-                            <div class="card-body" style="margin: 15px ;">
-                                <form class="form-horizontal form-label-left">
-                                    <label>Input Form</label>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
-                                        <div class="col-md-9 col-sm-9 ">
-                                            <input class="form-control form-control-sm frmInput" id="projectName"
-                                                name="projectName" type="text" placeholder=""
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Creator</label>
-                                        <div class="col-md-9 col-sm-9 ">
-                                            <input class="form-control form-control-sm frmInput" id="creator"
-                                                name="creator" type="text" placeholder=""
-                                                aria-label=".form-control-sm example" value="@userManager.GetUserName(User)" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Date</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm frmInput" type="date"
-                                                id="projectDate" name="projectDate" placeholder=""
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                    </div>
-                                    <label><strong>Prospective Customer Data</strong></label>
-                                    <br />
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
-                                        <div class="col-md-9 col-sm-9 ">
-                                            <input class="form-control form-control-sm frmInput" type="text"
-                                                id="customerName" name="customerName" placeholder=""
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Demand Usage/M³</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm frmInput" type="number"
-                                                id="demandUsage" name="demandUsage" placeholder=""
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                        <span class="col-md-1 col-sm-1"
-                                            style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
-                                            id="satuanPemakaian">
-                                        </span>
-                                        <div class="col-md-4 col-sm-4 ">
-                                            <select class="form-control form-control-sm frmInput" id="bahanBakar" style="padding-top: 2px;padding-bottom: 2px;">
-                                                
-                                            </select>
-                                        </div>
-                                         <input class="form-control form-control-sm" id="nilaiKalori" name="nilaiKalori" type="hidden" placeholder="" aria-label=".form-control-sm example" >
-                                         <input type="hidden" id="energyName" />
-                                        
-                                    </div>
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
-                                        
-                                        <div class="col-md-3 col-sm-3 ">
-                                           <input class="form-control form-control-sm frmInput" type="text"
-                                                id="longitude" name="longitude" placeholder="Longitude"
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 ">
-                                           <input class="form-control form-control-sm frmInput" type="text"
-                                                id="latitude" name="latitude" placeholder="Latitude"
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <a href="#" onclick="mapp()" class="btn btn-warning btn-sm">Find
-                                                Location</a>
-                                        </div>                                       
-                                    </div>
-                                    <div class="form-group row ">
-
-                                        <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
-                                                class="fas fa-info-circle" data-toggle="tooltip" data-placement="right"
-                                                title="Jumlah jam operasional dalam sehari"></i></label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm frmInput" type="number"
-                                                id="hourDay" name="hourDay" placeholder=""
-                                                aria-label=".form-control-sm example" min="0" max="24">
-                                        </div>
-                                        <label class="control-label col-md-3 col-sm-3 ">Target COD</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm frmInput" type="date"
-                                                id="targetCOD" name="targetCOD" placeholder=""
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-
-                                        <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
-                                                class="fas fa-info-circle" data-toggle="tooltip" data-placement="right"
-                                                title="Jumlah hari operasional dalam sebulan"></i></label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm frmInput" type="number"
-                                                id="workDay" name="workDay" placeholder=""
-                                                aria-label=".form-control-sm example" min="0" max="31">
-                                        </div>
-                                    </div>
-                                    <label><strong>Supply Data</strong></label>
-                                    <br />
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Gas Source</label>
-                                        <div class="control-label col-md-3 col-sm-3 ">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="pipeLine" value=""> Pipeline
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="control-label col-md-3 col-sm-3 ">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="cng" value=""> CNG
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="control-label col-md-3 col-sm-3 ">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="lng" value=""> LNG
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Target Price</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm frmInput" type="number"
-                                                id="minPrice" name="minPrice" placeholder="USD/MMBTU"
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                        <label class="control-label col-md-1 col-sm-1 "
-                                            style="padding-left: 0px;">(Min)</label>
-                                        <div class="col-md-3 col-sm-3 ">
-                                            <input class="form-control form-control-sm frmInput" type="number"
-                                                id="maxPrice" name="maxPrice" placeholder="USD/MMBTU"
-                                                aria-label=".form-control-sm example">
-                                        </div>
-                                        <label class="control-label col-md-1 col-sm-1 "
-                                            style="padding-left: 0px;">(Max)</label>
-                                    </div>
-
-                                    <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Output Scale</label>
-
-                                        <div class="control-label col-md-3 col-sm-3 ">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="energyScale" value=""> Energy
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="control-label col-md-3 col-sm-3 ">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" id="volumeScale" value=""> Volume
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="ln_solid"></div>
-
-
-                                </form>
+            <div class="card">
+                <div class="row ">
+                    <div class="col-md-12 px-3">
+                        <div class="card-block" style="border: 1px;">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                                </div>
+                                <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
+                                        class="image-responsive" style="width:120px; height:40px; float: right;"></div>
                             </div>
 
-                        </div>
+                            <div id="costStructure">
+                                <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            <label>Input Form</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName" name="projectName" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" id="creator"
+                                                        name="creator" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example"
+                                                        value="@userManager.GetUserName(User)" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="projectDate" name="projectDate" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <label><strong>Prospective Customer Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="customerName" name="customerName" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage/M³</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="demandUsage" name="demandUsage" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                                    id="satuanPemakaian">
+                                                </span>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <select class="form-control form-control-sm frmInput"
+                                                        id="bahanBakar" style="padding-top: 2px;padding-bottom: 2px;">
 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-                                <button type="submit" onclick="calculateCost()"
-                                    class="btn btn-primary pull-right RbtnMargin">Run</button>
-                                <button type="reset" class="btn btn-warning pull-right RbtnMargin">Reset</button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Batas-->
-                    <div id="findMap">
-                    <input type="text" id="radius" value="50" hidden />
-                       @* <div style="margin-bottom:10px;">
-                            <div class="form">
-                                <div class="range-wrap">
-                                    <input type="text" id="radius" hidden />
-                                    <div class="range-value" id="radius-selected"></div>
-                                    <input id="range-km" name="range-km" type="range" min="0" max="500" value="50"
-                                        step="5"/>
+                                                    </select>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="nilaiKalori"
+                                                    name="nilaiKalori" type="hidden" placeholder=""
+                                                    aria-label=".form-control-sm example">
+                                                <input type="hidden" id="energyName" />
+
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+
+                                                 <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="locationName" name="locationName"
+                                                        placeholder="Search location...."
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <a href="#" onclick="addr_search()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Search</a>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="longitude" name="longitude" placeholder="Longitude"
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="latitude" name="latitude" placeholder="Latitude"
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                @*<div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp()" class="btn btn-warning btn-sm">Find
+                                                        Location</a>
+                                                </div> *@
+                                               
+                                            </div>
+                                            <div class="form-group row" id="resultMap">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <div id="resultText"
+                                                        style="border:1px solid; border-radius:5px; padding:10px;margin-top:0px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah jam operasional dalam sehari"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="hourDay" name="hourDay" placeholder=""
+                                                        aria-label=".form-control-sm example" min="0" max="24">
+                                                </div>
+                                                <label class="control-label col-md-3 col-sm-3 ">Target COD</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="targetCOD" name="targetCOD" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah hari operasional dalam sebulan"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="workDay" name="workDay" placeholder=""
+                                                        aria-label=".form-control-sm example" min="0" max="31">
+                                                </div>
+                                            </div>
+                                            <label><strong>Supply Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Gas Source</label>
+                                                <div class="control-label col-md-3 col-sm-3 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="pipeLine" value=""> Pipeline
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="control-label col-md-3 col-sm-3 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="cng" value=""> CNG
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="control-label col-md-3 col-sm-3 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="lng" value=""> LNG
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Target Price</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="minPrice" name="minPrice" placeholder="USD/MMBTU"
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <label class="control-label col-md-1 col-sm-1 "
+                                                    style="padding-left: 0px;">(Min)</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="maxPrice" name="maxPrice" placeholder="USD/MMBTU"
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <label class="control-label col-md-1 col-sm-1 "
+                                                    style="padding-left: 0px;">(Max)</label>
+                                            </div>
+
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Output Scale</label>
+
+                                                <div class="control-label col-md-3 col-sm-3 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="energyScale" value=""> Energy
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="control-label col-md-3 col-sm-3 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="volumeScale" value=""> Volume
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="ln_solid"></div>
+
+
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="calculateCost()"
+                                            class="btn btn-primary pull-right RbtnMargin">Run</button>
+                                        <button type="reset"
+                                            class="btn btn-warning pull-right RbtnMargin">Reset</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>*@
+                            <!--Batas-->
+                            <div id="findMap">
+                                <input type="text" id="radius" value="50" hidden />
+                                <input type="text" id="resultLocationName" hidden />
+                                @* <div style="margin-bottom:10px;">
+                                    <div class="form">
+                                        <div class="range-wrap">
+                                            <input type="text" id="radius" hidden />
+                                            <div class="range-value" id="radius-selected"></div>
+                                            <input id="range-km" name="range-km" type="range" min="0" max="500"
+                                                value="50" step="5" />
+                                        </div>
+                                    </div>
+                                </div>*@
 
-                        <div id="map" class="map"></div>
+                                <div id="map" class="map"></div>
 
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-                                <button type="submit" onclick="back()"
-                                    class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
-                                <button type="submit" onclick="back()"
-                                    class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="back()"
+                                            class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                        <button type="submit" onclick="back()"
+                                            class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
 
+                                    </div>
+                                </div>
                             </div>
+
+
+
+
+
                         </div>
                     </div>
-
-
-
-
-
                 </div>
             </div>
+
         </div>
-    </div>
+        <span hidden id="gajiSupir"></span>
+        <span hidden id="gajiOperator"></span>
+        @section Styles{
+        <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.css" />
+        <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
+        <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
+        <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
+        <link rel="stylesheet" type="text/css"
+            href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
 
-</div>
-<span hidden id="gajiSupir"></span>
-<span hidden id="gajiOperator"></span>
-@section Styles{
-<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.css" />
-<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
-<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
-<link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
-<link rel="stylesheet" type="text/css"
-    href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+        @*
+        <link rel="stylesheet" href="~/plugins/map/css/styles.css" />*@
 
-@*
-<link rel="stylesheet" href="~/plugins/map/css/styles.css" />*@
-
-<style>
-    .koes {
-        position: absolute;
-        top: 55px;
-        z-index: -2;
-    }
-    .agri {
-        margin-left: 70%;
-        margin-right: 1%;
-        margin-top: 10px;
-    }
-    .map {
-        height: 370px;
-        width: 100%;
-    }
-    #mapSearchContainer {
-        position: fixed;
-        top: 20px;
-        right: 40px;
-        height: 30px;
-        width: 180px;
-        z-index: 110;
-        font-size: 10pt;
-        color: #5d5d5d;
-        border: solid 1px #bbb;
-        background-color: #f8f8f8;
-    }
-    .geocoder-control-input leaflet-bar {
-        height: 30px;
-        width: 180px;
-    }
-    .pointer {
-        position: absolute;
-        top: 86px;
-        left: 60px;
-        z-index: 99999;
-    }
-    .results {
-        background-color: white;
-        opacity: 0.8;
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        width: 320px;
-        height: 480px;
-        overflow-y: scroll;
-    }
-    #map .leaflet-bar .leaflet-draw-draw-rectangle,
-    #map .leaflet-bar .leaflet-draw-draw-circle,
-    #map .leaflet-bar .leaflet-draw-edit-edit,
-    #map .leaflet-bar .leaflet-draw-edit-remove {
-        display: none;
-    }
-    .tblConvert {
-        width: 15%;
-        text-align: center;
-        font-size: 12px;
-    }
-</style>
-}
-
-
-@section Scripts{
-<script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>
-@*
-<script type="text/javascript" src="~/plugins/map/js/script.js"></script>*@
-<script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
-<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
-<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
-<script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
-<script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-    var results = [];
-    function convertEnergy() {
-        $("#tableConvert").show();
-        let nf = new Intl.NumberFormat('en-US')
-        var energyName = $("#energyName").val();
-        var demand = $("#pemakaian").val();
-        var satuan = $("#satuan").text();
-        var satuanPemakaian = $("#satuanPemakaian").text();
-        var nilaiKal = $("#nilaiKalori").val();
-        var hargaBB = $("#hargaBBM").val();
-        var hargaGasBumi = 8945.142;
-        var hargaBerlaku = 3650;
-        if (demand == "" || demand == null) {
-            alert("Jumlah pemakaian wajib diisi");
-        } else {
-            $("#tblHeader").text(energyName);
-            $("#tblNilaiKalori").text(nf.format(nilaiKal));
-            $("#tblSatuan").text(satuan);
-            $("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
-            $("#tblKonversi").text("1");
-            $("#tblKonversiSatuan").text(satuanPemakaian);
-            var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
-            $("#tblKonversiGas").text(nf.format(hitKonversi));
-            $("#tblPemakaian").text(nf.format(demand));
-            $("#tblPemakaianSatuan").text(satuanPemakaian);
-            var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
-            $("#tblPemakaianGas").text(nf.format(hitPemakaian));
-            $("#tblBB").text(nf.format(hargaBB));
-            $("#tblBBSatuan").text("Rp / " + satuanPemakaian);
-            $("#tblBBGas").text(nf.format(hargaBerlaku));
-            var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
-            $("#tblBiaya").text(nf.format(hitBiaya));
-            $("#tblBiayaSatuan").text("Rp / Bln");
-            var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
-            $("#tblBiayaGas").text(nf.format(hitBiayaGas));
-            var hitResult = hitBiaya - hitBiayaGas;
-            $("#tblPenghematan").text(nf.format(hitResult));
-            $("#resultConvert").val(nf.format(hitPemakaian));
-        }
-    }
-    function submitEnergy() {
-        $("#convertEnergy").hide();
-        $("#costStructure").show();
-        var demand = $("#resultConvert").val();
-        $("#demandUsage").val(demand);
-    }
-
-function pointMap(lat,long) {
-    var titik = L.latLng(lat, long);
-            L.marker(titik).addTo(map);
-       
-        var circle;
-        var radius = milesToMeters($("#radius").val());
-        circle = L.circle(titik, radius);
-        circle.addTo(map);
-
-        pointsInCircle(circle, radius);
-}
-
-    function calculateCost() {      
-        results = [];
-        var projectName = $("#projectName").val();
-        var creator = $("#creator").val();
-        var projectDate = $("#projectDate").val();
-        var customerName = $("#customerName").val();
-        var demandUsage = $("#demandUsage").val();
-        var targetCOD = $("#targetCOD").val();
-        var hourDay = $("#hourDay").val();
-        var workDay = $("#workDay").val();        
-        var lat = $("#latitude").val();        
-        var long = $("#longitude").val(); 
-                if (projectName == "" || projectName == null) {
-            $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
-                $("#_alert1").slideUp(500);
-            });
-            $("#textError1").text("Project Name ");
-        }
-        if (projectDate == "" || projectDate == null) {
-            $("#_alert2").fadeTo(3000, 500).slideUp(500, function () {
-                $("#_alert2").slideUp(500);
-            });
-            $("#textError2").text("Project Date ");
-        }
-        if (customerName == "" || customerName == null) {
-            $("#_alert3").fadeTo(4000, 500).slideUp(500, function () {
-                $("#_alert3").slideUp(500);
-            });
-            $("#textError3").text("Customer Name ");
-        }        
-        if (demandUsage == "" || demandUsage == null) {
-            $("#_alert4").fadeTo(5000, 500).slideUp(500, function () {
-                $("#_alert4").slideUp(500);
-            });
-            $("#textError4").text("Demand Usage ");
-        } 
-        if (hourDay == "" || hourDay == null) {
-            $("#_alert5").fadeTo(6000, 500).slideUp(500, function () {
-                $("#_alert5").slideUp(500);
-            });
-            $("#textError5").text("Hour Day ");
-        }  
-        if (workDay == "" || workDay == null) {
-            $("#_alert6").fadeTo(7000, 500).slideUp(500, function () {
-                $("#_alert6").slideUp(500);
-            });
-            $("#textError6").text("Work Day ");
-        } 
-        if (targetCOD == "" || targetCOD == null) {
-            $("#_alert7").fadeTo(8000, 500).slideUp(500, function () {
-                $("#_alert7").slideUp(500);
-            });
-            $("#textError7").text("Target COD ");
-        }
-        if (lat == "" || lat == null) {
-            $("#_alert8").fadeTo(8000, 500).slideUp(500, function () {
-                $("#_alert8").slideUp(500);
-            });
-            $("#textError8").text("Latitude ");
-        }
-        if (long == "" || long == null) {
-            $("#_alert9").fadeTo(8000, 500).slideUp(500, function () {
-                $("#_alert9").slideUp(500);
-            });
-            $("#textError9").text("Longitude ");
-        }        
-        else
-        {           
-            pointMap(lat, long);
-            if (results.length > 0) {
-    var currentRadius = $("#radius").val();
-                console.log(results);
-    $.ajax({
-        url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-        type: 'POST',
-        dataType: 'json',
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(
-            {
-                "ProjectName": projectName,
-                "Creator": creator,
-                "ProjectDate": projectDate,
-                "CustomerName": customerName,
-                "TargetCOD": targetCOD,
+        <style>
+            .address {
+                cursor: pointer
             }
-        ),
-        success: function (data) {
-            if (data.status == true) {
-                calculate(data.data);
-                alert("SUKSES");
-                var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                window.location.href = url;
+
+            .address:hover {
+                color: #AA0000;
+                text-decoration: underline
             }
-        },
-        error: function (jqXHR) {
-            $('#divErrorText').text(jqXHR.responseText);
-            $('#divError').show('fade');
-        }
-    });
 
-}else{            
-    var currentRadius = $("#radius").val();
-    var upRadius = parseInt(currentRadius) + 50;
-    $("#radius").val(upRadius);
-    calculateCost();
-}
-        }
-           
-        
-
-        
-        
-        
-
-       
-    }
-  
-    function changeCircleRadius(jarak) {
-        alert(jarak);
-            // Determine which geocode box is filled
-            // And fire click event
-            // This will determine how many markers are within the circle
-            pointsInCircle(circle, milesToMeters(jarak))
-            // Set radius of circle only if we already have one on the map
-            if (circle) {
-                circle.setRadius(milesToMeters(jarak));
+            .koes {
+                position: absolute;
+                top: 55px;
+                z-index: -2;
             }
+
+            .agri {
+                margin-left: 70%;
+                margin-right: 1%;
+                margin-top: 10px;
+            }
+
+            .map {
+                height: 370px;
+                width: 100%;
+            }
+
+            #mapSearchContainer {
+                position: fixed;
+                top: 20px;
+                right: 40px;
+                height: 30px;
+                width: 180px;
+                z-index: 110;
+                font-size: 10pt;
+                color: #5d5d5d;
+                border: solid 1px #bbb;
+                background-color: #f8f8f8;
+            }
+
+            .geocoder-control-input leaflet-bar {
+                height: 30px;
+                width: 180px;
+            }
+
+            .pointer {
+                position: absolute;
+                top: 86px;
+                left: 60px;
+                z-index: 99999;
+            }
+
+            .results {
+                background-color: white;
+                opacity: 0.8;
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                width: 320px;
+                height: 480px;
+                overflow-y: scroll;
+            }
+
+            #map .leaflet-bar .leaflet-draw-draw-rectangle,
+            #map .leaflet-bar .leaflet-draw-draw-circle,
+            #map .leaflet-bar .leaflet-draw-edit-edit,
+            #map .leaflet-bar .leaflet-draw-edit-remove {
+                display: none;
+            }
+
+            .tblConvert {
+                width: 15%;
+                text-align: center;
+                font-size: 12px;
+            }
+        </style>
         }
-    function milesToMeters(miles) {
-            return miles * 1069.344;
-        };
-    function pointsInCircle(circle, meters_user_set) {
-        var locationMaps = ofi_paf ;
-        let mapping = [];
-                    for (var i = 0; i < locationMaps.features.length; i++) {
-                        var long = locationMaps.features[i].geometry.coordinates[0];
-                        var lat = locationMaps.features[i].geometry.coordinates[1];
-                        var loc = locationMaps.features[i].properties.oficina;
-                        let temp = {
-                            "loc" : loc,
-                            "lat" : lat,
-                            "long" : long
-                        }
-                        mapping.push(temp);
-                    }
-            
-            if (circle !== undefined) {
-                // Only run if we have an address entered
-                // Lat, long of circle
-                circle_lat_long = circle.getLatLng();
-                var counter_points_in_circle = 0;
-                // Loop through each point in JSON file
-                for (var i = 0; i < mapping.length; i++) {
-                    // Lat, long of current point
-                    let latA = mapping[i].coord;
-                    var latlng = L.latLng(mapping[i].lat, mapping[i].long);
-                    layer_lat_long = latA;
-                    
-                    // Distance from our circle marker
-                    // To current point in meters
-                    distance_from_layer_circle = latlng.distanceTo(circle_lat_long);
-                    //calculateDistance(latlng, latB)
-                    // See if meters is within raduis
-                    // The user has selected
-                    if (distance_from_layer_circle <= meters_user_set) {
-                        counter_points_in_circle += 1;
-                        let temp = {
-                            "lokasi": mapping[i].loc,
-                            "jarak": (distance_from_layer_circle / 1000).toFixed(2)
-                        }
-                        results.push(temp);
+
+
+        @section Scripts{
+        <script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>
+        @*
+        <script type="text/javascript" src="~/plugins/map/js/script.js"></script>*@
+        <script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
+        <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
+        <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+        <script
+            src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript">
+            var results = [];
+
+            function addr_search() {
+                var inp = document.getElementById("locationName");
+                var xmlhttp = new XMLHttpRequest();
+                var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + inp.value;
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var myArr = JSON.parse(this.responseText);
+                        myFunction(myArr);
                     }
                 };
-                //farmacias.eachLayer(function (layer) {
-                    
-                //});
-                // Set number of results on main page
-                $('#ofi_paf_results').html(counter_points_in_circle);
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
             }
-            
-            // Close pointsInCircle
-        };
-    function popup(feature, layer) {
-            if (feature.properties && feature.properties.oficina) {
-                layer.bindPopup(feature.properties.oficina, {
-                    closeButton: false,
-                    offset: L.point(0, -20)
-                });
-                layer.on('mouseover', function () {
-                    layer.openPopup();
-                });
-                layer.on('mouseout', function () {
-                    layer.closePopup();
-                });
-            }
-        };
 
-    function calculate(data) {
-        if (results.length > 0) {
-            for (i = 0; i < results.length; i++) {
-                var rsLokasi = results[i].lokasi;
-                var rsJarak = results[i].jarak;
-                var jarak = rsJarak * 2;
-                var volume = $("#demandUsage").val(); // M3/Bln
-                volume = volume.replace(/\,/g, '')
-                volume = Number(volume)
-                var operasiHari = $("#hourDay").val();
-                var operasiBulan = $("#workDay").val();
+            function myFunction(arr) {
+                $("#resultText").show();
+                var out = "<br />";
+                var i;
+
+                if (arr.length > 0) {
+                    
+                    for (i = 0; i < arr.length; i++) {
+                        var locs = arr[i].display_name;
+                        var spl = locs.split(',');
+                        out += "<div class='address' title='Show Location and Coordinates' onclick='chooseAddr(" + arr[i].lat + ", " + arr[i].lon + ", " + JSON.stringify(locs) + ");return false;'>" + arr[i].display_name + "</div>";
+                    }
+                    document.getElementById('resultText').innerHTML = out;
+                }
+                else {
+                    document.getElementById('resultText').innerHTML = "Sorry, no results...";
+                }
+
+            }
+            function chooseAddr(lat1, lng1, loc1) {
+                lat = lat1.toFixed(8);
+                lon = lng1.toFixed(8);
+                var loc = loc1;
+                document.getElementById('latitude').value = lat;
+                document.getElementById('longitude').value = lon;
+                document.getElementById('resultLocationName').value = loc;
+                $("#resultText").hide();
+            }
+
+            function convertEnergy() {
+                $("#tableConvert").show();
+                let nf = new Intl.NumberFormat('en-US')
                 var energyName = $("#energyName").val();
-                var minPrice = $("#minPrice").val();
-                var maxPrice = $("#maxPrice").val();
-                if (minPrice == 0 || minPrice == null) {
-                    minPrice = 0;
+                var demand = $("#pemakaian").val();
+                var satuan = $("#satuan").text();
+                var satuanPemakaian = $("#satuanPemakaian").text();
+                var nilaiKal = $("#nilaiKalori").val();
+                var hargaBB = $("#hargaBBM").val();
+                var hargaGasBumi = 8945.142;
+                var hargaBerlaku = 3650;
+                if (demand == "" || demand == null) {
+                    alert("Jumlah pemakaian wajib diisi");
+                } else {
+                    $("#tblHeader").text(energyName);
+                    $("#tblNilaiKalori").text(nf.format(nilaiKal));
+                    $("#tblSatuan").text(satuan);
+                    $("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
+                    $("#tblKonversi").text("1");
+                    $("#tblKonversiSatuan").text(satuanPemakaian);
+                    var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
+                    $("#tblKonversiGas").text(nf.format(hitKonversi));
+                    $("#tblPemakaian").text(nf.format(demand));
+                    $("#tblPemakaianSatuan").text(satuanPemakaian);
+                    var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
+                    $("#tblPemakaianGas").text(nf.format(hitPemakaian));
+                    $("#tblBB").text(nf.format(hargaBB));
+                    $("#tblBBSatuan").text("Rp / " + satuanPemakaian);
+                    $("#tblBBGas").text(nf.format(hargaBerlaku));
+                    var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
+                    $("#tblBiaya").text(nf.format(hitBiaya));
+                    $("#tblBiayaSatuan").text("Rp / Bln");
+                    var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
+                    $("#tblBiayaGas").text(nf.format(hitBiayaGas));
+                    var hitResult = hitBiaya - hitBiayaGas;
+                    $("#tblPenghematan").text(nf.format(hitResult));
+                    $("#resultConvert").val(nf.format(hitPemakaian));
                 }
-                if (maxPrice == 0 || maxPrice == null) {
-                    maxPrice = 0;
-                }
+            }
+            function submitEnergy() {
+                $("#convertEnergy").hide();
+                $("#costStructure").show();
+                var demand = $("#resultConvert").val();
+                $("#demandUsage").val(demand);
+            }
+
+            function pointMap(lat, long) {
+                var titik = L.latLng(lat, long);
+                L.marker(titik).addTo(map);
+
+                var circle;
+                var radius = milesToMeters($("#radius").val());
+                circle = L.circle(titik, radius);
+                circle.addTo(map);
+
+                pointsInCircle(circle, radius);
+            }
+
+            function calculateCost() {
+                results = [];
+                var projectName = $("#projectName").val();
+                var creator = $("#creator").val();
+                var projectDate = $("#projectDate").val();
+                var customerName = $("#customerName").val();
+                var demandUsage = $("#demandUsage").val();
+                var targetCOD = $("#targetCOD").val();
+                var hourDay = $("#hourDay").val();
+                var workDay = $("#workDay").val();
+                var lat = $("#latitude").val();
+                var long = $("#longitude").val();
                 $.ajax({
-                    url: '@Url.Action("SaveData", "SimulationCost")',
-                    type: 'POST',
+                      url: "https://nominatim.openstreetmap.org/reverse",
+                      data: {
+                        lat: lat,
+                        lon: long,
+                        format: "json"
+                      },
+                      beforeSend: function (xhr) {
+                        xhr.setRequestHeader(
+                          'User-Agent',
+                          'ID of your APP/service/website/etc. v0.1'
+                        )
+                      },
+                      dataType: "json",
+                      type: "GET",
+                      async: true,
+                      crossDomain: true
+                    }).done(function (res) {
+                      console.log(res.address)
+                    }).fail(function (error) {
+                      console.error(error)
+                    })
+                //if (projectName == "" || projectName == null) {
+                //    $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
+                //        $("#_alert1").slideUp(500);
+                //    });
+                //    $("#textError1").text("Project Name ");
+                //}
+                //if (projectDate == "" || projectDate == null) {
+                //    $("#_alert2").fadeTo(3000, 500).slideUp(500, function () {
+                //        $("#_alert2").slideUp(500);
+                //    });
+                //    $("#textError2").text("Project Date ");
+                //}
+                //if (customerName == "" || customerName == null) {
+                //    $("#_alert3").fadeTo(4000, 500).slideUp(500, function () {
+                //        $("#_alert3").slideUp(500);
+                //    });
+                //    $("#textError3").text("Customer Name ");
+                //}
+                //if (demandUsage == "" || demandUsage == null) {
+                //    $("#_alert4").fadeTo(5000, 500).slideUp(500, function () {
+                //        $("#_alert4").slideUp(500);
+                //    });
+                //    $("#textError4").text("Demand Usage ");
+                //}
+                //if (hourDay == "" || hourDay == null) {
+                //    $("#_alert5").fadeTo(6000, 500).slideUp(500, function () {
+                //        $("#_alert5").slideUp(500);
+                //    });
+                //    $("#textError5").text("Hour Day ");
+                //}
+                //if (workDay == "" || workDay == null) {
+                //    $("#_alert6").fadeTo(7000, 500).slideUp(500, function () {
+                //        $("#_alert6").slideUp(500);
+                //    });
+                //    $("#textError6").text("Work Day ");
+                //}
+                //if (targetCOD == "" || targetCOD == null) {
+                //    $("#_alert7").fadeTo(8000, 500).slideUp(500, function () {
+                //        $("#_alert7").slideUp(500);
+                //    });
+                //    $("#textError7").text("Target COD ");
+                //}
+                //if (lat == "" || lat == null) {
+                //    $("#_alert8").fadeTo(8000, 500).slideUp(500, function () {
+                //        $("#_alert8").slideUp(500);
+                //    });
+                //    $("#textError8").text("Latitude ");
+                //}
+                //if (long == "" || long == null) {
+                //    $("#_alert9").fadeTo(8000, 500).slideUp(500, function () {
+                //        $("#_alert9").slideUp(500);
+                //    });
+                //    $("#textError9").text("Longitude ");
+                //}
+                //if (projectName == "" || projectDate == "" || customerName == "" || demandUsage == "" || hourDay == "" || workDay == "" || targetCOD == "" || lat == "" || long == "") {
+                //    console.log("error");
+                //}
+                //else {
+                //    pointMap(lat, long);
+                //    if (results.length > 0) {
+                //        var currentRadius = $("#radius").val();
+                //        console.log(results);
+                //        $.ajax({
+                //            url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+                //            type: 'POST',
+                //            dataType: 'json',
+                //            contentType: "application/json; charset=utf-8",
+                //            data: JSON.stringify(
+                //                {
+                //                    "ProjectName": projectName,
+                //                    "Creator": creator,
+                //                    "ProjectDate": projectDate,
+                //                    "CustomerName": customerName,
+                //                    "TargetCOD": targetCOD,
+                //                }
+                //            ),
+                //            success: function (data) {
+                //                if (data.status == true) {
+                //                    calculate(data.data);
+                //                    alert("SUKSES");
+                //                    var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                //                    window.location.href = url;
+                //                }
+                //            },
+                //            error: function (jqXHR) {
+                //                $('#divErrorText').text(jqXHR.responseText);
+                //                $('#divError').show('fade');
+                //            }
+                //        });
+
+                //    } else {
+                //        var currentRadius = $("#radius").val();
+                //        var upRadius = parseInt(currentRadius) + 50;
+                //        $("#radius").val(upRadius);
+                //        calculateCost();
+                //    }
+                //}
+            }
+
+            function changeCircleRadius(jarak) {
+                alert(jarak);
+                // Determine which geocode box is filled
+                // And fire click event
+                // This will determine how many markers are within the circle
+                pointsInCircle(circle, milesToMeters(jarak))
+                // Set radius of circle only if we already have one on the map
+                if (circle) {
+                    circle.setRadius(milesToMeters(jarak));
+                }
+            }
+            function milesToMeters(miles) {
+                return miles * 1069.344;
+            };
+            function pointsInCircle(circle, meters_user_set) {
+                var locationMaps = ofi_paf;
+                let mapping = [];
+                for (var i = 0; i < locationMaps.features.length; i++) {
+                    var long = locationMaps.features[i].geometry.coordinates[0];
+                    var lat = locationMaps.features[i].geometry.coordinates[1];
+                    var loc = locationMaps.features[i].properties.oficina;
+                    let temp = {
+                        "loc": loc,
+                        "lat": lat,
+                        "long": long
+                    }
+                    mapping.push(temp);
+                }
+
+                if (circle !== undefined) {
+                    // Only run if we have an address entered
+                    // Lat, long of circle
+                    circle_lat_long = circle.getLatLng();
+                    var counter_points_in_circle = 0;
+                    // Loop through each point in JSON file
+                    for (var i = 0; i < mapping.length; i++) {
+                        // Lat, long of current point
+                        let latA = mapping[i].coord;
+                        var latlng = L.latLng(mapping[i].lat, mapping[i].long);
+                        layer_lat_long = latA;
+
+                        // Distance from our circle marker
+                        // To current point in meters
+                        distance_from_layer_circle = latlng.distanceTo(circle_lat_long);
+                        //calculateDistance(latlng, latB)
+                        // See if meters is within raduis
+                        // The user has selected
+                        if (distance_from_layer_circle <= meters_user_set) {
+                            counter_points_in_circle += 1;
+                            let temp = {
+                                "lokasi": mapping[i].loc,
+                                "jarak": (distance_from_layer_circle / 1000).toFixed(2)
+                            }
+                            results.push(temp);
+                        }
+                    };
+                    //farmacias.eachLayer(function (layer) {
+
+                    //});
+                    // Set number of results on main page
+                    $('#ofi_paf_results').html(counter_points_in_circle);
+                }
+
+                // Close pointsInCircle
+            };
+            function popup(feature, layer) {
+                if (feature.properties && feature.properties.oficina) {
+                    layer.bindPopup(feature.properties.oficina, {
+                        closeButton: false,
+                        offset: L.point(0, -20)
+                    });
+                    layer.on('mouseover', function () {
+                        layer.openPopup();
+                    });
+                    layer.on('mouseout', function () {
+                        layer.closePopup();
+                    });
+                }
+            };
+
+            function calculate(data) {
+                if (results.length > 0) {
+                    for (i = 0; i < results.length; i++) {
+                        var rsLokasi = results[i].lokasi;
+                        var rsJarak = results[i].jarak;
+                        var jarak = rsJarak * 2;
+                        var volume = $("#demandUsage").val(); // M3/Bln
+                        volume = volume.replace(/\,/g, '')
+                        volume = Number(volume)
+                        var operasiHari = $("#hourDay").val();
+                        var operasiBulan = $("#workDay").val();
+                        var energyName = $("#energyName").val();
+                        var minPrice = $("#minPrice").val();
+                        var maxPrice = $("#maxPrice").val();
+                        var resultLocationName = $("#resultLocationName").val();
+                        if (minPrice == 0 || minPrice == null) {
+                            minPrice = 0;
+                        }
+                        if (maxPrice == 0 || maxPrice == null) {
+                            maxPrice = 0;
+                        }
+                        $.ajax({
+                            url: '@Url.Action("SaveData", "SimulationCost")',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(
+                                {
+                                    "HeaderSimulationID": data,
+                                    "volume2": volume,
+                                    "jarak": jarak,
+                                    "operasiHari": operasiHari,
+                                    "operasiBulan": operasiBulan,
+                                    "energyName": energyName,
+                                    "asalStation": rsLokasi,
+                                    "lokasiCapel": resultLocationName,
+                                    "minPrice": minPrice,
+                                    "maxPrice": maxPrice
+                                }
+                            ),
+                            success: function (data) {
+                                //alert(data);
+                                if (data == true) {
+                                    sessionStorage.removeItem('gajiOperator');
+                                    sessionStorage.removeItem('gajiSupir');
+                                    $("#GTM").val("");
+                                    $('#HargaSewa').val("");
+                                    $('#RasioBBM').val("");
+                                    $('#Kecepatan').val("");
+                                    $('#msgText').text('Data is added Successfully');
+                                    $('#successModal').modal('show');
+                                }
+                            },
+                            error: function (jqXHR) {
+                                $('#divErrorText').text(jqXHR.responseText);
+                                $('#divError').show('fade');
+                            }
+                        });
+                    }
+                }
+            }
+
+            function DeleteData(id) {
+                if (confirm("Are you sure you want to delete ...?")) {
+                    Delete(id);
+                }
+                else {
+                    return false;
+                }
+            }
+
+            $(document).ready(function () {
+                $("#resultText").hide();
+                $("#_alert1").hide();
+                $("#_alert2").hide();
+                $("#_alert3").hide();
+                $("#_alert4").hide();
+                $("#_alert5").hide();
+                $("#_alert6").hide();
+                $("#_alert7").hide();
+                $("#_alert8").hide();
+                $("#_alert9").hide();
+
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstEnergy")',
+                    type: 'post',
                     dataType: 'json',
-                    contentType: "application/json; charset=utf-8",
-                    data: JSON.stringify(
-                        {
-                            "HeaderSimulationID": data,
-                            "volume2": volume,
-                            "jarak": jarak,
-                            "operasiHari": operasiHari,
-                            "operasiBulan": operasiBulan,
-                            "energyName": energyName, 
-                            "asalStation": rsLokasi,
-                            "lokasiCapel": "None",
-                            "minPrice": minPrice,
-                            "maxPrice": maxPrice
+                    success: function (response) {
+                        var len = response.data.length;
+                        for (var i = 0; i < len; i++) {
+                            var id = response.data[i].energyID;
+                            var name = response.data[i].energy;
+                            var nilai = response.data[i].nilaiKalori;
+                            var satuan = response.data[i].satuan;
+                            $("#bahanBakar").append("<option value='" + id + "'>" + name + "</option>");
+                            $("#energyName").val(name);
                         }
-                    ),
-                    success: function (data) {
-                        //alert(data);
-                        if (data == true) {
-                            sessionStorage.removeItem('gajiOperator');
-                            sessionStorage.removeItem('gajiSupir');
-                            $("#GTM").val("");
-                            $('#HargaSewa').val("");
-                            $('#RasioBBM').val("");
-                            $('#Kecepatan').val("");
-                            $('#msgText').text('Data is added Successfully');
-                            $('#successModal').modal('show');
-                        }
-                    },
-                    error: function (jqXHR) {
-                        $('#divErrorText').text(jqXHR.responseText);
-                        $('#divError').show('fade');
+                        $("#bahanBakar").val(8);
+                        $("#satuanPemakaian").text("M3");
                     }
                 });
-            }
-        }
-    }
 
-    function DeleteData(id) {
-        if (confirm("Are you sure you want to delete ...?")) {
-            Delete(id);
-        }
-        else {
-            return false;
-        }
-    }
-
-    $(document).ready(function () {
-        $("#_alert1").hide();
-        $("#_alert2").hide();
-        $("#_alert3").hide();
-        $("#_alert4").hide();
-        $("#_alert5").hide();
-        $("#_alert6").hide();
-        $("#_alert7").hide();
-        $("#_alert8").hide();
-        $("#_alert9").hide();
-
-        $.ajax({
-            url: '@Url.Action("Retrieve", "MstEnergy")',
-            type: 'post',
-            dataType: 'json',
-            success: function (response) {
-                var len = response.data.length;
-                for (var i = 0; i < len; i++) {
-                    var id = response.data[i].energyID;
-                    var name = response.data[i].energy;
-                    var nilai = response.data[i].nilaiKalori;
-                    var satuan = response.data[i].satuan;
-                    $("#bahanBakar").append("<option value='" + id + "'>" + name + "</option>");
-                    $("#energyName").val(name);
-                }
-                 $("#bahanBakar").val(8);
-                 $("#satuanPemakaian").text("M3");
-            }
-        });
-       
-        $("#bahanBakar").change(function () {
-            var deptid = $(this).val();
-            $.ajax({
-                url: '@Url.Action("Retrieve", "MstEnergy")',
-                type: 'post',
-                dataType: 'json',
-                success: function (response) {
-                    var len = response.data.length;
-                    for (var i = 0; i < len; i++) {
-                        var id = response.data[i].energyID;
-                        var energy = response.data[i].energy;
-                        if (id == deptid) {
-                            $("#nilaiKalori").val(response.data[i].nilaiKalori);
-                            $("#satuan").text(response.data[i].satuan);
-                            $("#energyName").val(response.data[i].energy);
-                            $("#hargaBBM").val(response.data[i].harga);
-                            if (energy == "LPG" || energy == "Batu Bara") {
-                                $("#satuanPemakaian").text("Kg");
-                            } else if (energy == "Gas Bumi") {
-                                $("#satuanPemakaian").text("M3");
-                            } else {
-                                $("#satuanPemakaian").text("Ltr");
+                $("#bahanBakar").change(function () {
+                    var deptid = $(this).val();
+                    $.ajax({
+                        url: '@Url.Action("Retrieve", "MstEnergy")',
+                        type: 'post',
+                        dataType: 'json',
+                        success: function (response) {
+                            var len = response.data.length;
+                            for (var i = 0; i < len; i++) {
+                                var id = response.data[i].energyID;
+                                var energy = response.data[i].energy;
+                                if (id == deptid) {
+                                    $("#nilaiKalori").val(response.data[i].nilaiKalori);
+                                    $("#satuan").text(response.data[i].satuan);
+                                    $("#energyName").val(response.data[i].energy);
+                                    $("#hargaBBM").val(response.data[i].harga);
+                                    if (energy == "LPG" || energy == "Batu Bara") {
+                                        $("#satuanPemakaian").text("Kg");
+                                    } else if (energy == "Gas Bumi") {
+                                        $("#satuanPemakaian").text("M3");
+                                    } else {
+                                        $("#satuanPemakaian").text("Ltr");
+                                    }
+                                }
                             }
                         }
+                    });
+                });
+
+                //let range = $("#range-km");
+                //let rangeV = $("#radius-selected");
+                //const setValue = () => {
+                //    let newValue = Number(
+                //        ((range.val() - range.attr("min")) * 100) /
+                //        (range.attr("max") - range.attr("min"))
+                //    ),
+                //        newPosition = 10 - newValue * 0.2;
+                //    rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
+                //    rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
+                //    $("#radius").val(range.val());
+                //    changeCircleRadius(range.val());
+                //};
+                //setValue();
+                //range.on("input", setValue);
+                //changeCircleRadius(50);
+                $("#pipeLine").checked = true;
+                $("#lng").checked = true;
+
+                document.getElementById("pipeLine").checked = true;
+                document.getElementById("lng").checked = true;
+                document.getElementById("cng").checked = true;
+                document.getElementById("energyScale").checked = true;
+
+                $("#tableConvert").hide();
+                $("#costStructure").show();
+                $("#findMap").hide();
+                $("#convertEnergy").hide();
+                $("#calculateSimulation").hide();
+
+                // Base map styles
+                var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                map = new L.Map('map', {
+                    minZoom: 6,
+                    zoom: 9,
+                    center: [-6.159907, 106.815383]
+                })
+                osm.addTo(map)
+                // This is the circle on the map that will be determine how many markers are around
+                var circle;
+                // The marker drawn onto the map
+                var drawn_marker = L.marker();
+                // Group for our markers
+                var drawn_markers = L.featureGroup();
+                map.addLayer(drawn_markers);
+                // Icons that get placed on map
+                var eco = L.icon({
+                    iconSize: [32, 37],
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -28],
+                    iconUrl: '/plugins/map/images/pertacon.png'
+                });
+                // When an icon is clicked
+                function popup(feature, layer) {
+                    if (feature.properties && feature.properties.oficina) {
+                        layer.bindPopup(feature.properties.oficina, {
+                            closeButton: false,
+                            offset: L.point(0, -20)
+                        });
+                        layer.on('mouseover', function () {
+                            layer.openPopup();
+                        });
+                        layer.on('mouseout', function () {
+                            layer.closePopup();
+                        });
+                    }
+                };
+                // Convert miles to meters to set radius of circle
+                function milesToMeters(miles) {
+                    return miles * 1069.344;
+                };
+                // This figures out how many points are within out circle
+                function pointsInCircle(circle, meters_user_set) {
+                    results = [];
+                    if (circle !== undefined) {
+                        // Only run if we have an address entered
+                        // Lat, long of circle
+                        circle_lat_long = circle.getLatLng();
+                        var counter_points_in_circle = 0;
+                        // Loop through each point in JSON file
+                        farmacias.eachLayer(function (layer) {
+                            // Lat, long of current point
+                            layer_lat_long = layer.getLatLng();
+                            // Distance from our circle marker
+                            // To current point in meters
+                            distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
+                            // See if meters is within raduis
+                            // The user has selected
+                            if (distance_from_layer_circle <= meters_user_set) {
+                                counter_points_in_circle += 1;
+                                var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
+                                // Convert to miles
+                                ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
+                                $('#ofi_paf').append(ofi_paf_html);
+                                let temp = {
+                                    "lokasi": layer.feature.properties.oficina,
+                                    "jarak": (distance_from_layer_circle / 1000).toFixed(2)
+                                }
+                                results.push(temp);
+                            }
+                        });
+                        // Set number of results on main page
+                        $('#ofi_paf_results').html(counter_points_in_circle);
+                    }
+                    // Close pointsInCircle
+                };
+                // Change circle radius when changed on page
+                function changeCircleRadius(jarak) {
+                    // Determine which geocode box is filled
+                    // And fire click event
+                    // This will determine how many markers are within the circle
+                    pointsInCircle(circle, milesToMeters(jarak))
+                    // Set radius of circle only if we already have one on the map
+                    if (circle) {
+                        circle.setRadius(milesToMeters(jarak));
                     }
                 }
-            });
-        });
-
-        //let range = $("#range-km");
-        //let rangeV = $("#radius-selected");
-        //const setValue = () => {
-        //    let newValue = Number(
-        //        ((range.val() - range.attr("min")) * 100) /
-        //        (range.attr("max") - range.attr("min"))
-        //    ),
-        //        newPosition = 10 - newValue * 0.2;
-        //    rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
-        //    rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
-        //    $("#radius").val(range.val());
-        //    changeCircleRadius(range.val());
-        //};
-        //setValue();
-        //range.on("input", setValue);
-        //changeCircleRadius(50);
-        $("#pipeLine").checked = true;
-        $("#lng").checked = true;
-
-        document.getElementById("pipeLine").checked = true;
-        document.getElementById("lng").checked = true;
-        document.getElementById("cng").checked = true;
-        document.getElementById("energyScale").checked = true;
-
-        $("#tableConvert").hide();
-        $("#costStructure").show();
-        $("#findMap").hide();
-        $("#convertEnergy").hide();
-        $("#calculateSimulation").hide();
-
-        // Base map styles
-        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
-        map = new L.Map('map', {
-            minZoom: 6,
-            zoom: 9,
-            center: [-6.159907, 106.815383]
-        })
-        osm.addTo(map)
-        // This is the circle on the map that will be determine how many markers are around
-        var circle;
-        // The marker drawn onto the map
-        var drawn_marker = L.marker();
-        // Group for our markers
-        var drawn_markers = L.featureGroup();
-        map.addLayer(drawn_markers);
-        // Icons that get placed on map
-        var eco = L.icon({
-            iconSize: [32, 37],
-            iconAnchor: [16, 37],
-            popupAnchor: [0, -28],
-            iconUrl: '/plugins/map/images/pertacon.png'
-        });
-        // When an icon is clicked
-        function popup(feature, layer) {
-            if (feature.properties && feature.properties.oficina) {
-                layer.bindPopup(feature.properties.oficina, {
-                    closeButton: false,
-                    offset: L.point(0, -20)
-                });
-                layer.on('mouseover', function () {
-                    layer.openPopup();
-                });
-                layer.on('mouseout', function () {
-                    layer.closePopup();
-                });
-            }
-        };
-        // Convert miles to meters to set radius of circle
-        function milesToMeters(miles) {
-            return miles * 1069.344;
-        };
-        // This figures out how many points are within out circle
-        function pointsInCircle(circle, meters_user_set) {
-            results = [];
-            if (circle !== undefined) {
-                // Only run if we have an address entered
-                // Lat, long of circle
-                circle_lat_long = circle.getLatLng();
-                var counter_points_in_circle = 0;
-                // Loop through each point in JSON file
-                farmacias.eachLayer(function (layer) {
-                    // Lat, long of current point
-                    layer_lat_long = layer.getLatLng();
-                    // Distance from our circle marker
-                    // To current point in meters
-                    distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
-                    // See if meters is within raduis
-                    // The user has selected
-                    if (distance_from_layer_circle <= meters_user_set) {
-                        counter_points_in_circle += 1;
-                        var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
-                        // Convert to miles
-                        ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
-                        $('#ofi_paf').append(ofi_paf_html);
-                        let temp = {
-                            "lokasi": layer.feature.properties.oficina,
-                            "jarak": (distance_from_layer_circle / 1000).toFixed(2)
-                        }
-                        results.push(temp);
+                // Allow user to add marker to map
+                var draw_control = new L.Control.Draw({
+                    draw: {
+                        polyline: false,
+                        polygon: false,
+                        circle: true,
+                        marker: drawn_marker
+                    },
+                    edit: {
+                        featureGroup: drawn_markers,
+                        remove: true
                     }
                 });
-                // Set number of results on main page
-                $('#ofi_paf_results').html(counter_points_in_circle);
-            }
-            // Close pointsInCircle
-        };
-        // Change circle radius when changed on page
-        function changeCircleRadius(jarak) {
-            // Determine which geocode box is filled
-            // And fire click event
-            // This will determine how many markers are within the circle
-            pointsInCircle(circle, milesToMeters(jarak))
-            // Set radius of circle only if we already have one on the map
-            if (circle) {
-                circle.setRadius(milesToMeters(jarak));
-            }
-        }
-        // Allow user to add marker to map
-        var draw_control = new L.Control.Draw({
-            draw: {
-                polyline: false,
-                polygon: false,
-                circle: true,
-                marker: drawn_marker
-            },
-            edit: {
-                featureGroup: drawn_markers,
-                remove: true
-            }
-        });
-        map.on(L.Draw.Event.CREATED, function (event) {
-            var layer = event.layer;
-            console.log((layer));
-            drawn_markers.addLayer(layer);
-        });
-        map.addControl(draw_control);
-        // Allow user to search through GeoJSON file
-        //var search_control = new L.Control.Search({
-        //	layer: farmacias,
-        //	propertyName: 'oficina',
-        //	circleLocation: true
-        //});
-        //map.addControl(search_control);
-        //L.control.scale().addTo(map);
-        //  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-        //  var results = new L.LayerGroup().addTo(map);
-        //  searchControl.on('results', function(data){
-        //	results.clearLayers();
-        //	for (var i = data.results.length - 1; i >= 0; i--) {
-        //	  results.addLayer(L.marker(data.results[i].latlng));
-        //	}
-        //  }).addTo(map);
-        //  L.control.scale().addTo(map);
-        //setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
-        // Add GeoJSON layer
-        var farmacias = L.geoJson(ofi_paf, {
-            onEachFeature: popup,
-            pointToLayer: function (feature, latlng) {
-                return L.marker(latlng, { icon: eco });
-            }
-        }).addTo(map);
-        // This is called after the marker is drawn
-        map.on('draw:created', function (e) {
-            // Add a circle around the marker
-            var marker_lat_long = e.layer._latlng
-            var radius = milesToMeters($("#radius").val());
-            circle = L.circle(marker_lat_long, radius)
-            circle.addTo(map);
-            // Calculate the number of eco icons within the circle
-            // So we can put it on the DOM
-            pointsInCircle(circle, radius)
-            // Make the marker draggable
-            e.layer.dragging.enable();
-            // If you drag the marker, make sure the circle goes with it
-            e.layer.on('dragend', function (event) {
-                map.setView(event.target.getLatLng());
-                circle.setLatLng(event.target.getLatLng());
-                // Clear out results
-                $('#ofi_paf').html('');
-                // This will determine how many markers are within the circle
-                pointsInCircle(circle, milesToMeters($('#radius').val()));
-                // Redraw: Leaflet function
-                circle.redraw();
+                map.on(L.Draw.Event.CREATED, function (event) {
+                    var layer = event.layer;
+                    console.log((layer));
+                    drawn_markers.addLayer(layer);
+                });
+                map.addControl(draw_control);
+                // Allow user to search through GeoJSON file
+                //var search_control = new L.Control.Search({
+                //	layer: farmacias,
+                //	propertyName: 'oficina',
+                //	circleLocation: true
+                //});
+                //map.addControl(search_control);
+                //L.control.scale().addTo(map);
+                //  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+                //  var results = new L.LayerGroup().addTo(map);
+                //  searchControl.on('results', function(data){
+                //	results.clearLayers();
+                //	for (var i = data.results.length - 1; i >= 0; i--) {
+                //	  results.addLayer(L.marker(data.results[i].latlng));
+                //	}
+                //  }).addTo(map);
+                //  L.control.scale().addTo(map);
+                //setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
+                // Add GeoJSON layer
+                var farmacias = L.geoJson(ofi_paf, {
+                    onEachFeature: popup,
+                    pointToLayer: function (feature, latlng) {
+                        return L.marker(latlng, { icon: eco });
+                    }
+                }).addTo(map);
+                // This is called after the marker is drawn
+                map.on('draw:created', function (e) {
+                    // Add a circle around the marker
+                    var marker_lat_long = e.layer._latlng
+                    var radius = milesToMeters($("#radius").val());
+                    circle = L.circle(marker_lat_long, radius)
+                    circle.addTo(map);
+                    // Calculate the number of eco icons within the circle
+                    // So we can put it on the DOM
+                    pointsInCircle(circle, radius)
+                    // Make the marker draggable
+                    e.layer.dragging.enable();
+                    // If you drag the marker, make sure the circle goes with it
+                    e.layer.on('dragend', function (event) {
+                        map.setView(event.target.getLatLng());
+                        circle.setLatLng(event.target.getLatLng());
+                        // Clear out results
+                        $('#ofi_paf').html('');
+                        // This will determine how many markers are within the circle
+                        pointsInCircle(circle, milesToMeters($('#radius').val()));
+                        // Redraw: Leaflet function
+                        circle.redraw();
+                    });
+                    $('.leaflet-draw-draw-marker').hide();
+                });
+                // Reset map view on marker drag
+                drawn_marker.on('dragend', function (event) {
+                    map.setView(event.target.getLatLng());
+                    circle.setLatLng(event.target.getLatLng());
+                    // This will determine how many markers are within the circle
+                    pointsInCircle(circle, milesToMeters($('#radius').val()));
+                    // Redraw: Leaflet function
+                    circle.redraw();
+                });
+                // Radius dropdown
+                //$("input", "change").change(function () {
+                //    changeCircleRadius();
+                //});
             });
-            $('.leaflet-draw-draw-marker').hide();
-        });
-        // Reset map view on marker drag
-        drawn_marker.on('dragend', function (event) {
-            map.setView(event.target.getLatLng());
-            circle.setLatLng(event.target.getLatLng());
-            // This will determine how many markers are within the circle
-            pointsInCircle(circle, milesToMeters($('#radius').val()));
-            // Redraw: Leaflet function
-            circle.redraw();
-        });
-        // Radius dropdown
-        //$("input", "change").change(function () {
-        //    changeCircleRadius();
-        //});
-    });
-    function mapp() {
-        $("#costStructure").hide();
-        $("#findMap").show();
-        $("#convertEnergy").hide();
-        map.invalidateSize();
-    }
-    function back() {
-        $("#costStructure").show();
-        $("#convertEnergy").hide();
-        $("#calculateSimulation").hide();
-        $("#findMap").hide();
-    }
-    function exchangeEnergy() {
-        $("#costStructure").hide();
-        $("#convertEnergy").show();
-        $("#findMap").hide();
-    }
-</script>
-}
+            function mapp() {
+                $("#costStructure").hide();
+                $("#findMap").show();
+                $("#convertEnergy").hide();
+                map.invalidateSize();
+            }
+            function back() {
+                $("#costStructure").show();
+                $("#convertEnergy").hide();
+                $("#calculateSimulation").hide();
+                $("#findMap").hide();
+            }
+            function exchangeEnergy() {
+                $("#costStructure").hide();
+                $("#convertEnergy").show();
+                $("#findMap").hide();
+            }
+        </script>
+        }

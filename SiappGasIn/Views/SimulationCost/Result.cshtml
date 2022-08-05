@@ -53,7 +53,7 @@
                                         <label class="control-label col-md-3 col-sm-3 ">Location</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="location">Jakarta</span></label>
+                                                    id="location">@Model.lokasiCapel</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
@@ -166,11 +166,9 @@
     }
     .redCell{
     color:red;
-    font-weight:bold;
     }
     .greenCell{
         color:forestgreen;
-    font-weight:bold;
     }
 </style>
 @*
@@ -213,9 +211,9 @@
                         if (data.data[i].flagPrice == 2) {
                             table.append('<tr><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
                         }else if (data.data[i].flagPrice == 0) {
-                            table.append('<tr style="color:green; font-weight:bold;"><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
+                            table.append('<tr style="color:green;"><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
                         } else {
-                            table.append('<tr style="color:red; font-weight:bold;"><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
+                            table.append('<tr style="color:red;"><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td>' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
                         }
                         }
                     ;

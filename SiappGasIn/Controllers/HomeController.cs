@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace SiappGasIn.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Super Admin, Admin, User")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

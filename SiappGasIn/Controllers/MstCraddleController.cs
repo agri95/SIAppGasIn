@@ -6,7 +6,7 @@ using SiappGasIn.Models;
 
 namespace SiappGasIn.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Super Admin, Admin")]
     public class MstCraddleController : Controller
     {
         public IActionResult Index()

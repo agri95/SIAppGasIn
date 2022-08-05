@@ -18,7 +18,7 @@ using SiappGasIn.Services;
 
 namespace SiappGasIn.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Super Admin")]
     public class SysUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

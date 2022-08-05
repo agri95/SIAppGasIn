@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SiappGasIn.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Super Admin, Admin, User")]
     public class ConverterEnergyController : Controller
     {
         public IActionResult Index()

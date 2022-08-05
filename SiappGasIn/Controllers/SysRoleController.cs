@@ -11,7 +11,7 @@ using SiappGasIn.Models;
 
 namespace SiappGasIn.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Super Admin")]
     public class SysRoleController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;

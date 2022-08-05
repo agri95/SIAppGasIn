@@ -6,7 +6,7 @@ using SiappGasIn.Models;
 
 namespace SiappGasIn.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Super Admin, Admin, User")]
     public class SimulationCostController : Controller
     {
         private readonly GasDbContext _dbContext;
