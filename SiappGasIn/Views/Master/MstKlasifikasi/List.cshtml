@@ -279,7 +279,7 @@ $('#saveEnergy').click(function () {
    function Delete(id) {
 	  
 	   $.ajax({
-   url: '@Url.Action("Delete", "MstKlasifikasi")?UnitID=' +id,
+   url: '@Url.Action("Delete", "MstKlasifikasi")?KlasifikasiID=' +id,
    
    method: 'POST',
    contentType: 'application/json',
