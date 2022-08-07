@@ -552,129 +552,129 @@
                 var workDay = $("#workDay").val();
                 var lat = $("#latitude").val();
                 var long = $("#longitude").val();
-                $.ajax({
-                      url: "https://nominatim.openstreetmap.org/reverse",
-                      data: {
-                        lat: lat,
-                        lon: long,
-                        format: "json"
-                      },
-                      beforeSend: function (xhr) {
-                        xhr.setRequestHeader(
-                          'User-Agent',
-                          'ID of your APP/service/website/etc. v0.1'
-                        )
-                      },
-                      dataType: "json",
-                      type: "GET",
-                      async: true,
-                      crossDomain: true
-                    }).done(function (res) {
-                      console.log(res.address)
-                    }).fail(function (error) {
-                      console.error(error)
-                    })
-                //if (projectName == "" || projectName == null) {
-                //    $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
-                //        $("#_alert1").slideUp(500);
-                //    });
-                //    $("#textError1").text("Project Name ");
-                //}
-                //if (projectDate == "" || projectDate == null) {
-                //    $("#_alert2").fadeTo(3000, 500).slideUp(500, function () {
-                //        $("#_alert2").slideUp(500);
-                //    });
-                //    $("#textError2").text("Project Date ");
-                //}
-                //if (customerName == "" || customerName == null) {
-                //    $("#_alert3").fadeTo(4000, 500).slideUp(500, function () {
-                //        $("#_alert3").slideUp(500);
-                //    });
-                //    $("#textError3").text("Customer Name ");
-                //}
-                //if (demandUsage == "" || demandUsage == null) {
-                //    $("#_alert4").fadeTo(5000, 500).slideUp(500, function () {
-                //        $("#_alert4").slideUp(500);
-                //    });
-                //    $("#textError4").text("Demand Usage ");
-                //}
-                //if (hourDay == "" || hourDay == null) {
-                //    $("#_alert5").fadeTo(6000, 500).slideUp(500, function () {
-                //        $("#_alert5").slideUp(500);
-                //    });
-                //    $("#textError5").text("Hour Day ");
-                //}
-                //if (workDay == "" || workDay == null) {
-                //    $("#_alert6").fadeTo(7000, 500).slideUp(500, function () {
-                //        $("#_alert6").slideUp(500);
-                //    });
-                //    $("#textError6").text("Work Day ");
-                //}
-                //if (targetCOD == "" || targetCOD == null) {
-                //    $("#_alert7").fadeTo(8000, 500).slideUp(500, function () {
-                //        $("#_alert7").slideUp(500);
-                //    });
-                //    $("#textError7").text("Target COD ");
-                //}
-                //if (lat == "" || lat == null) {
-                //    $("#_alert8").fadeTo(8000, 500).slideUp(500, function () {
-                //        $("#_alert8").slideUp(500);
-                //    });
-                //    $("#textError8").text("Latitude ");
-                //}
-                //if (long == "" || long == null) {
-                //    $("#_alert9").fadeTo(8000, 500).slideUp(500, function () {
-                //        $("#_alert9").slideUp(500);
-                //    });
-                //    $("#textError9").text("Longitude ");
-                //}
-                //if (projectName == "" || projectDate == "" || customerName == "" || demandUsage == "" || hourDay == "" || workDay == "" || targetCOD == "" || lat == "" || long == "") {
-                //    console.log("error");
-                //}
-                //else {
-                //    pointMap(lat, long);
-                //    if (results.length > 0) {
-                //        var currentRadius = $("#radius").val();
-                //        console.log(results);
-                //        $.ajax({
-                //            url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-                //            type: 'POST',
-                //            dataType: 'json',
-                //            contentType: "application/json; charset=utf-8",
-                //            data: JSON.stringify(
-                //                {
-                //                    "ProjectName": projectName,
-                //                    "Creator": creator,
-                //                    "ProjectDate": projectDate,
-                //                    "CustomerName": customerName,
-                //                    "TargetCOD": targetCOD,
-                //                }
-                //            ),
-                //            success: function (data) {
-                //                if (data.status == true) {
-                //                    calculate(data.data);
-                //                    alert("SUKSES");
-                //                    var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                //                    window.location.href = url;
-                //                }
-                //            },
-                //            error: function (jqXHR) {
-                //                $('#divErrorText').text(jqXHR.responseText);
-                //                $('#divError').show('fade');
-                //            }
-                //        });
+                //$.ajax({
+                //      url: "https://nominatim.openstreetmap.org/reverse",
+                //      data: {
+                //        lat: lat,
+                //        lon: long,
+                //        format: "json"
+                //      },
+                //      beforeSend: function (xhr) {
+                //        xhr.setRequestHeader(
+                //          'User-Agent',
+                //          'ID of your APP/service/website/etc. v0.1'
+                //        )
+                //      },
+                //      dataType: "json",
+                //      type: "GET",
+                //      async: true,
+                //      crossDomain: true
+                //    }).done(function (res) {
+                //      console.log(res.address)
+                //    }).fail(function (error) {
+                //      console.error(error)
+                //    })
+                if (projectName == "" || projectName == null) {
+                    $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#_alert1").slideUp(500);
+                    });
+                    $("#textError1").text("Project Name ");
+                }
+                if (projectDate == "" || projectDate == null) {
+                    $("#_alert2").fadeTo(3000, 500).slideUp(500, function () {
+                        $("#_alert2").slideUp(500);
+                    });
+                    $("#textError2").text("Project Date ");
+                }
+                if (customerName == "" || customerName == null) {
+                    $("#_alert3").fadeTo(4000, 500).slideUp(500, function () {
+                        $("#_alert3").slideUp(500);
+                    });
+                    $("#textError3").text("Customer Name ");
+                }
+                if (demandUsage == "" || demandUsage == null) {
+                    $("#_alert4").fadeTo(5000, 500).slideUp(500, function () {
+                        $("#_alert4").slideUp(500);
+                    });
+                    $("#textError4").text("Demand Usage ");
+                }
+                if (hourDay == "" || hourDay == null) {
+                    $("#_alert5").fadeTo(6000, 500).slideUp(500, function () {
+                        $("#_alert5").slideUp(500);
+                    });
+                    $("#textError5").text("Hour Day ");
+                }
+                if (workDay == "" || workDay == null) {
+                    $("#_alert6").fadeTo(7000, 500).slideUp(500, function () {
+                        $("#_alert6").slideUp(500);
+                    });
+                    $("#textError6").text("Work Day ");
+                }
+                if (targetCOD == "" || targetCOD == null) {
+                    $("#_alert7").fadeTo(8000, 500).slideUp(500, function () {
+                        $("#_alert7").slideUp(500);
+                    });
+                    $("#textError7").text("Target COD ");
+                }
+                if (lat == "" || lat == null) {
+                    $("#_alert8").fadeTo(8000, 500).slideUp(500, function () {
+                        $("#_alert8").slideUp(500);
+                    });
+                    $("#textError8").text("Latitude ");
+                }
+                if (long == "" || long == null) {
+                    $("#_alert9").fadeTo(8000, 500).slideUp(500, function () {
+                        $("#_alert9").slideUp(500);
+                    });
+                    $("#textError9").text("Longitude ");
+                }
+                if (projectName == "" || projectDate == "" || customerName == "" || demandUsage == "" || hourDay == "" || workDay == "" || targetCOD == "" || lat == "" || long == "") {
+                    console.log("error");
+                }
+                else {
+                    pointMap(lat, long);
+                    if (results.length > 0) {
+                        var currentRadius = $("#radius").val();
+                        console.log(results);
+                        $.ajax({
+                            url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(
+                                {
+                                    "ProjectName": projectName,
+                                    "Creator": creator,
+                                    "ProjectDate": projectDate,
+                                    "CustomerName": customerName,
+                                    "TargetCOD": targetCOD,
+                                }
+                            ),
+                            success: function (data) {
+                                if (data.status == true) {
+                                    calculate(data.data);
+                                    alert("SUKSES");
+                                    var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                                    window.location.href = url;
+                                }
+                            },
+                            error: function (jqXHR) {
+                                $('#divErrorText').text(jqXHR.responseText);
+                                $('#divError').show('fade');
+                            }
+                        });
 
-                //    } else {
-                //        var currentRadius = $("#radius").val();
-                //        var upRadius = parseInt(currentRadius) + 50;
-                //        $("#radius").val(upRadius);
-                //        calculateCost();
-                //    }
-                //}
+                    } else {
+                        var currentRadius = $("#radius").val();
+                        var upRadius = parseInt(currentRadius) + 50;
+                        $("#radius").val(upRadius);
+                        calculateCost();
+                    }
+                }
             }
 
             function changeCircleRadius(jarak) {
-                alert(jarak);
+                //alert(jarak);
                 // Determine which geocode box is filled
                 // And fire click event
                 // This will determine how many markers are within the circle

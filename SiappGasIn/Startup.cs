@@ -103,7 +103,8 @@ namespace SiappGasIn
             // Get SMTP configuration options
             services.Configure<SMTPOptions>(Configuration.GetSection("SMTPOptions"));
 
-           
+            services.AddControllers();
+
             //// Get API configuration options
             //services.Configure<APISettingOptions>(Configuration.GetSection("APISettingOptions"));
 
@@ -123,8 +124,13 @@ namespace SiappGasIn
 
             services.AddHttpContextAccessor();
 
-          
-           
+
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
+
+            
 
         }
 
@@ -166,10 +172,16 @@ namespace SiappGasIn
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseDeveloperExceptionPage();
+            app.UseCors(options => options.AllowAnyOrigin());
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
 
             });
 

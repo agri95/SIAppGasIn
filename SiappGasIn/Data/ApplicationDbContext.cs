@@ -26,6 +26,7 @@ namespace SiappGasIn.Data
         public DbSet<HeaderSimulationCost> HeaderSimulationCost { get; set; }
         public DbSet<SP_GetGajiByLocationName> SP_GetGajiByLocationName { get; set; }
         public DbSet<MstGaji> MstGaji { get; set; }
+        public DbSet<MstUnit> MstUnit { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
