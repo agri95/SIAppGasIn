@@ -27,6 +27,7 @@ namespace SiappGasIn.Data
         public DbSet<SP_GetGajiByLocationName> SP_GetGajiByLocationName { get; set; }
         public DbSet<MstGaji> MstGaji { get; set; }
         public DbSet<MstUnit> MstUnit { get; set; }
+        public DbSet<MstKlasifikasi> MstKlasifikasi { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
