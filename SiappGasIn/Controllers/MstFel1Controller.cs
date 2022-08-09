@@ -37,7 +37,7 @@ namespace SiappGasIn.Controllers.Api
         [HttpPost]
         public IActionResult Retrieve()
         {
-            var data = _dbContext.Set<MstFel1>().FromSqlRaw("[dbo].[SP_GajiKaryawan]").ToList();
+            var data = _dbContext.Set<MstFEL>().FromSqlRaw("[dbo].[SP_GajiKaryawan]").ToList();
 
             return Ok
                     (
@@ -47,7 +47,7 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpPost]
-        public IActionResult CreateData([FromBody] MstFel1 fel)
+        public IActionResult CreateData([FromBody] MstFEL fel)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace SiappGasIn.Controllers.Api
                 {
                     if (fel.Diameter != null && fel.Diameter != 0)
                     {
-                        _dbContext.MstFel1.Add(new MstFel1()
+                        _dbContext.MstFEL.Add(new MstFEL()
                         {
                             KlasifikasiID = fel.KlasifikasiID,
                             ItemKlasifikasiID = fel.ItemKlasifikasiID,

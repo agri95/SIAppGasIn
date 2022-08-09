@@ -29,7 +29,7 @@ namespace SiappGasIn.Data
         public DbSet<MstUnit> MstUnit { get; set; }
         public DbSet<MstKlasifikasi> MstKlasifikasi { get; set; }
         public DbSet<MstItemKlasifikasi> MstItemKlasifikasi { get; set; }
-        public DbSet<MstFel1> MstFel1 { get; set; }
+        public DbSet<MstFEL> MstFEL { get; set; }
         //public DbSet<MstFel2> MstFel2 { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)

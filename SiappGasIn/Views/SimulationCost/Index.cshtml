@@ -120,7 +120,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row ">
-                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage/M³</label>
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage/<span id="_satuanPemakaian"></span></label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
                                                         id="demandUsage" name="demandUsage" placeholder=""
@@ -169,10 +169,11 @@
                                                         id="latitude" name="latitude" placeholder="Latitude"
                                                         aria-label=".form-control-sm example">
                                                 </div>
-                                                @*<div class="col-md-3 col-sm-3 ">
-                                                    <a href="#" onclick="mapp()" class="btn btn-warning btn-sm">Find
-                                                        Location</a>
-                                                </div> *@
+                                                
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp()" class="btn btn-warning btn-sm"
+                                                    style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div> 
                                                
                                             </div>
                                             <div class="form-group row" id="resultMap">
@@ -195,7 +196,7 @@
                                                         id="hourDay" name="hourDay" placeholder=""
                                                         aria-label=".form-control-sm example" min="0" max="24">
                                                 </div>
-                                                <label class="control-label col-md-3 col-sm-3 ">Target COD</label>
+                                                <label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="date"
                                                         id="targetCOD" name="targetCOD" placeholder=""
@@ -768,6 +769,9 @@
                         var minPrice = $("#minPrice").val();
                         var maxPrice = $("#maxPrice").val();
                         var resultLocationName = $("#resultLocationName").val();
+                        if(resultLocationName == "" || resultLocationName == null){
+                            resultLocationName = "Unnamed Road"
+                        }
                         if (minPrice == 0 || minPrice == null) {
                             minPrice = 0;
                         }
@@ -852,6 +856,7 @@
                         }
                         $("#bahanBakar").val(8);
                         $("#satuanPemakaian").text("M3");
+                        $("#_satuanPemakaian").text("M3");
                     }
                 });
 
@@ -873,10 +878,13 @@
                                     $("#hargaBBM").val(response.data[i].harga);
                                     if (energy == "LPG" || energy == "Batu Bara") {
                                         $("#satuanPemakaian").text("Kg");
+                                        $("#_satuanPemakaian").text("Kg");
                                     } else if (energy == "Gas Bumi") {
                                         $("#satuanPemakaian").text("M3");
+                                        $("#_satuanPemakaian").text("M3");
                                     } else {
                                         $("#satuanPemakaian").text("Ltr");
+                                        $("#_satuanPemakaian").text("Ltr");
                                     }
                                 }
                             }
