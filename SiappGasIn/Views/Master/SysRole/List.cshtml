@@ -68,33 +68,11 @@ ViewData["Title"] = "Master Role";
 	 <div class="modal-body">
 	   <form>
 		   
-		 <input type="hidden" class="form-control" id="CraddleIDs" name="CraddleIDs" hidden>
+		 <input type="hidden" class="form-control" id="Ids" name="Ids" hidden>
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Flowrate (m3/h)</label>
-		   <input type="text" class="form-control" id="Flowrates">
+		   <label for="recipient-name" class="col-form-label">Nama Role</label>
+		   <input type="text" class="form-control" id="Names">
 		 </div> 
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Ukuran GTM</label>
-		   <input type="text" class="form-control" id="UkuranGTMs">
-		 </div>
-		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Harga Beli</label>
-		   <input type="number" class="form-control" id="HargaBelis"  placeholder="Rp / Unit">
-		 </div>
-		<div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Harga Sewa</label>
-		   <input type="number" class="form-control" id="HargaSewas" placeholder="Rp / Unit / Bulan">
-		 </div>
-		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Filling Time</label>
-		   <input type="number" class="form-control" id="FillingTimes" placeholder="Rp / Lumpsum">
-		 </div>
-		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Waiting Time</label>
-		   <input type="number" class="form-control" id="WaitingTimes" >
-		 </div>	  
-		  
-		
 	   </form>
 	 </div>
 	 <div class="modal-footer">
@@ -181,7 +159,7 @@ $('#btnEditEnergy').click(function () {
     
 		   $.ajax({
 			   
-		   url: '@Url.Action("EditData", "MstCraddle")',
+		   url: '@Url.Action("EditData", "SysRole")',
 			   type: 'POST',
 			   //crossDomain: true,
 			   dataType: 'json',
@@ -193,26 +171,16 @@ $('#btnEditEnergy').click(function () {
 			   contentType: "application/json; charset=utf-8",
 			   data: JSON.stringify(
 				   {		
-					   "CraddleID": $("#CraddleIDs").val(),
-					   "Flowrate": $("#Flowrates").val(),
-					   "UkuranGTM": $("#UkuranGTMs").val(),
-					   "HargaBeli": $("#HargaBelis").val(),
-					   "HargaSewa": $("#HargaSewas").val(),
-					   "FillingTime": $("#FillingTimes").val(),
-					   "WaitingTime": $("#WaitingTimes").val(),
+					   "Id": $("#Ids").val(),
+					   "Name": $("#Names").val()
 				   }
 			   ),
 			   success: function (data) {
 				   //alert(data);
 				   if (data == true) {
 
-					   $("#CraddleIDs").val("");
-					   $("#Flowrates").val("");
-					   $('#UkuranGTMs').val("");
-					   $('#HargaBelis').val("");
-					   $('#HargaSewas').val("");
-					   $('#FillingTimes').val("");
-					   $('#WaitingTimes').val("");
+					   $("#Ids").val("");
+					   $("#Names").val("");
 
 					   oTable = $('#example').DataTable();
 					   oTable.draw();
@@ -232,8 +200,9 @@ $('#btnEditEnergy').click(function () {
   
 
 function EditData(dataID) {
+
 	   $.ajax({
-		   url: '@Url.Action("SelectData", "MstCraddle")?id=' + dataID,
+		   url: '@Url.Action("SelectData", "SysRole")?id=' + dataID,
 		   type: 'get',
 		   //crossDomain: true,
 		   dataType: 'json',
@@ -246,13 +215,9 @@ function EditData(dataID) {
 		   data: "{}", //JSON.stringify({ CustomerID : CustomerID }),
 		   success: function (data) {
 			   if (data.status == true) {
-					   $("#CraddleIDs").val(data.data.craddleID);
-					   $("#Flowrates").val(data.data.flowrate);
-					   $('#UkuranGTMs').val(data.data.ukuranGTM);
-					   $('#HargaBelis').val(data.data.hargaBeli);
-					   $('#HargaSewas').val(data.data.hargaSewa);
-					   $('#FillingTimes').val(data.data.fillingTime);
-					   $('#WaitingTimes').val(data.data.waitingTime);
+					   $("#Ids").val(data.data.id);
+					   $("#Names").val(data.data.name);
+					 
 				   
 				   
 				   $("#editData").modal("show");
@@ -267,11 +232,6 @@ function EditData(dataID) {
 			   $('#divError').show('fade');
 		   }
 	   });
-
-
-
-
-
    }
 
 $('#saveEnergy').click(function () {
@@ -322,7 +282,7 @@ $('#saveEnergy').click(function () {
    function Delete(id) {
 	  
 	   $.ajax({
-   url: '@Url.Action("Delete", "MstCraddle")?CraddleID=' +id,
+   url: '@Url.Action("Delete", "SysRole")?Id=' +id,
    
    method: 'POST',
    contentType: 'application/json',
@@ -377,7 +337,7 @@ $('#saveEnergy').click(function () {
 			   { "data": "name", "name": "name", "autoWidth": true },
 			   
 			   {
-				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.id + ')">Edit</a>'; }
+				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(\'' + full.id + '\')">Edit</a>'; }
 				   //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
 			   },
 			   {

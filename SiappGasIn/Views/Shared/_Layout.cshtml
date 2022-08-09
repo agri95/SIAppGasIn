@@ -80,6 +80,10 @@
                                             <li>
                                                 <a class="dropdown-item" href="@Url.Action("List", "SysRole")"><i class="fab fa-creative-commons-by" aria-hidden="true"></i> Role</a>
                                             </li>
+                                            
+                                            <li>
+                                                <a class="dropdown-item" href="@Url.Action("List", "MstParameter")"><i class="fab fa-creative-commons-by" aria-hidden="true"></i> Parameter</a>
+                                            </li>
                                         }
                                         @if (this.User.IsInRole("Super Admin") || this.User.IsInRole("Admin"))
                                         {

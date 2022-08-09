@@ -553,6 +553,7 @@
                 var workDay = $("#workDay").val();
                 var lat = $("#latitude").val();
                 var long = $("#longitude").val();
+
                 //$.ajax({
                 //      url: "https://nominatim.openstreetmap.org/reverse",
                 //      data: {
@@ -1026,7 +1027,6 @@
                 });
                 map.on(L.Draw.Event.CREATED, function (event) {
                     var layer = event.layer;
-                    console.log((layer));
                     drawn_markers.addLayer(layer);
                 });
                 map.addControl(draw_control);
@@ -1059,6 +1059,8 @@
                 map.on('draw:created', function (e) {
                     // Add a circle around the marker
                     var marker_lat_long = e.layer._latlng
+                    $("#latitude").val(marker_lat_long.lat);
+                    $("#longitude").val(marker_lat_long.lng);
                     var radius = milesToMeters($("#radius").val());
                     circle = L.circle(marker_lat_long, radius)
                     circle.addTo(map);
@@ -1069,6 +1071,9 @@
                     e.layer.dragging.enable();
                     // If you drag the marker, make sure the circle goes with it
                     e.layer.on('dragend', function (event) {
+                        
+                         $("#latitude").val(event.target.getLatLng().lat);
+                        $("#longitude").val(event.target.getLatLng().lng);
                         map.setView(event.target.getLatLng());
                         circle.setLatLng(event.target.getLatLng());
                         // Clear out results

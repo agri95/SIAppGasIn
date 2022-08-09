@@ -116,6 +116,35 @@ namespace SiappGasIn.Controllers.Api
             return Json(data: true);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SelectData(string id)
+        {
+            SysRoleViewModel model = new SysRoleViewModel();
+            IdentityResult result = null;
+            if (id != null || id != "")
+            {
+                IdentityRole identityRole = await _roleManager.FindByIdAsync(id);
+                //identityRole.Name = model.Name;
+                model.Id = identityRole.Id;
+                model.Name = identityRole.Name;
+                
+            }
+            var isStatus = true;
+
+            //MstUnit prm = await _dbContext.MstUnit.Where(x => x.UnitID.Equals(id)).FirstOrDefaultAsync<MstUnit>();
+
+            if (model == null)
+            {
+                isStatus = false;
+                model = new SysRoleViewModel();
+            }
+
+            return Ok
+                    ( new { data = model, status = isStatus }
+                    );
+
+        }
+
         [HttpPost]
         public IActionResult RetrieveList()
         {
@@ -194,14 +223,16 @@ namespace SiappGasIn.Controllers.Api
 
         }
 
+      
         [HttpPost]
-        public async Task<IActionResult> Delete(SysRoleViewModel model)
+        public async Task<IActionResult> Delete(string Id)
         {
-            if (!string.IsNullOrEmpty(model.Id))
+
+            if (!string.IsNullOrEmpty(Id))
             {
                 try
                 {
-                    var _role = await _roleManager.FindByIdAsync(model.Id);
+                    var _role = await _roleManager.FindByIdAsync(Id);
                     await _roleManager.DeleteAsync(_role);
                 }
                 catch (Exception ex)
@@ -210,9 +241,11 @@ namespace SiappGasIn.Controllers.Api
                 }
             }
 
-            return View("~/Modules/Master/SysRole/List.cshtml" + "?menuid" + this.HttpContext.Request.Query["menuId"], model);
+
+            return RedirectToAction("List", "SysRole");
 
         }
+
 
         [HttpPost]
         public async Task<IActionResult> AddUserRole(List<UserRole> models)
@@ -270,6 +303,42 @@ namespace SiappGasIn.Controllers.Api
                     );
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> EditData([FromBody] SysRoleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    IdentityResult result = null;
+                   
+                    IdentityRole identityRole = await _roleManager.FindByIdAsync(model.Id);
+                    identityRole.Name = model.Name;
+                    result = await _roleManager.UpdateAsync(identityRole);
+                    
+                   
+                    if (result.Succeeded)
+                    {
+                        return Json(data: true);
+                    }
+
+                    foreach (IdentityError error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return Json(data: false);
+                }
+            }
+
+            return Json(data: true);
+
+        }
+
     }
 
 }
