@@ -136,8 +136,7 @@ ViewData["Title"] = "Home Page";
                     <div class="col-md-5" style="margin-left:30px;">
 
                         <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close"
-                                id="goAhead">Accept</button>
+                            <button type="button" class="btn btn-primary" id="btnSubmit">Accept</button>
                             <button type="submit" class="btn btn-danger">Decline</button>
                         </form>
                     </div>
@@ -244,9 +243,17 @@ ViewData["Title"] = "Home Page";
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">*@
 }
 @section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.js" integrity="sha512-DJw15+xxGmXB1/c6pvu2eRoVCGo5s6rdeswkFS4HLFfzNQSc6V71jk6t+eMYzlyakoLTwBrKnyhVc7SCDZOK4Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#addData').modal('show');
+       if(Cookies.get('popup') != 'shown'){
+          $("#addData").modal('show');
+    }
+      
+      $("#btnSubmit").click(function(){
+       Cookies.set('popup', 'shown');
+       $("#addData").modal('hide');
+    }); 
         $("#goAhead").hide();
 
         $("#termUK").hide();

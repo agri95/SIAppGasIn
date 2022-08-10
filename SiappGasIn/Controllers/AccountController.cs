@@ -83,6 +83,7 @@ namespace SiappGasIn.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Logout(string returnUrl = null)
         {
+            Response.Cookies.Delete("popup");
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
 
