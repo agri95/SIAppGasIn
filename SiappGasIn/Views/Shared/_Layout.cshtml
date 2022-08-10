@@ -62,9 +62,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="~/adminlte/images/blank-person.png" alt="User Avatar" class="img-size-50 mr-3 img-circle" style="width:30px;"> Hi,<strong> @userManager.GetUserName(User)</strong><b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="@Url.Action("Index", "Home")"><span><i class="fa fa-home" aria-hidden="true"></i></span> Home</a></li>
-              <li><a href="google.com"><span><i class="fa fa-user" aria-hidden="true"></i></span> Profile</a></li>
+              <li><a href="@Url.Action("Profile", "SysUser")"><span><i class="fa fa-user" aria-hidden="true"></i></span> Profile</a></li>
               <li><a href="@Url.Action("TransCNG", "Transaction")"><span><i class="fa fa-history" aria-hidden="true"></i></span> History</a></li>
-              <li><a href="@Url.Action("Index", "SimulationCost")"><span><i class="fa fa-gear" aria-hidden="true"></i></span> Simulation Cost</a></li>
+              <li><a href="@Url.Action("Index", "SimulationCost")"><span><i class="fas fa-calculator" aria-hidden="true"></i></span> Simulation Cost</a></li>
                             @if (this.User.IsInRole("Super Admin") || this.User.IsInRole("Admin"))
                             {
                                 <li>
@@ -82,7 +82,7 @@
                                             </li>
                                             
                                             <li>
-                                                <a class="dropdown-item" href="@Url.Action("List", "MstParameter")"><i class="fab fa-creative-commons-by" aria-hidden="true"></i> Parameter</a>
+                                                <a class="dropdown-item" href="@Url.Action("List", "MstParameter")"><i class="fa fa-gear" aria-hidden="true"></i> Parameter</a>
                                             </li>
                                         }
                                         @if (this.User.IsInRole("Super Admin") || this.User.IsInRole("Admin"))

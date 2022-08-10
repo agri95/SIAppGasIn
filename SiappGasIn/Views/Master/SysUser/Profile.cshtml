@@ -1,0 +1,243 @@
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.EntityFrameworkCore;
+@using SiappGasIn.Models
+@inject IOptions<SiappGasIn.Services.IdentityDefaultOptions> identityDefaultOptionsAcc
+    @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
+        @inject SiappGasIn.Data.ApplicationDbContext dbContext
+
+        @{
+
+        SiappGasIn.Services.IdentityDefaultOptions identityOptions = null;
+
+        try
+        {
+        var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+        var users = await userManager.FindByIdAsync(currentUserId);
+
+        identityOptions = identityDefaultOptionsAcc.Value;
+
+        }
+        catch
+        {
+
+        }
+
+        }
+
+        @{
+        ViewData["Title"] = "Profile";
+        }
+<div class="alert alert-warning alert-dismissible agri" id="_alert1">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError1"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert2">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError2"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError3"></span>.
+        </div>
+<div class="container body koes" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
+    <div class="card">
+        <div class="row ">
+            <div class="col-md-12 px-3">
+                <div class="card-block" style="border: 1px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                        </div>
+                        <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
+                                class="image-responsive" style="width:120px; height:40px; float: right;"></div>
+                    </div>
+
+                    <div id="convertEnergy">
+                         <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            @*<label>Profile</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName" name="projectName" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                           <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName" name="projectName" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                           <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName" name="projectName" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                           <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName" name="projectName" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                           
+                                           *@
+
+                                            <div class="ln_solid"></div>
+                                            <label>Change Password</label>
+                                            <input type="hidden" value="@userManager.GetUserName(User)" id="Username"/>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Old Password</label>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="OldPassword" name="OldPassword" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">New Password</label>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="Password" name="Password" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Confirm Password</label>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="ConfirmPassword" name="ConfirmPassword" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                   <span id="message"></span>
+                                                </div>
+
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                               
+                                    <button type="submit" onclick="submit()"
+                                    class="btn btn-warning btn-sm pull-right RbtnMargin">Change</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Styles{
+   <style>
+        .koes {
+                position: absolute;
+                top: 55px;
+                z-index: -2;
+            }
+
+            .agri {
+                margin-left: 70%;
+                margin-right: 1%;
+                margin-top: 10px;
+            }
+   </style>
+}
+@section Scripts{
+
+<script>
+    
+$(document).ready(function() {
+    $("#_alert1").hide();
+    $("#_alert2").hide();
+    $("#_alert3").hide();
+});
+    $('#Password, #ConfirmPassword').on('keyup', function () {
+  if ($('#Password').val() == $('#ConfirmPassword').val()) {
+    $('#message').html('Matching').css('color', 'green');
+  } else 
+    $('#message').html('Not Matching').css('color', 'red');
+});
+
+    function submit() {
+        var OldPassword = $("#OldPassword").val();
+        var Password = $("#Password").val();
+        var ConfirmPassword = $("#message").text();
+                if (OldPassword == "" || OldPassword == null) {
+                    $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
+                        $("#_alert1").slideUp(500);
+                    });
+                    $("#textError1").text("Old Password ");
+                }
+                if (Password == "" || Password == null) {
+                    $("#_alert2").fadeTo(3000, 500).slideUp(500, function () {
+                        $("#_alert2").slideUp(500);
+                    });
+                    $("#textError2").text("New Password ");
+                }if (ConfirmPassword == "Not Matching") {
+                    $("#_alert2").fadeTo(3000, 500).slideUp(500, function () {
+                        $("#_alert2").slideUp(500);
+                    });
+                    $("#textError2").text("Password Not Matching ");
+                }
+        if (OldPassword == "" || Password == "" || ConfirmPassword == "Not Matching") {
+            console.log("Oke");
+        } else {
+            $.ajax({
+			   url: '@Url.Action("ChangePassword", "SysUser")',
+			   type: 'POST',
+			   dataType: 'json',
+			   contentType: "application/json; charset=utf-8",
+               data: JSON.stringify(
+				   {
+					   "Username": $("#Username").val(),
+					   "OldPassword": $("#OldPassword").val(),
+					   "ConfirmPassword": $("#ConfirmPassword").val(),
+					   "Password": $("#Password").val()
+				   }
+			   ),
+			   success: function (data) {
+				   //alert(data);
+				   if (data == true) {
+
+					   $("#paramName").val("");
+					   $('#paramValue').val("");
+
+					   $('#msgText').text('Data is added Successfully');
+					   $('#successModal').modal('show'); 
+					   alert("SUKSES");
+					   location.reload();
+				   }
+
+			   },
+			   error: function (jqXHR) {
+				   $('#divErrorText').text(jqXHR.responseText);
+				   $('#divError').show('fade');
+			   }
+		   });
+        }
+		   
+	   };
+
+	
+
+</script>
+}

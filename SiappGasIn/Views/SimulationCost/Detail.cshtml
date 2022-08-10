@@ -32,7 +32,7 @@
                                                                 <center>$/MMBtu</center>
                                                             </th>
                                                             <th scope="col">
-                                                                <center>Rp/MMBtu</center>
+                                                                <center>Rp/M3</center>
                                                             </th>
                                                         </tr>
                                                     </thead>
@@ -40,12 +40,12 @@
                                                         <tr>
                                                             <td style="font-weight:bold;">HARGA GAS</td>
                                                             <td><span id="hargaGas">@Model.hargaGas</span></td>
-                                                            <td><span id="hargaGasRp">@Model.hargaGasRp</span></td>
+                                                            <td><span id="hargaGasRp" class="formatNum">@Model.hargaGasRpM3</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="font-weight:bold;">B. COMPRESSED</td>
                                                             <td><span id="compressed">@Model.compressed</span></td>
-                                                            <td><span id="compressedRp">@Model.compressedRp</span></td>
+                                                            <td><span id="compressedRp" class="formatNum">@Model.compressedRpM3</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="font-weight:bold;">Total Transportasi Cost</td>
@@ -53,29 +53,29 @@
                                                                     id="totalTransportasiCost">@Model.totalTransportasiCost</span>
                                                             </td>
                                                             <td><span
-                                                                    id="totalTransportasiCostRp">@Model.totalTransportasiCostRp</span>
+                                                                    id="totalTransportasiCostRp" class="formatNum">@Model.totalTransportasiCostRpM3</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>PRS</td>
                                                             <td><span id="prsCost">@Model.prsCost</span></td>
-                                                            <td><span id="prsCostRp">@Model.prsCostRp</span></td>
+                                                            <td><span id="prsCostRp" class="formatNum">@Model.prsCostRpM3</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>OPERATOR</td>
                                                             <td><span id="operatorCost">@Model.operatorCost</span></td>
-                                                            <td><span id="operatorCostRp">@Model.operatorCostRp</span>
+                                                            <td><span id="operatorCostRp" class="formatNum">@Model.operatorCostRpM3</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>GTM (MILIK)</td>
                                                             <td><span id="gtmCost">@Model.gtmCost</span></td>
-                                                            <td><span id="gtmCostRp">@Model.gtmCostRp</span></td>
+                                                            <td><span id="gtmCostRp" class="formatNum">@Model.gtmCostRpM3</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>GTM (SEWA)</td>
                                                             <td><span id="gtmSewaCost">@Model.gtmSewaCost</span></td>
-                                                            <td><span id="gtmSewaCostRp">@Model.gtmSewaCost</span></td>
+                                                            <td><span id="gtmSewaCostRp" class="formatNum">@Model.gtmSewaCostRpM3</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td>HEAD TRUCK (SEWA)</td>
@@ -83,24 +83,24 @@
                                                                     id="headTruckSewaCost">@Model.headTruckSewaCost</span>
                                                             </td>
                                                             <td><span
-                                                                    id="headTruckSewaCostRp">@Model.headTruckSewaCostRp</span>
+                                                                    id="headTruckSewaCostRp" class="formatNum">@Model.headTruckSewaCostRpM3</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>B. FUEL + LAIN-LAIN</td>
                                                             <td><span id="lainLain">@Model.lainLain</span></td>
-                                                            <td><span id="lainLainRp">@Model.lainLainRp</span></td>
+                                                            <td><span id="lainLainRp" class="formatNum">@Model.lainLainRpM3</span></td>
                                                         </tr>
                                                         <tr>
                                                             <td style="font-weight:bold;">OVERHEAD COST</td>
                                                             <td><span id="overheadCost">@Model.overheadCost</span></td>
-                                                            <td><span id="overheadCostRp">@Model.overheadCostRp</span>
+                                                            <td><span id="overheadCostRp" class="formatNum">@Model.overheadCostRpM3</span>
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td style="font-weight:bold;">MARGIN</td>
                                                             <td><span id="marginCost">@Model.marginCost</span></td>
-                                                            <td><span id="marginCostRp">@Model.marginCostRp</span></td>
+                                                            <td><span id="marginCostRp" class="formatNum">@Model.marginCostRpM3</span></td>
                                                         </tr>
 
 
@@ -116,10 +116,10 @@
                                                         <tr>
                                                             <td style="font-weight:bold; font-size:12px;" rowspan="2">
                                                                 HARGA JUAL</td>
-                                                            <td><span id="hargaGas">@Model.hargaJual $/MMBtu</span></td>
+                                                            <td><span id="hargaGas" class="formatNum">@Model.hargaJual</span><span> $/MMBtu</span></td>
                                                         </tr>
                                                         <tr>
-                                                            <td><span id="compressed">@Model.hargaM3 Rp/M3</span>
+                                                            <td><span id="compressed" class="formatNum">@Model.hargaM3</span><span> Rp/M3</span>
                                                             </td>
                                                         </tr>                                                       
 
@@ -260,5 +260,15 @@
         window.location.href = url;
     }
 
+   
+$(document).ready(function() {
+     let x = document.querySelectorAll(".formatNum");
+		for (let i = 0, len = x.length; i < len; i++) {
+            
+			let num = Number(x[i].textContent)
+					.toLocaleString('en');
+			x[i].textContent = num;
+		}
+});
 </script>
 }

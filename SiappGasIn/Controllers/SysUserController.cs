@@ -18,7 +18,7 @@ using SiappGasIn.Services;
 
 namespace SiappGasIn.Controllers
 {
-    [Authorize(Roles = "Super Admin")]
+    [Authorize]
     public class SysUserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -34,6 +34,13 @@ namespace SiappGasIn.Controllers
         public IActionResult List()
         {
             return View("~/Views/Master/SysUser/List.cshtml");
+
+        }
+
+         [HttpGet]
+        public IActionResult Profile()
+        {
+            return View("~/Views/Master/SysUser/Profile.cshtml");
 
         }
 
@@ -433,12 +440,11 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordViewModel model)
         {
             string msgResult = string.Empty;
-            if (ModelState.IsValid)
-            {
-                ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
+            
+                ApplicationUser user = await _userManager.FindByNameAsync(model.Username);
                 var result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.Password);
                 if (result.Succeeded)
                     msgResult = "Password has been changed successfully!";
@@ -452,9 +458,9 @@ namespace SiappGasIn.Controllers.Api
 
                 ModelState.AddModelError("Error", msgResult);
 
-            }
+           
 
-            return View("~/Modules/Master/SysUser/ChangePassword.cshtml", model);
+            return View("~/Views/Master/SysUser/ChangePassword.cshtml", model);
 
         }
 

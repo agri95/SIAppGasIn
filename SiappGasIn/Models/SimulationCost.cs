@@ -95,7 +95,17 @@ namespace SiappGasIn.Models
         public decimal resultLaba { get; set; }
         public decimal minPrice { get; set; }
         public decimal maxPrice { get; set; }
-
+        public decimal hargaGasRpM3 { get; set; }
+        public decimal compressedRpM3 { get; set; }
+        public decimal totalTransportasiCostRpM3 { get; set; }
+        public decimal prsCostRpM3 { get; set; }
+        public decimal operatorCostRpM3 { get; set; }
+        public decimal gtmCostRpM3 { get; set; }
+        public decimal gtmSewaCostRpM3 { get; set; }
+        public decimal headTruckSewaCostRpM3 { get; set; }
+        public decimal lainLainRpM3 { get; set; }
+        public decimal overheadCostRpM3 { get; set; }
+        public decimal marginCostRpM3 { get; set; }
         public string? CreatedBy { get; set; }
 
         public DateTimeOffset? CreatedDate { get; set; }
