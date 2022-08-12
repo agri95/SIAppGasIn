@@ -88,7 +88,8 @@
                                                 <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
                                                 <div class="col-md-9 col-sm-9 ">
                                                     <input class="form-control form-control-sm frmInput"
-                                                        id="projectName" name="projectName" type="text" autocomplete="off" placeholder=""
+                                                        id="projectName" name="projectName" type="text"
+                                                        autocomplete="off" placeholder=""
                                                         aria-label=".form-control-sm example">
                                                 </div>
                                             </div>
@@ -115,16 +116,17 @@
                                                 <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
                                                 <div class="col-md-9 col-sm-9 ">
                                                     <input class="form-control form-control-sm frmInput" type="text"
-                                                        id="customerName" name="customerName" autocomplete="off" placeholder=""
-                                                        aria-label=".form-control-sm example">
+                                                        id="customerName" name="customerName" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
                                                 </div>
                                             </div>
                                             <div class="form-group row ">
-                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage/<span id="_satuanPemakaian"></span></label>
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage/<span
+                                                        id="_satuanPemakaian"></span></label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="demandUsage" name="demandUsage" autocomplete="off" placeholder=""
-                                                        aria-label=".form-control-sm example">
+                                                        id="demandUsage" name="demandUsage" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
                                                 </div>
                                                 <span class="col-md-1 col-sm-1"
                                                     style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
@@ -145,7 +147,7 @@
                                             <div class="form-group row ">
                                                 <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
 
-                                                 <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                <div class="col-md-7 col-sm-7 " style="padding-right:0px">
                                                     <input class="form-control form-control-sm frmInput" type="text"
                                                         id="locationName" name="locationName" autocomplete="off"
                                                         placeholder="Search location...."
@@ -161,20 +163,20 @@
                                                 <label class="control-label col-md-3 col-sm-3 "></label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="text"
-                                                        id="longitude" name="longitude" placeholder="Longitude" autocomplete="off"
-                                                        aria-label=".form-control-sm example">
+                                                        id="longitude" name="longitude" placeholder="Longitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
                                                 </div>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="text"
-                                                        id="latitude" name="latitude" placeholder="Latitude" autocomplete="off"
-                                                        aria-label=".form-control-sm example">
+                                                        id="latitude" name="latitude" placeholder="Latitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
                                                 </div>
-                                                
+
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <a href="#" onclick="mapp()" class="btn btn-warning btn-sm"
-                                                    style="height:24px; width:80%; line-height:1;">Find Location</a>
-                                                </div> 
-                                               
+                                                        style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div>
+
                                             </div>
                                             <div class="form-group row" id="resultMap">
                                                 <label class="control-label col-md-3 col-sm-3 "></label>
@@ -199,7 +201,7 @@
                                                 <label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="date"
-                                                        id="targetCOD" name="targetCOD" placeholder="" 
+                                                        id="targetCOD" name="targetCOD" placeholder=""
                                                         aria-label=".form-control-sm example">
                                                 </div>
                                             </div>
@@ -215,6 +217,39 @@
                                                         aria-label=".form-control-sm example" min="0" max="31">
                                                 </div>
                                             </div>
+                                            <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Presure <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="presure" name="presure" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0">
+                                                </div>
+                                                <label class="control-label col-md-3 col-sm-3 ">Flow Rate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                     <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="flowrate" name="flowrate" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0">
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                   <select class="form-control form-control-sm frmInput" id="Category"  style="padding-top: 2px;padding-bottom: 2px;">
+				                                        <option value="Industry">Industry</option>
+				                                        <option value="Rumah Tangga">Rumah Tangga</option>
+			                                        </select>
+                                                </div>                                               
+
+                                            </div>
                                             <label><strong>Supply Data</strong></label>
                                             <br />
                                             <div class="form-group row ">
@@ -222,7 +257,7 @@
                                                 <div class="control-label col-md-3 col-sm-3 ">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" id="pipeLine" value=""> Pipeline
+                                                            <input type="checkbox" id="pipeLine" onclick="functionPipe()" value=""> Pipeline
                                                         </label>
                                                     </div>
                                                 </div>
@@ -246,15 +281,15 @@
                                                 <label class="control-label col-md-3 col-sm-3 ">Target Price</label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="minPrice" name="minPrice" placeholder="USD/MMBTU" autocomplete="off"
-                                                        aria-label=".form-control-sm example">
+                                                        id="minPrice" name="minPrice" placeholder="USD/MMBTU"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
                                                 </div>
                                                 <label class="control-label col-md-1 col-sm-1 "
                                                     style="padding-left: 0px;">(Min)</label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="maxPrice" name="maxPrice" placeholder="USD/MMBTU" autocomplete="off"
-                                                        aria-label=".form-control-sm example">
+                                                        id="maxPrice" name="maxPrice" placeholder="USD/MMBTU"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
                                                 </div>
                                                 <label class="control-label col-md-1 col-sm-1 "
                                                     style="padding-left: 0px;">(Max)</label>
@@ -454,13 +489,23 @@
                 xmlhttp.send();
             }
 
+            function functionPipe(){
+                var checkBox = document.getElementById("pipeLine");
+
+                  if (checkBox.checked == true){
+                      $(".pipeLines").show();
+                  } else {
+                    $(".pipeLines").hide();
+                  }
+            }
+
             function myFunction(arr) {
                 $("#resultText").show();
                 var out = "<br />";
                 var i;
 
                 if (arr.length > 0) {
-                    
+
                     for (i = 0; i < arr.length; i++) {
                         var locs = arr[i].display_name;
                         var spl = locs.split(',');
@@ -554,28 +599,7 @@
                 var lat = $("#latitude").val();
                 var long = $("#longitude").val();
 
-                //$.ajax({
-                //      url: "https://nominatim.openstreetmap.org/reverse",
-                //      data: {
-                //        lat: lat,
-                //        lon: long,
-                //        format: "json"
-                //      },
-                //      beforeSend: function (xhr) {
-                //        xhr.setRequestHeader(
-                //          'User-Agent',
-                //          'ID of your APP/service/website/etc. v0.1'
-                //        )
-                //      },
-                //      dataType: "json",
-                //      type: "GET",
-                //      async: true,
-                //      crossDomain: true
-                //    }).done(function (res) {
-                //      console.log(res.address)
-                //    }).fail(function (error) {
-                //      console.error(error)
-                //    })
+
                 if (projectName == "" || projectName == null) {
                     $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
                         $("#_alert1").slideUp(500);
@@ -635,46 +659,56 @@
                 }
                 else {
                     pointMap(lat, long);
-                    if (results.length > 0) {
-                        var currentRadius = $("#radius").val();
-                        console.log(results);
-                        $.ajax({
-                            url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-                            type: 'POST',
-                            dataType: 'json',
-                            contentType: "application/json; charset=utf-8",
-                            data: JSON.stringify(
-                                {
-                                    "ProjectName": projectName,
-                                    "Creator": creator,
-                                    "ProjectDate": projectDate,
-                                    "CustomerName": customerName,
-                                    "TargetCOD": targetCOD,
+                        if (results.length > 0) {
+                            var currentRadius = $("#radius").val();
+                            console.log(results);
+                            $.ajax({
+                                url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+                                type: 'POST',
+                                dataType: 'json',
+                                contentType: "application/json; charset=utf-8",
+                                data: JSON.stringify(
+                                    {
+                                        "ProjectName": projectName,
+                                        "Creator": creator,
+                                        "ProjectDate": projectDate,
+                                        "CustomerName": customerName,
+                                        "TargetCOD": targetCOD,
+                                    }
+                                ),
+                                success: function (data) {
+                                    if (data.status == true) {
+                                        if (document.getElementById("pipeLine").checked == true) {
+                                            alert("Pipeline Ceklis");
+                                        }
+                                        if (document.getElementById("lng").checked == true) {
+                                            alert("LNG Ceklis");
+                                        }
+                                        if (document.getElementById("cng").checked == true) {
+                                            calculate(data.data);                        
+                                        }                                        
+                                        alert("SUKSES");
+                                        var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                                        window.location.href = url;
+                                    }
+                                },
+                                error: function (jqXHR) {
+                                    $('#divErrorText').text(jqXHR.responseText);
+                                    $('#divError').show('fade');
                                 }
-                            ),
-                            success: function (data) {
-                                if (data.status == true) {
-                                    calculate(data.data);
-                                    alert("SUKSES");
-                                    var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                                    window.location.href = url;
-                                }
-                            },
-                            error: function (jqXHR) {
-                                $('#divErrorText').text(jqXHR.responseText);
-                                $('#divError').show('fade');
-                            }
-                        });
+                            });
 
-                    } else {
-                        var currentRadius = $("#radius").val();
-                        var upRadius = parseInt(currentRadius) + 50;
-                        $("#radius").val(upRadius);
-                        calculateCost();
-                    }
+                        } else {
+                            var currentRadius = $("#radius").val();
+                            var upRadius = parseInt(currentRadius) + 50;
+                            $("#radius").val(upRadius);
+                            calculateCost();
+                        }
+                    
+                    
                 }
+                
             }
-
             function changeCircleRadius(jarak) {
                 //alert(jarak);
                 // Determine which geocode box is filled
@@ -770,7 +804,7 @@
                         var minPrice = $("#minPrice").val();
                         var maxPrice = $("#maxPrice").val();
                         var resultLocationName = $("#resultLocationName").val();
-                        if(resultLocationName == "" || resultLocationName == null){
+                        if (resultLocationName == "" || resultLocationName == null) {
                             resultLocationName = "Unnamed Road"
                         }
                         if (minPrice == 0 || minPrice == null) {
@@ -1071,8 +1105,8 @@
                     e.layer.dragging.enable();
                     // If you drag the marker, make sure the circle goes with it
                     e.layer.on('dragend', function (event) {
-                        
-                         $("#latitude").val(event.target.getLatLng().lat);
+
+                        $("#latitude").val(event.target.getLatLng().lat);
                         $("#longitude").val(event.target.getLatLng().lng);
                         map.setView(event.target.getLatLng());
                         circle.setLatLng(event.target.getLatLng());

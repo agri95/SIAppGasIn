@@ -248,13 +248,14 @@ ViewData["Title"] = "Home Page";
     $(document).ready(function () {
        if(Cookies.get('popup') != 'shown'){
           $("#addData").modal('show');
+          $("#btnSubmit").hide();
     }
       
       $("#btnSubmit").click(function(){
        Cookies.set('popup', 'shown');
        $("#addData").modal('hide');
     }); 
-        $("#goAhead").hide();
+        
 
         $("#termUK").hide();
 
@@ -262,9 +263,9 @@ ViewData["Title"] = "Home Page";
 
         checkbox.addEventListener('change', (event) => {
             if (event.currentTarget.checked) {
-                $("#goAhead").show();
+                $("#btnSubmit").show();
             } else {
-                $("#goAhead").hide();
+                $("#btnSubmit").hide();
             }
         })
 

@@ -97,33 +97,27 @@ ViewData["Title"] = "Master User";
 	 <div class="modal-body">
 	   <form>
 		   
-		 <input type="hidden" class="form-control" id="CraddleIDs" name="CraddleIDs" hidden>
+		 <input type="hidden" class="form-control" id="Ids" name="Ids" hidden>
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Flowrate (m3/h)</label>
-		   <input type="text" class="form-control" id="Flowrates">
+		   <label for="recipient-name" class="col-form-label">User Name</label>
+		   <input type="text" class="form-control" id="UserNames">
+		 </div> 				
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Email</label>
+		   <input type="text" class="form-control" id="Emails">
 		 </div> 
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Ukuran GTM</label>
-		   <input type="text" class="form-control" id="UkuranGTMs">
+		   <label for="recipient-name" class="col-form-label">Phone Number</label>
+		   <input type="text" class="form-control" id="PhoneNumbers">
+		 </div> 
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">First Name</label>
+		   <input type="text" class="form-control" id="FirstNames">
 		 </div>
 		 <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Harga Beli</label>
-		   <input type="number" class="form-control" id="HargaBelis"  placeholder="Rp / Unit">
-		 </div>
-		<div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Harga Sewa</label>
-		   <input type="number" class="form-control" id="HargaSewas" placeholder="Rp / Unit / Bulan">
-		 </div>
-		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Filling Time</label>
-		   <input type="number" class="form-control" id="FillingTimes" placeholder="Rp / Lumpsum">
-		 </div>
-		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Waiting Time</label>
-		   <input type="number" class="form-control" id="WaitingTimes" >
-		 </div>	  
-		  
-		
+		   <label for="recipient-name" class="col-form-label">Last Name</label>
+		   <input type="text" class="form-control" id="LastNames">
+		 </div> 
 	   </form>
 	 </div>
 	 <div class="modal-footer">
@@ -215,7 +209,7 @@ $('#btnEditEnergy').click(function () {
     
 		   $.ajax({
 			   
-		   url: '@Url.Action("EditData", "MstCraddle")',
+		   url: '@Url.Action("EditData", "SysUser")',
 			   type: 'POST',
 			   //crossDomain: true,
 			   dataType: 'json',
@@ -227,26 +221,23 @@ $('#btnEditEnergy').click(function () {
 			   contentType: "application/json; charset=utf-8",
 			   data: JSON.stringify(
 				   {		
-					   "CraddleID": $("#CraddleIDs").val(),
-					   "Flowrate": $("#Flowrates").val(),
-					   "UkuranGTM": $("#UkuranGTMs").val(),
-					   "HargaBeli": $("#HargaBelis").val(),
-					   "HargaSewa": $("#HargaSewas").val(),
-					   "FillingTime": $("#FillingTimes").val(),
-					   "WaitingTime": $("#WaitingTimes").val(),
+					   "Id": $("#Ids").val(),
+					   "UserName": $("#UserNames").val(),
+					   "Email": $("#Emails").val(),
+					   "PhoneNumber": $("#PhoneNumbers").val(),
+					   "FirstName": $("#FirstNames").val(),
+					   "LastName": $("#LastNames").val(),					  
 				   }
 			   ),
 			   success: function (data) {
 				   //alert(data);
 				   if (data == true) {
 
-					   $("#CraddleIDs").val("");
-					   $("#Flowrates").val("");
-					   $('#UkuranGTMs').val("");
-					   $('#HargaBelis').val("");
-					   $('#HargaSewas').val("");
-					   $('#FillingTimes').val("");
-					   $('#WaitingTimes').val("");
+					   $("#UserNames").val("");
+					   $("#Emails").val("");
+					   $('#PhoneNumbers').val("");
+					   $('#FirstNames').val("");
+					   $('#LastNames').val("");
 
 					   oTable = $('#example').DataTable();
 					   oTable.draw();
@@ -267,8 +258,8 @@ $('#btnEditEnergy').click(function () {
 
 function EditData(dataID) {
 	   $.ajax({
-		   url: '@Url.Action("SelectData", "MstCraddle")?id=' + dataID,
-		   type: 'get',
+		   url: '@Url.Action("RetrieveUser", "SysUser")?userId=' + dataID,
+		   type: 'post',
 		   //crossDomain: true,
 		   dataType: 'json',
 		   //headers: {
@@ -280,16 +271,15 @@ function EditData(dataID) {
 		   data: "{}", //JSON.stringify({ CustomerID : CustomerID }),
 		   success: function (data) {
 			   if (data.status == true) {
-					   $("#CraddleIDs").val(data.data.craddleID);
-					   $("#Flowrates").val(data.data.flowrate);
-					   $('#UkuranGTMs').val(data.data.ukuranGTM);
-					   $('#HargaBelis').val(data.data.hargaBeli);
-					   $('#HargaSewas').val(data.data.hargaSewa);
-					   $('#FillingTimes').val(data.data.fillingTime);
-					   $('#WaitingTimes').val(data.data.waitingTime);
+					   $("#Ids").val(data.data[0].id);
+					   $("#UserNames").val(data.data[0].userName);
+					   $('#Emails').val(data.data[0].email);
+					   $('#PhoneNumbers').val(data.data[0].phoneNumber);
+					   $('#FirstNames').val(data.data[0].firstname);
+					   $('#LastNames').val(data.data[0].lastname);
 				   
 				   
-				   $("#editData").modal("show");
+				  $("#editData").modal("show");
 				   
 			   }
 			   else {
@@ -435,7 +425,7 @@ $('#saveEnergy').click(function () {
 				   //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
 			   },
 			   {
-				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.id + ')">Edit</a>'; }
+				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(\'' + full.id + '\')">Edit</a>'; }
 				   //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
 			   },
 			   {

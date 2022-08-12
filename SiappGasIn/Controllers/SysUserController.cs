@@ -365,6 +365,8 @@ namespace SiappGasIn.Controllers.Api
         [HttpPost]
         public IActionResult RetrieveUser(string userId)
         {
+            var isStatus = true;
+
             var user = from us in _dbContext.ApplicationUser
                        join us1 in _dbContext.SysUserProfile on us.Id equals us1.ApplicationUserId
                        where us.Id.Equals(userId)
@@ -373,11 +375,69 @@ namespace SiappGasIn.Controllers.Api
                            Id = us.Id,
                            UserName = us.UserName,
                            Email = us.Email,
+                           PhoneNumber = us.PhoneNumber,
                            Firstname = us1.FirstName,
                            Lastname = us1.LastName
-                       };
-
+                       };          
+          
+            return Ok
+                    (
+                        new { data = user, status = isStatus }
+                    );
             return Json(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditData([FromBody] UserProfileViewModel model)
+        {
+            if (model != null)
+            {
+                try
+                {
+                    IdentityResult result = null;
+                    if (!string.IsNullOrEmpty(model.Id)) // Update User
+                    {
+
+                        ApplicationUser user = await _userManager.FindByIdAsync(model.Id);
+
+                        user.Email = model.Email;
+                        user.PhoneNumber = model.PhoneNumber;
+
+                        result = await _userManager.UpdateAsync(user);
+
+                    }
+                    if (result.Succeeded)
+                    {
+                        //add to user profile
+                        SysUserProfile userProfile = _dbContext.SysUserProfile.Where(s => s.ApplicationUserId == model.Id).FirstOrDefault();
+
+                        userProfile.FirstName = model.Firstname;
+                        userProfile.LastName = model.Lastname;
+                        userProfile.Email = model.Email;
+                        userProfile.ApplicationUserId = model.Id;
+
+                        userProfile.ModifiedBy = this.User.Identity.Name;
+                        userProfile.ModifiedDate = DateTimeOffset.Now;
+
+                        _dbContext.SysUserProfile.Update(userProfile);
+
+                        _dbContext.Entry<SysUserProfile>(userProfile).Property(x => x.CreatedBy).IsModified = false;
+                        _dbContext.Entry<SysUserProfile>(userProfile).Property(x => x.CreatedDate).IsModified = false;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                   
+                    return Json(data: false);
+                }
+            }
+            else
+            {
+                return Json(data: false);
+            }
+
+            return Json(data: true);
         }
 
         [HttpPost]
