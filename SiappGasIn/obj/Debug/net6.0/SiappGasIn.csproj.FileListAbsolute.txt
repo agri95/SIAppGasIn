@@ -1092,3 +1092,11 @@ D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Debug\net6.0\ref\SiappGasIn.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\System.Net.Http.Formatting.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\System.Web.Http.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\NWebsec.AspNetCore.Core.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\NWebsec.AspNetCore.Mvc.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\NWebsec.AspNetCore.Mvc.TagHelpers.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\WebEssentials.AspNetCore.Pwa.dll

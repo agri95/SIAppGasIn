@@ -219,18 +219,17 @@
                                             </div>
                                             <div class="form-group row pipeLines">
 
-                                                <label class="control-label col-md-3 col-sm-3 ">Presure <i
+                                                <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
-                                                        data-placement="right"
-                                                        title="Khusus Pipeline"></i></label>
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="presure" name="presure" placeholder="" autocomplete="off"
+                                                        id="pressure" name="pressure" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
                                                 <label class="control-label col-md-3 col-sm-3 ">Flow Rate</label>
                                                 <div class="col-md-3 col-sm-3 ">
-                                                     <input class="form-control form-control-sm frmInput" type="number"
+                                                    <input class="form-control form-control-sm frmInput" type="number"
                                                         id="flowrate" name="flowrate" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
@@ -240,14 +239,14 @@
 
                                                 <label class="control-label col-md-3 col-sm-3 ">Category <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
-                                                        data-placement="right"
-                                                        title="Khusus Pipeline"></i></label>
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-3 col-sm-3 ">
-                                                   <select class="form-control form-control-sm frmInput" id="Category"  style="padding-top: 2px;padding-bottom: 2px;">
-				                                        <option value="Industry">Industry</option>
-				                                        <option value="Rumah Tangga">Rumah Tangga</option>
-			                                        </select>
-                                                </div>                                               
+                                                    <select class="form-control form-control-sm frmInput" id="Category"
+                                                        style="padding-top: 2px;padding-bottom: 2px;">
+                                                        <option value="Industri">Industri</option>
+                                                        <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    </select>
+                                                </div>
 
                                             </div>
                                             <label><strong>Supply Data</strong></label>
@@ -257,7 +256,8 @@
                                                 <div class="control-label col-md-3 col-sm-3 ">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" id="pipeLine" onclick="functionPipe()" value=""> Pipeline
+                                                            <input type="checkbox" id="pipeLine"
+                                                                onclick="functionPipe()" value=""> Pipeline
                                                         </label>
                                                     </div>
                                                 </div>
@@ -369,6 +369,19 @@
             </div>
 
         </div>
+        <div class="loading overlay" id="loading">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
         <span hidden id="gajiSupir"></span>
         <span hidden id="gajiOperator"></span>
         @section Styles{
@@ -383,6 +396,123 @@
         <link rel="stylesheet" href="~/plugins/map/css/styles.css" />*@
 
         <style>
+            .lds-roller {
+                display: inline-block;
+                position: relative;
+                width: 80px;
+                height: 80px;
+                margin-top: 20%;
+            }
+
+            .lds-roller div {
+                animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                transform-origin: 40px 40px;
+            }
+
+            .lds-roller div:after {
+                content: " ";
+                display: block;
+                position: absolute;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #fd5;
+                margin: -4px 0 0 -4px;
+            }
+
+            .lds-roller div:nth-child(1) {
+                animation-delay: -0.036s;
+            }
+
+            .lds-roller div:nth-child(1):after {
+                top: 63px;
+                left: 63px;
+            }
+
+            .lds-roller div:nth-child(2) {
+                animation-delay: -0.072s;
+            }
+
+            .lds-roller div:nth-child(2):after {
+                top: 68px;
+                left: 56px;
+            }
+
+            .lds-roller div:nth-child(3) {
+                animation-delay: -0.108s;
+            }
+
+            .lds-roller div:nth-child(3):after {
+                top: 71px;
+                left: 48px;
+            }
+
+            .lds-roller div:nth-child(4) {
+                animation-delay: -0.144s;
+            }
+
+            .lds-roller div:nth-child(4):after {
+                top: 72px;
+                left: 40px;
+            }
+
+            .lds-roller div:nth-child(5) {
+                animation-delay: -0.18s;
+            }
+
+            .lds-roller div:nth-child(5):after {
+                top: 71px;
+                left: 32px;
+            }
+
+            .lds-roller div:nth-child(6) {
+                animation-delay: -0.216s;
+            }
+
+            .lds-roller div:nth-child(6):after {
+                top: 68px;
+                left: 24px;
+            }
+
+            .lds-roller div:nth-child(7) {
+                animation-delay: -0.252s;
+            }
+
+            .lds-roller div:nth-child(7):after {
+                top: 63px;
+                left: 17px;
+            }
+
+            .lds-roller div:nth-child(8) {
+                animation-delay: -0.288s;
+            }
+
+            .lds-roller div:nth-child(8):after {
+                top: 56px;
+                left: 12px;
+            }
+
+            @@keyframes lds-roller {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .overlay {
+                z-index: 9999;
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                bottom: 0px;
+                right: 0px;
+                background-color: rgba(0, 0, 0, 0.7);
+                text-align: center;
+            }
+
             .address {
                 cursor: pointer
             }
@@ -489,14 +619,14 @@
                 xmlhttp.send();
             }
 
-            function functionPipe(){
+            function functionPipe() {
                 var checkBox = document.getElementById("pipeLine");
 
-                  if (checkBox.checked == true){
-                      $(".pipeLines").show();
-                  } else {
+                if (checkBox.checked == true) {
+                    $(".pipeLines").show();
+                } else {
                     $(".pipeLines").hide();
-                  }
+                }
             }
 
             function myFunction(arr) {
@@ -587,6 +717,7 @@
             }
 
             function calculateCost() {
+
                 results = [];
                 var projectName = $("#projectName").val();
                 var creator = $("#creator").val();
@@ -674,24 +805,57 @@
                                         "ProjectDate": projectDate,
                                         "CustomerName": customerName,
                                         "TargetCOD": targetCOD,
+                                        "Latitude": lat,
+                                        "Longitude": long,
                                     }
                                 ),
                                 success: function (data) {
                                     if (data.status == true) {
-                                        if (document.getElementById("pipeLine").checked == true) {
-                                            alert("Pipeline Ceklis");
-                                        }
-                                        if (document.getElementById("lng").checked == true) {
-                                            alert("LNG Ceklis");
-                                        }
-                                        if (document.getElementById("cng").checked == true) {
+                                        $('.loading').show();
+                                        //if (document.getElementById("lng").checked == true) {
+                                        //    alert("LNG Ceklis");                                            
+                                        //}
+
+                                        function task1() {
+                                          const wait = Math.round(Math.random()*5000);
+                                          setTimeout(function() {
+                                            if (document.getElementById("cng").checked == true) {
                                             calculate(data.data);                        
-                                        }                                        
-                                        alert("SUKSES");
-                                        var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                                        window.location.href = url;
+                                        }
+                                          },wait)
+                                        }
+ 
+                                        //function task2() {
+                                        //  const wait = Math.round(Math.random()*60000);
+                                        //  setTimeout(function() {
+                                        //  if (document.getElementById("pipeLine").checked == true) {
+                                        //     calculatePipe(data.data);
+                                        //}
+                                        //  },wait)
+                                        //}
+                                        function task3() {
+                                          const wait = Math.round(Math.random()*5000);
+                                          setTimeout(function() {
+                                            
+                                            $('.loading').hide();
+                                            var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                                            window.location.href = url;
+                                          },wait)
+                                        }
+ 
+                                        task1()
+                                        //task2()
+                                        task3()
+
+                                        
+                                        //if (document.getElementById("cng").checked == true) {
+                                        //    calculate(data.data);                        
+                                        //} 
+
+                                        //
                                     }
-                                },
+                                },        
+                                
                                 error: function (jqXHR) {
                                     $('#divErrorText').text(jqXHR.responseText);
                                     $('#divError').show('fade');
@@ -704,11 +868,89 @@
                             $("#radius").val(upRadius);
                             calculateCost();
                         }
-                    
-                    
+
+
                 }
-                
+
             }
+
+            function calculatePipe(dataID) {
+                var users = "nimo.siapgasin";
+                var passwords = "nimo.pgn645In";
+
+                var _data = {
+                    "Customer": {
+                        "name": $("#customerName").val(),
+                        "type": $("#Category").val(),
+                        "location": {
+                            "latitude": $("#latitude").val(),
+                            "longitude": $("#longitude").val(),
+                            "postal_code": "14210",
+                        }
+                        ,
+                    },
+                    "flow_rate": {
+                        "value": $("#flowrate").val(),
+                        "unit": "mmscfd"
+                    },
+                    "pressure": {
+                        "value": $("#pressure").val(),
+                        "unit": "barg"
+                    }
+                };
+                var _datas = JSON.stringify(_data);
+                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYwNjIxNDk4LCJleHAiOjE2NjA3MDc4OTcsImlhdCI6MTY2MDYyMTQ5OH0.CkenoCsUrIlo9A_EqoUyMQNopPOMtulWhYm9Z00Noe4";
+                $.ajax({
+                            url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&token=' + token,//File Collection Endpoint
+
+                            type: 'get',
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: "{}",
+                            success: function (datas) {
+                               
+
+                            //    $.ajax({
+                            //    url: '@Url.Action("SaveDataPipe", "SimulationCost")',
+                            //    type: 'POST',
+                            //    dataType: 'json',
+                            //    contentType: "application/json; charset=utf-8",
+                            //    data: JSON.stringify(
+                            //        {
+                            //           "HeaderSimulationID" : dataID,
+	                           //         "type" : datas.data.type,
+	                           //         "latitude" : datas.data.location.latitude,
+	                           //         "longitude" : datas.data.location.longitude,
+	                           //         "postal_code" : datas.data.location.postal_code,
+	                           //         "distanceValue" : datas.data.distance.value,
+	                           //         "distanceUnit" : datas.data.distance.nit,
+	                           //         "pressureValue" : datas.data.pressure.value,
+	                           //         "pressureUnit" : datas.data.pressure.unit,
+	                           //         "volumeValue" : datas.data.volume.value,
+	                           //         "volumeUnit" : datas.data.volume.unit,
+                            //            "diameterValue" : datas.data.diameter.value,
+	                           //         "diameterUnit" : datas.data.diameter.unit,
+	                           //         "route" : datas.data.route,
+                            //        }
+                            //    ),
+                            //    success: function (data) {
+                            //        console.log("great");                                    
+                            //    },        
+                                
+                            //    error: function (jqXHR) {
+                            //        $('#divErrorText').text(jqXHR.responseText);
+                            //        $('#divError').show('fade');
+                            //    }
+                            //});
+
+                            },
+                            
+                            error: function (datas) {
+                                success(datas);
+                            }
+                        });
+}
+
             function changeCircleRadius(jarak) {
                 //alert(jarak);
                 // Determine which geocode box is filled
@@ -760,7 +1002,9 @@
                             counter_points_in_circle += 1;
                             let temp = {
                                 "lokasi": mapping[i].loc,
-                                "jarak": (distance_from_layer_circle / 1000).toFixed(2)
+                                "jarak": (distance_from_layer_circle / 1000).toFixed(2),
+                                "latitude": mapping[i].lat,
+                                "longitude": mapping[i].long,
                             }
                             results.push(temp);
                         }
@@ -794,6 +1038,8 @@
                     for (i = 0; i < results.length; i++) {
                         var rsLokasi = results[i].lokasi;
                         var rsJarak = results[i].jarak;
+                        var rsLatitude = results[i].latitude;
+                        var rsLongitude = results[i].longitude;
                         var jarak = rsJarak * 2;
                         var volume = $("#demandUsage").val(); // M3/Bln
                         volume = volume.replace(/\,/g, '')
@@ -829,7 +1075,9 @@
                                     "asalStation": rsLokasi,
                                     "lokasiCapel": resultLocationName,
                                     "minPrice": minPrice,
-                                    "maxPrice": maxPrice
+                                    "maxPrice": maxPrice,
+                                    "latitude": rsLatitude,
+                                    "longitude": rsLongitude,
                                 }
                             ),
                             success: function (data) {
@@ -845,6 +1093,7 @@
                                     $('#successModal').modal('show');
                                 }
                             },
+                            
                             error: function (jqXHR) {
                                 $('#divErrorText').text(jqXHR.responseText);
                                 $('#divError').show('fade');
@@ -864,6 +1113,7 @@
             }
 
             $(document).ready(function () {
+                $(".loading").hide();
                 $("#resultText").hide();
                 $("#_alert1").hide();
                 $("#_alert2").hide();

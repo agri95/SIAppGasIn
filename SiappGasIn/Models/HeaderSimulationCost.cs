@@ -16,6 +16,8 @@ namespace SiappGasIn.Models
         public DateTime? ProjectDate { get; set; }
         public string CustomerName { get; set; }
         public DateTime? TargetCOD { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
         public string CreatedBy { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }

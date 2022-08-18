@@ -254,46 +254,9 @@ $('#btnEditEnergy').click(function () {
 	   });
   
 
-function EditData(dataID) {
-	   $.ajax({
-		   url: '@Url.Action("RetrieveUser", "SysUser")?userId=' + dataID,
-		   type: 'post',
-		   //crossDomain: true,
-		   dataType: 'json',
-		   //headers: {
-		   //    'Accept': 'application/json',
-		   //    'Content-Type': 'application/json'
-		   //},
-		   //headers: { 'Access-Control-Allow-Origin': 'The web site allowed to access' },
-		   contentType: "application/json; charset=utf-8",
-		   data: "{}", //JSON.stringify({ CustomerID : CustomerID }),
-		   success: function (data) {
-			   if (data.status == true) {
-					   $("#Ids").val(data.data[0].id);
-					   $("#UserNames").val(data.data[0].userName);
-					   $('#Emails').val(data.data[0].email);
-					   $('#PhoneNumbers').val(data.data[0].phoneNumber);
-					   $('#FirstNames').val(data.data[0].firstname);
-					   $('#LastNames').val(data.data[0].lastname);
-				   
-				   
-				  $("#editData").modal("show");
-				   
-			   }
-			   else {
-				   alert("HUHAUHDA");
-			   }
-		   },
-		   error: function (jqXHR) {
-			   $('#divErrorText').text(jqXHR.responseText);
-			   $('#divError').show('fade');
-		   }
-	   });
-
-
-
-
-
+function detailData(dataID) {
+	  var url = '@Url.Action("Result", "SimulationCost")?Id=' + dataID;
+                                        window.location.href = url;
    }
 
 $('#saveEnergy').click(function () {
@@ -426,7 +389,7 @@ $('#saveEnergy').click(function () {
 			   { "data": "customerName", "name": "customerName", "autoWidth": true },
 			   
 			     {
-				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(\'' + full.id + '\')">Edit</a>'; }
+				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return detailData(\'' + full.headerSimulationID + '\')">Detail</a>'; }
 				   //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
 			   },
 			   {

@@ -1,0 +1,185 @@
+﻿/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+@media (min-width: 1281px) {
+    #panelLogin {
+        width: 90%;
+        top: 40%;
+    }
+
+    #lblTextHeader {
+        margin-top: 25px;
+    }
+
+    #divFrameMobile {
+        display: none;
+    }
+
+    #btnLogin {
+        height: 32px;
+        font-size: 13px;
+    }
+}
+
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+@media (min-width: 1025px) and (max-width: 1280px) {
+    #panelLogin {
+        width: 90%;
+        top: 20%;
+    }
+
+    #lblTextHeader {
+        margin-top: 25px;
+    }
+
+    #divFrameMobile {
+        display: none;
+    }
+
+    #btnLogin {
+        height: 32px;
+        font-size: 13px;
+    }
+}
+
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) {
+    #panelLogin {
+       
+        width: 70%;
+        top: 20%;
+    }
+
+    #lblTextHeader {
+        margin-top: 25px;
+    }
+
+    #divFrameMobile {
+        display: none;
+    }
+
+    #btnLogin {
+        height: 32px;
+        font-size: 13px;
+    }
+}
+
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+    #panelLogin {
+        
+        width: 70%;
+        top: 20%;
+    }
+
+    #lblTextHeader {
+        margin-top: 25px;
+    }
+
+    #divFrameMobile {
+        display: none;
+    }
+
+    #btnLogin {
+        height: 32px;
+        font-size: 13px;
+    }
+}
+
+
+/* 
+  ##Device = Low Resolution Tablets, Mobiles (Landscape)
+  ##Screen = B/w 481px to 767px
+*/
+@media (min-width: 481px) and (max-width: 767px) {
+    #divLeftSide {
+        display: none;
+    }
+
+    #panelLogin {
+        width: 90%;
+        top: 20%;
+    }
+
+    #imgLogoITIS{
+        display: none;
+    }
+
+    #lblTextHeader {
+        margin-top: 115px;
+    }
+
+    #divFrameMobile {
+        display: block;
+    }
+
+    #btnLogin {
+        height: 36px;
+        font-size: 15px;
+    }
+}
+
+
+/* 
+  ##Device = Most of the Smartphones Mobiles (Portrait)
+  ##Screen = B/w 320px to 479px
+*/
+@media (min-width: 320px) and (max-width: 480px) {
+    #divLeftSide {
+        display: none;
+    }
+
+    #panelLogin {
+        width: 90%;
+        top: 57%;
+    }
+
+    #imgLogoITIS {
+        display: none;
+    }
+
+    #lblTextHeader {
+        margin-top: 115px;
+    }
+
+    #divFrameMobile{
+        display: block;
+    }
+
+    #btnLogin{
+        height: 36px;
+        font-size: 15px;
+    }
+}
+
+
+#btnLogin:hover {
+    background: #000000;
+    letter-spacing: 1px;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    box-shadow: 5px 40px -10px rgba(0,0,0,0.20);
+    transition: all 0.4s ease 0s;
+}
+
+.group939 {
+    position: absolute;
+    width: 124.05px;
+    height: 85.47px;
+    left: 819px;
+    top: -1.53px;
+    transform: rotate(90deg);
+}

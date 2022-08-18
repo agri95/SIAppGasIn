@@ -106,6 +106,10 @@ namespace SiappGasIn.Models
         public decimal lainLainRpM3 { get; set; }
         public decimal overheadCostRpM3 { get; set; }
         public decimal marginCostRpM3 { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
+        public string latitudePel { get; set; }
+        public string longitudePel { get; set; }
         public string? CreatedBy { get; set; }
 
         public DateTimeOffset? CreatedDate { get; set; }
@@ -155,5 +159,33 @@ namespace SiappGasIn.Models
         public string lokasiCapel { get; set; }
         public decimal minPrice { get; set; }
         public decimal maxPrice { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
+    }
+
+    public class PipeCalculator
+    {
+        [Key]
+        public int PipeCalculatorID { get; set; }
+        public int HeaderSimulationID { get; set; }
+        public string type { get; set; }
+        public double latitude  { get; set; }
+        public double longitude  { get; set; }
+        public string postal_code  { get; set; }
+        public double distanceValue  { get; set; }
+        public string distanceUnit  { get; set; }
+        public double pressureValue  { get; set; }
+        public string pressureUnit  { get; set; }
+        public double volumeValue  { get; set; }
+        public string volumeUnit  { get; set; }
+        public double diameterValue  { get; set; }
+        public string diameterUnit  { get; set; } 
+        public double costValue { get; set; }
+        public string costUnit { get; set; }
+        public string route { get; set; }
+        public string? CreatedBy { get; set; }
+        public DateTimeOffset? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public DateTimeOffset? ModifiedDate { get; set; }
     }
 }

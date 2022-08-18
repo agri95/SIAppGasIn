@@ -23,6 +23,7 @@ namespace SiappGasIn.Data
         public DbSet<MstHeadTruck> MstHeadTruck { get; set; }
         public DbSet<MstLokasiSPBG> MstLokasiSPBG { get; set; }
         public DbSet<SimulationCost> SimulationCost { get; set; }
+        public DbSet<PipeCalculator> PipeCalculator { get; set; }
         public DbSet<HeaderSimulationCost> HeaderSimulationCost { get; set; }
         public DbSet<SP_GetGajiByLocationName> SP_GetGajiByLocationName { get; set; }
         public DbSet<MstGaji> MstGaji { get; set; }

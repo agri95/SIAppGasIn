@@ -1,8 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SiappGasIn.Data;
 using SiappGasIn.Models;
+using SiappGasIn.Services;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace SiappGasIn.Controllers
 {
@@ -37,17 +44,32 @@ namespace SiappGasIn.Controllers
             SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
             return View("~/Views/SimulationCost/Result.cshtml", data);
         }
-        
+
+        //[HttpGet]
+        //public IActionResult Detail(int Id)
+        //{
+
+        //    SimulationCost data = _dbContext.SimulationCost.Where(x => x.SimulationID.Equals(Id)).FirstOrDefault<SimulationCost>();
+
+        //    if (data == null)
+        //    {
+        //        data = new SimulationCost();
+        //    }
+        //    return View("~/Views/SimulationCost/Detail.cshtml", data);
+        //}
+
+       
         [HttpGet]
         public IActionResult Detail(int Id)
         {
 
-            SimulationCost data = _dbContext.SimulationCost.Where(x => x.SimulationID.Equals(Id)).FirstOrDefault<SimulationCost>();
+            string StoredProc = "exec SP_ResultDetailSimulation " + Id;
 
-            if (data == null)
-            {
-                data = new SimulationCost();
-            }
+            //var data = new SP_HeaderSimulation();
+            SimulationCost model = null;
+            //SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw("[dbo].[SP_HeaderSimulation] @Id", Id).AsEnumerable().FirstOrDefault();
+            SimulationCost data = _dbContext.Set<SimulationCost>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+           
             return View("~/Views/SimulationCost/Detail.cshtml", data);
         }
     }
@@ -60,11 +82,12 @@ namespace SiappGasIn.Controllers.Api
     public class SimulationCostController : Controller
     {
         private readonly GasDbContext _dbContext;
+        private readonly APISettingOptions _apiSettingOptions;
 
-        public SimulationCostController(GasDbContext dbContext)
+        public SimulationCostController(GasDbContext dbContext, IOptions<APISettingOptions> apiOptions)
         {
             _dbContext = dbContext;
-
+            _apiSettingOptions = apiOptions.Value;
         }
 
         [HttpPost]
@@ -178,7 +201,7 @@ namespace SiappGasIn.Controllers.Api
             {                
                 if (energy != null)
                 {
-                    string StoredProc = "exec SP_CostSimulation " + energy.headerSimulationID + "," + energy.volume2 + "," + energy.jarak + "," + energy.operasiHari + "," + energy.operasiBulan + "," + "'"+ energy.energyName +"'" + ","+ "'"+ energy.asalStation +"'" + ","+ "'" + energy.lokasiCapel + "'" + "," + energy.minPrice + "," + energy.maxPrice;
+                    string StoredProc = "exec SP_CostSimulation " + energy.headerSimulationID + "," + energy.volume2 + "," + energy.jarak + "," + energy.operasiHari + "," + energy.operasiBulan + "," + "'"+ energy.energyName +"'" + ","+ "'"+ energy.asalStation +"'" + ","+ "'" + energy.lokasiCapel + "'" + "," + energy.minPrice + "," + energy.maxPrice + "," + energy.latitude + "," + energy.longitude;
 
                     var data = _dbContext.Set<SP_CostSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
 
@@ -193,18 +216,49 @@ namespace SiappGasIn.Controllers.Api
             return Json(data: true);
         }
 
+        [HttpPost]
+        public IActionResult SaveDataPipe([FromBody] PipeCalculator pipe)
+        {
+            var isStatus = true;
+            int id = 0;
+            try
+            {
+                PipeCalculator parameter = pipe;
+                if (pipe != null)
+                {
+
+
+                    parameter.CreatedBy = this.User.Identity.Name;
+                    parameter.CreatedDate = DateTimeOffset.Now;
+                    _dbContext.PipeCalculator.AddAsync(parameter);
+
+
+                    _dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(data: false);
+            }
+
+            return Ok
+                   (
+                       new { data = id, status = isStatus }
+                   );
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> SelectData(int id)
         {
             var isStatus = true;
 
-            MstEnergy prm = await _dbContext.MstEnergy.Where(x => x.EnergyID.Equals(id)).FirstOrDefaultAsync<MstEnergy>();
+            HeaderSimulationCost prm = await _dbContext.HeaderSimulationCost.Where(x => x.HeaderSimulationID.Equals(id)).FirstOrDefaultAsync<HeaderSimulationCost>();
 
             if (prm == null)
             {
                 isStatus = false;
-                prm = new MstEnergy();
+                prm = new HeaderSimulationCost();
             }
 
             return Ok
@@ -285,5 +339,83 @@ namespace SiappGasIn.Controllers.Api
                         new { data = data }
                     );
         }
+        [HttpGet]
+        public IActionResult getTokens(string user, string password)
+        {
+            var token = "";
+            var param = new Dictionary<string, string>();
+            var url = "http://10.129.10.191/nimo/api/PipePublicAPI/Login"; 
+             param.Add("userName", user);
+             param.Add("userPassword", password);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage response = client.PostAsync(url, new FormUrlEncodedContent(param)).Result;
+                token = response.Content.ReadAsStringAsync().Result;
+            }
+            return Ok
+                    (new { data = token }
+                    );
+        }
+
+        [HttpGet]
+        public IActionResult getPipeCalculator(string datas, string token)
+        {
+            var calculate = "";
+            var tokens = token.Replace("\"", "");
+            var stringContent = new StringContent(datas, UnicodeEncoding.UTF8, "application/json");
+            var url = "http://10.129.10.191/nimo/api/PipeCalculatorRelyOn";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens);
+
+                HttpResponseMessage response = client.PostAsync(url, stringContent).Result;
+                calculate = response.Content.ReadAsStringAsync().Result;
+
+                dynamic ceks = Newtonsoft.Json.JsonConvert.DeserializeObject(calculate);
+
+
+
+                foreach (var item in ceks)
+                {
+                   if (item.Value.id.Value == "1")
+                    {
+                        PipeCalculator parameter = new PipeCalculator();
+                        parameter.type = item.Value.type.Value;
+                        parameter.latitude = item.Value.location.latitude.Value;
+                        parameter.longitude = item.Value.location.longitude.Value;
+                        parameter.postal_code = item.Value.location.postal_code.Value;
+                        parameter.distanceValue = item.Value.distance.value.Value;
+                        parameter.distanceUnit = item.Value.distance.unit.Value;
+                        parameter.diameterValue = item.Value.diameter.value.Value;
+                        parameter.diameterUnit = item.Value.diameter.unit.Value;
+                        parameter.pressureValue = item.Value.pressure.value.Value;
+                        parameter.pressureUnit = item.Value.pressure.unit.Value;
+                        parameter.volumeValue = item.Value.volume.First.value.Value;
+                        parameter.volumeUnit = item.Value.volume.Last.unit.Value;
+                        parameter.costValue = item.Value.cost.value.Value;
+                        parameter.costUnit = item.Value.cost.unit.Value;
+                        parameter.route = item.Value.route.Value.ToString();
+                        parameter.CreatedBy = this.User.Identity.Name;
+                        parameter.CreatedDate = DateTimeOffset.Now;
+                        _dbContext.PipeCalculator.AddAsync(parameter);
+
+                        _dbContext.SaveChanges();
+                    }
+
+                    
+                }
+
+            }
+            return Ok
+                    (new { data = calculate }
+                    );
+
+        }
+
     }
 }
