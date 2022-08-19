@@ -60,7 +60,7 @@ namespace SiappGasIn.Controllers
 
        
         [HttpGet]
-        public IActionResult Detail(int Id)
+        public IActionResult DetailCNG(int Id)
         {
 
             string StoredProc = "exec SP_ResultDetailSimulation " + Id;
@@ -71,6 +71,20 @@ namespace SiappGasIn.Controllers
             SimulationCost data = _dbContext.Set<SimulationCost>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
            
             return View("~/Views/SimulationCost/Detail.cshtml", data);
+        }
+        
+        [HttpGet]
+        public IActionResult DetailPipe(int Id)
+        {
+
+            string StoredProc = "exec SP_ResultDetailSimulationPipeLine " + Id;
+
+            //var data = new SP_HeaderSimulation();
+            PipeCalculator model = null;
+            //SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw("[dbo].[SP_HeaderSimulation] @Id", Id).AsEnumerable().FirstOrDefault();
+            PipeCalculator data = _dbContext.Set<PipeCalculator>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+           
+            return View("~/Views/SimulationCost/DetailPipeLine.cshtml", data);
         }
     }
 }
@@ -361,7 +375,7 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpGet]
-        public IActionResult getPipeCalculator(string datas, string token)
+        public IActionResult getPipeCalculator(string datas, string token, int dataID)
         {
             var calculate = "";
             var tokens = token.Replace("\"", "");
@@ -377,38 +391,75 @@ namespace SiappGasIn.Controllers.Api
                 calculate = response.Content.ReadAsStringAsync().Result;
 
                 dynamic ceks = Newtonsoft.Json.JsonConvert.DeserializeObject(calculate);
+                var childrenObjects = ceks.Children();
 
-
-
-                foreach (var item in ceks)
+                JObject jObject = JObject.Parse(calculate);
+                var jsonss = jObject["data"];
+                if (jsonss.HasValues)
                 {
-                   if (item.Value.id.Value == "1")
-                    {
-                        PipeCalculator parameter = new PipeCalculator();
-                        parameter.type = item.Value.type.Value;
-                        parameter.latitude = item.Value.location.latitude.Value;
-                        parameter.longitude = item.Value.location.longitude.Value;
-                        parameter.postal_code = item.Value.location.postal_code.Value;
-                        parameter.distanceValue = item.Value.distance.value.Value;
-                        parameter.distanceUnit = item.Value.distance.unit.Value;
-                        parameter.diameterValue = item.Value.diameter.value.Value;
-                        parameter.diameterUnit = item.Value.diameter.unit.Value;
-                        parameter.pressureValue = item.Value.pressure.value.Value;
-                        parameter.pressureUnit = item.Value.pressure.unit.Value;
-                        parameter.volumeValue = item.Value.volume.First.value.Value;
-                        parameter.volumeUnit = item.Value.volume.Last.unit.Value;
-                        parameter.costValue = item.Value.cost.value.Value;
-                        parameter.costUnit = item.Value.cost.unit.Value;
-                        parameter.route = item.Value.route.Value.ToString();
-                        parameter.CreatedBy = this.User.Identity.Name;
-                        parameter.CreatedDate = DateTimeOffset.Now;
-                        _dbContext.PipeCalculator.AddAsync(parameter);
+                    PipeCalculator parameter = new PipeCalculator();
+                    parameter.HeaderSimulationID = dataID;
+                    parameter.type = jObject["data"]["type"].ToString();
+                    var latitude = jObject["data"]["location"]["latitude"].ToString();
+                    parameter.latitude = Convert.ToDouble(latitude);
+                    var longitude = jObject["data"]["location"]["longitude"].ToString();
+                    parameter.longitude = Convert.ToDouble(longitude);
+                    parameter.postal_code = jObject["data"]["location"]["postal_code"].ToString();
+                    var distanceValue = jObject["data"]["distance"]["value"].ToString();
+                    parameter.distanceValue = Convert.ToDouble(distanceValue);
+                    parameter.distanceUnit = jObject["data"]["distance"]["unit"].ToString();
+                    var diameterValue = jObject["data"]["diameter"]["value"].ToString();
+                    parameter.diameterValue = Convert.ToDouble(diameterValue);
+                    parameter.diameterUnit = jObject["data"]["diameter"]["unit"].ToString();
+                    var pressureValue = jObject["data"]["pressure"]["value"].ToString();
+                    parameter.pressureValue = Convert.ToDouble(pressureValue);
+                    parameter.pressureUnit = jObject["data"]["pressure"]["unit"].ToString();
+                    var volumeValue = jObject["data"]["volume"][0]["value"].ToString();
+                    parameter.volumeValue = Convert.ToDouble(volumeValue);
+                    parameter.volumeUnit = jObject["data"]["volume"][0]["unit"].ToString();
+                    var costValue = jObject["data"]["cost"]["value"].ToString();
+                    parameter.costValue = Convert.ToDouble(costValue);
+                    parameter.costUnit = jObject["data"]["cost"]["unit"].ToString();
+                    parameter.route = jObject["data"]["route"].ToString();
 
-                        _dbContext.SaveChanges();
-                    }
+                    _dbContext.PipeCalculator.AddAsync(parameter);
 
-                    
+                    _dbContext.SaveChanges();
                 }
+
+
+
+
+
+                //foreach (var item in ceks)
+                //{
+                //   if (item.Value.id.Value == "1")
+                //    {
+                //        PipeCalculator parameter = new PipeCalculator();
+                //        parameter.type = item.Value.type.Value;
+                //        parameter.latitude = item.Value.location.latitude.Value;
+                //        parameter.longitude = item.Value.location.longitude.Value;
+                //        parameter.postal_code = item.Value.location.postal_code.Value;
+                //        parameter.distanceValue = item.Value.distance.value.Value;
+                //        parameter.distanceUnit = item.Value.distance.unit.Value;
+                //        parameter.diameterValue = item.Value.diameter.value.Value;
+                //        parameter.diameterUnit = item.Value.diameter.unit.Value;
+                //        parameter.pressureValue = item.Value.pressure.value.Value;
+                //        parameter.pressureUnit = item.Value.pressure.unit.Value;
+                //        parameter.volumeValue = item.Value.volume.First.value.Value;
+                //        parameter.volumeUnit = item.Value.volume.Last.unit.Value;
+                //        parameter.costValue = item.Value.cost.value.Value;
+                //        parameter.costUnit = item.Value.cost.unit.Value;
+                //        parameter.route = item.Value.route.Value.ToString();
+                //        parameter.CreatedBy = this.User.Identity.Name;
+                //        parameter.CreatedDate = DateTimeOffset.Now;
+                //        _dbContext.PipeCalculator.AddAsync(parameter);
+
+                //        _dbContext.SaveChanges();
+                //    }
+
+
+                //}
 
             }
             return Ok

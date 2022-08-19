@@ -819,33 +819,36 @@
                                         function task1() {
                                           const wait = Math.round(Math.random()*5000);
                                           setTimeout(function() {
-                                            if (document.getElementById("cng").checked == true) {
-                                            calculate(data.data);                        
-                                        }
+                                              calculate(data.data);                                             
                                           },wait)
                                         }
  
-                                        //function task2() {
-                                        //  const wait = Math.round(Math.random()*60000);
-                                        //  setTimeout(function() {
-                                        //  if (document.getElementById("pipeLine").checked == true) {
-                                        //     calculatePipe(data.data);
-                                        //}
-                                        //  },wait)
-                                        //}
-                                        function task3() {
+                                        function task2() {
                                           const wait = Math.round(Math.random()*5000);
                                           setTimeout(function() {
-                                            
-                                            $('.loading').hide();
-                                            var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                                            window.location.href = url;
+                                              calculatePipe(data.data);                                             
+                                         
                                           },wait)
                                         }
- 
-                                        task1()
-                                        //task2()
+
+                                       function task3() {
+                                          const wait = Math.round(Math.random()*70000);
+                                          setTimeout(function() {
+                                             $('.loading').hide();
+                                                var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                                                window.location.href = url;
+                                          },wait)
+                                        }
+                                       
+                                        if (document.getElementById("cng").checked == true) {
+                                              task1()                    
+                                        }
+                                         if (document.getElementById("pipeLine").checked == true) {
+                                             task2()
+                                        }
+                                        
                                         task3()
+                                        //
 
                                         
                                         //if (document.getElementById("cng").checked == true) {
@@ -899,17 +902,17 @@
                     }
                 };
                 var _datas = JSON.stringify(_data);
-                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYwNjIxNDk4LCJleHAiOjE2NjA3MDc4OTcsImlhdCI6MTY2MDYyMTQ5OH0.CkenoCsUrIlo9A_EqoUyMQNopPOMtulWhYm9Z00Noe4";
+                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYwODg5ODQ0LCJleHAiOjE2NjA5NzYyNDMsImlhdCI6MTY2MDg4OTg0NH0.Icao1EG-oyxcWCljvD2hc044L87UsXfRpRJ3udiVzI4";
                 $.ajax({
-                            url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&token=' + token,//File Collection Endpoint
+                            url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&token=' + token + '&dataID=' + dataID,//File Collection Endpoint
 
                             type: 'get',
                             dataType: 'json',
                             contentType: "application/json; charset=utf-8",
                             data: "{}",
                             success: function (datas) {
-                               
-
+                                console.log(datas);
+                                 
                             //    $.ajax({
                             //    url: '@Url.Action("SaveDataPipe", "SimulationCost")',
                             //    type: 'POST',
