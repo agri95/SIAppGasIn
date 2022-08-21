@@ -187,11 +187,18 @@
     }
 
     function Details(Infra,Id) {
+        alert(Infra + " " + Id)
         if (Infra == "CNG") {
-                    var url = '@Url.Action("DetailCNG", "SimulationCost")?Id=' + Id;
-                    window.location.href = url;
+            var url = '@Url.Action("DetailCNG", "SimulationCost")?Id=' + Id;
+            window.location.href = url;
         }
-
+        else if (Infra == "PIPELINE") {
+            var url = '@Url.Action("DetailPipe", "SimulationCost")?Id=' + Id;
+            window.location.href = url;
+        }
+        else {
+            console.log("error");
+        }
     }
     $(document).ready(function () {
 

@@ -169,8 +169,8 @@ namespace SiappGasIn.Models
         public int PipeCalculatorID { get; set; }
         public int HeaderSimulationID { get; set; }
         public string type { get; set; }
-        public double latitude  { get; set; }
-        public double longitude  { get; set; }
+        public string latitude  { get; set; }
+        public string longitude  { get; set; }
         public string postal_code  { get; set; }
         public double distanceValue  { get; set; }
         public string distanceUnit  { get; set; }

@@ -77,13 +77,8 @@ namespace SiappGasIn.Controllers
         public IActionResult DetailPipe(int Id)
         {
 
-            string StoredProc = "exec SP_ResultDetailSimulationPipeLine " + Id;
+            PipeCalculator data = _dbContext.PipeCalculator.Where(x => x.PipeCalculatorID.Equals(Id)).FirstOrDefault<PipeCalculator>();
 
-            //var data = new SP_HeaderSimulation();
-            PipeCalculator model = null;
-            //SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw("[dbo].[SP_HeaderSimulation] @Id", Id).AsEnumerable().FirstOrDefault();
-            PipeCalculator data = _dbContext.Set<PipeCalculator>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
-           
             return View("~/Views/SimulationCost/DetailPipeLine.cshtml", data);
         }
     }
@@ -400,10 +395,8 @@ namespace SiappGasIn.Controllers.Api
                     PipeCalculator parameter = new PipeCalculator();
                     parameter.HeaderSimulationID = dataID;
                     parameter.type = jObject["data"]["type"].ToString();
-                    var latitude = jObject["data"]["location"]["latitude"].ToString();
-                    parameter.latitude = Convert.ToDouble(latitude);
-                    var longitude = jObject["data"]["location"]["longitude"].ToString();
-                    parameter.longitude = Convert.ToDouble(longitude);
+                    parameter.latitude = jObject["data"]["location"]["latitude"].ToString();
+                    parameter.longitude = jObject["data"]["location"]["longitude"].ToString();
                     parameter.postal_code = jObject["data"]["location"]["postal_code"].ToString();
                     var distanceValue = jObject["data"]["distance"]["value"].ToString();
                     parameter.distanceValue = Convert.ToDouble(distanceValue);
