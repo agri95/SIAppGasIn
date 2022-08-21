@@ -171,8 +171,8 @@ namespace SiappGasIn
 
             app.UseStaticFiles(); // For the wwwroot folder
 
-            var strVirDir = string.IsNullOrEmpty(identityDefault.Value.VirtualDirectory) ? "" : "/" + identityDefault.Value.VirtualDirectory;
-            app.UsePathBase(strVirDir);
+            //var strVirDir = string.IsNullOrEmpty(identityDefault.Value.VirtualDirectory) ? "" : "/" + identityDefault.Value.VirtualDirectory;
+            //app.UsePathBase(strVirDir);
 
             app.UseRouting();
             app.UseSession();

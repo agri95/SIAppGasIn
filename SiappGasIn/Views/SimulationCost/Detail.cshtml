@@ -344,92 +344,92 @@ L.Routing.errorControl(control).addTo(map);
                     }
                 };
                 // Convert miles to meters to set radius of circle
-                function milesToMeters(miles) {
-                    return miles * 1069.344;
-                };
-                // This figures out how many points are within out circle
-                function pointsInCircle(circle, meters_user_set) {
-                    results = [];
-                    if (circle !== undefined) {
-                        // Only run if we have an address entered
-                        // Lat, long of circle
-                        circle_lat_long = circle.getLatLng();
-                        var counter_points_in_circle = 0;
-                        // Loop through each point in JSON file
-                        farmacias.eachLayer(function (layer) {
-                            // Lat, long of current point
-                            layer_lat_long = layer.getLatLng();
-                            // Distance from our circle marker
-                            // To current point in meters
-                            distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
-                            // See if meters is within raduis
-                            // The user has selected
-                            if (distance_from_layer_circle <= meters_user_set) {
-                                counter_points_in_circle += 1;
-                                var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
-                                // Convert to miles
-                                ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
-                                $('#ofi_paf').append(ofi_paf_html);
-                                let temp = {
-                                    "lokasi": layer.feature.properties.oficina,
-                                    "jarak": (distance_from_layer_circle / 1000).toFixed(2)
-                                }
-                                results.push(temp);
-                            }
-                        });
-                        // Set number of results on main page
-                        $('#ofi_paf_results').html(counter_points_in_circle);
-                    }
-                    // Close pointsInCircle
-                };
-                // Change circle radius when changed on page
-                function changeCircleRadius(jarak) {
-                    // Determine which geocode box is filled
-                    // And fire click event
-                    // This will determine how many markers are within the circle
-                    pointsInCircle(circle, milesToMeters(jarak))
-                    // Set radius of circle only if we already have one on the map
-                    if (circle) {
-                        circle.setRadius(milesToMeters(jarak));
-                    }
-                }
-                // Allow user to add marker to map
-                var draw_control = new L.Control.Draw({
-                    draw: {
-                        polyline: false,
-                        polygon: false,
-                        circle: true,
-                        marker: drawn_marker
-                    },
-                    edit: {
-                        featureGroup: drawn_markers,
-                        remove: true
-                    }
-                });
-                map.on(L.Draw.Event.CREATED, function (event) {
-                    var layer = event.layer;
-                    drawn_markers.addLayer(layer);
-                });
-                map.addControl(draw_control);
-                // Allow user to search through GeoJSON file
-                //var search_control = new L.Control.Search({
-                //	layer: farmacias,
-                //	propertyName: 'oficina',
-                //	circleLocation: true
+                //function milesToMeters(miles) {
+                //    return miles * 1069.344;
+                //};
+                //// This figures out how many points are within out circle
+                //function pointsInCircle(circle, meters_user_set) {
+                //    results = [];
+                //    if (circle !== undefined) {
+                //        // Only run if we have an address entered
+                //        // Lat, long of circle
+                //        circle_lat_long = circle.getLatLng();
+                //        var counter_points_in_circle = 0;
+                //        // Loop through each point in JSON file
+                //        farmacias.eachLayer(function (layer) {
+                //            // Lat, long of current point
+                //            layer_lat_long = layer.getLatLng();
+                //            // Distance from our circle marker
+                //            // To current point in meters
+                //            distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
+                //            // See if meters is within raduis
+                //            // The user has selected
+                //            if (distance_from_layer_circle <= meters_user_set) {
+                //                counter_points_in_circle += 1;
+                //                var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
+                //                // Convert to miles
+                //                ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
+                //                $('#ofi_paf').append(ofi_paf_html);
+                //                let temp = {
+                //                    "lokasi": layer.feature.properties.oficina,
+                //                    "jarak": (distance_from_layer_circle / 1000).toFixed(2)
+                //                }
+                //                results.push(temp);
+                //            }
+                //        });
+                //        // Set number of results on main page
+                //        $('#ofi_paf_results').html(counter_points_in_circle);
+                //    }
+                //    // Close pointsInCircle
+                //};
+                //// Change circle radius when changed on page
+                //function changeCircleRadius(jarak) {
+                //    // Determine which geocode box is filled
+                //    // And fire click event
+                //    // This will determine how many markers are within the circle
+                //    pointsInCircle(circle, milesToMeters(jarak))
+                //    // Set radius of circle only if we already have one on the map
+                //    if (circle) {
+                //        circle.setRadius(milesToMeters(jarak));
+                //    }
+                //}
+                //// Allow user to add marker to map
+                //var draw_control = new L.Control.Draw({
+                //    draw: {
+                //        polyline: false,
+                //        polygon: false,
+                //        circle: true,
+                //        marker: drawn_marker
+                //    },
+                //    edit: {
+                //        featureGroup: drawn_markers,
+                //        remove: true
+                //    }
                 //});
-                //map.addControl(search_control);
-                //L.control.scale().addTo(map);
-                //  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-                //  var results = new L.LayerGroup().addTo(map);
-                //  searchControl.on('results', function(data){
-                //	results.clearLayers();
-                //	for (var i = data.results.length - 1; i >= 0; i--) {
-                //	  results.addLayer(L.marker(data.results[i].latlng));
-                //	}
-                //  }).addTo(map);
-                //  L.control.scale().addTo(map);
-                //setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
-                // Add GeoJSON layer
+                //map.on(L.Draw.Event.CREATED, function (event) {
+                //    var layer = event.layer;
+                //    drawn_markers.addLayer(layer);
+                //});
+                //map.addControl(draw_control);
+                //// Allow user to search through GeoJSON file
+                ////var search_control = new L.Control.Search({
+                ////	layer: farmacias,
+                ////	propertyName: 'oficina',
+                ////	circleLocation: true
+                ////});
+                ////map.addControl(search_control);
+                ////L.control.scale().addTo(map);
+                ////  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
+                ////  var results = new L.LayerGroup().addTo(map);
+                ////  searchControl.on('results', function(data){
+                ////	results.clearLayers();
+                ////	for (var i = data.results.length - 1; i >= 0; i--) {
+                ////	  results.addLayer(L.marker(data.results[i].latlng));
+                ////	}
+                ////  }).addTo(map);
+                ////  L.control.scale().addTo(map);
+                ////setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
+                //// Add GeoJSON layer
                 var farmacias = L.geoJson(ofi_paf, {
                     onEachFeature: popup,
                     pointToLayer: function (feature, latlng) {

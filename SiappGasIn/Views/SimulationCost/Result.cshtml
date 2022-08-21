@@ -187,7 +187,6 @@
     }
 
     function Details(Infra,Id) {
-        alert(Infra + " " + Id)
         if (Infra == "CNG") {
             var url = '@Url.Action("DetailCNG", "SimulationCost")?Id=' + Id;
             window.location.href = url;
