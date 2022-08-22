@@ -817,14 +817,14 @@
                                         //}
 
                                         function task1() {
-                                          const wait = Math.round(Math.random()*5000);
+                                          const wait = Math.round(Math.random()*1000);
                                           setTimeout(function() {
                                               calculate(data.data);                                             
                                           },wait)
                                         }
  
                                         function task2() {
-                                          const wait = Math.round(Math.random()*5000);
+                                          const wait = Math.round(Math.random()*10000);
                                           setTimeout(function() {
                                               calculatePipe(data.data);                                             
                                          
@@ -902,7 +902,7 @@
                     }
                 };
                 var _datas = JSON.stringify(_data);
-                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYwODg5ODQ0LCJleHAiOjE2NjA5NzYyNDMsImlhdCI6MTY2MDg4OTg0NH0.Icao1EG-oyxcWCljvD2hc044L87UsXfRpRJ3udiVzI4";
+                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxMTQ5MDgxLCJleHAiOjE2NjEyMzU0ODAsImlhdCI6MTY2MTE0OTA4MX0.bUmb7ac_FULt9bXYR6u-tBCIrUGyUTC6MyYX_U0bbvE";
                 $.ajax({
                             url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&token=' + token + '&dataID=' + dataID,//File Collection Endpoint
 

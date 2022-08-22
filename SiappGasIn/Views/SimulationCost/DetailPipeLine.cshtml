@@ -129,29 +129,7 @@
 
     <script>
 
-    $(document).ready(function() {
-        var locationMaps = {};
-locationMaps["features"] = [];
-    $.ajax({
-     url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
-    type: 'post',
-    dataType: 'json',
-    success: function (response) {
-
-        var len = response.data.length;
-
-        for (var i = 0; i < len; i++) {
-
-            let temp = {
-                "type": "Feature",
-                "properties": { "oficina": response.data[i].namaSPBG },
-                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
-            }
-            locationMaps.features.push(temp);
-        }
-    }
-});
-var ofi_paf = locationMaps;
+$(document).ready(function() {
     $("#maps").hide();
 
      let x = document.querySelectorAll(".formatNum");
@@ -162,11 +140,6 @@ var ofi_paf = locationMaps;
 			x[i].textContent = num;
 		}
 
-    //var latSPBG = '@(Model.latitude)';
-    //var longSPBG = '@(Model.longitude)';
-    var latPel = '@(Model.latitude)';
-    var longPel = '@(Model.longitude)';
-
      var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                     osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
@@ -176,34 +149,55 @@ var ofi_paf = locationMaps;
                 })
                 osm.addTo(map)
 
+    var data = '@Model.route';
+    var result = JSON.parse(data);
 
-var control = L.Routing.control(L.extend(window.lrmConfig, {
-	waypoints: [
-		L.latLng(latPel, longPel),
-		L.latLng(latPel, longPel),
-	],
-	geocoder: L.Control.Geocoder.nominatim(),
-	routeWhileDragging: true,
-	reverseWaypoints: true,
-	showAlternatives: true,
-	altLineOptions: {
-		styles: [
-			{color: 'black', opacity: 0.15, weight: 9},
-			{color: 'white', opacity: 0.8, weight: 6},
-			{color: 'blue', opacity: 0.5, weight: 2}
-		]
-	}
-})).addTo(map);
+    var rawPoints = []
+    for( i = 0; i < result.length; i++){
+    var lat = result[i][1];
+    var lng = result[i][0];
 
-L.Routing.errorControl(control).addTo(map);
+        rawPoints.push({ "latitude": lat, "longitude": lng });
 
- var farmacias = L.geoJson(ofi_paf, {
-                    onEachFeature: popup,
-                    pointToLayer: function (feature, latlng) {
-                        return L.marker(latlng, { icon: eco });
-                    }
-                }).addTo(map);
-    
+    }
+
+    var greenIcon = new L.Icon({
+ iconUrl: '/plugins/map/images/user.png',
+  iconSize: [32, 37],
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -28]
+});
+var greenIcons = new L.Icon({
+  iconUrl: '/plugins/map/images/pertacon.png',
+  iconSize: [32, 37],
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -28]
+});
+var coordinates = rawPoints.map(rawPoint => new L.LatLng(rawPoint["latitude"], rawPoint["longitude"]))
+
+let polyline = L.polyline(
+    coordinates,
+    {
+        color: 'blue',
+        weight: 3,
+        opacity: .7,
+        lineJoin: 'round'
+    }
+);
+
+polyline.addTo(map);
+
+let lats = rawPoints.map(c => c.latitude).reduce((previous, current) => current += previous, 0.0);
+let longs = rawPoints.map(c => c.longitude).reduce((previous, current) => current += previous, 0.0);
+   
+const position = [lats / rawPoints.length, longs / rawPoints.length];
+map.setView(position, 17);
+    var _end = result.length - 1;
+L.marker([result[0][1], result[0][0]], {icon: greenIcon}).addTo(map)
+    L.marker([result[_end][1], result[_end][0]], {icon: greenIcons}).addTo(map)
+map.fitBounds(polyline.getBounds());
+
+
 });
     </script>
 

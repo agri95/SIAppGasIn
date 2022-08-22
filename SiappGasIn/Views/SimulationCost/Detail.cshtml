@@ -274,11 +274,10 @@
                 osm.addTo(map)
 
                 var greenIcon = new L.Icon({
-  iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.4/images/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34]
+ iconUrl: '/plugins/map/images/user.png',
+  iconSize: [32, 37],
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -28]
 });
 var greenIcons = new L.Icon({
   iconUrl: '/plugins/map/images/pertacon.png',
@@ -289,7 +288,7 @@ var greenIcons = new L.Icon({
 
 var control = L.Routing.control(L.extend(window.lrmConfig, {
 	waypoints: [
-		L.latLng([latPel, longPel]),
+		L.latLng(latPel, longPel),
 		L.latLng(latSPBG, longSPBG),
 	],
     createMarker: function(j, wp, nWps) {
@@ -437,44 +436,44 @@ L.Routing.errorControl(control).addTo(map);
                     }
                 }).addTo(map);
                 // This is called after the marker is drawn
-                map.on('draw:created', function (e) {
-                    // Add a circle around the marker
-                    var marker_lat_long = e.layer._latlng
-                    $("#latitude").val(marker_lat_long.lat);
-                    $("#longitude").val(marker_lat_long.lng);
-                    var radius = milesToMeters($("#radius").val());
-                    circle = L.circle(marker_lat_long, radius)
-                    circle.addTo(map);
-                    // Calculate the number of eco icons within the circle
-                    // So we can put it on the DOM
-                    pointsInCircle(circle, radius)
-                    // Make the marker draggable
-                    e.layer.dragging.enable();
-                    // If you drag the marker, make sure the circle goes with it
-                    e.layer.on('dragend', function (event) {
+                //map.on('draw:created', function (e) {
+                //    // Add a circle around the marker
+                //    var marker_lat_long = e.layer._latlng
+                //    $("#latitude").val(marker_lat_long.lat);
+                //    $("#longitude").val(marker_lat_long.lng);
+                //    var radius = milesToMeters($("#radius").val());
+                //    circle = L.circle(marker_lat_long, radius)
+                //    circle.addTo(map);
+                //    // Calculate the number of eco icons within the circle
+                //    // So we can put it on the DOM
+                //    pointsInCircle(circle, radius)
+                //    // Make the marker draggable
+                //    e.layer.dragging.enable();
+                //    // If you drag the marker, make sure the circle goes with it
+                //    e.layer.on('dragend', function (event) {
 
-                        $("#latitude").val(event.target.getLatLng().lat);
-                        $("#longitude").val(event.target.getLatLng().lng);
-                        map.setView(event.target.getLatLng());
-                        circle.setLatLng(event.target.getLatLng());
-                        // Clear out results
-                        $('#ofi_paf').html('');
-                        // This will determine how many markers are within the circle
-                        pointsInCircle(circle, milesToMeters($('#radius').val()));
-                        // Redraw: Leaflet function
-                        circle.redraw();
-                    });
-                    $('.leaflet-draw-draw-marker').hide();
-                });
-                // Reset map view on marker drag
-                drawn_marker.on('dragend', function (event) {
-                    map.setView(event.target.getLatLng());
-                    circle.setLatLng(event.target.getLatLng());
-                    // This will determine how many markers are within the circle
-                    pointsInCircle(circle, milesToMeters($('#radius').val()));
-                    // Redraw: Leaflet function
-                    circle.redraw();
-                });
+                //        $("#latitude").val(event.target.getLatLng().lat);
+                //        $("#longitude").val(event.target.getLatLng().lng);
+                //        map.setView(event.target.getLatLng());
+                //        circle.setLatLng(event.target.getLatLng());
+                //        // Clear out results
+                //        $('#ofi_paf').html('');
+                //        // This will determine how many markers are within the circle
+                //        pointsInCircle(circle, milesToMeters($('#radius').val()));
+                //        // Redraw: Leaflet function
+                //        circle.redraw();
+                //    });
+                //    $('.leaflet-draw-draw-marker').hide();
+                //});
+                //// Reset map view on marker drag
+                //drawn_marker.on('dragend', function (event) {
+                //    map.setView(event.target.getLatLng());
+                //    circle.setLatLng(event.target.getLatLng());
+                //    // This will determine how many markers are within the circle
+                //    pointsInCircle(circle, milesToMeters($('#radius').val()));
+                //    // Redraw: Leaflet function
+                //    circle.redraw();
+                //});
         }
 });
 
