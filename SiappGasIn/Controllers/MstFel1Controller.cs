@@ -61,11 +61,12 @@ namespace SiappGasIn.Controllers.Api
                             ItemKlasifikasiID = fel.ItemKlasifikasiID,
                             Diameter = fel.Diameter,
                             UnitID = fel.UnitID,
-                            Material300 = fel.Material300,
-                            Material150 = fel.Material150,
-                            Kontruksi = fel.Kontruksi,
-                            Total300 = fel.Total300,
-                            Total150 = fel.Total150,
+                            Material300A = fel.Material300A,
+                            Material300B = fel.Material300B,
+                            Material150A = fel.Material150A,
+                            Material150B = fel.Material150B,
+                            KontruksiA = fel.KontruksiA,
+                            KontruksiB = fel.KontruksiB,
                             CreatedBy = this.User.Identity.Name,
                             CreatedDate = DateTimeOffset.Now
                         });

@@ -64,26 +64,30 @@ ViewData["Title"] = "Master Gaji";
 			</select>
 		 </div>		
 		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Material #300</label>
-		   <input type="number" class="form-control" id="Material300" >
+		   <label for="recipient-name" class="col-form-label">Material #300 A</label>
+		   <input type="number" class="form-control" id="Material300A" >
+		 </div>
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Material #300 B</label>
+		   <input type="number" class="form-control" id="Material300B" >
 		 </div>
 		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Material #150</label>
-		   <input type="number" class="form-control" id="Material150" >
+		   <label for="recipient-name" class="col-form-label">Material #150 A</label>
+		   <input type="number" class="form-control" id="Material150A" >
+		 </div>
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Material #150 B</label>
+		   <input type="number" class="form-control" id="Material150B" >
 		 </div>
 		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Konstruksi</label>
-		   <input type="number" class="form-control" id="Kontruksi" >
+		   <label for="recipient-name" class="col-form-label">Konstruksi A</label>
+		   <input type="number" class="form-control" id="KontruksiA" >
 		 </div>
-		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Total #300</label>
-		   <input type="number" class="form-control" id="Total300" >
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Konstruksi B</label>
+		   <input type="number" class="form-control" id="KontruksiB" >
 		 </div>
-		  <div class="form-group">
-		   <label for="recipient-name" class="col-form-label">Total #150</label>
-		   <input type="number" class="form-control" id="Total150" >
-		 </div>
-
+		 
 	   </form>
 	 </div>
 	 <div class="modal-footer">
@@ -306,11 +310,12 @@ $('#saveEnergy').click(function () {
 					   "ItemKlasifikasiID": $("#ItemKlasifikasiID").val(),
 					   "Diameter": $("#Diameter").val(),
 					   "UnitID": $("#UnitID").val(),
-					   "Material300": $("#Material300").val(),
-					   "Material150": $("#Material150").val(),
-					   "Kontruksi": $("#Kontruksi").val(),
-					   "Total300": $("#Total300").val(),
-					   "Total150": $("#Total150").val(),
+					   "Material300A": $("#Material300A").val(),
+					   "Material300B": $("#Material300B").val(),
+					   "Material150A": $("#Material150A").val(),
+					   "Material150B": $("#Material150B").val(),
+					   "KontruksiA": $("#KontruksiA").val(),
+					   "KontruksiB": $("#KontruksiB").val(),
 				   }
 			   ),
 			   success: function (data) {
@@ -321,13 +326,14 @@ $('#saveEnergy').click(function () {
 					   $('#ItemKlasifikasiID').val("");
 					   $('#Diameter').val("");
 					   $('#UnitID').val("");
-					   $('#Material300').val("");
-					   $('#Material150').val("");
-					   $('#Kontruksi').val("");
-					   $('#Total300').val("");
-					   $('#Total150').val("");
+					   $('#Material300A').val("");
+					   $('#Material300B').val("");
+					   $('#Material150A').val("");
+					   $('#Material150B').val("");
+					   $('#KontruksiA').val("");
+					   $('#KontruksiB').val("");
 
-					   $('#msgText').text('Parameter data is added Successfully');
+					   $('#msgText').text('Data is added Successfully');
 					   $('#successModal').modal('show'); 
 					   alert("SUKSES");
 					   location.reload();

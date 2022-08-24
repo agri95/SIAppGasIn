@@ -43,6 +43,7 @@ namespace SiappGasIn.Data
             builder.Entity<SP_HeaderSimulation>().HasNoKey();
             builder.Entity<SP_DetailSimulation>().HasNoKey();
             builder.Entity<SP_CostSimulation>().HasNoKey();
+            builder.Entity<SP_PipeCalculator>().HasNoKey();
 
         }
 

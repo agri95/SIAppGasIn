@@ -1,5 +1,7 @@
 ﻿@model SiappGasIn.Models.SP_HeaderSimulation
-
+@{
+    ViewData["Title"] = "Result Simulation Cost";
+}
 <div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
     <div class="card">
         <div class="row ">
@@ -23,21 +25,21 @@
                                         <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="projectName">@Model.ProjectName</span></label>
+                                                    id="projectName">: @Model.ProjectName</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Creator</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="creator">@Model.Creator</span></label>
+                                                    id="creator">: @Model.Creator</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Date</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="projectDate">@Model.ProjectDate</span></label>
+                                                    id="projectDate">: @Model.ProjectDate</span></label>
                                         </div>
                                     </div>
                                     <label><strong>Prosfective Customer Data</strong></label>
@@ -46,30 +48,30 @@
                                         <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="customerName">@Model.CustomerName</span></label>
+                                                    id="customerName">: @Model.CustomerName</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Location</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="location">@Model.lokasiCapel</span></label>
+                                                    id="location">: @Model.lokasiCapel</span></label>
                                         </div>
                                     </div>
-                                    <div class="form-group row ">
+                                    @*<div class="form-group row ">
 
                                         <label class="control-label col-md-3 col-sm-3 ">Special Request</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="specialRequest">MMBTU</span></label>
+                                                    id="specialRequest">: MMBTU</span></label>
                                         </div>
-                                    </div>
+                                    </div>*@
                                     <div class="form-group row">
 
                                         <label class="control-label col-md-3 col-sm-3 ">Target COD</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="targetCOD">@Model.TargetCOD</span></label>
+                                                    id="targetCOD">: @Model.TargetCOD</span></label>
                                         </div>
                                     </div>
                                     <label><strong>Supply Scenario</strong></label>

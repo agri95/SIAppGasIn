@@ -121,8 +121,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row ">
-                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage/<span
-                                                        id="_satuanPemakaian"></span></label>
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage</label>
                                                 <div class="col-md-3 col-sm-3 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
                                                         id="demandUsage" name="demandUsage" autocomplete="off"
@@ -717,7 +716,7 @@
             }
 
             function calculateCost() {
-
+                
                 results = [];
                 var projectName = $("#projectName").val();
                 var creator = $("#creator").val();
@@ -880,6 +879,17 @@
             function calculatePipe(dataID) {
                 var users = "nimo.siapgasin";
                 var passwords = "nimo.pgn645In";
+                 var demandUsage = $("#demandUsage").val();
+                var _demand = (demandUsage / 30);
+                var mmscfd = 28252.14;
+                var _flowrate = (_demand / mmscfd).toFixed(2);
+                var x = "";
+                if (_flowrate == 0.00) {
+                    x = "0,01";
+                } else {
+                    x = String(_flowrate).replaceAll('.', ',');
+                }
+                
 
                 var _data = {
                     "Customer": {
@@ -893,7 +903,8 @@
                         ,
                     },
                     "flow_rate": {
-                        "value": $("#flowrate").val(),
+                        //"value": $("#flowrate").val(),
+                        "value": x,
                         "unit": "mmscfd"
                     },
                     "pressure": {
@@ -902,7 +913,8 @@
                     }
                 };
                 var _datas = JSON.stringify(_data);
-                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxMTQ5MDgxLCJleHAiOjE2NjEyMzU0ODAsImlhdCI6MTY2MTE0OTA4MX0.bUmb7ac_FULt9bXYR6u-tBCIrUGyUTC6MyYX_U0bbvE";
+                console.log(_datas);
+                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxMzAyNDczLCJleHAiOjE2NjEzODg4NzIsImlhdCI6MTY2MTMwMjQ3M30.D9EnVAd4QXZuwJJDqFEhbPjvEjJJCRhEsdHN_4L5sFY";
                 $.ajax({
                             url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&token=' + token + '&dataID=' + dataID,//File Collection Endpoint
 
@@ -1143,8 +1155,8 @@
                             $("#energyName").val(name);
                         }
                         $("#bahanBakar").val(8);
-                        $("#satuanPemakaian").text("M3");
-                        $("#_satuanPemakaian").text("M3");
+                        $("#satuanPemakaian").text("M3/Bln");
+                        $("#_satuanPemakaian").text("M3/Bln");
                     }
                 });
 
@@ -1165,14 +1177,14 @@
                                     $("#energyName").val(response.data[i].energy);
                                     $("#hargaBBM").val(response.data[i].harga);
                                     if (energy == "LPG" || energy == "Batu Bara") {
-                                        $("#satuanPemakaian").text("Kg");
-                                        $("#_satuanPemakaian").text("Kg");
+                                        $("#satuanPemakaian").text("Kg/Bln");
+                                        $("#_satuanPemakaian").text("Kg/Bln");
                                     } else if (energy == "Gas Bumi") {
-                                        $("#satuanPemakaian").text("M3");
-                                        $("#_satuanPemakaian").text("M3");
+                                        $("#satuanPemakaian").text("M3/Bln");
+                                        $("#_satuanPemakaian").text("M3/Bln");
                                     } else {
-                                        $("#satuanPemakaian").text("Ltr");
-                                        $("#_satuanPemakaian").text("Ltr");
+                                        $("#satuanPemakaian").text("Ltr/Bln");
+                                        $("#_satuanPemakaian").text("Ltr/Bln");
                                     }
                                 }
                             }

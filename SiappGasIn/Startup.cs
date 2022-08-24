@@ -131,14 +131,7 @@ namespace SiappGasIn
                 c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
             });
 
-            services.AddProgressiveWebApp(new PwaOptions
-            {
-                BaseRoute = string.IsNullOrEmpty(identityDefaultOptions.VirtualDirectory) ? "" : "/" + identityDefaultOptions.VirtualDirectory,
-
-                Strategy = ServiceWorkerStrategy.NetworkFirst,
-                RegisterServiceWorker = true,
-                RegisterWebmanifest = true
-            });
+            services.AddProgressiveWebApp();
 
         }
 

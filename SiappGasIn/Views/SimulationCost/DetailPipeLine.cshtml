@@ -1,5 +1,7 @@
 ﻿@model SiappGasIn.Models.PipeCalculator
-
+@{
+    ViewData["Title"] = "Detail Simulation Cost";
+}
 <div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
     <div class="card">
         <div class="row ">
@@ -19,6 +21,13 @@
                             <div class="card-body" style="margin: 15px ;">
                                  <form class="form-horizontal form-label-left">
                                     <label>Detail Pipeline</label>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Type</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <label class="control-label col-md-9 col-sm-9"><span style="font-weight:bold;"
+                                                    id="projectName">@Model.type</span></label>
+                                        </div>
+                                    </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Distance</label>
                                         <div class="col-md-9 col-sm-9 ">
@@ -178,7 +187,7 @@ var coordinates = rawPoints.map(rawPoint => new L.LatLng(rawPoint["latitude"], r
 let polyline = L.polyline(
     coordinates,
     {
-        color: 'blue',
+        color: 'red',
         weight: 3,
         opacity: .7,
         lineJoin: 'round'

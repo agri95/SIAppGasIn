@@ -390,70 +390,39 @@ namespace SiappGasIn.Controllers.Api
 
                 JObject jObject = JObject.Parse(calculate);
                 var jsonss = jObject["data"];
+
                 if (jsonss.HasValues)
                 {
-                    PipeCalculator parameter = new PipeCalculator();
-                    parameter.HeaderSimulationID = dataID;
-                    parameter.type = jObject["data"]["type"].ToString();
-                    parameter.latitude = jObject["data"]["location"]["latitude"].ToString();
-                    parameter.longitude = jObject["data"]["location"]["longitude"].ToString();
-                    parameter.postal_code = jObject["data"]["location"]["postal_code"].ToString();
-                    var distanceValue = jObject["data"]["distance"]["value"].ToString();
-                    parameter.distanceValue = Convert.ToDouble(distanceValue);
-                    parameter.distanceUnit = jObject["data"]["distance"]["unit"].ToString();
-                    var diameterValue = jObject["data"]["diameter"]["value"].ToString();
-                    parameter.diameterValue = Convert.ToDouble(diameterValue);
-                    parameter.diameterUnit = jObject["data"]["diameter"]["unit"].ToString();
-                    var pressureValue = jObject["data"]["pressure"]["value"].ToString();
-                    parameter.pressureValue = Convert.ToDouble(pressureValue);
-                    parameter.pressureUnit = jObject["data"]["pressure"]["unit"].ToString();
-                    var volumeValue = jObject["data"]["volume"][0]["value"].ToString();
-                    parameter.volumeValue = Convert.ToDouble(volumeValue);
-                    parameter.volumeUnit = jObject["data"]["volume"][0]["unit"].ToString();
-                    var costValue = jObject["data"]["cost"]["value"].ToString();
-                    parameter.costValue = Convert.ToDouble(costValue);
-                    parameter.costUnit = jObject["data"]["cost"]["unit"].ToString();
-                    parameter.route = jObject["data"]["route"].ToString();
+                    
+                    var type = jObject["data"]["type"].ToString();
+                    var latitude = jObject["data"]["location"]["latitude"].ToString();
+                    var longitude = jObject["data"]["location"]["longitude"].ToString();
+                    var postal_code = jObject["data"]["location"]["postal_code"].ToString();
+                    var distanceValues = jObject["data"]["distance"]["value"].ToString();
+                    var distanceValue = Convert.ToDouble(distanceValues);
+                    var diameterValues = jObject["data"]["diameter"]["value"].ToString();
+                    var diameterValue = Convert.ToDouble(diameterValues);
+                    var pressureValues = jObject["data"]["pressure"]["value"].ToString();
+                    var pressureValue = Convert.ToDouble(pressureValues);
+                    var volumeValues = jObject["data"]["volume"][0]["value"].ToString();
+                    var volumeValue = Convert.ToDouble(volumeValues);
+                    var route = jObject["data"]["route"].ToString();
 
-                    _dbContext.PipeCalculator.AddAsync(parameter);
+                    string StoredProc = "exec SP_PipeCalculator " +
+                    "@headerSimulationID = " + dataID + "," +
+                    "@type = '" + type + "'," +
+                    "@latitude= '" + latitude + "'," +
+                    "@longitude= '" + longitude + "'," +
+                    "@postal_code= " + postal_code + "," +
+                    "@distanceValue = " + distanceValue + "," +
+                    "@diameterValue = " + diameterValue + "," +
+                    "@pressureValue = " + pressureValue + "," +
+                    "@volumeValue = " + volumeValue + "," +
+                    "@route= '" + route + "'";
 
-                    _dbContext.SaveChanges();
-                }
-
-
-
-
-
-                //foreach (var item in ceks)
-                //{
-                //   if (item.Value.id.Value == "1")
-                //    {
-                //        PipeCalculator parameter = new PipeCalculator();
-                //        parameter.type = item.Value.type.Value;
-                //        parameter.latitude = item.Value.location.latitude.Value;
-                //        parameter.longitude = item.Value.location.longitude.Value;
-                //        parameter.postal_code = item.Value.location.postal_code.Value;
-                //        parameter.distanceValue = item.Value.distance.value.Value;
-                //        parameter.distanceUnit = item.Value.distance.unit.Value;
-                //        parameter.diameterValue = item.Value.diameter.value.Value;
-                //        parameter.diameterUnit = item.Value.diameter.unit.Value;
-                //        parameter.pressureValue = item.Value.pressure.value.Value;
-                //        parameter.pressureUnit = item.Value.pressure.unit.Value;
-                //        parameter.volumeValue = item.Value.volume.First.value.Value;
-                //        parameter.volumeUnit = item.Value.volume.Last.unit.Value;
-                //        parameter.costValue = item.Value.cost.value.Value;
-                //        parameter.costUnit = item.Value.cost.unit.Value;
-                //        parameter.route = item.Value.route.Value.ToString();
-                //        parameter.CreatedBy = this.User.Identity.Name;
-                //        parameter.CreatedDate = DateTimeOffset.Now;
-                //        _dbContext.PipeCalculator.AddAsync(parameter);
-
-                //        _dbContext.SaveChanges();
-                //    }
-
-
-                //}
-
+                    
+                    _dbContext.Set<SP_PipeCalculator>().FromSqlRaw(StoredProc).ToListAsync();                   
+                }                
             }
             return Ok
                     (new { data = calculate }

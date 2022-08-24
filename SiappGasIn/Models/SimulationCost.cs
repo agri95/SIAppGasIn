@@ -188,4 +188,19 @@ namespace SiappGasIn.Models
         public string? ModifiedBy { get; set; }
         public DateTimeOffset? ModifiedDate { get; set; }
     }
+
+    public class SP_PipeCalculator
+    {
+        public int headerSimulationID { get; set; }
+        public string type { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
+        public string postal_code { get; set; }
+        public double diameterValue { get; set; }
+        public double distanceValue { get; set; }
+        public double pressureValue { get; set; }
+        public double volumeValue { get; set; }
+        
+    }
+
 }
