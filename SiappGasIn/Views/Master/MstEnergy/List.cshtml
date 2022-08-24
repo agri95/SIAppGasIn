@@ -51,6 +51,14 @@ ViewData["Title"] = "Master Energy";
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Harga</label>
 		   <input type="number" class="form-control" id="Harga">
+		 </div> 
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Harga P1</label>
+		   <input type="number" class="form-control" id="Harga_1">
+		 </div>
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Harga P2</label>
+		   <input type="number" class="form-control" id="Harga_2">
 		 </div>
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
@@ -95,6 +103,15 @@ ViewData["Title"] = "Master Energy";
 		   <label for="recipient-name" class="col-form-label">Harga</label>
 		   <input type="number" class="form-control" id="Hargas">
 		 </div>
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Harga P1</label>
+		   <input type="number" class="form-control" id="Hargas_1">
+		 </div>
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Harga P2</label>
+		   <input type="number" class="form-control" id="Hargas_2">
+		 </div>
+
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Nilai Kalori</label>
 		   <input type="number" class="form-control" id="NilaiKaloris">
@@ -197,6 +214,8 @@ $('#btnEditEnergy').click(function () {
 					   "EnergyID": $("#EnergyIDs").val(),
 					   "Energy": $("#Energys").val(),
 					   "Harga": $("#Hargas").val(),
+					   "Harga_1": $("#Hargas_1").val(),
+					   "Harga_2": $("#Hargas_2").val(),
 					   "NilaiKalori": $("#NilaiKaloris").val(),
 					   "Satuan": $("#Satuans").val(),
 				   }
@@ -207,6 +226,8 @@ $('#btnEditEnergy').click(function () {
 
 					   $("#Energys").val("");
 					   $("Hargas").val("");
+					   $("Hargas_1").val("");
+					   $("Hargas_2").val("");
 					   $('#NilaiKaloris').val("");
 					   $('#Satuans').val("");
 
@@ -244,6 +265,8 @@ function EditData(dataID) {
 			   if (data.status == true) {
 				   $("#Energys").val(data.data.energy);
 				   $("#Hargas").val(data.data.harga);
+				   $("#Hargas_1").val(data.data.harga_1);
+				   $("#Hargas_2").val(data.data.harga_2);
 				   $('#NilaiKaloris').val(data.data.nilaiKalori);
 				   $('#Satuans').val(data.data.satuan);
 				   $('#EnergyIDs').val(data.data.energyID);
@@ -276,6 +299,9 @@ $('#saveEnergy').click(function () {
 			   data: JSON.stringify(
 				   {
 					   "Energy": $("#Energy").val(),
+					   "Harga": $("#Harga").val(),
+					   "Harga_1": $("#Harga_1").val(),
+					   "Harga_2": $("#Harga_2").val(),
 					   "NilaiKalori": $("#NilaiKalori").val(),
 					   "Satuan": $("#Satuan").val(),
 				   }
@@ -284,6 +310,9 @@ $('#saveEnergy').click(function () {
 				   //alert(data);
 				   if (data == true) {
 
+					   $("#Harga").val("");
+					   $("#Harga_1").val("");
+					   $("#Harga_2").val("");
 					   $("#Energy").val("");
 					   $('#NilaiKalori').val("");
 					   $('#Satuan').val("");

@@ -221,22 +221,13 @@
                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
-                                                <div class="col-md-3 col-sm-3 ">
+                                                <div class="col-md-2 col-sm-2 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
                                                         id="pressure" name="pressure" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
-                                                <label class="control-label col-md-3 col-sm-3 ">Flow Rate</label>
-                                                <div class="col-md-3 col-sm-3 ">
-                                                    <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="flowrate" name="flowrate" placeholder="" autocomplete="off"
-                                                        aria-label=".form-control-sm example" min="0">
-                                                </div>
-
-                                            </div>
-                                            <div class="form-group row pipeLines">
-
-                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                 <span class="col-md-1 col-sm-1" style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                 <label class="control-label col-md-3 col-sm-3 ">Category <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-3 col-sm-3 ">
@@ -246,6 +237,17 @@
                                                         <option value="Rumah Tangga">Rumah Tangga</option>
                                                     </select>
                                                 </div>
+                                               @* <label class="control-label col-md-3 col-sm-3 ">Flow Rate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="flowrate" name="flowrate" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0">
+                                                </div>*@
+
+                                            </div>
+                                            <div class="form-group row pipeLines">
+
+                                               
 
                                             </div>
                                             <label><strong>Supply Data</strong></label>
@@ -655,53 +657,7 @@
                 document.getElementById('longitude').value = lon;
                 document.getElementById('resultLocationName').value = loc;
                 $("#resultText").hide();
-            }
-
-            function convertEnergy() {
-                $("#tableConvert").show();
-                let nf = new Intl.NumberFormat('en-US')
-                var energyName = $("#energyName").val();
-                var demand = $("#pemakaian").val();
-                var satuan = $("#satuan").text();
-                var satuanPemakaian = $("#satuanPemakaian").text();
-                var nilaiKal = $("#nilaiKalori").val();
-                var hargaBB = $("#hargaBBM").val();
-                var hargaGasBumi = 8945.142;
-                var hargaBerlaku = 3650;
-                if (demand == "" || demand == null) {
-                    alert("Jumlah pemakaian wajib diisi");
-                } else {
-                    $("#tblHeader").text(energyName);
-                    $("#tblNilaiKalori").text(nf.format(nilaiKal));
-                    $("#tblSatuan").text(satuan);
-                    $("#tblHargaGasBumi").text(nf.format(hargaGasBumi));
-                    $("#tblKonversi").text("1");
-                    $("#tblKonversiSatuan").text(satuanPemakaian);
-                    var hitKonversi = parseFloat(nilaiKal) / parseFloat(hargaGasBumi);
-                    $("#tblKonversiGas").text(nf.format(hitKonversi));
-                    $("#tblPemakaian").text(nf.format(demand));
-                    $("#tblPemakaianSatuan").text(satuanPemakaian);
-                    var hitPemakaian = (parseFloat(demand) * parseFloat(hitKonversi)).toFixed(0);
-                    $("#tblPemakaianGas").text(nf.format(hitPemakaian));
-                    $("#tblBB").text(nf.format(hargaBB));
-                    $("#tblBBSatuan").text("Rp / " + satuanPemakaian);
-                    $("#tblBBGas").text(nf.format(hargaBerlaku));
-                    var hitBiaya = parseFloat(hargaBB) * parseFloat(demand);
-                    $("#tblBiaya").text(nf.format(hitBiaya));
-                    $("#tblBiayaSatuan").text("Rp / Bln");
-                    var hitBiayaGas = parseFloat(hitPemakaian) * parseFloat(hargaBerlaku);
-                    $("#tblBiayaGas").text(nf.format(hitBiayaGas));
-                    var hitResult = hitBiaya - hitBiayaGas;
-                    $("#tblPenghematan").text(nf.format(hitResult));
-                    $("#resultConvert").val(nf.format(hitPemakaian));
-                }
-            }
-            function submitEnergy() {
-                $("#convertEnergy").hide();
-                $("#costStructure").show();
-                var demand = $("#resultConvert").val();
-                $("#demandUsage").val(demand);
-            }
+            }            
 
             function pointMap(lat, long) {
                 var titik = L.latLng(lat, long);
@@ -880,15 +836,32 @@
                 var users = "nimo.siapgasin";
                 var passwords = "nimo.pgn645In";
                  var demandUsage = $("#demandUsage").val();
-                var _demand = (demandUsage / 30);
-                var mmscfd = 28252.14;
-                var _flowrate = (_demand / mmscfd).toFixed(2);
-                var x = "";
-                if (_flowrate == 0.00) {
-                    x = "0,01";
+                var energyName = $("#energyName").val();
+                var nilaiKalori = $("#nilaiKalori").val();
+                var gas = 8945.14;
+                var energyX = ""
+                if (energyName == "Gas Bumi") {
+                    var _demand = (demandUsage / 30);
+                    var mmscfd = 28252.14;
+                    var _flowrate = (_demand / mmscfd).toFixed(2);
+                    
+                    if (_flowrate == 0.00) {
+                        energyX = "0,01";
+                    } else {
+                        energyX = String(_flowrate).replaceAll('.', ',');
+                    }
                 } else {
-                    x = String(_flowrate).replaceAll('.', ',');
-                }
+                    var _demand = (nilaiKalori / gas) * demandUsage;
+                    var _demands = (_demand / 30);
+                    var mmscfd = 28252.14;
+                    var _flowrate = (_demands / mmscfd).toFixed(2);
+                    
+                    if (_flowrate == 0.00) {
+                        energyX = "0,01";
+                    } else {
+                        energyX = String(_flowrate).replaceAll('.', ',');
+                    }
+                } 
                 
 
                 var _data = {
@@ -904,7 +877,7 @@
                     },
                     "flow_rate": {
                         //"value": $("#flowrate").val(),
-                        "value": x,
+                        "value": energyX,
                         "unit": "mmscfd"
                     },
                     "pressure": {

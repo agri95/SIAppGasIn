@@ -118,6 +118,8 @@ namespace SiappGasIn.Controllers.Api
                             {
                                 cust.Energy = param.Energy;
                                 cust.Harga = param.Harga;
+                                cust.Harga_1 = param.Harga_1;
+                                cust.Harga_2 = param.Harga_2;
                                 cust.NilaiKalori = param.NilaiKalori;
                                 cust.Satuan = param.Satuan;
                                 cust.CreatedBy = this.User.Identity.Name;

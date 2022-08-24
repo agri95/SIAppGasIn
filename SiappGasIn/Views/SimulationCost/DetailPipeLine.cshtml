@@ -1,6 +1,6 @@
 ﻿@model SiappGasIn.Models.PipeCalculator
 @{
-    ViewData["Title"] = "Detail Simulation Cost";
+ViewData["Title"] = "Detail Simulation Cost";
 }
 <div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
     <div class="card">
@@ -19,59 +19,70 @@
                         <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                             style="margin-top: 7px;">
                             <div class="card-body" style="margin: 15px ;">
-                                 <form class="form-horizontal form-label-left">
+                                <form class="form-horizontal form-label-left">
                                     <label>Detail Pipeline</label>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Type</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <label class="control-label col-md-9 col-sm-9"><span style="font-weight:bold;"
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
                                                     id="projectName">@Model.type</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Distance</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <label class="control-label col-md-9 col-sm-9"><span style="font-weight:bold;"
-                                                    id="projectName" class="formatNum">@Model.distanceValue</span> <span> @Model.distanceUnit</span></label>
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    class="formatNum">@Model.distanceValue</span> <span>
+                                                    @Model.distanceUnit</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Diameter Estimate</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <label class="control-label col-md-9 col-sm-9"><span style="font-weight:bold;"
-                                                    id="projectName">@Model.diameterValue</span> <span> @Model.diameterUnit</span></label>
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
+                                                    id="projectName">@Model.diameterValue</span> <span>
+                                                    @Model.diameterUnit</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Pressure</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <label class="control-label col-md-9 col-sm-9"><span style="font-weight:bold;"
-                                                    id="projectName">@Model.pressureValue</span> <span> @Model.pressureUnit</span></label>
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
+                                                    id="projectName">@Model.pressureValue</span> <span>
+                                                    @Model.pressureUnit</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Volume</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <label class="control-label col-md-9 col-sm-9"><span style="font-weight:bold;"
-                                                    id="projectName" class="formatNum">@Model.volumeValue</span> <span> @Model.volumeUnit</span></label>
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    class="formatNum">@Model.volumeValue</span> <span>
+                                                    @Model.volumeUnit</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Cost</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <label class="control-label col-md-9 col-sm-9"><span style="font-weight:bold;"
-                                                    id="projectName" class="formatNum">@Model.costValue</span> <span> @Model.costUnit</span></label>
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    class="formatNum">@Model.costValue</span> <span>
+                                                    @Model.costUnit</span></label>
                                         </div>
                                     </div>
                                     <label>Route Map</label>
                                     <div class="form-group row ">
-                                               
-                                                <div class="col-md-3 col-sm-3 ">
-                                                    <a href="#" onclick="mapp()" class="btn btn-success btn-sm"
-                                                        style="height:24px; width:100%; line-height:1;">Route Map</a>
-                                                </div>
 
-                                                </div>
+                                        <div class="col-md-3 col-sm-3 ">
+                                            <a href="#" onclick="mapp()" class="btn btn-success btn-sm"
+                                                style="height:24px; width:100%; line-height:1;">Route Map</a>
+                                        </div>
+
+                                    </div>
 
                                 </form>
 
@@ -86,11 +97,13 @@
                     </div>
 
                     <div id="maps">
-                        <center><div id="map" class="map"></div></center>
+                        <center>
+                            <div id="map" class="map"></div>
+                        </center>
                         <div class="row">
                             <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
                                 <button type="submit" onclick="back()"
-                                    class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>                               
+                                    class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>
                             </div>
                         </div>
                     </div>
@@ -102,139 +115,140 @@
 </div>
 
 @section Styles{
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="~/plugins/leaflet/leaflet-routing-machine.css" />
-    @*<link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
-    <style>
-        .map {
-   height: 400px;
-    width: 640px;
-}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+<link rel="stylesheet" href="~/plugins/leaflet/leaflet-routing-machine.css" />
+@*
+<link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
+<style>
+    .map {
+        height: 400px;
+        width: 640px;
+    }
 
-.results {
-    background-color: white;
-    opacity: 0.8;
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 320px;
-    height: 480px;
-    overflow-y: scroll;
-}
-    </style>
+    .results {
+        background-color: white;
+        opacity: 0.8;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 320px;
+        height: 480px;
+        overflow-y: scroll;
+    }
+</style>
 }
 
 @section Scripts{
 
 
 <script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
- <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
-  <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
-        <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
-    <script src="~/plugins/leaflet/leaflet-routing-machine.js"></script>
-    <script src="~/plugins/leaflet/Control.Geocoder.js"></script>
-    <script src="~/plugins/leaflet/config.js"></script>
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
+<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
+<script src="~/plugins/leaflet/leaflet-routing-machine.js"></script>
+<script src="~/plugins/leaflet/Control.Geocoder.js"></script>
+<script src="~/plugins/leaflet/config.js"></script>
 
 
-    <script>
+<script>
 
-$(document).ready(function() {
-    $("#maps").hide();
+    $(document).ready(function () {
+        $("#maps").hide();
 
-     let x = document.querySelectorAll(".formatNum");
-		for (let i = 0, len = x.length; i < len; i++) {
-            
-			let num = Number(x[i].textContent)
-					.toLocaleString('en');
-			x[i].textContent = num;
-		}
+        let x = document.querySelectorAll(".formatNum");
+        for (let i = 0, len = x.length; i < len; i++) {
 
-     var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
-                map = new L.Map('map', {
-                    minZoom: 6,
-                    zoom: 9
-                })
-                osm.addTo(map)
+            let num = Number(x[i].textContent)
+                .toLocaleString('en');
+            x[i].textContent = num;
+        }
 
-    var data = '@Model.route';
-    var result = JSON.parse(data);
+        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+        map = new L.Map('map', {
+            minZoom: 6,
+            zoom: 9
+        })
+        osm.addTo(map)
 
-    var rawPoints = []
-    for( i = 0; i < result.length; i++){
-    var lat = result[i][1];
-    var lng = result[i][0];
+        var data = '@Model.route';
+        var result = JSON.parse(data);
 
-        rawPoints.push({ "latitude": lat, "longitude": lng });
+        var rawPoints = []
+        for (i = 0; i < result.length; i++) {
+            var lat = result[i][1];
+            var lng = result[i][0];
 
-    }
+            rawPoints.push({ "latitude": lat, "longitude": lng });
 
-    var greenIcon = new L.Icon({
- iconUrl: '/plugins/map/images/user.png',
-  iconSize: [32, 37],
-                    iconAnchor: [16, 37],
-                    popupAnchor: [0, -28]
-});
-var greenIcons = new L.Icon({
-  iconUrl: '/plugins/map/images/pertacon.png',
-  iconSize: [32, 37],
-                    iconAnchor: [16, 37],
-                    popupAnchor: [0, -28]
-});
-var coordinates = rawPoints.map(rawPoint => new L.LatLng(rawPoint["latitude"], rawPoint["longitude"]))
+        }
 
-let polyline = L.polyline(
-    coordinates,
-    {
-        color: 'red',
-        weight: 3,
-        opacity: .7,
-        lineJoin: 'round'
-    }
-);
+        var greenIcon = new L.Icon({
+            iconUrl: '/plugins/map/images/user.png',
+            iconSize: [32, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -28]
+        });
+        var greenIcons = new L.Icon({
+            iconUrl: '/plugins/map/images/pertacon.png',
+            iconSize: [32, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -28]
+        });
+        var coordinates = rawPoints.map(rawPoint => new L.LatLng(rawPoint["latitude"], rawPoint["longitude"]))
 
-polyline.addTo(map);
+        let polyline = L.polyline(
+            coordinates,
+            {
+                color: 'red',
+                weight: 3,
+                opacity: .7,
+                lineJoin: 'round'
+            }
+        );
 
-let lats = rawPoints.map(c => c.latitude).reduce((previous, current) => current += previous, 0.0);
-let longs = rawPoints.map(c => c.longitude).reduce((previous, current) => current += previous, 0.0);
-   
-const position = [lats / rawPoints.length, longs / rawPoints.length];
-map.setView(position, 17);
-    var _end = result.length - 1;
-L.marker([result[0][1], result[0][0]], {icon: greenIcon}).addTo(map)
-    L.marker([result[_end][1], result[_end][0]], {icon: greenIcons}).addTo(map)
-map.fitBounds(polyline.getBounds());
+        polyline.addTo(map);
+
+        let lats = rawPoints.map(c => c.latitude).reduce((previous, current) => current += previous, 0.0);
+        let longs = rawPoints.map(c => c.longitude).reduce((previous, current) => current += previous, 0.0);
 
 
-});
-    </script>
+        var _end = result.length - 1;
+        L.marker([result[0][1], result[0][0]], { icon: greenIcon }).addTo(map)
+        L.marker([result[_end][1], result[_end][0]], { icon: greenIcons }).addTo(map)
+        map.fitBounds(polyline.getBounds());
+        const position = [lats / rawPoints.length, longs / rawPoints.length];
+        map.setView(position, 13);
 
-<script type="text/javascript">   
+    });
+</script>
 
-   
+<script type="text/javascript">
 
-function popup(feature, layer) {
-                if (feature.properties && feature.properties.oficina) {
-                    layer.bindPopup(feature.properties.oficina, {
-                        closeButton: false,
-                        offset: L.point(0, -20)
-                    });
-                    layer.on('mouseover', function () {
-                        layer.openPopup();
-                    });
-                    layer.on('mouseout', function () {
-                        layer.closePopup();
-                    });
-                }
-            };
+
+
+    function popup(feature, layer) {
+        if (feature.properties && feature.properties.oficina) {
+            layer.bindPopup(feature.properties.oficina, {
+                closeButton: false,
+                offset: L.point(0, -20)
+            });
+            layer.on('mouseover', function () {
+                layer.openPopup();
+            });
+            layer.on('mouseout', function () {
+                layer.closePopup();
+            });
+        }
+    };
 
 
 </script>
 
 <script type="text/javascript">
-//maps
-     function back() {
+    //maps
+    function back() {
         $("#maps").hide();
         $("#resultSimulation").show();
     }
@@ -242,7 +256,7 @@ function popup(feature, layer) {
     function mapp() {
         $("#maps").show();
         $("#resultSimulation").hide();
-        map.invalidateSize(); 
+        map.invalidateSize();
     }
 
 
@@ -250,10 +264,10 @@ function popup(feature, layer) {
         var url = '@Url.Action("Index", "SimulationCost")?Id=' + Id;
         window.location.href = url;
     }
-    
+
     function backResult() {
         var ids = @(Model.HeaderSimulationID);
-        var url = '@Url.Action("Result", "SimulationCost")?Id=' +  ids;
+        var url = '@Url.Action("Result", "SimulationCost")?Id=' + ids;
         window.location.href = url;
     }
 </script>

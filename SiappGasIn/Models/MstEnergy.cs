@@ -12,6 +12,8 @@ namespace SiappGasIn.Models
         public int EnergyID { get; set; }
         public string Energy { get; set; }
         public decimal Harga { get; set; }
+        public decimal? Harga_1 { get; set; }
+        public decimal? Harga_2 { get; set; }
 
         public decimal NilaiKalori { get; set; }
         public string Satuan { get; set; }        

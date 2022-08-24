@@ -140,7 +140,7 @@ namespace SiappGasIn.Models
         public int SimulationID { get; set; }
         public int HeaderSimulationID { get; set; }
         public string Infrastructure { get; set; }
-        public decimal HargaJual { get; set; }
+        public decimal? HargaJual { get; set; }
         public int TargetCOD { get; set; }
         public string AsalStation { get; set; }
         public int FlagPrice { get; set; }
@@ -178,7 +178,7 @@ namespace SiappGasIn.Models
         public string pressureUnit  { get; set; }
         public double volumeValue  { get; set; }
         public string volumeUnit  { get; set; }
-        public double diameterValue  { get; set; }
+        public double? diameterValue  { get; set; }
         public string diameterUnit  { get; set; } 
         public double costValue { get; set; }
         public string costUnit { get; set; }

@@ -355,7 +355,7 @@ ViewData["Title"] = "Converter Energy";
             alert("Bahan bakar 'dari' wajib diisi");
         } else if (energyNames == "" || energyNames == null) {
             alert("Bahan bakar 'ke' wajib diisi");
-        } else if (hargaBB == "" || hargaBB == null || hargaBBs == "" || hargaBBs == null) {
+        } else if (hargaBB == "" || hargaBB == 0 || hargaBB == null || hargaBBs == "" || hargaBBs == 0 || hargaBBs == null) {
             $("#hrgConvert1").hide();
             $("#hrgConvert2").hide();
 
@@ -400,7 +400,8 @@ ViewData["Title"] = "Converter Energy";
             $("#pemakaians").val(hitPemakaianConv);
         } else {
             $("#tableConvert").show();
-
+             $("#hrgConvert1").show();
+            $("#hrgConvert2").show();
             $("#tblHeader").text(energyName);
             $("#tblConv").text(energyNames);
 
@@ -496,6 +497,17 @@ ViewData["Title"] = "Converter Energy";
 
                     for (var i = 0; i < len; i++) {
                         var id = response.data[i].energyID;
+                        var name = response.data[i].energy;
+                        var nilai = response.data[i].nilaiKalori;
+                        var satuan = response.data[i].satuan;
+
+                        $("#bahanBakars").append("<option value='" + id + "'>" + name + "</option>");
+
+
+                    }
+
+                    for (var i = 0; i < len; i++) {
+                        var id = response.data[i].energyID;
                         var energy = response.data[i].energy;
                         if (id == deptid) {
                             $("#nilaiKalori").val(response.data[i].nilaiKalori);
@@ -519,26 +531,26 @@ ViewData["Title"] = "Converter Energy";
             });
         });
 
-        $.ajax({
-            url: '@Url.Action("Retrieve", "MstEnergy")',
-            type: 'post',
-            dataType: 'json',
-            success: function (response) {
+        //$.ajax({
+        //    url: '@Url.Action("Retrieve", "MstEnergy")',
+        //    type: 'post',
+        //    dataType: 'json',
+        //    success: function (response) {
 
-                var len = response.data.length;
+        //        var len = response.data.length;
 
-                for (var i = 0; i < len; i++) {
-                    var id = response.data[i].energyID;
-                    var name = response.data[i].energy;
-                    var nilai = response.data[i].nilaiKalori;
-                    var satuan = response.data[i].satuan;
+        //        for (var i = 0; i < len; i++) {
+        //            var id = response.data[i].energyID;
+        //            var name = response.data[i].energy;
+        //            var nilai = response.data[i].nilaiKalori;
+        //            var satuan = response.data[i].satuan;
 
-                    $("#bahanBakars").append("<option value='" + id + "'>" + name + "</option>");
+        //            $("#bahanBakars").append("<option value='" + id + "'>" + name + "</option>");
 
 
-                }
-            }
-        });
+        //        }
+        //    }
+        //});
         $("#bahanBakars").change(function () {
             var deptid = $(this).val();
 
