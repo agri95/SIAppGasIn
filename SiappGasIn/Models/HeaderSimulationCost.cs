@@ -23,5 +23,7 @@ namespace SiappGasIn.Models
         public string? ModifiedBy { get; set; }
 
         public DateTimeOffset? ModifiedDate { get; set; }
+
+        public HeaderSimulationCost() { }
     }
 }

@@ -115,8 +115,12 @@ ViewData["Title"] = "Detail Simulation Cost";
 </div>
 
 @section Styles{
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
-<link rel="stylesheet" href="~/plugins/leaflet/leaflet-routing-machine.css" />
+
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<!-- Leaflet Map -->
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
 @*
 <link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
 <style>
@@ -139,40 +143,26 @@ ViewData["Title"] = "Detail Simulation Cost";
 }
 
 @section Scripts{
-
-
-<script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
-<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
-<script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
-<script src="~/plugins/leaflet/leaflet-routing-machine.js"></script>
-<script src="~/plugins/leaflet/Control.Geocoder.js"></script>
-<script src="~/plugins/leaflet/config.js"></script>
-
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
 
 <script>
 
     $(document).ready(function () {
         $("#maps").hide();
+         L.mapbox.accessToken = 'pk.eyJ1IjoiZmFyYWRheTIiLCJhIjoiTUVHbDl5OCJ9.buFaqIdaIM3iXr1BOYKpsQ';
 
-        let x = document.querySelectorAll(".formatNum");
-        for (let i = 0, len = x.length; i < len; i++) {
+            var mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
+                attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                tileSize: 512,
+                zoomOffset: -1
+            });
 
-            let num = Number(x[i].textContent)
-                .toLocaleString('en');
-            x[i].textContent = num;
-        }
+            map = L.map('map')
+                .addLayer(mapboxTiles);
 
-        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
-        map = new L.Map('map', {
-            minZoom: 6,
-            zoom: 9
-        })
-        osm.addTo(map)
-
-        var data = '@Model.route';
+       var data = '@Model.route';
         var result = JSON.parse(data);
 
         var rawPoints = []
@@ -221,29 +211,17 @@ ViewData["Title"] = "Detail Simulation Cost";
         const position = [lats / rawPoints.length, longs / rawPoints.length];
         map.setView(position, 13);
 
-    });
-</script>
+        let x = document.querySelectorAll(".formatNum");
+        for (let i = 0, len = x.length; i < len; i++) {
 
-<script type="text/javascript">
-
-
-
-    function popup(feature, layer) {
-        if (feature.properties && feature.properties.oficina) {
-            layer.bindPopup(feature.properties.oficina, {
-                closeButton: false,
-                offset: L.point(0, -20)
-            });
-            layer.on('mouseover', function () {
-                layer.openPopup();
-            });
-            layer.on('mouseout', function () {
-                layer.closePopup();
-            });
+            let num = Number(x[i].textContent)
+                .toLocaleString('en');
+            x[i].textContent = num;
         }
-    };
 
 
+
+    });
 </script>
 
 <script type="text/javascript">

@@ -81,6 +81,21 @@ namespace SiappGasIn.Controllers
 
             return View("~/Views/SimulationCost/DetailPipeLine.cshtml", data);
         }
+
+        [HttpGet]
+        public IActionResult DetailLNG(int Id)
+        {
+
+            string StoredProc = "exec SP_ResultDetailSimulation " + Id;
+
+            //var data = new SP_HeaderSimulation();
+            SimulationCost model = null;
+            //SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw("[dbo].[SP_HeaderSimulation] @Id", Id).AsEnumerable().FirstOrDefault();
+            SimulationCost data = _dbContext.Set<SimulationCost>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+
+            return View("~/Views/SimulationCost/DetailLNG.cshtml", data);
+        }
+
     }
 }
 
@@ -223,6 +238,12 @@ namespace SiappGasIn.Controllers.Api
             }
 
             return Json(data: true);
+        }
+
+        [HttpPost]
+        public ActionResult SaveDatas(HeaderSimulationCost _header, List<SP_CostSimulation> _cng)
+        {
+            return Json(false);
         }
 
         [HttpPost]
@@ -420,8 +441,7 @@ namespace SiappGasIn.Controllers.Api
                     "@volumeValue = " + volumeValue + "," +
                     "@route= '" + route + "'";
 
-                    
-                    _dbContext.Set<SP_PipeCalculator>().FromSqlRaw(StoredProc).ToListAsync();                   
+                    var datass =  _dbContext.Set<SP_PipeCalculator>().FromSqlRaw(StoredProc).ToListAsync();                   
                 }                
             }
             return Ok

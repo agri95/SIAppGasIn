@@ -771,38 +771,38 @@
                                         //    alert("LNG Ceklis");                                            
                                         //}
 
-                                        function task1() {
-                                          const wait = Math.round(Math.random()*1000);
-                                          setTimeout(function() {
-                                              calculate(data.data);                                             
-                                          },wait)
-                                        }
+                                        //function task1() {
+                                        //  const wait = Math.round(Math.random()*1000);
+                                        //  setTimeout(function() {
+                                        //      calculate(data.data);                                             
+                                        //  },wait)
+                                        //}
  
-                                        function task2() {
-                                          const wait = Math.round(Math.random()*10000);
-                                          setTimeout(function() {
-                                              calculatePipe(data.data);                                             
+                                        //function task2() {
+                                        //  const wait = Math.round(Math.random()*10000);
+                                        //  setTimeout(function() {
+                                        //      calculatePipe(data.data);                                             
                                          
-                                          },wait)
-                                        }
+                                        //  },wait)
+                                        //}
 
-                                       function task3() {
-                                          const wait = Math.round(Math.random()*70000);
-                                          setTimeout(function() {
-                                             $('.loading').hide();
-                                                var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                                                window.location.href = url;
-                                          },wait)
-                                        }
-                                       
-                                        if (document.getElementById("cng").checked == true) {
-                                              task1()                    
-                                        }
-                                         if (document.getElementById("pipeLine").checked == true) {
-                                             task2()
-                                        }
+                                       //function task3() {
+                                       //   const wait = Math.round(Math.random()*70000);
+                                       //   setTimeout(function() {
+                                       //      $('.loading').hide();
+                                       //         var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                                       //         window.location.href = url;
+                                       //   },wait)
+                                       // }
+                                        console.log("start header");
+                                        //if (document.getElementById("cng").checked == true) {
+                                              calculate(data.data);                     
+                                        //}
+                                        // if (document.getElementById("pipeLine").checked == true) {
+                                        //     task2()
+                                        //}
                                         
-                                        task3()
+                                        //task3()
                                         //
 
                                         
@@ -817,6 +817,7 @@
                                 error: function (jqXHR) {
                                     $('#divErrorText').text(jqXHR.responseText);
                                     $('#divError').show('fade');
+                                    console.log("error header");
                                 }
                             });
 
@@ -831,9 +832,15 @@
                 }
 
             }
-
+            function success(data) {
+                 $('.loading').hide();
+                 var url = '@Url.Action("Result", "SimulationCost")?Id=' + data;
+                 window.location.href = url;
+            }
             function calculatePipe(dataID) {
-                var users = "nimo.siapgasin";
+                console.log("startpipe header");
+                if (document.getElementById("pipeLine").checked == true) {
+                     var users = "nimo.siapgasin";
                 var passwords = "nimo.pgn645In";
                  var demandUsage = $("#demandUsage").val();
                 var energyName = $("#energyName").val();
@@ -887,7 +894,7 @@
                 };
                 var _datas = JSON.stringify(_data);
                 console.log(_datas);
-                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxMzAyNDczLCJleHAiOjE2NjEzODg4NzIsImlhdCI6MTY2MTMwMjQ3M30.D9EnVAd4QXZuwJJDqFEhbPjvEjJJCRhEsdHN_4L5sFY";
+                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxNzM2NjI5LCJleHAiOjE2NjE4MjMwMjgsImlhdCI6MTY2MTczNjYyOX0.5xoZuUt_JbzrUyaVEA54eZLwlG-FLRk56Dr5So9S3gk";
                 $.ajax({
                             url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&token=' + token + '&dataID=' + dataID,//File Collection Endpoint
 
@@ -896,7 +903,8 @@
                             contentType: "application/json; charset=utf-8",
                             data: "{}",
                             success: function (datas) {
-                                console.log(datas);
+                                console.log("success pipe");
+                                success(dataID);
                                  
                             //    $.ajax({
                             //    url: '@Url.Action("SaveDataPipe", "SimulationCost")',
@@ -935,10 +943,13 @@
                             
                             error: function (datas) {
                                 success(datas);
+                                console.log("error pipe");
                             }
                         });
-}
-
+                } else {
+                    success(dataID);
+                }
+            }
             function changeCircleRadius(jarak) {
                 //alert(jarak);
                 // Determine which geocode box is filled
@@ -1022,72 +1033,78 @@
             };
 
             function calculate(data) {
-                if (results.length > 0) {
-                    for (i = 0; i < results.length; i++) {
-                        var rsLokasi = results[i].lokasi;
-                        var rsJarak = results[i].jarak;
-                        var rsLatitude = results[i].latitude;
-                        var rsLongitude = results[i].longitude;
-                        var jarak = rsJarak * 2;
-                        var volume = $("#demandUsage").val(); // M3/Bln
-                        volume = volume.replace(/\,/g, '')
-                        volume = Number(volume)
-                        var operasiHari = $("#hourDay").val();
-                        var operasiBulan = $("#workDay").val();
-                        var energyName = $("#energyName").val();
-                        var minPrice = $("#minPrice").val();
-                        var maxPrice = $("#maxPrice").val();
-                        var resultLocationName = $("#resultLocationName").val();
-                        if (resultLocationName == "" || resultLocationName == null) {
-                            resultLocationName = "Unnamed Road"
-                        }
-                        if (minPrice == 0 || minPrice == null) {
-                            minPrice = 0;
-                        }
-                        if (maxPrice == 0 || maxPrice == null) {
-                            maxPrice = 0;
-                        }
-                        $.ajax({
-                            url: '@Url.Action("SaveData", "SimulationCost")',
-                            type: 'POST',
-                            dataType: 'json',
-                            contentType: "application/json; charset=utf-8",
-                            data: JSON.stringify(
-                                {
-                                    "HeaderSimulationID": data,
-                                    "volume2": volume,
-                                    "jarak": jarak,
-                                    "operasiHari": operasiHari,
-                                    "operasiBulan": operasiBulan,
-                                    "energyName": energyName,
-                                    "asalStation": rsLokasi,
-                                    "lokasiCapel": resultLocationName,
-                                    "minPrice": minPrice,
-                                    "maxPrice": maxPrice,
-                                    "latitude": rsLatitude,
-                                    "longitude": rsLongitude,
-                                }
-                            ),
-                            success: function (data) {
-                                //alert(data);
-                                if (data == true) {
-                                    sessionStorage.removeItem('gajiOperator');
-                                    sessionStorage.removeItem('gajiSupir');
-                                    $("#GTM").val("");
-                                    $('#HargaSewa').val("");
-                                    $('#RasioBBM').val("");
-                                    $('#Kecepatan').val("");
-                                    $('#msgText').text('Data is added Successfully');
-                                    $('#successModal').modal('show');
-                                }
-                            },
-                            
-                            error: function (jqXHR) {
-                                $('#divErrorText').text(jqXHR.responseText);
-                                $('#divError').show('fade');
+                console.log("start cng header");
+                if (document.getElementById("cng").checked == true) {
+                    if (results.length > 0) {
+                        for (i = 0; i < results.length; i++) {
+                            var rsLokasi = results[i].lokasi;
+                            var rsJarak = results[i].jarak;
+                            var rsLatitude = results[i].latitude;
+                            var rsLongitude = results[i].longitude;
+                            var jarak = rsJarak * 2;
+                            var volume = $("#demandUsage").val(); // M3/Bln
+                            volume = volume.replace(/\,/g, '')
+                            volume = Number(volume)
+                            var operasiHari = $("#hourDay").val();
+                            var operasiBulan = $("#workDay").val();
+                            var energyName = $("#energyName").val();
+                            var minPrice = $("#minPrice").val();
+                            var maxPrice = $("#maxPrice").val();
+                            var resultLocationName = $("#resultLocationName").val();
+                            if (resultLocationName == "" || resultLocationName == null) {
+                                resultLocationName = "Unnamed Road"
                             }
-                        });
+                            if (minPrice == 0 || minPrice == null) {
+                                minPrice = 0;
+                            }
+                            if (maxPrice == 0 || maxPrice == null) {
+                                maxPrice = 0;
+                            }
+                            $.ajax({
+                                url: '@Url.Action("SaveData", "SimulationCost")',
+                                type: 'POST',
+                                dataType: 'json',
+                                contentType: "application/json; charset=utf-8",
+                                data: JSON.stringify(
+                                    {
+                                        "HeaderSimulationID": data,
+                                        "volume2": volume,
+                                        "jarak": jarak,
+                                        "operasiHari": operasiHari,
+                                        "operasiBulan": operasiBulan,
+                                        "energyName": energyName,
+                                        "asalStation": rsLokasi,
+                                        "lokasiCapel": resultLocationName,
+                                        "minPrice": minPrice,
+                                        "maxPrice": maxPrice,
+                                        "latitude": rsLatitude,
+                                        "longitude": rsLongitude,
+                                    }
+                                ),
+                                success: function(data) {
+                                    console.log("success cng");
+                                    if (data == true) {
+                                       
+                                        $("#GTM").val("");
+                                        $('#HargaSewa').val("");
+                                        $('#RasioBBM').val("");
+                                        $('#Kecepatan').val("");
+
+                                        
+                                    }
+                                },
+
+                                error: function(jqXHR) {
+                                    $('#divErrorText').text(jqXHR.responseText);
+                                    $('#divError').show('fade');
+                                    console.log("error cng");
+                                }
+                            });
+                        }
                     }
+                    calculatePipe(data);
+                } else {
+                    calculatePipe(data);
                 }
             }
 
