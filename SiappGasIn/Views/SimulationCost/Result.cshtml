@@ -38,7 +38,7 @@
                                     <div class="form-group row ">
                                         <label class="control-label col-md-3 col-sm-3 ">Date</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <label class="control-label col-md-9 col-sm-9"><span
+                                            <label class="control-label col-md-9 col-sm-9 release-date"><span
                                                     id="projectDate">: @Model.ProjectDate</span></label>
                                         </div>
                                     </div>
@@ -70,7 +70,7 @@
 
                                         <label class="control-label col-md-3 col-sm-3 ">Target COD</label>
                                         <div class="col-md-9 col-sm-9 ">
-                                            <label class="control-label col-md-9 col-sm-9"><span
+                                            <label class="control-label col-md-9 col-sm-9  release-date"><span
                                                     id="targetCOD">: @Model.TargetCOD</span></label>
                                         </div>
                                     </div>
@@ -181,6 +181,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="http://momentjs.com/downloads/moment.min.js"></script>
 
 <script type="text/javascript">
     function back() {
@@ -202,7 +203,16 @@
         }
     }
     $(document).ready(function () {
+        $('.release-date').each( function() {
+  
+          var format = ": " + "DD MMM YYYY";
 
+          var $this = $( this );
+          var old_date = $.trim($this.text());
+          var new_date = moment(old_date , 'DD/MM/YYYY').format( format );
+
+          $this.text($this.text().replace(old_date, new_date));
+        });
         var ID = '@(Model.HeaderSimulationID)';
         var tbody = $('#tableSimulation').children('tbody');
 

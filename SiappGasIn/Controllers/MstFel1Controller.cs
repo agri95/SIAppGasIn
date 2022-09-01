@@ -37,7 +37,7 @@ namespace SiappGasIn.Controllers.Api
         [HttpPost]
         public IActionResult Retrieve()
         {
-            var data = _dbContext.Set<MstFEL>().FromSqlRaw("[dbo].[SP_GajiKaryawan]").ToList();
+            var data = _dbContext.Set<MstFELs>().FromSqlRaw("[dbo].[SP_GetFEL]").ToList();
 
             return Ok
                     (

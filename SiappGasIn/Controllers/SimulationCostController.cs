@@ -370,14 +370,32 @@ namespace SiappGasIn.Controllers.Api
                     );
         }
         [HttpGet]
-        public IActionResult getTokens(string user, string password)
-        {
-            var token = "";
-            var param = new Dictionary<string, string>();
-            var url = "http://10.129.10.191/nimo/api/PipePublicAPI/Login"; 
-             param.Add("userName", user);
-             param.Add("userPassword", password);
+        //public IActionResult getTokens(string user, string password)
+        //{
+        //    var token = "";
+        //    var param = new Dictionary<string, string>();
+        //    var url = "http://10.129.10.191/nimo/api/PipePublicAPI/Login"; 
+        //     param.Add("userName", user);
+        //     param.Add("userPassword", password);
 
+        //    using (HttpClient client = new HttpClient())
+        //    {
+        //        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+        //        HttpResponseMessage response = client.PostAsync(url, new FormUrlEncodedContent(param)).Result;
+        //        token = response.Content.ReadAsStringAsync().Result;
+        //    }
+
+        //    return Json(token);
+        //}
+        public static string getTokens(string user, string password)
+        {
+
+            var param = new Dictionary<string, string>();
+            var url = "http://10.129.10.191/nimo/api/PipePublicAPI/Login";
+            param.Add("userName", user);
+            param.Add("userPassword", password);
+            string token;
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -385,15 +403,14 @@ namespace SiappGasIn.Controllers.Api
                 HttpResponseMessage response = client.PostAsync(url, new FormUrlEncodedContent(param)).Result;
                 token = response.Content.ReadAsStringAsync().Result;
             }
-            return Ok
-                    (new { data = token }
-                    );
+            return token;
         }
 
         [HttpGet]
-        public IActionResult getPipeCalculator(string datas, string token, int dataID)
+        public IActionResult getPipeCalculator(string datas, string user, string password, int dataID)
         {
             var calculate = "";
+            string token = getTokens(user,password);
             var tokens = token.Replace("\"", "");
             var stringContent = new StringContent(datas, UnicodeEncoding.UTF8, "application/json");
             var url = "http://10.129.10.191/nimo/api/PipeCalculatorRelyOn";

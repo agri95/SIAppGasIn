@@ -24,6 +24,24 @@ namespace SiappGasIn.Models
         public DateTimeOffset? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
         public DateTimeOffset? ModifiedDate { get; set; }
-    }   
+    }
+
+    public class MstFELs
+    {
+        [Key]
+        public int FelID { get; set; }
+        public string KlasifikasiName { get; set; }
+        public string ItemKlasifikasiName { get; set; }
+        public int Diameter { get; set; }
+        public string UnitName { get; set; }
+        public decimal Material300A { get; set; }
+        public decimal Material300B { get; set; }
+        public decimal Material150A { get; set; }
+        public decimal Material150B { get; set; }
+        public decimal KontruksiA { get; set; }
+        public decimal KontruksiB { get; set; }
+        
+    }
+
 }
 

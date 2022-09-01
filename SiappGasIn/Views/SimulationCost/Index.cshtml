@@ -894,9 +894,9 @@
                 };
                 var _datas = JSON.stringify(_data);
                 console.log(_datas);
-                var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxNzM2NjI5LCJleHAiOjE2NjE4MjMwMjgsImlhdCI6MTY2MTczNjYyOX0.5xoZuUt_JbzrUyaVEA54eZLwlG-FLRk56Dr5So9S3gk";
+                //var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxODIxNTU1LCJleHAiOjE2NjE5MDc5NTQsImlhdCI6MTY2MTgyMTU1NX0.iEM6hCBcYl7bObc8qfmr0nQC5WOOB2GFdYZ_2t0G4jw";
                 $.ajax({
-                            url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&token=' + token + '&dataID=' + dataID,//File Collection Endpoint
+                            url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&user=' + users + '&password=' + passwords + '&dataID=' + dataID,//File Collection Endpoint
 
                             type: 'get',
                             dataType: 'json',
