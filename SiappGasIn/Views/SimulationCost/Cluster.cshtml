@@ -1,0 +1,2993 @@
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.EntityFrameworkCore;
+@using SiappGasIn.Models
+@inject IOptions<SiappGasIn.Services.IdentityDefaultOptions> identityDefaultOptionsAcc
+    @inject Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager
+        @inject SiappGasIn.Data.ApplicationDbContext dbContext
+
+        @{
+
+        SiappGasIn.Services.IdentityDefaultOptions identityOptions = null;
+
+        try
+        {
+        var currentUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value;
+        var users = await userManager.FindByIdAsync(currentUserId);
+
+        identityOptions = identityDefaultOptionsAcc.Value;
+
+        }
+        catch
+        {
+
+        }
+
+        }
+
+        @{
+        ViewData["Title"] = "Simulation Cost";
+        }
+
+        @*<div class="alert alert-warning alert-dismissible agri" id="_alert1">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError1"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert2">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError2"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert3">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError3"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert4">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError4"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert5">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError5"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert6">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError6"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert7">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError7"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert8">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError8"></span> is required.
+        </div>
+        <div class="alert alert-warning alert-dismissible agri" id="_alert9">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> <span id="textError9"></span> is required.
+        </div>*@
+        <div class="container body koes" style="padding-left:230px;padding-right:230px;right: 0px;left: 0px;">
+
+            <div class="card">
+                <div class="row ">
+                    <div class="col-md-12 px-3">
+                        <div class="card-block" style="border: 1px;">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                                </div>
+                                <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
+                                        class="image-responsive" style="width:120px; height:40px; float: right;"></div>
+                            </div>
+
+                            <div id="headerCluster" class="card" style="margin-top: 7px;">
+                                <div class="card-body" style="margin: 15px ;">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-3">
+                                                <label class="mr-3 font-size-lg mb-0"> Jumlah Pelanggan </label>
+                                                <div class="input-group">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-default btn-sm btn-number"
+                                                            disabled="disabled" data-type="minus" data-field="quant[1]">
+                                                            <span class="glyphicon glyphicon-minus"></span>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text" name="quant[1]"
+                                                        style="padding-top: 2px;padding-bottom: 2px;"
+                                                        class="form-control input-sm input-number" value="1" min="1"
+                                                        max="7">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" class="btn btn-default btn-sm btn-number"
+                                                            data-type="plus" data-field="quant[1]">
+                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-6">
+                                                <label class="mr-3 font-size-lg mb-0"> Pilih Pelanggan </label>
+                                                <div class="input-group">
+                                                    <select class="form-control input-sm frmInput"
+                                                        style="width:180px; height:30px; padding-top: 2px;padding-bottom: 2px;border-radius:5px;"
+                                                        id="list-capel" name="list_capel" onchange="changeCapel(this)">
+                                                        <option value="costStructure1" selected> Pelanggan 1</option>
+                                                    </select>
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @* //------------------------------COST STRUCTURE-----------------------------------//*@
+
+                            <div id="costStructure1">
+                                <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            <label>Pelanggan ke-1</label>
+                                            <hr style="border-top: 4px solid #eee; margin-top:0;margin-bottom:10px;" />
+                                            <label>Input Form</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName1" name="projectName1" type="text"
+                                                        autocomplete="off" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" id="creator1"
+                                                        name="creator1" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example"
+                                                        value="@userManager.GetUserName(User)" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="projectDate1" name="projectDate1" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <label><strong>Prospective Customer Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="customerName1" name="customerName1" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="demandUsage1" name="demandUsage1" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                                    id="satuanPemakaian1">
+                                                </span>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <select class="form-control form-control-sm frmInput"
+                                                        id="bahanBakar1" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                    </select>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="nilaiKalori1"
+                                                    name="nilaiKalori1" type="hidden" placeholder=""
+                                                    aria-label=".form-control-sm example">
+                                                <input type="hidden" id="energyName1" />
+
+                                            </div>
+                                            @*<div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+
+                                                <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="locationName1" name="locationName1" autocomplete="off"
+                                                        placeholder="Search location...."
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <a href="#" onclick="addr_search()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Search</a>
+                                                </div>
+
+                                            </div>*@
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="longitude1" name="longitude1" placeholder="Longitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="latitude1" name="latitude1" placeholder="Latitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp1()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div>
+
+                                            </div>
+                                            @* <div class="form-group row" id="resultMap">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <div id="resultText"
+                                                        style="border:1px solid; border-radius:5px; padding:10px;margin-top:0px;">
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group row ">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah jam operasional dalam sehari"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="hourDay1" name="hourDay1" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="24">
+                                                </div>
+                                                @*<label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="targetCOD1" name="targetCOD1" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>*@
+                                                <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah hari operasional dalam sebulan"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="workDay1" name="workDay1" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="31">
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="ln_solid"></div>
+
+
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!--Batas-->
+                            <div id="findMap1">
+                                <input type="text" id="radius1" value="50" hidden />
+                                <input type="text" id="resultLocationName1" hidden />
+                                @* <div style="margin-bottom:10px;">
+                                    <div class="form">
+                                        <div class="range-wrap">
+                                            <input type="text" id="radius" hidden />
+                                            <div class="range-value" id="radius-selected"></div>
+                                            <input id="range-km" name="range-km" type="range" min="0" max="500"
+                                                value="50" step="5" />
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div id="map1" class="map1"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="back1()"
+                                            class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                        <button type="submit" onclick="back1()"
+                                            class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!---------------------------------------- Cost 2 ---------------------------------------->
+                            <div id="costStructure2">
+                                <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            <label>Pelanggan ke-2</label>
+                                            <hr style="border-top: 4px solid #eee; margin-top:0;margin-bottom:10px;" />
+                                            <label>Input Form</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName2" name="projectName2" type="text"
+                                                        autocomplete="off" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" id="creator2"
+                                                        name="creator2" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example"
+                                                        value="@userManager.GetUserName(User)" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="projectDate2" name="projectDate2" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <label><strong>Prospective Customer Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="customerName2" name="customerName2" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="demandUsage2" name="demandUsage2" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                                    id="satuanPemakaian2">
+                                                </span>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <select class="form-control form-control-sm frmInput"
+                                                        id="bahanBakar2" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                    </select>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="nilaiKalori2"
+                                                    name="nilaiKalori2" type="hidden" placeholder=""
+                                                    aria-label=".form-control-sm example">
+                                                <input type="hidden" id="energyName2" />
+
+                                            </div>
+                                            @*<div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+
+                                                <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="locationName1" name="locationName1" autocomplete="off"
+                                                        placeholder="Search location...."
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <a href="#" onclick="addr_search()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Search</a>
+                                                </div>
+
+                                            </div>*@
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="longitude2" name="longitude2" placeholder="Longitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="latitude2" name="latitude2" placeholder="Latitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp2()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div>
+
+                                            </div>
+                                            @* <div class="form-group row" id="resultMap">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <div id="resultText"
+                                                        style="border:1px solid; border-radius:5px; padding:10px;margin-top:0px;">
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group row ">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah jam operasional dalam sehari"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="hourDay2" name="hourDay2" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="24">
+                                                </div>
+                                                @*<label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="targetCOD1" name="targetCOD1" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>*@
+                                                <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah hari operasional dalam sebulan"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="workDay2" name="workDay2" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="31">
+                                                </div>
+                                            </div>
+
+
+
+
+                                            <div class="ln_solid"></div>
+
+
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!---------------------------------------- Batas ---------------------------------------->
+                            <div id="findMap2">
+                                <input type="text" id="radius2" value="50" hidden />
+                                <input type="text" id="resultLocationName2" hidden />
+                                @* <div style="margin-bottom:10px;">
+                                    <div class="form">
+                                        <div class="range-wrap">
+                                            <input type="text" id="radius" hidden />
+                                            <div class="range-value" id="radius-selected"></div>
+                                            <input id="range-km" name="range-km" type="range" min="0" max="500"
+                                                value="50" step="5" />
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div id="map2" class="map2"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="back2()"
+                                            class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                        <button type="submit" onclick="back2()"
+                                            class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!---------------------------------------- Cost 3 ---------------------------------------->
+                            <div id="costStructure3">
+                                <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            <label>Pelanggan ke-3</label>
+                                            <hr style="border-top: 4px solid #eee; margin-top:0;margin-bottom:10px;" />
+                                            <label>Input Form</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName3" name="projectName3" type="text"
+                                                        autocomplete="off" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" id="creator3"
+                                                        name="creator3" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example"
+                                                        value="@userManager.GetUserName(User)" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="projectDate3" name="projectDate3" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <label><strong>Prospective Customer Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="customerName3" name="customerName3" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="demandUsage3" name="demandUsage3" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                                    id="satuanPemakaian3">
+                                                </span>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <select class="form-control form-control-sm frmInput"
+                                                        id="bahanBakar3" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                    </select>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="nilaiKalori3"
+                                                    name="nilaiKalori3" type="hidden" placeholder=""
+                                                    aria-label=".form-control-sm example">
+                                                <input type="hidden" id="energyName3" />
+
+                                            </div>
+                                            @*<div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+
+                                                <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="locationName1" name="locationName1" autocomplete="off"
+                                                        placeholder="Search location...."
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <a href="#" onclick="addr_search()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Search</a>
+                                                </div>
+
+                                            </div>*@
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="longitude3" name="longitude3" placeholder="Longitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="latitude3" name="latitude3" placeholder="Latitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp3()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div>
+
+                                            </div>
+                                            @* <div class="form-group row" id="resultMap">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <div id="resultText"
+                                                        style="border:1px solid; border-radius:5px; padding:10px;margin-top:0px;">
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group row ">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah jam operasional dalam sehari"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="hourDay3" name="hourDay3" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="24">
+                                                </div>
+                                                @*<label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="targetCOD1" name="targetCOD1" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>*@
+                                                <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah hari operasional dalam sebulan"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="workDay3" name="workDay3" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="31">
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!---------------------------------------- Batas ---------------------------------------->
+                            <div id="findMap3">
+                                <input type="text" id="radius3" value="50" hidden />
+                                <input type="text" id="resultLocationName3" hidden />
+                                @* <div style="margin-bottom:10px;">
+                                    <div class="form">
+                                        <div class="range-wrap">
+                                            <input type="text" id="radius" hidden />
+                                            <div class="range-value" id="radius-selected"></div>
+                                            <input id="range-km" name="range-km" type="range" min="0" max="500"
+                                                value="50" step="5" />
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div id="map3" class="map3"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="back3()"
+                                            class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                        <button type="submit" onclick="back3()"
+                                            class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!---------------------------------------- Cost 4 ---------------------------------------->
+                            <div id="costStructure4">
+                                <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            <label>Pelanggan ke-4</label>
+                                            <hr style="border-top: 4px solid #eee; margin-top:0;margin-bottom:10px;" />
+                                            <label>Input Form</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName4" name="projectName4" type="text"
+                                                        autocomplete="off" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" id="creator4"
+                                                        name="creator4" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example"
+                                                        value="@userManager.GetUserName(User)" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="projectDate4" name="projectDate4" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <label><strong>Prospective Customer Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="customerName4" name="customerName4" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="demandUsage4" name="demandUsage4" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                                    id="satuanPemakaian4">
+                                                </span>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <select class="form-control form-control-sm frmInput"
+                                                        id="bahanBakar4" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                    </select>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="nilaiKalori4"
+                                                    name="nilaiKalori4" type="hidden" placeholder=""
+                                                    aria-label=".form-control-sm example">
+                                                <input type="hidden" id="energyName4" />
+
+                                            </div>
+                                            @*<div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+
+                                                <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="locationName1" name="locationName1" autocomplete="off"
+                                                        placeholder="Search location...."
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <a href="#" onclick="addr_search()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Search</a>
+                                                </div>
+
+                                            </div>*@
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="longitude4" name="longitude4" placeholder="Longitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="latitude4" name="latitude4" placeholder="Latitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp4()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div>
+
+                                            </div>
+                                            @* <div class="form-group row" id="resultMap">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <div id="resultText"
+                                                        style="border:1px solid; border-radius:5px; padding:10px;margin-top:0px;">
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group row ">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah jam operasional dalam sehari"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="hourDay4" name="hourDay4" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="24">
+                                                </div>
+                                                @*<label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="targetCOD1" name="targetCOD1" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>*@
+                                                <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah hari operasional dalam sebulan"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="workDay4" name="workDay4" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="31">
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!---------------------------------------- Batas ---------------------------------------->
+                            <div id="findMap4">
+                                <input type="text" id="radius3" value="50" hidden />
+                                <input type="text" id="resultLocationName4" hidden />
+                                @* <div style="margin-bottom:10px;">
+                                    <div class="form">
+                                        <div class="range-wrap">
+                                            <input type="text" id="radius" hidden />
+                                            <div class="range-value" id="radius-selected"></div>
+                                            <input id="range-km" name="range-km" type="range" min="0" max="500"
+                                                value="50" step="5" />
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div id="map4" class="map4"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="back4()"
+                                            class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                        <button type="submit" onclick="back4()"
+                                            class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!---------------------------------------- Cost 5 ---------------------------------------->
+                            <div id="costStructure5">
+                                <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            <label>Pelanggan ke-5</label>
+                                            <hr style="border-top: 4px solid #eee; margin-top:0;margin-bottom:10px;" />
+                                            <label>Input Form</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName5" name="projectName5" type="text"
+                                                        autocomplete="off" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" id="creator5"
+                                                        name="creator5" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example"
+                                                        value="@userManager.GetUserName(User)" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="projectDate5" name="projectDate5" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <label><strong>Prospective Customer Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="customerName5" name="customerName5" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="demandUsage5" name="demandUsage5" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                                    id="satuanPemakaian5">
+                                                </span>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <select class="form-control form-control-sm frmInput"
+                                                        id="bahanBakar5" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                    </select>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="nilaiKalori5"
+                                                    name="nilaiKalori5" type="hidden" placeholder=""
+                                                    aria-label=".form-control-sm example">
+                                                <input type="hidden" id="energyName5" />
+
+                                            </div>
+                                            @*<div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+
+                                                <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="locationName1" name="locationName1" autocomplete="off"
+                                                        placeholder="Search location...."
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <a href="#" onclick="addr_search()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Search</a>
+                                                </div>
+
+                                            </div>*@
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="longitude5" name="longitude5" placeholder="Longitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="latitude5" name="latitude5" placeholder="Latitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp5()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div>
+
+                                            </div>
+                                            @* <div class="form-group row" id="resultMap">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <div id="resultText"
+                                                        style="border:1px solid; border-radius:5px; padding:10px;margin-top:0px;">
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group row ">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah jam operasional dalam sehari"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="hourDay5" name="hourDay5" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="24">
+                                                </div>
+                                                @*<label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="targetCOD1" name="targetCOD1" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>*@
+                                                <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah hari operasional dalam sebulan"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="workDay5" name="workDay5" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="31">
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!---------------------------------------- Batas ---------------------------------------->
+                            <div id="findMap5">
+                                <input type="text" id="radius5" value="50" hidden />
+                                <input type="text" id="resultLocationName4" hidden />
+                                @* <div style="margin-bottom:10px;">
+                                    <div class="form">
+                                        <div class="range-wrap">
+                                            <input type="text" id="radius" hidden />
+                                            <div class="range-value" id="radius-selected"></div>
+                                            <input id="range-km" name="range-km" type="range" min="0" max="500"
+                                                value="50" step="5" />
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div id="map5" class="map5"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="back5()"
+                                            class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                        <button type="submit" onclick="back5()"
+                                            class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!---------------------------------------- Cost 6 ---------------------------------------->
+                            <div id="costStructure6">
+                                <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            <label>Pelanggan ke-6</label>
+                                            <hr style="border-top: 4px solid #eee; margin-top:0;margin-bottom:10px;" />
+                                            <label>Input Form</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName6" name="projectName6" type="text"
+                                                        autocomplete="off" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" id="creator6"
+                                                        name="creator6" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example"
+                                                        value="@userManager.GetUserName(User)" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="projectDate6" name="projectDate6" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <label><strong>Prospective Customer Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="customerName6" name="customerName6" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="demandUsage6" name="demandUsage6" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                                    id="satuanPemakaian6">
+                                                </span>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <select class="form-control form-control-sm frmInput"
+                                                        id="bahanBakar6" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                    </select>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="nilaiKalori6"
+                                                    name="nilaiKalori6" type="hidden" placeholder=""
+                                                    aria-label=".form-control-sm example">
+                                                <input type="hidden" id="energyName6" />
+
+                                            </div>
+                                            @*<div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+
+                                                <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="locationName1" name="locationName1" autocomplete="off"
+                                                        placeholder="Search location...."
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <a href="#" onclick="addr_search()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Search</a>
+                                                </div>
+
+                                            </div>*@
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="longitude6" name="longitude6" placeholder="Longitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="latitude6" name="latitude6" placeholder="Latitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp6()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div>
+
+                                            </div>
+                                            @* <div class="form-group row" id="resultMap">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <div id="resultText"
+                                                        style="border:1px solid; border-radius:5px; padding:10px;margin-top:0px;">
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group row ">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah jam operasional dalam sehari"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="hourDay6" name="hourDay6" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="24">
+                                                </div>
+                                                @*<label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="targetCOD1" name="targetCOD1" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>*@
+                                                <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah hari operasional dalam sebulan"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="workDay6" name="workDay6" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="31">
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!---------------------------------------- Batas ---------------------------------------->
+                            <div id="findMap6">
+                                <input type="text" id="radius6" value="50" hidden />
+                                <input type="text" id="resultLocationName6" hidden />
+                                @* <div style="margin-bottom:10px;">
+                                    <div class="form">
+                                        <div class="range-wrap">
+                                            <input type="text" id="radius" hidden />
+                                            <div class="range-value" id="radius-selected"></div>
+                                            <input id="range-km" name="range-km" type="range" min="0" max="500"
+                                                value="50" step="5" />
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div id="map6" class="map6"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="back6()"
+                                            class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                        <button type="submit" onclick="back6()"
+                                            class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!---------------------------------------- Cost 7 ---------------------------------------->
+                            <div id="costStructure7">
+                                <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                                    style="margin-top: 7px;">
+                                    <div class="card-body" style="margin: 15px ;">
+                                        <form class="form-horizontal form-label-left">
+                                            <label>Pelanggan ke-7</label>
+                                            <hr style="border-top: 4px solid #eee; margin-top:0;margin-bottom:10px;" />
+                                            <label>Input Form</label>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Project Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput"
+                                                        id="projectName7" name="projectName7" type="text"
+                                                        autocomplete="off" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Creator</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" id="creator7"
+                                                        name="creator7" type="text" placeholder=""
+                                                        aria-label=".form-control-sm example"
+                                                        value="@userManager.GetUserName(User)" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Date</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="projectDate7" name="projectDate7" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <label><strong>Prospective Customer Data</strong></label>
+                                            <br />
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Customer Name</label>
+                                                <div class="col-md-9 col-sm-9 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="customerName7" name="customerName7" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Demand Usage</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="demandUsage7" name="demandUsage7" autocomplete="off"
+                                                        placeholder="" aria-label=".form-control-sm example">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;"
+                                                    id="satuanPemakaian7">
+                                                </span>
+                                                <div class="col-md-4 col-sm-4 ">
+                                                    <select class="form-control form-control-sm frmInput"
+                                                        id="bahanBakar7" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                    </select>
+                                                </div>
+                                                <input class="form-control form-control-sm" id="nilaiKalori7"
+                                                    name="nilaiKalori7" type="hidden" placeholder=""
+                                                    aria-label=".form-control-sm example">
+                                                <input type="hidden" id="energyName7" />
+
+                                            </div>
+                                            @*<div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+
+                                                <div class="col-md-7 col-sm-7 " style="padding-right:0px">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="locationName1" name="locationName1" autocomplete="off"
+                                                        placeholder="Search location...."
+                                                        aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-2 col-sm-2 ">
+                                                    <a href="#" onclick="addr_search()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Search</a>
+                                                </div>
+
+                                            </div>*@
+                                            <div class="form-group row ">
+                                                <label class="control-label col-md-3 col-sm-3 ">Coordinate</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="longitude7" name="longitude7" placeholder="Longitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="text"
+                                                        id="latitude7" name="latitude7" placeholder="Latitude"
+                                                        autocomplete="off" aria-label=".form-control-sm example">
+                                                </div>
+
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <a href="#" onclick="mapp7()" class="btn btn-warning btn-sm"
+                                                        style="height:24px; width:80%; line-height:1;">Find Location</a>
+                                                </div>
+
+                                            </div>
+                                            @* <div class="form-group row" id="resultMap">
+                                                <label class="control-label col-md-3 col-sm-3 "></label>
+
+                                                <div class="col-md-9 col-sm-9">
+                                                    <div id="resultText"
+                                                        style="border:1px solid; border-radius:5px; padding:10px;margin-top:0px;">
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="form-group row ">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Jam / Hari <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah jam operasional dalam sehari"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="hourDay7" name="hourDay7" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="24">
+                                                </div>
+                                                @*<label class="control-label col-md-3 col-sm-3 ">Target GasIn</label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="date"
+                                                        id="targetCOD1" name="targetCOD1" placeholder=""
+                                                        aria-label=".form-control-sm example">
+                                                </div>*@
+                                                <label class="control-label col-md-3 col-sm-3 ">Hari / Bulan <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right"
+                                                        title="Jumlah hari operasional dalam sebulan"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <input class="form-control form-control-sm frmInput" type="number"
+                                                        id="workDay7" name="workDay7" placeholder="" autocomplete="off"
+                                                        aria-label=".form-control-sm example" min="0" max="31">
+                                                </div>
+                                            </div>
+                                            <div class="ln_solid"></div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <!---------------------------------------- Batas ---------------------------------------->
+                            <div id="findMap7">
+                                <input type="text" id="radius7" value="50" hidden />
+                                <input type="text" id="resultLocationName7" hidden />
+                                @* <div style="margin-bottom:10px;">
+                                    <div class="form">
+                                        <div class="range-wrap">
+                                            <input type="text" id="radius" hidden />
+                                            <div class="range-value" id="radius-selected"></div>
+                                            <input id="range-km" name="range-km" type="range" min="0" max="500"
+                                                value="50" step="5" />
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div id="map7" class="map7"></div>
+
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="back7()"
+                                            class="btn btn-primary btn-sm pull-right RbtnMargin">Submit</button>
+                                        <button type="submit" onclick="back7()"
+                                            class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            @*///-------------------------------------------------------------------------------//*@
+                           
+                                <div id="btnFooter">
+                                    <div class="row">
+                                    <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                        <button type="submit" onclick="calculateCluster()"
+                                            class="btn btn-primary pull-right RbtnMargin">Run</button>
+                                        <button type="reset"
+                                            class="btn btn-warning pull-right RbtnMargin">Reset</button>
+                                    </div>
+                                </div>
+                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @*<div class="loading overlay" id="loading">
+            <div class="lds-roller">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>*@
+
+        <span hidden id="gajiSupir"></span>
+        <span hidden id="gajiOperator"></span>
+        @section Styles{
+        <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.css" />
+        <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
+        <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
+        <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
+        <link rel="stylesheet" type="text/css"
+            href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+
+        <style>
+            .lds-roller {
+                display: inline-block;
+                position: relative;
+                width: 80px;
+                height: 80px;
+                margin-top: 20%;
+            }
+
+            .lds-roller div {
+                animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                transform-origin: 40px 40px;
+            }
+
+            .lds-roller div:after {
+                content: " ";
+                display: block;
+                position: absolute;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #fd5;
+                margin: -4px 0 0 -4px;
+            }
+
+            .lds-roller div:nth-child(1) {
+                animation-delay: -0.036s;
+            }
+
+            .lds-roller div:nth-child(1):after {
+                top: 63px;
+                left: 63px;
+            }
+
+            .lds-roller div:nth-child(2) {
+                animation-delay: -0.072s;
+            }
+
+            .lds-roller div:nth-child(2):after {
+                top: 68px;
+                left: 56px;
+            }
+
+            .lds-roller div:nth-child(3) {
+                animation-delay: -0.108s;
+            }
+
+            .lds-roller div:nth-child(3):after {
+                top: 71px;
+                left: 48px;
+            }
+
+            .lds-roller div:nth-child(4) {
+                animation-delay: -0.144s;
+            }
+
+            .lds-roller div:nth-child(4):after {
+                top: 72px;
+                left: 40px;
+            }
+
+            .lds-roller div:nth-child(5) {
+                animation-delay: -0.18s;
+            }
+
+            .lds-roller div:nth-child(5):after {
+                top: 71px;
+                left: 32px;
+            }
+
+            .lds-roller div:nth-child(6) {
+                animation-delay: -0.216s;
+            }
+
+            .lds-roller div:nth-child(6):after {
+                top: 68px;
+                left: 24px;
+            }
+
+            .lds-roller div:nth-child(7) {
+                animation-delay: -0.252s;
+            }
+
+            .lds-roller div:nth-child(7):after {
+                top: 63px;
+                left: 17px;
+            }
+
+            .lds-roller div:nth-child(8) {
+                animation-delay: -0.288s;
+            }
+
+            .lds-roller div:nth-child(8):after {
+                top: 56px;
+                left: 12px;
+            }
+
+            @@keyframes lds-roller {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .overlay {
+                z-index: 9999;
+                position: fixed;
+                top: 0px;
+                left: 0px;
+                bottom: 0px;
+                right: 0px;
+                background-color: rgba(0, 0, 0, 0.7);
+                text-align: center;
+            }
+
+            .address {
+                cursor: pointer
+            }
+
+            .address:hover {
+                color: #AA0000;
+                text-decoration: underline
+            }
+
+            .koes {
+                position: absolute;
+                top: 55px;
+                z-index: -2;
+            }
+
+            .agri {
+                margin-left: 70%;
+                margin-right: 1%;
+                margin-top: 10px;
+            }
+
+            .map1 {
+                height: 370px;
+                width: 100%;
+            }
+            .map2 {
+                height: 370px;
+                width: 100%;
+            }
+            .map3 {
+                height: 370px;
+                width: 100%;
+            }
+            .map4 {
+                height: 370px;
+                width: 100%;
+            }
+            .map5 {
+                height: 370px;
+                width: 100%;
+            }
+            .map6 {
+                height: 370px;
+                width: 100%;
+            }
+            .map7 {
+                height: 370px;
+                width: 100%;
+            }
+
+            #mapSearchContainer {
+                position: fixed;
+                top: 20px;
+                right: 40px;
+                height: 30px;
+                width: 180px;
+                z-index: 110;
+                font-size: 10pt;
+                color: #5d5d5d;
+                border: solid 1px #bbb;
+                background-color: #f8f8f8;
+            }
+
+            .geocoder-control-input leaflet-bar {
+                height: 30px;
+                width: 180px;
+            }
+
+            .pointer {
+                position: absolute;
+                top: 86px;
+                left: 60px;
+                z-index: 99999;
+            }
+
+            .results {
+                background-color: white;
+                opacity: 0.8;
+                position: absolute;
+                top: 12px;
+                right: 12px;
+                width: 320px;
+                height: 300px;
+                overflow-y: scroll;
+            }
+
+            #map .leaflet-bar .leaflet-draw-draw-rectangle,
+            #map .leaflet-bar .leaflet-draw-draw-circle,
+            #map .leaflet-bar .leaflet-draw-edit-edit,
+            #map .leaflet-bar .leaflet-draw-edit-remove {
+                display: none;
+            }
+
+            .tblConvert {
+                width: 15%;
+                text-align: center;
+                font-size: 12px;
+            }
+        </style>
+
+        }
+
+        @section Scripts{
+        @*
+        <script src="~/plugins/map/js/ofi_paf.js"></script>*@
+        @*
+        <script type="text/javascript" src="~/plugins/map/js/script.js"></script>*@
+        <script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
+        <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
+        <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
+        <script
+            src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script type="text/javascript">
+            var results = [];
+            $(document).ready(function () {
+
+                $("#findMap1").hide();
+                $("#findMap2").hide();
+                $("#findMap3").hide();
+                $("#findMap4").hide();
+                $("#findMap5").hide();
+                $("#findMap6").hide();
+                $("#findMap7").hide();
+                $("#costStructure2").hide();
+                $("#costStructure3").hide();
+                $("#costStructure4").hide();
+                $("#costStructure5").hide();
+                $("#costStructure6").hide();
+                $("#costStructure7").hide(); 
+
+                //-------------------------------------------------------------------------//
+
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstEnergy")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+                        var len = response.data.length;
+                        for (var i = 0; i < len; i++) {
+                            var id = response.data[i].energyID;
+                            var name = response.data[i].energy;
+                            var nilai = response.data[i].nilaiKalori;
+                            var satuan = response.data[i].satuan;
+                            $("#bahanBakar1").append("<option value='" + id + "'>" + name + "</option>");
+                            $("#energyName1").val(name);
+                        }
+                        $("#bahanBakar1").val(8);
+                        $("#satuanPemakaian1").text("M3/Bln");
+                        $("#_satuanPemakaian1").text("M3/Bln");
+                    }
+                });
+                
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstEnergy")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+                        var len = response.data.length;
+                        for (var i = 0; i < len; i++) {
+                            var id = response.data[i].energyID;
+                            var name = response.data[i].energy;
+                            var nilai = response.data[i].nilaiKalori;
+                            var satuan = response.data[i].satuan;
+                            $("#bahanBakar2").append("<option value='" + id + "'>" + name + "</option>");
+                            $("#energyName2").val(name);
+                        }
+                        $("#bahanBakar2").val(8);
+                        $("#satuanPemakaian2").text("M3/Bln");
+                        $("#_satuanPemakaian2").text("M3/Bln");
+                    }
+                });
+
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstEnergy")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+                        var len = response.data.length;
+                        for (var i = 0; i < len; i++) {
+                            var id = response.data[i].energyID;
+                            var name = response.data[i].energy;
+                            var nilai = response.data[i].nilaiKalori;
+                            var satuan = response.data[i].satuan;
+                            $("#bahanBakar3").append("<option value='" + id + "'>" + name + "</option>");
+                            $("#energyName3").val(name);
+                        }
+                        $("#bahanBakar3").val(8);
+                        $("#satuanPemakaian3").text("M3/Bln");
+                        $("#_satuanPemakaian3").text("M3/Bln");
+                    }
+                });
+
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstEnergy")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+                        var len = response.data.length;
+                        for (var i = 0; i < len; i++) {
+                            var id = response.data[i].energyID;
+                            var name = response.data[i].energy;
+                            var nilai = response.data[i].nilaiKalori;
+                            var satuan = response.data[i].satuan;
+                            $("#bahanBakar4").append("<option value='" + id + "'>" + name + "</option>");
+                            $("#energyName4").val(name);
+                        }
+                        $("#bahanBakar4").val(8);
+                        $("#satuanPemakaian4").text("M3/Bln");
+                        $("#_satuanPemakaian4").text("M3/Bln");
+                    }
+                });
+
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstEnergy")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+                        var len = response.data.length;
+                        for (var i = 0; i < len; i++) {
+                            var id = response.data[i].energyID;
+                            var name = response.data[i].energy;
+                            var nilai = response.data[i].nilaiKalori;
+                            var satuan = response.data[i].satuan;
+                            $("#bahanBakar5").append("<option value='" + id + "'>" + name + "</option>");
+                            $("#energyName5").val(name);
+                        }
+                        $("#bahanBakar5").val(8);
+                        $("#satuanPemakaian5").text("M3/Bln");
+                        $("#_satuanPemakaian5").text("M3/Bln");
+                    }
+                });
+
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstEnergy")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+                        var len = response.data.length;
+                        for (var i = 0; i < len; i++) {
+                            var id = response.data[i].energyID;
+                            var name = response.data[i].energy;
+                            var nilai = response.data[i].nilaiKalori;
+                            var satuan = response.data[i].satuan;
+                            $("#bahanBakar6").append("<option value='" + id + "'>" + name + "</option>");
+                            $("#energyName6").val(name);
+                        }
+                        $("#bahanBakar6").val(8);
+                        $("#satuanPemakaian6").text("M3/Bln");
+                        $("#_satuanPemakaian6").text("M3/Bln");
+                    }
+                });
+
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstEnergy")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+                        var len = response.data.length;
+                        for (var i = 0; i < len; i++) {
+                            var id = response.data[i].energyID;
+                            var name = response.data[i].energy;
+                            var nilai = response.data[i].nilaiKalori;
+                            var satuan = response.data[i].satuan;
+                            $("#bahanBakar7").append("<option value='" + id + "'>" + name + "</option>");
+                            $("#energyName7").val(name);
+                        }
+                        $("#bahanBakar7").val(8);
+                        $("#satuanPemakaian7").text("M3/Bln");
+                        $("#_satuanPemakaian7").text("M3/Bln");
+                    }
+                });
+            });
+
+            //------------- FUNCTION ADD OR DELETE CAPEL -------///
+
+            $('.btn-number').click(function (e) {
+                e.preventDefault();
+
+                fieldName = $(this).attr('data-field');
+                type = $(this).attr('data-type');
+                var input = $("input[name='" + fieldName + "']");
+                var currentVal = parseInt(input.val());
+                if (!isNaN(currentVal)) {
+                    if (type == 'minus') {
+
+                        if (currentVal > input.attr('min')) {
+                            input.val(currentVal - 1).change();
+                        }
+                        if (parseInt(input.val()) == input.attr('min')) {
+                            $(this).attr('disabled', true);
+                        }
+
+                    } else if (type == 'plus') {
+
+                        if (currentVal < input.attr('max')) {
+                            input.val(currentVal + 1).change();
+                        }
+                        if (parseInt(input.val()) == input.attr('max')) {
+                            $(this).attr('disabled', true);
+                        }
+
+                        let _div = $("#costStructure").clone()[0];
+                        $(_div).attr('id', 'div-capel-' + input.val());
+
+
+                    }
+                } else {
+                    input.val(0);
+                }
+
+                appendListCapel(type, input.val())
+            });
+            $('.input-number').focusin(function () {
+                $(this).data('oldValue', $(this).val());
+            });
+            $('.input-number').change(function () {
+
+                minValue = parseInt($(this).attr('min'));
+                maxValue = parseInt($(this).attr('max'));
+                valueCurrent = parseInt($(this).val());
+
+                name = $(this).attr('name');
+                if (valueCurrent >= minValue) {
+                    $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+                } else {
+                    alert('Sorry, the minimum value was reached');
+                    $(this).val($(this).data('oldValue'));
+                }
+                if (valueCurrent <= maxValue) {
+                    $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+                } else {
+                    alert('Sorry, the maximum value was reached');
+                    $(this).val($(this).data('oldValue'));
+                }
+
+
+            });
+            $(".input-number").keydown(function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                    // Allow: Ctrl+A
+                    (e.keyCode == 65 && e.ctrlKey === true) ||
+                    // Allow: home, end, left, right
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+
+            //-------------- APPEND LIST CAPEL--------------//
+
+            function appendListCapel(type, total_capel) {
+                let option = `<option value="${'costStructure' + total_capel}"> ${'Pelanggan ' + total_capel} </option>`;
+
+                if (type == 'plus') {
+                    $("#list-capel").append(option);
+                } else {
+                    let idx = total_capel - 1;
+                    $("#list-capel option:gt('" + idx + "')").remove();
+
+                    $("#list-capel option[value='" + total_capel + "']").change();
+                    $("#list-capel option[value!='" + 1 + "']").each(function (idx, value) {
+                        let id = $(value).val();
+                        $('#' + id).hide();
+                    });
+
+
+                    $('#costStructure' + idx).show();
+                }
+
+            }
+
+            //---------------------CAPEL CHANGE-----------------------//
+
+            function changeCapel(elm) {
+                let no_capel = $(elm).val();
+                $("#list-capel option[value!='" + no_capel + "']").each(function (idx, value) {
+                    let id = $(value).val();
+                    $('#' + id).hide();
+                });
+
+
+                $('#' + no_capel).show();
+                //$('#tbl-bill-' + no_bill).parents('div.dataTables_wrapper').first().show();
+
+            }
+
+            //---------------- MAP FUNCTION --------------------//
+
+            function mapp1() {
+                $("#costStructure1").hide();
+                $("#headerCluster").hide();
+                $("#btnFooter").hide();
+                $("#findMap1").show();
+
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        console.log(locationMaps);
+                        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                        map = new L.Map('map1', {
+                            minZoom: 6,
+                            zoom: 9,
+                            center: [-6.159907, 106.815383]
+                        })
+                        
+                        osm.addTo(map)
+                        // This is the circle on the map that will be determine how many markers are around
+                        var circle;
+                        // The marker drawn onto the map
+                        var drawn_marker = L.marker();
+                        // Group for our markers
+                        var drawn_markers = L.featureGroup();
+                        map.addLayer(drawn_markers);
+                        // Icons that get placed on map
+                        var eco = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/pertacon.png'
+                        });
+                        // When an icon is clicked
+                        function popup(feature, layer) {
+                            if (feature.properties && feature.properties.oficina) {
+                                layer.bindPopup(feature.properties.oficina, {
+                                    closeButton: false,
+                                    offset: L.point(0, -20)
+                                });
+                                layer.on('mouseover', function () {
+                                    layer.openPopup();
+                                });
+                                layer.on('mouseout', function () {
+                                    layer.closePopup();
+                                });
+                            }
+                        };
+                        // Convert miles to meters to set radius of circle
+                        function milesToMeters(miles) {
+                            return miles * 1069.344;
+                        };
+                         
+                        var draw_control = new L.Control.Draw({
+                            draw: {
+                                polyline: false,
+                                polygon: false,
+                                circle: false,
+                                marker: drawn_marker
+                            },
+                            edit: {
+                                featureGroup: drawn_markers,
+                                remove: true
+                            }
+                        });
+                        map.on(L.Draw.Event.CREATED, function (event) {
+                            var layer = event.layer;
+                            drawn_markers.addLayer(layer);
+                        });
+                        map.addControl(draw_control);
+                       
+
+                        var farmacias = L.geoJson(locationMaps, {
+                            onEachFeature: popup,
+                            pointToLayer: function (feature, latlng) {
+                                return L.marker(latlng, { icon: eco });
+                            }
+                        }).addTo(map);
+                        // This is called after the marker is drawn
+                        map.on('draw:created', function (e) {
+                            // Add a circle around the marker
+                            var marker_lat_long = e.layer._latlng
+                            $("#latitude1").val(marker_lat_long.lat);
+                            $("#longitude1").val(marker_lat_long.lng);
+                            
+                            // Make the marker draggable
+                            e.layer.dragging.enable();
+                            // If you drag the marker, make sure the circle goes with it
+                            e.layer.on('dragend', function (event) {
+
+                                $("#latitude1").val(event.target.getLatLng().lat);
+                                $("#longitude1").val(event.target.getLatLng().lng);
+                                map.setView(event.target.getLatLng());
+                                
+                            });
+                            $('.leaflet-draw-draw-marker').hide();
+                        });
+                        // Reset map view on marker drag
+                        drawn_marker.on('dragend', function (event) {
+                            map.setView(event.target.getLatLng());
+                            circle.setLatLng(event.target.getLatLng());
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters($('#radius').val()));
+                            // Redraw: Leaflet function
+                            circle.redraw();
+                        });
+                    }
+
+                });
+
+                
+            }
+            function mapp2() {
+                $("#costStructure2").hide();
+                $("#headerCluster").hide();
+                $("#btnFooter").hide();
+                $("#findMap2").show();
+
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        console.log(locationMaps);
+                        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                        map = new L.Map('map2', {
+                            minZoom: 6,
+                            zoom: 9,
+                            center: [-6.159907, 106.815383]
+                        })
+                        
+                        osm.addTo(map)
+                        // This is the circle on the map that will be determine how many markers are around
+                        var circle;
+                        // The marker drawn onto the map
+                        var drawn_marker = L.marker();
+                        // Group for our markers
+                        var drawn_markers = L.featureGroup();
+                        map.addLayer(drawn_markers);
+                        // Icons that get placed on map
+                        var eco = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/pertacon.png'
+                        });
+                        // When an icon is clicked
+                        function popup(feature, layer) {
+                            if (feature.properties && feature.properties.oficina) {
+                                layer.bindPopup(feature.properties.oficina, {
+                                    closeButton: false,
+                                    offset: L.point(0, -20)
+                                });
+                                layer.on('mouseover', function () {
+                                    layer.openPopup();
+                                });
+                                layer.on('mouseout', function () {
+                                    layer.closePopup();
+                                });
+                            }
+                        };
+                        // Convert miles to meters to set radius of circle
+                        function milesToMeters(miles) {
+                            return miles * 1069.344;
+                        };
+                         
+                        var draw_control = new L.Control.Draw({
+                            draw: {
+                                polyline: false,
+                                polygon: false,
+                                circle: false,
+                                marker: drawn_marker
+                            },
+                            edit: {
+                                featureGroup: drawn_markers,
+                                remove: true
+                            }
+                        });
+                        map.on(L.Draw.Event.CREATED, function (event) {
+                            var layer = event.layer;
+                            drawn_markers.addLayer(layer);
+                        });
+                        map.addControl(draw_control);
+                       
+
+                        var farmacias = L.geoJson(locationMaps, {
+                            onEachFeature: popup,
+                            pointToLayer: function (feature, latlng) {
+                                return L.marker(latlng, { icon: eco });
+                            }
+                        }).addTo(map);
+                        // This is called after the marker is drawn
+                        map.on('draw:created', function (e) {
+                            // Add a circle around the marker
+                            var marker_lat_long = e.layer._latlng
+                            $("#latitude2").val(marker_lat_long.lat);
+                            $("#longitude2").val(marker_lat_long.lng);
+                            
+                            // Make the marker draggable
+                            e.layer.dragging.enable();
+                            // If you drag the marker, make sure the circle goes with it
+                            e.layer.on('dragend', function (event) {
+
+                                $("#latitude2").val(event.target.getLatLng().lat);
+                                $("#longitude2").val(event.target.getLatLng().lng);
+                                map.setView(event.target.getLatLng());
+                                
+                            });
+                            $('.leaflet-draw-draw-marker').hide();
+                        });
+                        // Reset map view on marker drag
+                        drawn_marker.on('dragend', function (event) {
+                            map.setView(event.target.getLatLng());
+                            circle.setLatLng(event.target.getLatLng());
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters($('#radius').val()));
+                            // Redraw: Leaflet function
+                            circle.redraw();
+                        });
+                    }
+
+                });
+
+            }
+            function mapp3() {
+                $("#costStructure3").hide();
+                $("#headerCluster").hide();
+                $("#btnFooter").hide();
+                $("#findMap3").show();
+
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        console.log(locationMaps);
+                        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                        map = new L.Map('map3', {
+                            minZoom: 6,
+                            zoom: 9,
+                            center: [-6.159907, 106.815383]
+                        })
+                        
+                        osm.addTo(map)
+                        // This is the circle on the map that will be determine how many markers are around
+                        var circle;
+                        // The marker drawn onto the map
+                        var drawn_marker = L.marker();
+                        // Group for our markers
+                        var drawn_markers = L.featureGroup();
+                        map.addLayer(drawn_markers);
+                        // Icons that get placed on map
+                        var eco = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/pertacon.png'
+                        });
+                        // When an icon is clicked
+                        function popup(feature, layer) {
+                            if (feature.properties && feature.properties.oficina) {
+                                layer.bindPopup(feature.properties.oficina, {
+                                    closeButton: false,
+                                    offset: L.point(0, -20)
+                                });
+                                layer.on('mouseover', function () {
+                                    layer.openPopup();
+                                });
+                                layer.on('mouseout', function () {
+                                    layer.closePopup();
+                                });
+                            }
+                        };
+                        // Convert miles to meters to set radius of circle
+                        function milesToMeters(miles) {
+                            return miles * 1069.344;
+                        };
+                         
+                        var draw_control = new L.Control.Draw({
+                            draw: {
+                                polyline: false,
+                                polygon: false,
+                                circle: false,
+                                marker: drawn_marker
+                            },
+                            edit: {
+                                featureGroup: drawn_markers,
+                                remove: true
+                            }
+                        });
+                        map.on(L.Draw.Event.CREATED, function (event) {
+                            var layer = event.layer;
+                            drawn_markers.addLayer(layer);
+                        });
+                        map.addControl(draw_control);
+                       
+
+                        var farmacias = L.geoJson(locationMaps, {
+                            onEachFeature: popup,
+                            pointToLayer: function (feature, latlng) {
+                                return L.marker(latlng, { icon: eco });
+                            }
+                        }).addTo(map);
+                        // This is called after the marker is drawn
+                        map.on('draw:created', function (e) {
+                            // Add a circle around the marker
+                            var marker_lat_long = e.layer._latlng
+                            $("#latitude3").val(marker_lat_long.lat);
+                            $("#longitude3").val(marker_lat_long.lng);
+                            
+                            // Make the marker draggable
+                            e.layer.dragging.enable();
+                            // If you drag the marker, make sure the circle goes with it
+                            e.layer.on('dragend', function (event) {
+
+                                $("#latitude3").val(event.target.getLatLng().lat);
+                                $("#longitude3").val(event.target.getLatLng().lng);
+                                map.setView(event.target.getLatLng());
+                                
+                            });
+                            $('.leaflet-draw-draw-marker').hide();
+                        });
+                        // Reset map view on marker drag
+                        drawn_marker.on('dragend', function (event) {
+                            map.setView(event.target.getLatLng());
+                            circle.setLatLng(event.target.getLatLng());
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters($('#radius').val()));
+                            // Redraw: Leaflet function
+                            circle.redraw();
+                        });
+                    }
+
+                });
+
+            }
+            function mapp4() {
+                $("#costStructure4").hide();
+                $("#headerCluster").hide();
+                $("#btnFooter").hide();
+                $("#findMap4").show();
+
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        console.log(locationMaps);
+                        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                        map = new L.Map('map4', {
+                            minZoom: 6,
+                            zoom: 9,
+                            center: [-6.159907, 106.815383]
+                        })
+                        
+                        osm.addTo(map)
+                        // This is the circle on the map that will be determine how many markers are around
+                        var circle;
+                        // The marker drawn onto the map
+                        var drawn_marker = L.marker();
+                        // Group for our markers
+                        var drawn_markers = L.featureGroup();
+                        map.addLayer(drawn_markers);
+                        // Icons that get placed on map
+                        var eco = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/pertacon.png'
+                        });
+                        // When an icon is clicked
+                        function popup(feature, layer) {
+                            if (feature.properties && feature.properties.oficina) {
+                                layer.bindPopup(feature.properties.oficina, {
+                                    closeButton: false,
+                                    offset: L.point(0, -20)
+                                });
+                                layer.on('mouseover', function () {
+                                    layer.openPopup();
+                                });
+                                layer.on('mouseout', function () {
+                                    layer.closePopup();
+                                });
+                            }
+                        };
+                        // Convert miles to meters to set radius of circle
+                        function milesToMeters(miles) {
+                            return miles * 1069.344;
+                        };
+                         
+                        var draw_control = new L.Control.Draw({
+                            draw: {
+                                polyline: false,
+                                polygon: false,
+                                circle: false,
+                                marker: drawn_marker
+                            },
+                            edit: {
+                                featureGroup: drawn_markers,
+                                remove: true
+                            }
+                        });
+                        map.on(L.Draw.Event.CREATED, function (event) {
+                            var layer = event.layer;
+                            drawn_markers.addLayer(layer);
+                        });
+                        map.addControl(draw_control);
+                       
+
+                        var farmacias = L.geoJson(locationMaps, {
+                            onEachFeature: popup,
+                            pointToLayer: function (feature, latlng) {
+                                return L.marker(latlng, { icon: eco });
+                            }
+                        }).addTo(map);
+                        // This is called after the marker is drawn
+                        map.on('draw:created', function (e) {
+                            // Add a circle around the marker
+                            var marker_lat_long = e.layer._latlng
+                            $("#latitude4").val(marker_lat_long.lat);
+                            $("#longitude4").val(marker_lat_long.lng);
+                            
+                            // Make the marker draggable
+                            e.layer.dragging.enable();
+                            // If you drag the marker, make sure the circle goes with it
+                            e.layer.on('dragend', function (event) {
+
+                                $("#latitude4").val(event.target.getLatLng().lat);
+                                $("#longitude4").val(event.target.getLatLng().lng);
+                                map.setView(event.target.getLatLng());
+                                
+                            });
+                            $('.leaflet-draw-draw-marker').hide();
+                        });
+                        // Reset map view on marker drag
+                        drawn_marker.on('dragend', function (event) {
+                            map.setView(event.target.getLatLng());
+                            circle.setLatLng(event.target.getLatLng());
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters($('#radius').val()));
+                            // Redraw: Leaflet function
+                            circle.redraw();
+                        });
+                    }
+
+                });
+
+            }
+            function mapp5() {
+                $("#costStructure5").hide();
+                $("#headerCluster").hide();
+                $("#btnFooter").hide();
+                $("#findMap5").show();
+
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        console.log(locationMaps);
+                        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                        map = new L.Map('map5', {
+                            minZoom: 6,
+                            zoom: 9,
+                            center: [-6.159907, 106.815383]
+                        })
+                        
+                        osm.addTo(map)
+                        // This is the circle on the map that will be determine how many markers are around
+                        var circle;
+                        // The marker drawn onto the map
+                        var drawn_marker = L.marker();
+                        // Group for our markers
+                        var drawn_markers = L.featureGroup();
+                        map.addLayer(drawn_markers);
+                        // Icons that get placed on map
+                        var eco = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/pertacon.png'
+                        });
+                        // When an icon is clicked
+                        function popup(feature, layer) {
+                            if (feature.properties && feature.properties.oficina) {
+                                layer.bindPopup(feature.properties.oficina, {
+                                    closeButton: false,
+                                    offset: L.point(0, -20)
+                                });
+                                layer.on('mouseover', function () {
+                                    layer.openPopup();
+                                });
+                                layer.on('mouseout', function () {
+                                    layer.closePopup();
+                                });
+                            }
+                        };
+                        // Convert miles to meters to set radius of circle
+                        function milesToMeters(miles) {
+                            return miles * 1069.344;
+                        };
+                         
+                        var draw_control = new L.Control.Draw({
+                            draw: {
+                                polyline: false,
+                                polygon: false,
+                                circle: false,
+                                marker: drawn_marker
+                            },
+                            edit: {
+                                featureGroup: drawn_markers,
+                                remove: true
+                            }
+                        });
+                        map.on(L.Draw.Event.CREATED, function (event) {
+                            var layer = event.layer;
+                            drawn_markers.addLayer(layer);
+                        });
+                        map.addControl(draw_control);
+                       
+
+                        var farmacias = L.geoJson(locationMaps, {
+                            onEachFeature: popup,
+                            pointToLayer: function (feature, latlng) {
+                                return L.marker(latlng, { icon: eco });
+                            }
+                        }).addTo(map);
+                        // This is called after the marker is drawn
+                        map.on('draw:created', function (e) {
+                            // Add a circle around the marker
+                            var marker_lat_long = e.layer._latlng
+                            $("#latitude5").val(marker_lat_long.lat);
+                            $("#longitude5").val(marker_lat_long.lng);
+                            
+                            // Make the marker draggable
+                            e.layer.dragging.enable();
+                            // If you drag the marker, make sure the circle goes with it
+                            e.layer.on('dragend', function (event) {
+
+                                $("#latitude5").val(event.target.getLatLng().lat);
+                                $("#longitude5").val(event.target.getLatLng().lng);
+                                map.setView(event.target.getLatLng());
+                                
+                            });
+                            $('.leaflet-draw-draw-marker').hide();
+                        });
+                        // Reset map view on marker drag
+                        drawn_marker.on('dragend', function (event) {
+                            map.setView(event.target.getLatLng());
+                            circle.setLatLng(event.target.getLatLng());
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters($('#radius').val()));
+                            // Redraw: Leaflet function
+                            circle.redraw();
+                        });
+                    }
+
+                });
+
+            }
+            function mapp6() {
+                $("#costStructure6").hide();
+                $("#headerCluster").hide();
+                $("#btnFooter").hide();
+                $("#findMap6").show();
+
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        console.log(locationMaps);
+                        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                        map = new L.Map('map6', {
+                            minZoom: 6,
+                            zoom: 9,
+                            center: [-6.159907, 106.815383]
+                        })
+                        
+                        osm.addTo(map)
+                        // This is the circle on the map that will be determine how many markers are around
+                        var circle;
+                        // The marker drawn onto the map
+                        var drawn_marker = L.marker();
+                        // Group for our markers
+                        var drawn_markers = L.featureGroup();
+                        map.addLayer(drawn_markers);
+                        // Icons that get placed on map
+                        var eco = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/pertacon.png'
+                        });
+                        // When an icon is clicked
+                        function popup(feature, layer) {
+                            if (feature.properties && feature.properties.oficina) {
+                                layer.bindPopup(feature.properties.oficina, {
+                                    closeButton: false,
+                                    offset: L.point(0, -20)
+                                });
+                                layer.on('mouseover', function () {
+                                    layer.openPopup();
+                                });
+                                layer.on('mouseout', function () {
+                                    layer.closePopup();
+                                });
+                            }
+                        };
+                        // Convert miles to meters to set radius of circle
+                        function milesToMeters(miles) {
+                            return miles * 1069.344;
+                        };
+                         
+                        var draw_control = new L.Control.Draw({
+                            draw: {
+                                polyline: false,
+                                polygon: false,
+                                circle: false,
+                                marker: drawn_marker
+                            },
+                            edit: {
+                                featureGroup: drawn_markers,
+                                remove: true
+                            }
+                        });
+                        map.on(L.Draw.Event.CREATED, function (event) {
+                            var layer = event.layer;
+                            drawn_markers.addLayer(layer);
+                        });
+                        map.addControl(draw_control);
+                       
+
+                        var farmacias = L.geoJson(locationMaps, {
+                            onEachFeature: popup,
+                            pointToLayer: function (feature, latlng) {
+                                return L.marker(latlng, { icon: eco });
+                            }
+                        }).addTo(map);
+                        // This is called after the marker is drawn
+                        map.on('draw:created', function (e) {
+                            // Add a circle around the marker
+                            var marker_lat_long = e.layer._latlng
+                            $("#latitude6").val(marker_lat_long.lat);
+                            $("#longitude6").val(marker_lat_long.lng);
+                            
+                            // Make the marker draggable
+                            e.layer.dragging.enable();
+                            // If you drag the marker, make sure the circle goes with it
+                            e.layer.on('dragend', function (event) {
+
+                                $("#latitude6").val(event.target.getLatLng().lat);
+                                $("#longitude6").val(event.target.getLatLng().lng);
+                                map.setView(event.target.getLatLng());
+                                
+                            });
+                            $('.leaflet-draw-draw-marker').hide();
+                        });
+                        // Reset map view on marker drag
+                        drawn_marker.on('dragend', function (event) {
+                            map.setView(event.target.getLatLng());
+                            circle.setLatLng(event.target.getLatLng());
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters($('#radius').val()));
+                            // Redraw: Leaflet function
+                            circle.redraw();
+                        });
+                    }
+
+                });
+
+            }
+            function mapp7() {
+                $("#costStructure7").hide();
+                $("#headerCluster").hide();
+                $("#btnFooter").hide();
+                $("#findMap7").show();
+
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        console.log(locationMaps);
+                        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                        map = new L.Map('map7', {
+                            minZoom: 6,
+                            zoom: 9,
+                            center: [-6.159907, 106.815383]
+                        })
+                        
+                        osm.addTo(map)
+                        // This is the circle on the map that will be determine how many markers are around
+                        var circle;
+                        // The marker drawn onto the map
+                        var drawn_marker = L.marker();
+                        // Group for our markers
+                        var drawn_markers = L.featureGroup();
+                        map.addLayer(drawn_markers);
+                        // Icons that get placed on map
+                        var eco = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/pertacon.png'
+                        });
+                        // When an icon is clicked
+                        function popup(feature, layer) {
+                            if (feature.properties && feature.properties.oficina) {
+                                layer.bindPopup(feature.properties.oficina, {
+                                    closeButton: false,
+                                    offset: L.point(0, -20)
+                                });
+                                layer.on('mouseover', function () {
+                                    layer.openPopup();
+                                });
+                                layer.on('mouseout', function () {
+                                    layer.closePopup();
+                                });
+                            }
+                        };
+                        // Convert miles to meters to set radius of circle
+                        function milesToMeters(miles) {
+                            return miles * 1069.344;
+                        };
+                         
+                        var draw_control = new L.Control.Draw({
+                            draw: {
+                                polyline: false,
+                                polygon: false,
+                                circle: false,
+                                marker: drawn_marker
+                            },
+                            edit: {
+                                featureGroup: drawn_markers,
+                                remove: true
+                            }
+                        });
+                        map.on(L.Draw.Event.CREATED, function (event) {
+                            var layer = event.layer;
+                            drawn_markers.addLayer(layer);
+                        });
+                        map.addControl(draw_control);
+                       
+
+                        var farmacias = L.geoJson(locationMaps, {
+                            onEachFeature: popup,
+                            pointToLayer: function (feature, latlng) {
+                                return L.marker(latlng, { icon: eco });
+                            }
+                        }).addTo(map);
+                        // This is called after the marker is drawn
+                        map.on('draw:created', function (e) {
+                            // Add a circle around the marker
+                            var marker_lat_long = e.layer._latlng
+                            $("#latitude7").val(marker_lat_long.lat);
+                            $("#longitude7").val(marker_lat_long.lng);
+                            
+                            // Make the marker draggable
+                            e.layer.dragging.enable();
+                            // If you drag the marker, make sure the circle goes with it
+                            e.layer.on('dragend', function (event) {
+
+                                $("#latitude7").val(event.target.getLatLng().lat);
+                                $("#longitude7").val(event.target.getLatLng().lng);
+                                map.setView(event.target.getLatLng());
+                                
+                            });
+                            $('.leaflet-draw-draw-marker').hide();
+                        });
+                        // Reset map view on marker drag
+                        drawn_marker.on('dragend', function (event) {
+                            map.setView(event.target.getLatLng());
+                            circle.setLatLng(event.target.getLatLng());
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters($('#radius').val()));
+                            // Redraw: Leaflet function
+                            circle.redraw();
+                        });
+                    }
+
+                });
+
+            }
+            function back1() {
+                $("#costStructure1").show();
+                $("#convertEnergy1").hide();
+                $("#calculateSimulation1").hide();
+                $("#findMap1").hide();
+                $("#headerCluster").show();
+                $("#btnFooter").show();
+            }
+            function back2() {
+                $("#costStructure2").show();
+                $("#convertEnergy2").hide();
+                $("#calculateSimulation2").hide();
+                $("#findMap2").hide();
+                $("#headerCluster").show();
+                $("#btnFooter").show();
+            }
+            function back3() {
+                $("#costStructure3").show();
+                $("#convertEnergy3").hide();
+                $("#calculateSimulation3").hide();
+                $("#findMap3").hide();
+                $("#headerCluster").show();
+                $("#btnFooter").show();
+            }
+            function back4() {
+                $("#costStructure4").show();
+                $("#convertEnergy4").hide();
+                $("#calculateSimulation4").hide();
+                $("#findMap4").hide();
+                $("#headerCluster").show();
+                $("#btnFooter").show();
+            }
+            function back5() {
+                $("#costStructure5").show();
+                $("#convertEnergy5").hide();
+                $("#calculateSimulation5").hide();
+                $("#findMap5").hide();
+                $("#headerCluster").show();
+                $("#btnFooter").show();
+            }
+            function back6() {
+                $("#costStructure6").show();
+                $("#convertEnergy6").hide();
+                $("#calculateSimulation6").hide();
+                $("#findMap6").hide();
+                $("#headerCluster").show();
+                $("#btnFooter").show();
+            }
+            function back7() {
+                $("#costStructure7").show();
+                $("#convertEnergy7").hide();
+                $("#calculateSimulation7").hide();
+                $("#findMap7").hide();
+                $("#headerCluster").show();
+                $("#btnFooter").show();
+            }
+
+            //------------------------------- CALCULATE CLUSTER -------------------------------//
+
+            function calculateCluster(){
+
+                var countCapel = $('.input-number').val();
+
+                alert(countCapel);
+
+                results = [];
+                var projectName = $("#projectName1").val();
+                var creator = $("#creator1").val();
+                var projectDate = $("#projectDate1").val();
+                var customerName = $("#customerName1").val();
+                var demandUsage = $("#demandUsage1").val();
+                var targetCOD = $("#targetCOD1").val();
+                var hourDay = $("#hourDay1").val();
+                var workDay = $("#workDay1").val();
+                var lat = $("#latitude1").val();
+                var long = $("#longitude1").val();
+
+                console.log(projectName);
+                console.log(creator);
+                console.log(projectDate);
+                console.log(customerName);
+                console.log(demandUsage);
+                console.log(targetCOD);
+                console.log(hourDay);
+                console.log(workDay);
+                console.log(lat);
+                console.log(long);
+                
+            }
+
+            //------------------------------- POINT MAP -------------------------------//
+            function pointMap(lat, long) {
+                var titik = L.latLng(lat, long);
+                L.marker(titik).addTo(map);
+
+                var circle;
+                var radius = milesToMeters($("#radius").val());
+                circle = L.circle(titik, radius);
+                circle.addTo(map);
+
+                pointsInCircle(circle, radius);
+            }
+            function changeCircleRadius(jarak) {
+                //alert(jarak);
+                // Determine which geocode box is filled
+                // And fire click event
+                // This will determine how many markers are within the circle
+                pointsInCircle(circle, milesToMeters(jarak))
+                // Set radius of circle only if we already have one on the map
+                if (circle) {
+                    circle.setRadius(milesToMeters(jarak));
+                }
+            }
+            function milesToMeters(miles) {
+                return miles * 1069.344;
+            };
+            function pointsInCircle(circle, meters_user_set) {
+                var locationMaps = ofi_paf;
+                let mapping = [];
+                for (var i = 0; i < locationMaps.features.length; i++) {
+                    var long = locationMaps.features[i].geometry.coordinates[0];
+                    var lat = locationMaps.features[i].geometry.coordinates[1];
+                    var loc = locationMaps.features[i].properties.oficina;
+                    let temp = {
+                        "loc": loc,
+                        "lat": lat,
+                        "long": long
+                    }
+                    mapping.push(temp);
+                }
+
+                if (circle !== undefined) {
+                    // Only run if we have an address entered
+                    // Lat, long of circle
+                    circle_lat_long = circle.getLatLng();
+                    var counter_points_in_circle = 0;
+                    // Loop through each point in JSON file
+                    for (var i = 0; i < mapping.length; i++) {
+                        // Lat, long of current point
+                        let latA = mapping[i].coord;
+                        var latlng = L.latLng(mapping[i].lat, mapping[i].long);
+                        layer_lat_long = latA;
+
+                        // Distance from our circle marker
+                        // To current point in meters
+                        distance_from_layer_circle = latlng.distanceTo(circle_lat_long);
+                        //calculateDistance(latlng, latB)
+                        // See if meters is within raduis
+                        // The user has selected
+                        if (distance_from_layer_circle <= meters_user_set) {
+                            counter_points_in_circle += 1;
+                            let temp = {
+                                "lokasi": mapping[i].loc,
+                                "jarak": (distance_from_layer_circle / 1000).toFixed(2),
+                                "latitude": mapping[i].lat,
+                                "longitude": mapping[i].long,
+                            }
+                            results.push(temp);
+                        }
+                    };
+                    //farmacias.eachLayer(function (layer) {
+
+                    //});
+                    // Set number of results on main page
+                    $('#ofi_paf_results').html(counter_points_in_circle);
+                }
+
+                // Close pointsInCircle
+            };
+            function popup(feature, layer) {
+                if (feature.properties && feature.properties.oficina) {
+                    layer.bindPopup(feature.properties.oficina, {
+                        closeButton: false,
+                        offset: L.point(0, -20)
+                    });
+                    layer.on('mouseover', function () {
+                        layer.openPopup();
+                    });
+                    layer.on('mouseout', function () {
+                        layer.closePopup();
+                    });
+                }
+            };
+
+        </script>
+        }

@@ -11,6 +11,7 @@ namespace SiappGasIn.Models
         [Key]
         public int HeadTruckID { get; set; }
         public string GTM { get; set; }
+        public string Ritase { get; set; }
         public decimal HargaSewa { get; set; }
         public decimal RasioBBM { get; set; }
         public int Kecepatan { get; set; }

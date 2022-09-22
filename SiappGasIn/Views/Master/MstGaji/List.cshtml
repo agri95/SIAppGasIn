@@ -21,6 +21,7 @@ ViewData["Title"] = "Master Gaji";
 			   <th>Lokasi SPBG</th>
 			   <th>Pekerjaan</th>
 			   <th>Gaji</th>
+			   <th>Tahun</th>
 			   <th></th>
 			   <th></th>
 		   </tr>
@@ -59,6 +60,10 @@ ViewData["Title"] = "Master Gaji";
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Gaji</label>
 		   <input type="number" class="form-control" id="Gaji" >
+		 </div>				  
+		<div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Tahun</label>
+		   <input type="number" class="form-control" id="Tahun" >
 		 </div>				  
 		
 	   </form>
@@ -101,6 +106,10 @@ ViewData["Title"] = "Master Gaji";
 		 <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Gaji</label>
 		   <input type="number" class="form-control" id="Gajis" >
+		 </div>	
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Tahun</label>
+		   <input type="number" class="form-control" id="Tahuns" >
 		 </div>				  
 	   </form>
 	 </div>
@@ -196,6 +205,7 @@ $('#btnEditEnergy').click(function () {
 					   "LokasiID": $("#LokasiIDs").val(),
 					   "TypeID": $("#TypeIDs").val(),
 					   "Gaji": $("#Gajis").val(),
+					   "Tahun": $("#Tahuns").val(),
 				   }
 			   ),
 			   success: function (data) {
@@ -206,6 +216,7 @@ $('#btnEditEnergy').click(function () {
 					   $("LokasiIDs").val("");
 					   $('#TypeIDs').val("");
 					   $('#Gajis').val("");
+					   $('#Tahuns').val("");
 
 					   oTable = $('#example').DataTable();
 					   oTable.draw();
@@ -243,6 +254,7 @@ function EditData(dataID) {
 				   $("#LokasiIDs").val(data.data.lokasiID);
 				   $('#TypeIDs').val(data.data.typeID);
 				   $('#Gajis').val(data.data.gaji);
+				   $('#Tahuns').val(data.data.tahun);
 				   
 				   $("#editData").modal("show");
 				   
@@ -274,6 +286,7 @@ $('#saveEnergy').click(function () {
 					   "LokasiID": $("#LokasiID").val(),
 					   "TypeID": $("#TypeID").val(),
 					   "Gaji": $("#Gaji").val(),
+					   "Tahun": $("#Tahun").val(),
 				   }
 			   ),
 			   success: function (data) {
@@ -283,6 +296,7 @@ $('#saveEnergy').click(function () {
 					   $("#LokasiID").val("");
 					   $('#TypeID').val("");
 					   $('#Gaji').val("");
+					   $('#Tahun').val("");
 
 					   $('#msgText').text('Parameter data is added Successfully');
 					   $('#successModal').modal('show'); 
@@ -387,6 +401,7 @@ $('#saveEnergy').click(function () {
 			   { "data": "namaSPBG", "name": "namaLokasi", "autoWidth": true },
 			   { "data": "profesi", "name": "profesi", "autoWidth": true },
 			   { "data": "gaji", "name": "gaji", "autoWidth": true },
+			   { "data": "tahun", "name": "tahun", "autoWidth": true },
 			   
 			   {
 				   "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.gajiID + ')">Edit</a>'; }

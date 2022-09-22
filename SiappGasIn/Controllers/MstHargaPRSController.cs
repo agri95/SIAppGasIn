@@ -64,6 +64,7 @@ namespace SiappGasIn.Controllers.Api
                             PRS = prs.PRS,
                             Harga = prs.Harga,
                             HargaSewa = prs.HargaSewa,
+                            Tahun = prs.Tahun,
                             BiayaMobDemod = prs.BiayaMobDemod,
                             GasMonitoring = prs.GasMonitoring,
                             CreatedBy = this.User.Identity.Name,
@@ -120,6 +121,7 @@ namespace SiappGasIn.Controllers.Api
                             prs.PRS = param.PRS;
                             prs.Harga = param.Harga;
                             prs.HargaSewa = param.HargaSewa;
+                            prs.Tahun = param.Tahun;
                             prs.BiayaMobDemod = param.BiayaMobDemod;
                             prs.GasMonitoring = param.GasMonitoring;
                             prs.ModifiedBy = this.User.Identity.Name;

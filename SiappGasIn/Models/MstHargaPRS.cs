@@ -14,6 +14,7 @@ namespace SiappGasIn.Models
         public string PRS { get; set; }
         public decimal Harga { get; set; }
         public decimal HargaSewa { get; set; }
+        public int Tahun { get; set; }
         public decimal BiayaMobDemod { get; set; }
         public decimal GasMonitoring { get; set; }        
         public string CreatedBy { get; set; }

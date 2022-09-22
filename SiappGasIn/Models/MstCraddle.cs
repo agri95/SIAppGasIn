@@ -14,6 +14,7 @@ namespace SiappGasIn.Models
         public string UkuranGTM { get; set; }
         public decimal HargaBeli { get; set; }
         public decimal HargaSewa { get; set; }
+        public int Tahun { get; set; }
         public int FillingTime { get; set; }
         public int WaitingTime { get; set; }
         public string CreatedBy { get; set; }

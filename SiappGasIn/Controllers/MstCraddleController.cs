@@ -64,6 +64,7 @@ namespace SiappGasIn.Controllers.Api
                             UkuranGTM = crd.UkuranGTM,
                             HargaBeli = crd.HargaBeli,
                             HargaSewa = crd.HargaSewa,
+                            Tahun = crd.Tahun,
                             FillingTime = crd.FillingTime,
                             WaitingTime = crd.WaitingTime,
                             CreatedBy = this.User.Identity.Name,
@@ -120,6 +121,7 @@ namespace SiappGasIn.Controllers.Api
                             prs.UkuranGTM = param.UkuranGTM;
                             prs.HargaBeli = param.HargaBeli;
                             prs.HargaSewa = param.HargaSewa;
+                            prs.Tahun = param.Tahun;
                             prs.FillingTime = param.FillingTime;
                             prs.WaitingTime = param.WaitingTime;
                             prs.ModifiedBy = this.User.Identity.Name;

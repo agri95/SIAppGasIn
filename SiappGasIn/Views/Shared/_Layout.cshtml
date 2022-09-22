@@ -44,7 +44,39 @@
       <link href="~/css/site.css" rel="stylesheet">
 
     @RenderSection("Styles", required: false)
+    <style>
+        ::-webkit-scrollbar {
+          width: 5px;
+        }
 
+        /* Track */
+        ::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 5px grey; 
+          border-radius: 10px;
+        }
+ 
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+          background: #808080; 
+          border-radius: 10px;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+          background: red;
+        }
+
+         ::-webkit-scrollbar{
+        height: 5px;
+        width: 5px;
+        background: red;
+        border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:horizontal{
+            background: #808080;
+            border-radius: 10px;
+        }
+    </style>
   </head>
   <body>
 <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Hi, Administrator</a></li> -->
@@ -135,7 +167,7 @@
                                                         <a class="dropdown-item" href="@Url.Action("List", "MstFel2")"><i class="fas fa-map-marked-alt" aria-hidden="true"></i> FEL 2</a>
                                                     </li> 
                                                     <li>
-                                                        <a class="dropdown-item" href="@Url.Action("List", "MstGaji")"><i class="far fa-money-bill-alt" aria-hidden="true"></i> Gaji Driver & Operator</a>
+                                                        <a class="dropdown-item" href="@Url.Action("List", "MstMRS")"><i class="far fa-money-bill-alt" aria-hidden="true"></i> MRS</a>
                                                     </li>
 
                                                 </ul>
@@ -146,6 +178,7 @@
                                 </li>
                             }
                             <li><a href="@Url.Action("Index", "SimulationCost")"><span><i class="fas fa-calculator" aria-hidden="true"></i></span> Simulation Cost</a></li>
+                            <li><a href="@Url.Action("Cluster", "SimulationCost")"><span><i class="fas fa-calculator" aria-hidden="true"></i></span> Cluster CNG</a></li>
                             <li><a href="@Url.Action("Index", "ConverterEnergy")"><span><i class="fa fa-exchange" aria-hidden="true"></i></span> Converter Energy</a></li>
               
               <br>

@@ -180,9 +180,10 @@ namespace SiappGasIn.Models
         public string volumeUnit  { get; set; }
         public double? diameterValue  { get; set; }
         public string diameterUnit  { get; set; } 
-        public double costValue { get; set; }
+        public double? costValue { get; set; }
         public string costUnit { get; set; }
         public string route { get; set; }
+        public string mrsType { get; set; }
         public string? CreatedBy { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
@@ -200,7 +201,13 @@ namespace SiappGasIn.Models
         public double distanceValue { get; set; }
         public double pressureValue { get; set; }
         public double volumeValue { get; set; }
-        
+        public string route { get; set; }
+        public decimal volume2 { get; set; }
+        public int operasiHari { get; set; }
+        public int operasiMinggu { get; set; }
+        public int operasiBulan { get; set; }
+        public string energyName { get; set; }
+        public decimal pressure { get; set; }
     }
 
 }

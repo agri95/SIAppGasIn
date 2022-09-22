@@ -30,6 +30,7 @@ namespace SiappGasIn.Data
         public DbSet<MstUnit> MstUnit { get; set; }
         public DbSet<MstKlasifikasi> MstKlasifikasi { get; set; }
         public DbSet<MstItemKlasifikasi> MstItemKlasifikasi { get; set; }
+        public DbSet<MstMRS> MstMRS { get; set; }
         public DbSet<MstFEL> MstFEL { get; set; }
         public DbSet<MstFELs> MstFELs { get; set; }
         public DbSet<SysRoleViewModel> SysRoles { get; set; }

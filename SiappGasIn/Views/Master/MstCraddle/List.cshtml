@@ -22,6 +22,7 @@ ViewData["Title"] = "Master Craddle";
 			   <th>Ukuran GTM</th>
 			   <th>Harga Beli (Rp/unit)</th>
 			   <th>Harga Sewa (Rp/Unit/Bulan)</th>
+			   <th>Tahun</th>
 			   <th>Filling Time (hour)</th>
 			   <th>Waiting Time (hour)</th>
 			   <th></th>
@@ -60,6 +61,10 @@ ViewData["Title"] = "Master Craddle";
 		<div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Harga Sewa</label>
 		   <input type="number" class="form-control" id="HargaSewa" placeholder="Rp / Unit / Bulan">
+		 </div>
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Tahun</label>
+		   <input type="number" class="form-control" id="Tahun" placeholder="Rp / Unit / Bulan">
 		 </div>
 		  <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Filling Time</label>
@@ -111,6 +116,10 @@ ViewData["Title"] = "Master Craddle";
 		<div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Harga Sewa</label>
 		   <input type="number" class="form-control" id="HargaSewas" placeholder="Rp / Unit / Bulan">
+		 </div>
+		 <div class="form-group">
+		   <label for="recipient-name" class="col-form-label">Tahun</label>
+		   <input type="number" class="form-control" min="2010" max="2050" id="Tahuns" placeholder="2022">
 		 </div>
 		  <div class="form-group">
 		   <label for="recipient-name" class="col-form-label">Filling Time</label>
@@ -225,6 +234,7 @@ $('#btnEditEnergy').click(function () {
 					   "UkuranGTM": $("#UkuranGTMs").val(),
 					   "HargaBeli": $("#HargaBelis").val(),
 					   "HargaSewa": $("#HargaSewas").val(),
+					   "Tahun": $("#Tahun").val(),
 					   "FillingTime": $("#FillingTimes").val(),
 					   "WaitingTime": $("#WaitingTimes").val(),
 				   }
@@ -238,6 +248,7 @@ $('#btnEditEnergy').click(function () {
 					   $('#UkuranGTMs').val("");
 					   $('#HargaBelis').val("");
 					   $('#HargaSewas').val("");
+					   $('#Tahuns').val("");
 					   $('#FillingTimes').val("");
 					   $('#WaitingTimes').val("");
 
@@ -278,6 +289,7 @@ function EditData(dataID) {
 					   $('#UkuranGTMs').val(data.data.ukuranGTM);
 					   $('#HargaBelis').val(data.data.hargaBeli);
 					   $('#HargaSewas').val(data.data.hargaSewa);
+					   $('#Tahuns').val(data.data.tahun);
 					   $('#FillingTimes').val(data.data.fillingTime);
 					   $('#WaitingTimes').val(data.data.waitingTime);
 				   
@@ -313,6 +325,7 @@ $('#saveEnergy').click(function () {
 					   "UkuranGTM": $("#UkuranGTM").val(),
 					   "HargaBeli": $("#HargaBeli").val(),
 					   "HargaSewa": $("#HargaSewa").val(),
+					   "Tahun": $("#Tahun").val(),
 					   "FillingTime": $("#FillingTime").val(),
 					   "WaitingTime": $("#WaitingTime").val(),
 				   }
@@ -325,6 +338,7 @@ $('#saveEnergy').click(function () {
 					   $('#UkuranGTM').val("");
 					   $('#HargaBeli').val("");
 					   $('#HargaSewa').val("");
+					   $('#Tahun').val("");
 					   $('#FillingTime').val("");
 					   $('#WaitingTime').val("");
 
@@ -413,6 +427,7 @@ $('#saveEnergy').click(function () {
 			   { "data": "ukuranGTM", "name": "ukuranGTM", "autoWidth": true },
 			   { "data": "hargaBeli", "name": "hargaBeli", "autoWidth": true },
 			   { "data": "hargaSewa", "name": "hargaSewa", "autoWidth": true },
+			   { "data": "tahun", "name": "tahun", "autoWidth": true },
 			   { "data": "fillingTime", "name": "fillingTime", "autoWidth": true },
 			   { "data": "waitingTime", "name": "waitingTime", "autoWidth": true },
 			   

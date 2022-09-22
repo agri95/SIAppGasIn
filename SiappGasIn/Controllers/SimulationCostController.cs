@@ -31,6 +31,10 @@ namespace SiappGasIn.Controllers
         {
             return View("~/Views/Master/MstEnergy/List.cshtml");
         }
+        public IActionResult Cluster()
+        {
+            return View("~/Views/SimulationCost/Cluster.cshtml");
+        }
 
         [HttpGet]
         public IActionResult Result(int Id)
@@ -407,7 +411,7 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpGet]
-        public IActionResult getPipeCalculator(string datas, string user, string password, int dataID)
+        public IActionResult getPipeCalculator(string datas, string user, string password, int dataID, decimal volume2, int operasiHari, int operasiBulan, string energyName, decimal pressure)
         {
             var calculate = "";
             string token = getTokens(user,password);
@@ -455,8 +459,13 @@ namespace SiappGasIn.Controllers.Api
                     "@distanceValue = " + distanceValue + "," +
                     "@diameterValue = " + diameterValue + "," +
                     "@pressureValue = " + pressureValue + "," +
-                    "@volumeValue = " + volumeValue + "," +
-                    "@route= '" + route + "'";
+                    "@volumeValue = " + volumeValue + "," +                    
+                    "@route= '" + route + "'," +
+                    "@volume2 = " + volume2 + "," +
+                    "@operasiHari = " + operasiHari + "," +
+                    "@operasiBulan = " + operasiBulan + "," +
+                    "@energyName = '" + energyName + "'," +
+                    "@pressure= " + pressure + "";
 
                     var datass =  _dbContext.Set<SP_PipeCalculator>().FromSqlRaw(StoredProc).ToListAsync();                   
                 }                

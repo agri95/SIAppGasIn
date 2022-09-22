@@ -13,6 +13,7 @@ namespace SiappGasIn.Models
         public int LokasiID { get; set; }
         public int TypeID { get; set; }
         public decimal Gaji { get; set; }
+        public int Tahun { get; set; }
         public string CreatedBy { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
@@ -26,6 +27,7 @@ namespace SiappGasIn.Models
         public string NamaSPBG { get; set; }
         public string Profesi { get; set; }
         public decimal Gaji { get; set; }
+        public int Tahun { get; set; }
     }
     
     public class SP_GetGajiByLocationName

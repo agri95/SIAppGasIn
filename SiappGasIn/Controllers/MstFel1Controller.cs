@@ -89,12 +89,12 @@ namespace SiappGasIn.Controllers.Api
         {
             var isStatus = true;
 
-            MstGaji prm = await _dbContext.MstGaji.Where(x => x.GajiID.Equals(id)).FirstOrDefaultAsync<MstGaji>();
+            MstFEL prm = await _dbContext.MstFEL.Where(x => x.FelID.Equals(id)).FirstOrDefaultAsync<MstFEL>();
 
             if (prm == null)
             {
                 isStatus = false;
-                prm = new MstGaji();
+                prm = new MstFEL();
             }
 
             return Ok
@@ -106,26 +106,30 @@ namespace SiappGasIn.Controllers.Api
 
 
         [HttpPost]
-        public IActionResult EditData([FromBody] MstGaji param)
+        public IActionResult EditData([FromBody] MstFEL param)
         {
             try
             {
                 if (param != null)
                 {
-                    if (param.Gaji != null && param.Gaji != 0)
+                    if (param.FelID > 0)
                     {
-                        if (param.GajiID > 0)
+                        var gaj = _dbContext.MstFEL.Find(param.FelID);
+                        if (gaj != null)
                         {
-                            var gaj = _dbContext.MstGaji.Find(param.LokasiID);
-                            if (gaj != null)
-                            {
-                                gaj.LokasiID = param.LokasiID;
-                                gaj.TypeID = param.TypeID;
-                                gaj.Gaji = param.Gaji;
-                                gaj.ModifiedBy = this.User.Identity.Name;
-                                gaj.ModifiedDate = DateTimeOffset.Now;
-                                _dbContext.SaveChanges();
-                            }
+                            gaj.KlasifikasiID = param.KlasifikasiID;
+                            gaj.ItemKlasifikasiID = param.ItemKlasifikasiID;
+                            gaj.Diameter = param.Diameter;
+                            gaj.UnitID = param.UnitID;
+                            gaj.Material300A = param.Material300A;
+                            gaj.Material300B = param.Material300B;
+                            gaj.Material150A = param.Material150A;
+                            gaj.Material150B = param.Material150B;
+                            gaj.KontruksiA = param.KontruksiA;
+                            gaj.KontruksiB = param.KontruksiB;
+                            gaj.ModifiedBy = this.User.Identity.Name;
+                            gaj.ModifiedDate = DateTimeOffset.Now;
+                            _dbContext.SaveChanges();
                         }
                     }
                 }
@@ -139,15 +143,15 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int GajiID)
+        public async Task<IActionResult> Delete(int FelID)
         {
 
-            MstGaji std = _dbContext.MstGaji.Where(x => x.GajiID == GajiID).FirstOrDefault<MstGaji>();
-            _dbContext.MstGaji.Remove(std);
+            MstFEL std = _dbContext.MstFEL.Where(x => x.FelID == FelID).FirstOrDefault<MstFEL>();
+            _dbContext.MstFEL.Remove(std);
             _dbContext.SaveChanges();
 
 
-            return RedirectToAction("List", "MstGaji");
+            return RedirectToAction("List", "MstFel1");
 
         }
     }

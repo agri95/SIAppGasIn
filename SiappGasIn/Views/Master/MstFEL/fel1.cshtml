@@ -125,25 +125,57 @@ ViewData["Title"] = "Master Gaji";
                                 </div>
                                 <div class="modal-body">
                                     <form>
-                                        <input type="hidden" class="form-control" id="GajiIDs" name="GajiIDs" hidden>
-                                        <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Lokasi SPBG</label>
-                                            <select class="form-control form-control-sm " id="LokasiIDs">
-                                                <option value="0">- Pilih Lokasi SPBG -</option>
+                                        <input type="hidden" class="form-control" id="FelIDs" name="FelIDs" hidden>
+                                        <div class="form-group search">
+                                            <label for="recipient-name" class="col-form-label">Klasifikasi</label>
+                                            <select class="form-control form-control-sm selectpicker"
+                                                data-show-subtext="true" data-live-search="true" id="KlasifikasiIDs">
+                                                <option value="0">- Pilih Klasifikasi -</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Pekerjaan</label>
-                                            <select class="form-control form-control-sm " id="TypeIDs">
-                                                <option value="0">- Pilih Pekerjaan -</option>
-                                                <option value="1">Supir</option>
-                                                <option value="2">Operator</option>
+                                            <label for="recipient-name" class="col-form-label">Item Klasifikasi</label>
+                                            <select class="form-control form-control-sm  selectpicker"
+                                                data-show-subtext="true" data-live-search="true" id="ItemKlasifikasiIDs">
+                                                <option value="0">- Pilih Item Klasifikasi -</option>
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label for="recipient-name" class="col-form-label">Gaji</label>
-                                            <input type="number" class="form-control" id="Gajis">
+                                            <label for="recipient-name" class="col-form-label">Diameter</label>
+                                            <input type="number" class="form-control" id="Diameters">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Unit</label>
+                                            <select class="form-control form-control-sm  selectpicker"
+                                                data-show-subtext="true" data-live-search="true" id="UnitIDs">
+                                                <option value="0">- Pilih Unit -</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Material #300 A</label>
+                                            <input type="number" class="form-control" id="Material300As">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Material #300 B</label>
+                                            <input type="number" class="form-control" id="Material300Bs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Material #150 A</label>
+                                            <input type="number" class="form-control" id="Material150As">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Material #150 B</label>
+                                            <input type="number" class="form-control" id="Material150Bs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Konstruksi A</label>
+                                            <input type="number" class="form-control" id="KontruksiAs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Konstruksi B</label>
+                                            <input type="number" class="form-control" id="KontruksiBs">
+                                        </div>
+
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -219,8 +251,6 @@ ViewData["Title"] = "Master Gaji";
         margin: 0 auto;
     }
 </style>
-@*
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">*@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
 }
 @section Scripts{
@@ -239,7 +269,7 @@ ViewData["Title"] = "Master Gaji";
     $('#btnEditEnergy').click(function () {
         $.ajax({
 
-            url: '@Url.Action("EditData", "MstGaji")',
+            url: '@Url.Action("EditData", "MstFel1")',
             type: 'POST',
             //crossDomain: true,
             dataType: 'json',
@@ -251,20 +281,22 @@ ViewData["Title"] = "Master Gaji";
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(
                 {
-                    "GajiID": $("#GajiIDs").val(),
-                    "LokasiID": $("#LokasiIDs").val(),
-                    "TypeID": $("#TypeIDs").val(),
-                    "Gaji": $("#Gajis").val(),
+                    "FelID": $("#FelIDs").val(),
+                    "KlasifikasiID": $("#KlasifikasiIDs").val(),
+                    "ItemKlasifikasiID": $("#ItemKlasifikasiIDs").val(),
+                    "Diameter": $("#Diameters").val(),
+                    "UnitID": $("#UnitIDs").val(),
+                    "Material300A": $("#Material300As").val(),
+                    "Material300B": $("#Material300Bs").val(),
+                    "Material150A": $("#Material150As").val(),
+                    "Material150B": $("#Material150Bs").val(),
+                    "KontruksiA": $("#KontruksiAs").val(),
+                    "KontruksiB": $("#KontruksiBs").val(),
                 }
             ),
             success: function (data) {
                 //alert(data);
                 if (data == true) {
-
-                    $("#GajiIDs").val("");
-                    $("LokasiIDs").val("");
-                    $('#TypeIDs').val("");
-                    $('#Gajis').val("");
 
                     oTable = $('#example').DataTable();
                     oTable.draw();
@@ -285,7 +317,7 @@ ViewData["Title"] = "Master Gaji";
 
     function EditData(dataID) {
         $.ajax({
-            url: '@Url.Action("SelectData", "MstGaji")?id=' + dataID,
+            url: '@Url.Action("SelectData", "MstFel1")?id=' + dataID,
             type: 'get',
             //crossDomain: true,
             dataType: 'json',
@@ -298,10 +330,17 @@ ViewData["Title"] = "Master Gaji";
             data: "{}", //JSON.stringify({ CustomerID : CustomerID }),
             success: function (data) {
                 if (data.status == true) {
-                    $("#GajiIDs").val(data.data.gajiID);
-                    $("#LokasiIDs").val(data.data.lokasiID);
-                    $('#TypeIDs').val(data.data.typeID);
-                    $('#Gajis').val(data.data.gaji);
+                    $("#FelIDs").val(data.data.felID);
+                    $("#KlasifikasiIDs").val(data.data.klasifikasiID);
+                    $('#ItemKlasifikasiIDs').val(data.data.itemKlasifikasiID);
+                    $('#Diameters').val(data.data.diameter);
+                    $('#UnitIDs').val(data.data.unitID);
+                    $('#Material300As').val(data.data.material300A);
+                    $('#Material300Bs').val(data.data.material300B);
+                    $('#Material150As').val(data.data.material150A);
+                    $('#Material150Bs').val(data.data.material150B);
+                    $('#KontruksiAs').val(data.data.kontruksiA);
+                    $('#KontruksiBs').val(data.data.kontruksiB);
 
                     $("#editData").modal("show");
 
@@ -315,10 +354,6 @@ ViewData["Title"] = "Master Gaji";
                 $('#divError').show('fade');
             }
         });
-
-
-
-
 
     }
 
@@ -406,8 +441,6 @@ ViewData["Title"] = "Master Gaji";
 </script>
 <script type="text/javascript">
 
-
-
     $(document).ready(function () {
         $.ajax({
             url: '@Url.Action("Retrieve", "MstKlasifikasi")',
@@ -465,6 +498,65 @@ ViewData["Title"] = "Master Gaji";
                     );
                 }
                 $('#UnitID').selectpicker('refresh');
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("Retrieve", "MstKlasifikasi")',
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+
+                var option_list = [["", "--- Select One ---"]].concat(response.data);
+
+                $("#KlasifikasiIDs").empty();
+                for (var i = 0; i < option_list.length; i++) {
+                    $("#KlasifikasiIDs").append(
+                        $("<option></option>").attr(
+                            "value", option_list[i].klasifikasiID).text(option_list[i].klasifikasiName)
+                    );
+                }
+                $('#KlasifikasiIDs').selectpicker('refresh');
+
+
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("Retrieve", "MstItemKlasifikasi")',
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+
+                var option_list = [["", "--- Select One ---"]].concat(response.data);
+
+                $("#ItemKlasifikasiIDs").empty();
+                for (var i = 0; i < option_list.length; i++) {
+                    $("#ItemKlasifikasiIDs").append(
+                        $("<option></option>").attr(
+                            "value", option_list[i].itemKlasifikasiID).text(option_list[i].itemKlasifikasiName)
+                    );
+                }
+                $('#ItemKlasifikasiIDs').selectpicker('refresh');
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("Retrieve", "MstUnit")',
+            type: 'post',
+            dataType: 'json',
+            success: function (response) {
+
+                var option_list = [["", "--- Select One ---"]].concat(response.data);
+
+                $("#UnitIDs").empty();
+                for (var i = 0; i < option_list.length; i++) {
+                    $("#UnitIDs").append(
+                        $("<option></option>").attr(
+                            "value", option_list[i].unitID).text(option_list[i].unitName)
+                    );
+                }
+                $('#UnitIDs').selectpicker('refresh');
             }
         });
 
@@ -528,9 +620,6 @@ ViewData["Title"] = "Master Gaji";
             ]
         });
     });
-
-
-
 
 </script>
 }

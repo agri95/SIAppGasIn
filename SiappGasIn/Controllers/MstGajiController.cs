@@ -60,6 +60,7 @@ namespace SiappGasIn.Controllers.Api
                             LokasiID = gaj.LokasiID,
                             TypeID = gaj.TypeID,
                             Gaji = gaj.Gaji,
+                            Tahun = gaj.Tahun,
                             CreatedBy = this.User.Identity.Name,
                             CreatedDate = DateTimeOffset.Now
                         });
@@ -115,6 +116,7 @@ namespace SiappGasIn.Controllers.Api
                                 gaj.LokasiID = param.LokasiID;
                                 gaj.TypeID = param.TypeID;
                                 gaj.Gaji = param.Gaji;
+                                gaj.Tahun = param.Tahun;
                                 gaj.ModifiedBy = this.User.Identity.Name;
                                 gaj.ModifiedDate = DateTimeOffset.Now;
                                 _dbContext.SaveChanges();

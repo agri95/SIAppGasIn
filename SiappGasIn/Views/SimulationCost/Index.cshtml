@@ -685,7 +685,10 @@
                 var lat = $("#latitude").val();
                 var long = $("#longitude").val();
 
-
+                if (targetCOD == "" || targetCOD == null) {
+                    targetCOD = "0001-01-01";
+                }
+                
                 if (projectName == "" || projectName == null) {
                     $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
                         $("#_alert1").slideUp(500);
@@ -721,26 +724,20 @@
                         $("#_alert6").slideUp(500);
                     });
                     $("#textError6").text("Work Day ");
-                }
-                if (targetCOD == "" || targetCOD == null) {
+                }                
+                if (lat == "" || lat == null) {
                     $("#_alert7").fadeTo(8000, 500).slideUp(500, function () {
                         $("#_alert7").slideUp(500);
                     });
-                    $("#textError7").text("Target COD ");
+                    $("#textError7").text("Latitude ");
                 }
-                if (lat == "" || lat == null) {
+                if (long == "" || long == null) {
                     $("#_alert8").fadeTo(8000, 500).slideUp(500, function () {
                         $("#_alert8").slideUp(500);
                     });
-                    $("#textError8").text("Latitude ");
+                    $("#textError8").text("Longitude ");
                 }
-                if (long == "" || long == null) {
-                    $("#_alert9").fadeTo(8000, 500).slideUp(500, function () {
-                        $("#_alert9").slideUp(500);
-                    });
-                    $("#textError9").text("Longitude ");
-                }
-                if (projectName == "" || projectDate == "" || customerName == "" || demandUsage == "" || hourDay == "" || workDay == "" || targetCOD == "" || lat == "" || long == "") {
+                if (projectName == "" || projectDate == "" || customerName == "" || demandUsage == "" || hourDay == "" || workDay == "" || lat == "" || long == "") {
                     console.log("error");
                 }
                 else {
@@ -845,6 +842,10 @@
                  var demandUsage = $("#demandUsage").val();
                 var energyName = $("#energyName").val();
                 var nilaiKalori = $("#nilaiKalori").val();
+                var operasiHari = $("#hourDay").val();
+                var operasiBulan = $("#workDay").val();
+                var energyName = $("#energyName").val();   
+                var pressure = $("#pressure").val();
                 var gas = 8945.14;
                 var energyX = ""
                 if (energyName == "Gas Bumi") {
@@ -896,7 +897,7 @@
                 console.log(_datas);
                 //var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxODIxNTU1LCJleHAiOjE2NjE5MDc5NTQsImlhdCI6MTY2MTgyMTU1NX0.iEM6hCBcYl7bObc8qfmr0nQC5WOOB2GFdYZ_2t0G4jw";
                 $.ajax({
-                            url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&user=' + users + '&password=' + passwords + '&dataID=' + dataID,//File Collection Endpoint
+                            url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&user=' + users + '&password=' + passwords + '&dataID=' + dataID + '&volume2=' + demandUsage + '&operasiHari=' + operasiHari + '&operasiBulan=' + operasiBulan + '&energyName=' + energyName + '&pressure=' + pressure  ,//File Collection Endpoint
 
                             type: 'get',
                             dataType: 'json',
@@ -942,7 +943,7 @@
                             },
                             
                             error: function (datas) {
-                                success(datas);
+                                success(dataID);
                                 console.log("error pipe");
                             }
                         });
@@ -1081,8 +1082,9 @@
                                         "longitude": rsLongitude,
                                     }
                                 ),
-                                success: function(data) {
+                                success: function(datas) {
                                     console.log("success cng");
+                                    //success(data);
                                     if (data == true) {
                                        
                                         $("#GTM").val("");
@@ -1103,7 +1105,9 @@
                         }
                     }
                     calculatePipe(data);
-                } else {
+                } 
+                
+                else {
                     calculatePipe(data);
                 }
             }
@@ -1118,6 +1122,7 @@
             }
 
             $(document).ready(function () {
+                
                 $(".loading").hide();
                 $("#resultText").hide();
                 $("#_alert1").hide();

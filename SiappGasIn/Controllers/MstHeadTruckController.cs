@@ -61,6 +61,7 @@ namespace SiappGasIn.Controllers.Api
                         _dbContext.MstHeadTruck.Add(new MstHeadTruck()
                         {
                             GTM = trk.GTM,
+                            Ritase = trk.Ritase,
                             HargaSewa = trk.HargaSewa,
                             RasioBBM = trk.RasioBBM,
                             Kecepatan = trk.Kecepatan,
@@ -115,6 +116,7 @@ namespace SiappGasIn.Controllers.Api
                         if (prs != null)
                         {
                             prs.GTM = param.GTM;
+                            prs.Ritase = param.Ritase;
                             prs.HargaSewa = param.HargaSewa;
                             prs.RasioBBM = param.RasioBBM;
                             prs.Kecepatan = param.Kecepatan;

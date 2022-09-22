@@ -1,0 +1,531 @@
+﻿@{
+ViewData["Title"] = "Master Gaji";
+}
+<div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
+    <div class="card">
+        <div class="row ">
+            <div class="col-md-12 px-3">
+                <div class="card-block" style="border: 1px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                        </div>
+                        <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
+                                class="image-responsive" style="width:120px; height:40px; float: right;"></div>
+                    </div>
+                    <div class="card" style="margin-top: 7px;">
+                        <div class="card-body" style="margin: 15px ;">
+                            <a href="#" onclick="addData()" class="btn btn-success btn-sm"
+                                style="margin-bottom:10px;">Add Data</a>
+                            <br />
+                            <table id="example" class="table table-striped display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Class</th>
+                                        <th>Tipe Pelanggan</th>
+                                        <th>Max Press (m3/jam)</th>
+                                        <th>Min Press (m3/jam)</th>
+                                        <th>Inlet Pressure Max (barg)</th>
+                                        <th>Inlet Pressure Min (barg)</th>
+                                        <th>Outlet Pressure Max (barg)</th>
+                                        <th>Outlet Pressure Min (barg)</th>
+                                        <th>Calculate Diamter Inlet (inch)</th>
+                                        <th>Calculate Diamter Outlet (inch)</th>
+                                        <th>Selected Diameter Inlet NPS</th>
+                                        <th>Selected Diameter Outlet NPS</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                            </table>
+
+                        </div>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" id="addData">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Tambah Data MRS</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group search">
+                                            <label for="recipient-name" class="col-form-label">Class</label>
+                                            <select class="form-control form-control-sm selectpicker"  id="ClassID">
+                                                <option value="0">Nothing Selected</option>
+                                                <option value="P4">P4</option>
+                                                <option value="P3">P3</option>
+                                                <option value="P2 #150">P2 #150</option>
+                                                <option value="P1 #300">P1 #300</option>
+                                                <option value="P1 #150">P1 #150</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Tipe Pelanggan</label>
+                                            <input type="text" class="form-control" id="TypePelanggan">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Max Press</label>
+                                            <input type="number" class="form-control" id="MaxPress">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Min Press</label>
+                                            <input type="number" class="form-control" id="MinPress">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Inlet Pressure Max (Barg)</label>
+                                            <input type="number" class="form-control" id="InletMaxBarg">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Inlet Pressure Min (Barg)</label>
+                                            <input type="number" class="form-control" id="InletMinBarg">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Outlet Pressure Max (Barg)</label>
+                                            <input type="number" class="form-control" id="OutletMaxBarg">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Outlet Pressure Min (Barg)</label>
+                                            <input type="number" class="form-control" id="OutletMinBarg">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Calculated Diameter Inlet (Inch)</label>
+                                            <input type="number" class="form-control" id="InletInch">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Calculated Diameter Oulet (Inch)</label>
+                                            <input type="number" class="form-control" id="OutletInch">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Selected Diameter Inlet NPS</label>
+                                            <input type="number" class="form-control" id="InletNPS">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Selected Diameter Outlet NPS</label>
+                                            <input type="number" class="form-control" id="OutletNPS">
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="saveEnergy">Save changes</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--Edit Modal-->
+                    <div class="modal" tabindex="-1" role="dialog" id="editData">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Ubah Data MRS</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group search">
+                                            <label for="recipient-name" class="col-form-label">Class</label>
+                                            <select class="form-control form-control-sm selectpicker"
+                                                data-show-subtext="true" data-live-search="true" id="ClassiIDs">
+                                                <option value="0">Nothing Selected</option>
+                                                <option value="P4">P4</option>
+                                                <option value="P3">P3</option>
+                                                <option value="P2 #150">P2 #150</option>
+                                                <option value="P1 #300">P1 #300</option>
+                                                <option value="P1 #150">P1 #150</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Tipe Pelanggan</label>
+                                            <input type="text" class="form-control" id="TypePelanggans">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Max Press</label>
+                                            <input type="number" class="form-control" id="MaxPresss">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Min Press</label>
+                                            <input type="number" class="form-control" id="MinPresss">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Inlet Pressure Max (Barg)</label>
+                                            <input type="number" class="form-control" id="InletMaxBargs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Inlet Pressure Min (Barg)</label>
+                                            <input type="number" class="form-control" id="InletMinBargs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Outlet Pressure Max (Barg)</label>
+                                            <input type="number" class="form-control" id="OutletMaxBargs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Outlet Pressure Min (Barg)</label>
+                                            <input type="number" class="form-control" id="OutletMinBargs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Calculated Diameter Inlet (Inch)</label>
+                                            <input type="number" class="form-control" id="InletInchs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Calculated Diameter Oulet (Inch)</label>
+                                            <input type="number" class="form-control" id="OutletInchs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Selected Diameter Inlet NPS</label>
+                                            <input type="number" class="form-control" id="InletNPSs">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="recipient-name" class="col-form-label">Selected Diameter Outlet NPS</label>
+                                            <input type="number" class="form-control" id="OutletNPSs">
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="btnEditEnergy">Save
+                                        changes</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+<style type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
+</style>
+<style type="text/css" src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"></style>
+<style>
+    #example_filter input {
+        border-radius: 5px;
+        height: 24px;
+        float: right;
+
+        margin-left: -20;
+        margin-left: 10px;
+        width: 246px;
+
+    }
+
+    .modal-backdrop {
+        background-color: rgba(0, 0, 0, .0001) !important;
+    }
+
+    .modal {
+        text-align: center;
+        padding: 0 !important;
+        overflow-y: scroll;
+    }
+
+    .modal-body {
+        height: 350px;
+        overflow-y: auto;
+    }
+
+    .modal:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -4px;
+        /* Adjusts for spacing */
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    th,
+    td {
+        white-space: nowrap;
+    }
+
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
+</style>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+}
+@section Scripts{
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+
+<script>
+    function addData() {
+        $('#addData').modal('show');
+    }
+    $('#btnEditEnergy').click(function () {
+        $.ajax({
+
+            url: '@Url.Action("EditData", "MstFel1")',
+            type: 'POST',
+            //crossDomain: true,
+            dataType: 'json',
+            //headers: {
+            //    'Accept': 'application/json',
+            //    'Content-Type': 'application/json'
+            //},
+            //headers: { 'Access-Control-Allow-Origin': 'The web site allowed to access' },
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(
+                {
+                    "FelID": $("#FelIDs").val(),
+                    "KlasifikasiID": $("#KlasifikasiIDs").val(),
+                    "ItemKlasifikasiID": $("#ItemKlasifikasiIDs").val(),
+                    "Diameter": $("#Diameters").val(),
+                    "UnitID": $("#UnitIDs").val(),
+                    "Material300A": $("#Material300As").val(),
+                    "Material300B": $("#Material300Bs").val(),
+                    "Material150A": $("#Material150As").val(),
+                    "Material150B": $("#Material150Bs").val(),
+                    "KontruksiA": $("#KontruksiAs").val(),
+                    "KontruksiB": $("#KontruksiBs").val(),
+                }
+            ),
+            success: function (data) {
+                //alert(data);
+                if (data == true) {
+
+                    oTable = $('#example').DataTable();
+                    oTable.draw();
+
+                    $('#msgText').text('Customer Info is added Successfully');
+                    $('#successModal').modal('show');
+                    location.reload();
+                }
+
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+    });
+
+
+    function EditData(dataID) {
+        $.ajax({
+            url: '@Url.Action("SelectData", "MstFel1")?id=' + dataID,
+            type: 'get',
+            //crossDomain: true,
+            dataType: 'json',
+            //headers: {
+            //    'Accept': 'application/json',
+            //    'Content-Type': 'application/json'
+            //},
+            //headers: { 'Access-Control-Allow-Origin': 'The web site allowed to access' },
+            contentType: "application/json; charset=utf-8",
+            data: "{}", //JSON.stringify({ CustomerID : CustomerID }),
+            success: function (data) {
+                if (data.status == true) {
+                    $("#FelIDs").val(data.data.felID);
+                    $("#KlasifikasiIDs").val(data.data.klasifikasiID);
+                    $('#ItemKlasifikasiIDs').val(data.data.itemKlasifikasiID);
+                    $('#Diameters').val(data.data.diameter);
+                    $('#UnitIDs').val(data.data.unitID);
+                    $('#Material300As').val(data.data.material300A);
+                    $('#Material300Bs').val(data.data.material300B);
+                    $('#Material150As').val(data.data.material150A);
+                    $('#Material150Bs').val(data.data.material150B);
+                    $('#KontruksiAs').val(data.data.kontruksiA);
+                    $('#KontruksiBs').val(data.data.kontruksiB);
+
+                    $("#editData").modal("show");
+
+                }
+                else {
+                    alert("HUHAUHDA");
+                }
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+
+    }
+
+    $('#saveEnergy').click(function () {
+        $.ajax({
+            url: '@Url.Action("CreateData", "MstMRS")',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(
+                {
+                    "ClassID": $("#ClassID").val(),
+                    "TypePelanggan": $("#TypePelanggan").val(),
+                    "MaxPress": $("#MaxPress").val(),
+                    "MinPress": $("#MinPress").val(),
+                    "InletMaxBarg": $("#InletMaxBarg").val(),
+                    "InletMinBarg": $("#InletMinBarg").val(),
+                    "OutletMaxBarg": $("#OutletMaxBarg").val(),
+                    "OutletMinBarg": $("#OutletMinBarg").val(),
+                    "InletInch": $("#InletInch").val(),
+                    "OutletInch": $("#OutletInch").val(),
+                    "InletNPS": $("#InletNPS").val(),
+                    "OutletNPS": $("#OutletNPS").val(),
+                }
+            ),
+            success: function (data) {
+                //alert(data);
+                if (data == true) {
+
+                    $("#ClassID").val(""),
+                    $("#TypePelanggan").val(""),
+                    $("#MaxPress").val(""),
+                    $("#MinPress").val(""),
+                    $("#InletMaxBarg").val(""),
+                    $("#InletMinBarg").val(""),
+                    $("#OutletMaxBarg").val(""),
+                    $("#OutletMinBarg").val(""),
+                    $("#InletInch").val(""),
+                    $("#OutletInch").val(""),
+                    $("#InletNPS").val(""),
+                    $("#OutletNPS").val(""),
+
+                    $('#msgText').text('Data is added Successfully');
+                    $('#successModal').modal('show');
+                    alert("SUKSES");
+                    location.reload();
+                }
+
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+    });
+
+    function DeleteData(id) {
+        if (confirm("Are you sure you want to delete ...?")) {
+            Delete(id);
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    function Delete(id) {
+
+        $.ajax({
+            url: '@Url.Action("Delete", "MstGaji")?GajiID=' + id,
+
+            method: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data) {
+                    oTable = $('#example').DataTable();
+                    oTable.draw();
+                }
+                else {
+                    alert("Something Went Wrong!");
+                }
+            },
+            error: function (request, msg, error) {
+                // handle failure
+            }
+        });
+    }
+
+</script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+               
+       
+        $("#example").DataTable({
+            "processing": true, // for show progress bar
+            "serverSide": false, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            "lengthMenu": [[5, 10, 20, -1, 2], [5, 10, 20, 50, 100]],
+            "pagingType": "simple_numbers",
+            "scrollX": true,
+            //      "sDom": '<"row view-filter"<"col-sm-12"<"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+            "language": {
+                "paginate": {
+                    "previous": '<i class="fa fa-angle-left" style="color: #27c2a5"></i>',
+                    "next": '<i class="fa fa-angle-right" style="color: #27c2a5"></i>'
+                }
+            },
+            "ajax": {
+                "url": '@Url.Action("Retrieve", "MstMRS")',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "aoColumns": [
+                { "sWidth": '5%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '10%' },
+                { "sWidth": '3%' },
+                { "sWidth": '3%' }
+            ],
+            "columns": [
+
+                { "data": "mrsid", "name": "FelID", "autoWidth": true },
+                { "data": "classID", "name": "KlasifikasiName", "autoWidth": true },
+                { "data": "typePelanggan", "name": "ItemKlasifikasiName", "autoWidth": true },
+                { "data": "maxPress", "name": "Diameter", "autoWidth": true },
+                { "data": "minPress", "name": "UnitName", "autoWidth": true },
+                { "data": "inletMaxBarg", "name": "Material300A", "autoWidth": true },
+                { "data": "inletMinBarg", "Material300B": "gaji", "autoWidth": true },
+                { "data": "outletMaxBarg", "name": "Material150A", "autoWidth": true },
+                { "data": "outletMinBarg", "name": "Material150B", "autoWidth": true },
+                { "data": "inletInch", "name": "KontruksiA", "autoWidth": true },
+                { "data": "outletInch", "name": "KontruksiB", "autoWidth": true },
+                { "data": "inletNPS", "name": "KontruksiB", "autoWidth": true },
+                { "data": "outletNPS", "name": "KontruksiB", "autoWidth": true },
+
+                {
+                    "render": function (data, type, full, meta) { return '<a href="#" class="badge badge-info" onclick="return EditData(' + full.mrsid + ')">Edit</a>'; }
+                    //"render": function (data, type, full, meta) { return '<a class="btn btn-info" href="/DemoGrid/Edit/' + full.CustomerID + '">Edit</a>'; }
+                },
+                {
+                    data: null, render: function (data, type, row) {
+                        return "<a href='#' class='badge badge-danger' onclick=DeleteData('" + row.mrsid + "'); >Delete</a>";
+                    }
+                },
+
+            ]
+        });
+    });
+
+</script>
+}
