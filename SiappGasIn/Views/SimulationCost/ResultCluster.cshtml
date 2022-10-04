@@ -32,7 +32,14 @@
                                         <label class="control-label col-md-3 col-sm-3 ">Total Customer</label>
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9"><span
-                                                    id="creator">: @Model.CountCapel</span></label>
+                                                    id="creator">: @Model.CountCapel</span> </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 ">Total Volume</label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <label class="control-label col-md-9 col-sm-9"><span 
+                                                    id="creator">: @Model.TotalVolume</span> <span style="font-weight:bold;">M3/ Bln</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
@@ -190,7 +197,7 @@
                 if (data.data.length > 0) {
                     for (i = 0; i < data.data.length; i++) {
                         var num = i + 1;
-                         table.append('<tr><td>' + num + '</td><td>' + data.data[i].customerName + '</td><td style="font-weight:bold;">' + data.data[i].volume + '</td><td class="formatNum">' + data.data[i].jarak + ' Km' + '</td><td  class="formatNum">' + 'Rp. ' + data.data[i].hargaJual + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].clusterSimulationID + '"); >Detail</a></td></tr>');
+                         table.append('<tr><td>' + num + '</td><td>' + data.data[i].customerName + '</td><td style="font-weight:bold;">' + data.data[i].volume + '</td><td class="formatNum">' + data.data[i].jarak + ' Km' + '</td><td  class="formatNum">' + data.data[i].hargaJual +' $/MMBtu ' + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].clusterSimulationID + '"); >Detail</a></td></tr>');
                         //if (data.data[i].flagPrice == 2) {
                         //    table.append('<tr><td>' + num + '</td><td>' + data.data[i].projectName + '</td><td style="font-weight:bold;">' + data.data[i].volume + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].jarak + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].infrastructure + '","' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
                         //}else if (data.data[i].flagPrice == 0) {
@@ -209,6 +216,7 @@
                 $('#divError').show('fade');
             }
         });
+
 
         $("td.formatNum").each(function() { $(this).html(parseFloat($(this).text()).toLocaleString('en-US', {style: 'currency', currency: 'USD'})); })
         let x = document.querySelectorAll(".formatNum");

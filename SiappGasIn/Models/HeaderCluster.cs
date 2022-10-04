@@ -13,6 +13,7 @@ namespace SiappGasIn.Models
         public int HeaderClusterID { get; set; }      
         public string ClusterName { get; set; }
         public int CountCapel { get; set; }
+        public decimal TotalVolume { get; set; }
         public string CreatedBy { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
