@@ -1100,3 +1100,4 @@ D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\NWebsec.AspNetCore.Co
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\NWebsec.AspNetCore.Mvc.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\NWebsec.AspNetCore.Mvc.TagHelpers.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\WebEssentials.AspNetCore.Pwa.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Debug\net6.0\linq2db.dll

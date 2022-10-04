@@ -1,0 +1,408 @@
+﻿@model SiappGasIn.Models.ClusterSimulation
+@{
+    ViewData["Title"] = "Detail Simulation Cost";
+}
+<div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
+    <div class="card">
+        <div class="row ">
+            <div class="col-md-12 px-3">
+                <div class="card-block" style="border: 1px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                        </div>
+                        <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
+                                class="image-responsive" style="width:120px; height:40px; float: right;"></div>
+                    </div>
+
+                    <div id="resultSimulation">
+                        <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                            style="margin-top: 7px;">
+                            <div class="card-body" style="margin: 15px ;">
+                                <form class="form-horizontal form-label-left">
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="col-md-7">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-dark">
+                                                        <tr>
+                                                            <th scope="col">
+                                                                <center></center>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <center>$/MMBtu</center>
+                                                            </th>
+                                                            <th scope="col">
+                                                                <center>Rp/M3</center>
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">HARGA GAS</td>
+                                                            <td><span id="hargaGas">@Model.hargaGas</span></td>
+                                                            <td><span id="hargaGasRp" class="formatNum">@Model.hargaGasRpM3</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">B. COMPRESSED</td>
+                                                            <td><span id="compressed">@Model.compressed</span></td>
+                                                            <td><span id="compressedRp" class="formatNum">@Model.compressedRpM3</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">Total Transportasi Cost</td>
+                                                            <td><span
+                                                                    id="totalTransportasiCost">@Model.totalTransportasiCost</span>
+                                                            </td>
+                                                            <td><span
+                                                                    id="totalTransportasiCostRp" class="formatNum">@Model.totalTransportasiCostRpM3</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>PRS</td>
+                                                            <td><span id="prsCost">@Model.prsCost</span></td>
+                                                            <td><span id="prsCostRp" class="formatNum">@Model.prsCostRpM3</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>OPERATOR</td>
+                                                            <td><span id="operatorCost">@Model.operatorCost</span></td>
+                                                            <td><span id="operatorCostRp" class="formatNum">@Model.operatorCostRpM3</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>GTM (MILIK)</td>
+                                                            <td><span id="gtmCost">@Model.gtmCost</span></td>
+                                                            <td><span id="gtmCostRp" class="formatNum">@Model.gtmCostRpM3</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>GTM (SEWA)</td>
+                                                            <td><span id="gtmSewaCost">@Model.gtmSewaCost</span></td>
+                                                            <td><span id="gtmSewaCostRp" class="formatNum">@Model.gtmSewaCostRpM3</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>HEAD TRUCK (SEWA)</td>
+                                                            <td><span
+                                                                    id="headTruckSewaCost">@Model.headTruckSewaCost</span>
+                                                            </td>
+                                                            <td><span
+                                                                    id="headTruckSewaCostRp" class="formatNum">@Model.headTruckSewaCostRpM3</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>B. FUEL + LAIN-LAIN</td>
+                                                            <td><span id="lainLain">@Model.lainLain</span></td>
+                                                            <td><span id="lainLainRp" class="formatNum">@Model.lainLainRpM3</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">OVERHEAD COST</td>
+                                                            <td><span id="overheadCost">@Model.overheadCost</span></td>
+                                                            <td><span id="overheadCostRp" class="formatNum">@Model.overheadCostRpM3</span>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold;">MARGIN</td>
+                                                            <td><span id="marginCost">@Model.marginCost</span></td>
+                                                            <td><span id="marginCostRp" class="formatNum">@Model.marginCostRpM3</span></td>
+                                                        </tr>
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-dark">
+
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;" rowspan="2">
+                                                                HARGA JUAL</td>
+                                                            <td><span id="hargaGass" class="formatNum">@Model.hargaJual</span><span> $/MMBtu</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><span id="compressed" class="formatNum">@Model.hargaM3</span><span> Rp/M3</span>
+                                                            </td>
+                                                        </tr>                                                       
+
+                                                    </tbody>
+                                                </table>
+
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-dark">
+
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">Volume</td>
+                                                            <td><span id="hargaGas" class="formatNum">@Model.Volume</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">PRS Type</td>
+                                                            <td><span id="hargaGas">@Model.PRS</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">Ukuran Storage</td>
+                                                            <td><span id="hargaGas">@Model.UkuranGTM</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">Trucking</td>
+                                                            <td><span id="hargaGas">@Model.GTM</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">Jarak</td>
+                                                            <td><span id="hargaGas">@Model.jarakTempuh KM</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">Lokasi SPBG</td>
+                                                            <td><span id="hargaGas">@Model.AsalStation</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">Jumlah Operator</td>
+                                                            <td><span id="hargaGas">@Model.jumlahOperator</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="font-weight:bold; font-size:12px;">Jumlah Supir</td>
+                                                            <td><span id="hargaGas">@Model.jmlSupir</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="form-group row ">
+                                               
+                                                <div class="col-md-12 col-sm-12 ">
+                                                    <a href="#" onclick="mapp()" class="btn btn-success btn-sm"
+                                                        style="height:24px; width:100%; line-height:1;">Route Map</a>
+                                                </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                <button type="submit" onclick="backResult();"
+                                    class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="maps">
+                        <center><div id="map" class="map"></div></center>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                <button type="submit" onclick="back()"
+                                    class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>                               
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<!-- Leaflet Map -->
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
+@*
+<link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
+<style>
+    .map {
+        height: 400px;
+        width: 640px;
+    }
+
+    .results {
+        background-color: white;
+        opacity: 0.8;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 320px;
+        height: 480px;
+        overflow-y: scroll;
+    }
+</style>
+}
+
+@section Scripts{
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $.ajax({
+        url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+        type: 'post',
+        dataType: 'json',
+        success: function (response) {
+
+            var len = response.data.length;
+            var locationMaps = {};
+            locationMaps["features"] = [];
+            for (var i = 0; i < len; i++) {
+
+                let temp = {
+                    "type": "Feature",
+                    "properties": { "oficina": response.data[i].namaSPBG },
+                    "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                }
+                locationMaps.features.push(temp);
+            }
+            var ofi_paf = locationMaps;
+
+           
+             var latSPBG = '@(Model.Latitude)';
+            var longSPBG = '@(Model.Longitude)';
+            var latPel = '@(Model.Latitude2)';
+            var longPel = '@(Model.Longitude2)';
+
+            var greenIcon = new L.Icon({
+                iconUrl: '/plugins/map/images/user.png',
+                iconSize: [32, 37],
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -28]
+            });
+            var greenIcons = new L.Icon({
+                iconUrl: '/plugins/map/images/pertacon.png',
+                iconSize: [32, 37],
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -28]
+            });
+
+            L.mapbox.accessToken = 'pk.eyJ1IjoiZmFyYWRheTIiLCJhIjoiTUVHbDl5OCJ9.buFaqIdaIM3iXr1BOYKpsQ';
+
+            var mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
+                attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                tileSize: 512,
+                zoomOffset: -1
+            });
+
+            var map = L.map('map')
+                .addLayer(mapboxTiles)
+                .setView([42.3610, -71.0587], 15);
+            L.Routing.control({
+                router: L.Routing.mapbox(L.mapbox.accessToken, {
+                    profile: 'mapbox/walking',
+                    language: 'en',
+                }),
+                waypoints: [
+                    L.latLng(latPel, longPel),
+                    L.latLng(latSPBG, longSPBG)
+                ],
+                createMarker: function (j, wp, nWps) {
+                    if (j === 0) {
+                        return L.marker(wp.latLng, { icon: greenIcon }).bindPopup("Customer");
+                    } else if (j === nWps - 1) {
+                        return L.marker(wp.latLng, { icon: greenIcons }).bindPopup(`afafg`);
+                    }
+                },
+                routeWhileDragging: true,
+	            reverseWaypoints: true,
+	            showAlternatives: true,
+	            altLineOptions: {
+		            styles: [
+			            {color: 'black', opacity: 0.15, weight: 9},
+			            {color: 'white', opacity: 0.8, weight: 6},
+			            {color: 'blue', opacity: 0.5, weight: 2}
+		            ]
+	            }
+            }).addTo(map);
+
+            $("#maps").hide();
+            
+
+            var farmacias = L.geoJson(ofi_paf, {
+                onEachFeature: popup,
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng, { icon: eco });
+                }
+            }).addTo(map);
+            //var hargaAsli = '@(Model.hargaJual)';
+            //var xyz = (hargaAsli * 28.5) / 14350;
+            //$("#hargaGass").text(xyz.toFixed(2));
+
+        }
+    });
+
+       
+
+        let x = document.querySelectorAll(".formatNum");
+        for (let i = 0, len = x.length; i < len; i++) {
+
+            let num = Number(x[i].textContent)
+                .toLocaleString('en');
+            x[i].textContent = num;
+        }
+
+
+
+    });
+</script>
+
+<script type="text/javascript">
+
+     function popup(feature, layer) {
+                    if (feature.properties && feature.properties.oficina) {
+                        layer.bindPopup(feature.properties.oficina, {
+                            closeButton: false,
+                            offset: L.point(0, -20)
+                        });
+                        layer.on('mouseover', function () {
+                            layer.openPopup();
+                        });
+                        layer.on('mouseout', function () {
+                            layer.closePopup();
+                        });
+                    }
+                };
+
+                var eco = L.icon({
+                    iconSize: [32, 37],
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -28],
+                    iconUrl: '/plugins/map/images/pertacon.png'
+                });
+
+
+
+</script>
+
+<script type="text/javascript">
+    //maps
+    function back() {
+        $("#maps").hide();
+        $("#resultSimulation").show();
+    }
+
+    function mapp() {
+        $("#maps").show();
+        $("#resultSimulation").hide();
+    }
+
+
+    function Details(Id) {
+        var url = '@Url.Action("Index", "SimulationCost")?Id=' + Id;
+        window.location.href = url;
+    }
+
+    function backResult() {
+        var ids = @(Model.HeaderClusterID);
+        var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + ids;
+        window.location.href = url;
+    }
+</script>
+}

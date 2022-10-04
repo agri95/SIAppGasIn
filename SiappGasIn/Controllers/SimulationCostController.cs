@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -49,6 +50,21 @@ namespace SiappGasIn.Controllers
             return View("~/Views/SimulationCost/Result.cshtml", data);
         }
 
+        [HttpGet]
+        public IActionResult ResultCluster(int Id)
+        {
+            //string StoredProc = "exec SP_ClusterSimulation " + Id;
+
+            string StoredProc = "exec SP_ClusterSimulation " +
+                     "@HeaderClusterID = " + Id + "";
+
+            //var datass = _dbContext.Set<SP_ClusterSimulations>().FromSqlRaw(StoredProc).ToListAsync();
+
+            HeaderCluster data = _dbContext.HeaderCluster.Where(x => x.HeaderClusterID.Equals(Id)).FirstOrDefault<HeaderCluster>();
+
+            return View("~/Views/SimulationCost/ResultCluster.cshtml", data);
+        }
+
         //[HttpGet]
         //public IActionResult Detail(int Id)
         //{
@@ -62,7 +78,7 @@ namespace SiappGasIn.Controllers
         //    return View("~/Views/SimulationCost/Detail.cshtml", data);
         //}
 
-       
+
         [HttpGet]
         public IActionResult DetailCNG(int Id)
         {
@@ -76,7 +92,17 @@ namespace SiappGasIn.Controllers
            
             return View("~/Views/SimulationCost/Detail.cshtml", data);
         }
-        
+
+        [HttpGet]
+        public IActionResult DetailCluster(int Id)
+        {
+            string StoredProc = "exec SP_DetailClusterSingle " + Id;
+
+            ClusterSimulation data = _dbContext.Set<ClusterSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+
+            return View("~/Views/SimulationCost/DetailCluster.cshtml", data);
+        }
+
         [HttpGet]
         public IActionResult DetailPipe(int Id)
         {
@@ -124,6 +150,20 @@ namespace SiappGasIn.Controllers.Api
             string StoredProc = "exec SP_DetailSimulation " + id;
 
             var data = _dbContext.Set<SP_DetailSimulation>().FromSqlRaw(StoredProc).AsEnumerable().ToList();
+           
+            return Ok
+                    (
+                        new { data = data }
+                    );
+
+        }
+
+        [HttpPost]
+        public IActionResult RetrievesCluster(int id)
+        {
+            string StoredProc = "exec SP_DetailClusterSimulation " + id;
+
+            var data = _dbContext.Set<SP_DetailClusterSimulation>().FromSqlRaw(StoredProc).AsEnumerable().ToList();
 
             return Ok
                     (
@@ -221,6 +261,7 @@ namespace SiappGasIn.Controllers.Api
                        new { data = id, status = isStatus }
                    );
         }
+             
 
         [HttpPost]
         public IActionResult SaveData([FromBody] SP_CostSimulation energy)
@@ -450,30 +491,128 @@ namespace SiappGasIn.Controllers.Api
                     var volumeValue = Convert.ToDouble(volumeValues);
                     var route = jObject["data"]["route"].ToString();
 
-                    string StoredProc = "exec SP_PipeCalculator " +
-                    "@headerSimulationID = " + dataID + "," +
-                    "@type = '" + type + "'," +
-                    "@latitude= '" + latitude + "'," +
-                    "@longitude= '" + longitude + "'," +
-                    "@postal_code= " + postal_code + "," +
-                    "@distanceValue = " + distanceValue + "," +
-                    "@diameterValue = " + diameterValue + "," +
-                    "@pressureValue = " + pressureValue + "," +
-                    "@volumeValue = " + volumeValue + "," +                    
-                    "@route= '" + route + "'," +
-                    "@volume2 = " + volume2 + "," +
-                    "@operasiHari = " + operasiHari + "," +
-                    "@operasiBulan = " + operasiBulan + "," +
-                    "@energyName = '" + energyName + "'," +
-                    "@pressure= " + pressure + "";
+                    //string StoredProc = "exec SP_PipeCalculator " +
+                    //"@headerSimulationID = " + dataID + "," +
+                    //"@type = '" + type + "'," +
+                    //"@latitude= '" + latitude + "'," +
+                    //"@longitude= '" + longitude + "'," +
+                    //"@postal_code= " + postal_code + "," +
+                    //"@distanceValue = " + distanceValue + "," +
+                    //"@diameterValue = " + diameterValue + "," +
+                    //"@pressureValue = " + pressureValue + "," +
+                    //"@volumeValue = " + volumeValue + "," +                    
+                    //"@route= '" + route + "'," +
+                    //"@volume2 = " + volume2 + "," +
+                    //"@operasiHari = " + operasiHari + "," +
+                    //"@operasiBulan = " + operasiBulan + "," +
+                    //"@energyName = '" + energyName + "'," +
+                    //"@pressure= " + pressure + "";
 
-                    var datass =  _dbContext.Set<SP_PipeCalculator>().FromSqlRaw(StoredProc).ToListAsync();                   
-                }                
+                    //var datass =  _dbContext.Set<SP_PipeCalculator>().FromSqlRaw(StoredProc).ToListAsync();
+
+                    string StoredProcs = "exec SP_PipeCalculator " + dataID + "," + "'" + type + "'" + "," + "'" + latitude + "'" + "," + "'" + longitude + "'" + "," + postal_code + "," + diameterValue + "," + distanceValue + "," + pressureValue + "," + volumeValue + "," + "'" + route + "'" + "," + volume2 + "," + operasiHari + "," + operasiBulan + "," + "'" + energyName + "'" + "," + pressure;
+                    var data = _dbContext.Set<SP_PipeCalculatorData>().FromSqlRaw(StoredProcs).AsEnumerable().FirstOrDefault();
+                    
+                }
             }
             return Ok
                     (new { data = calculate }
                     );
 
+        }
+
+        [HttpPost]
+        public IActionResult SaveDataHeaderCluster([FromBody] HeaderCluster cluster)
+        {
+            var isStatus = true;
+            int id = 0;
+            try
+            {
+                HeaderCluster parameter = cluster;
+                if (cluster != null)
+                {
+
+
+                    parameter.CreatedBy = this.User.Identity.Name;
+                    parameter.CreatedDate = DateTimeOffset.Now;
+                    _dbContext.HeaderCluster.AddAsync(parameter);
+
+
+                    _dbContext.SaveChanges();
+
+                    id = parameter.HeaderClusterID;
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(data: false);
+            }
+
+            return Ok
+                   (
+                       new { data = id, status = isStatus }
+                   );
+        }
+
+        [HttpPost]
+        public IActionResult SaveListCluster([FromBody] ClusterSimulation cluster)
+        {
+            var isStatus = true;
+            int id = 0;
+            try
+            {
+                ClusterSimulation parameter = cluster;
+                if (cluster != null)
+                {
+
+
+                    parameter.CreatedBy = this.User.Identity.Name;
+                    parameter.CreatedDate = DateTimeOffset.Now;
+                    _dbContext.ClusterSimulation.AddAsync(parameter);
+
+
+                    _dbContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(data: false);
+            }
+
+            return Ok
+                   (
+                       new { data = id, status = isStatus }
+                   );
+        }
+
+        [HttpPost]
+        public IActionResult SaveDataCluster([FromBody] SP_ClusterSimulation energy)
+        {
+            var createdDate = energy.ProjectDate.ToString("yyyyMMdd");
+            var targetDate = energy.TargetCOD.ToString("yyyyMMdd");
+            var isStatus = true;
+
+            try
+            {
+                if (energy != null)
+                {
+                    //string StoredProc = "exec SP_ClusterCostSimulation " + energy.HeaderClusterID + "," + "'" + energy.ProjectName + "'" + "," + "'" + energy.Creator + "'" + "," + "'" + createdDate + "'" + "," + "'" + energy.CustomerName + "'" + "," + energy.Volume + "," + "'" + targetDate + "'" + "," + energy.OperasiHari + "," + energy.OperasiBulan + "," + "'" + energy.EnergyName + "'" + "," + "'" + energy.Latitude + "'" + "," + "'" + energy.Longitude + "'" + "," + energy.Jarak + "," + "'" + energy.Latitude2 + "'" +  "," + "'" + energy.Longitude2 + "'" + "," + "'" + energy.AsalStation + "'" + "," + "'" + energy.LokasiCapel + "'" + "," + energy.TotalVolume + "," + energy.CountCapel;
+
+                    //var data = _dbContext.Set<SP_ClusterSimulation>().FromSqlRaw(StoredProc).ToList();
+
+                    _dbContext.Set<SP_ClusterSimulation>().FromSqlRaw("SP_ClusterCostSimulation @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18", energy.HeaderClusterID , energy.ProjectName, energy.Creator, createdDate, energy.CustomerName, energy.Volume, targetDate, energy.OperasiHari, energy.OperasiBulan, energy.EnergyName, energy.Latitude, energy.Longitude, energy.Jarak, energy.Latitude2, energy.Longitude2, energy.AsalStation, energy.LokasiCapel, energy.TotalVolume, energy.CountCapel).ToList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(data: false);
+            }
+
+            return Ok
+                  (
+                      new {status = isStatus }
+                  );
         }
 
     }
