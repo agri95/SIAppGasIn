@@ -384,6 +384,10 @@ namespace SiappGasIn.Models
         public decimal? Jarak { get; set; }
         public decimal? HargaJual { get; set; }
         public string AsalStation { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Latitude2 { get; set; }
+        public string Longitude2 { get; set; }
 
     }
 

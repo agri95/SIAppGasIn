@@ -15,7 +15,7 @@
                                 class="image-responsive" style="width:120px; height:40px; float: right;"></div>
                     </div>
 
-                    <div id="convertEnergy">
+                    <div id="resultCluster">
                         <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                             style="margin-top: 7px;">
                             <div class="card-body" style="margin: 15px ;">
@@ -47,6 +47,16 @@
                                         <div class="col-md-9 col-sm-9 ">
                                             <label class="control-label col-md-9 col-sm-9 release-date"><span
                                                     id="projectDate">: @Model.CreatedDate</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-3 col-sm-3 "></label>
+                                        <div class="col-md-9 col-sm-9 ">
+                                            <label class="control-label col-md-9 col-sm-9">
+                                                <a href="#" onclick="mapp()" class="btn btn-success btn-sm"
+                                                        style="height:24px;  line-height:1;">Cluster Route Map</a>
+                                            </label>
+                                            
                                         </div>
                                     </div>
                                     
@@ -85,6 +95,17 @@
                                     class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>
                             </div>
                         </div>
+                       
+                    </div>
+
+                     <div id="maps">
+                        <center><div id="map" class="map"></div></center>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                <button type="submit" onclick="back()"
+                                    class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>                               
+                            </div>
+                        </div>
                     </div>
 
 
@@ -99,7 +120,12 @@
 <style type="text/css" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 </style>
 <style type="text/css" src="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"></style>
+
 <style>
+     .map {
+        height: 400px;
+        width: 640px;
+    }
     #example_filter input {
         border-radius: 5px;
         height: 24px;
@@ -150,6 +176,11 @@
         color:forestgreen;
     }
 </style>
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<!-- Leaflet Map -->
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
 @*
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">*@
 }
@@ -159,6 +190,10 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="http://momentjs.com/downloads/moment.min.js"></script>
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
+
 
 <script type="text/javascript">
     function back() {
@@ -170,7 +205,89 @@
         var url = '@Url.Action("DetailCluster", "SimulationCost")?Id=' + Id;
             window.location.href = url;
     }
+
+    function mapp() {
+        $("#maps").show();
+        $("#resultCluster").hide();
+
+        var greenIcon = new L.Icon({
+                iconUrl: '/plugins/map/images/user.png',
+                iconSize: [32, 37],
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -28]
+            });
+            var greenIcons = new L.Icon({
+                iconUrl: '/plugins/map/images/pertacon.png',
+                iconSize: [32, 37],
+                iconAnchor: [16, 37],
+                popupAnchor: [0, -28]
+            });
+
+         L.mapbox.accessToken = 'pk.eyJ1IjoiZmFyYWRheTIiLCJhIjoiTUVHbDl5OCJ9.buFaqIdaIM3iXr1BOYKpsQ';
+
+                var mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
+                    attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                    tileSize: 512,
+                    zoomOffset: -1
+                });
+
+                var map = L.map('map')
+                    .addLayer(mapboxTiles)
+                    .setView([42.3610, -71.0587], 15);
+
+                    var ID = '@(Model.HeaderClusterID)';
+        $.ajax({
+            url: '@Url.Action("RetrievesCluster", "SimulationCost")?id=' + ID,
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data) {
+                if (data.data.length > 0) {
+                    for (i = 0; i < data.data.length; i++) {
+                        var num = i + 1;
+
+                        L.Routing.control({
+                router: L.Routing.mapbox(L.mapbox.accessToken, {
+                    profile: 'mapbox/driving',
+                    language: 'en',
+                }),
+                waypoints: [
+                    L.latLng(data.data[i].latitude, data.data[i].longitude),
+                    L.latLng(data.data[i].latitude2, data.data[i].longitude2)
+                ],
+                createMarker: function (j, wp, nWps) {
+                    if (j === 0) {
+                        return L.marker(wp.latLng, { icon: greenIcon }).bindPopup(data.data[i].customerName);
+                    } else if (j === nWps - 1) {
+                        return L.marker(wp.latLng, { icon: greenIcons }).bindPopup(data.data[i].asalStation);
+                    }
+                },
+                routeWhileDragging: true,
+	            reverseWaypoints: true,
+	            showAlternatives: false,
+	            altLineOptions: {
+		            styles: [
+			            {color: 'black', opacity: 0.15, weight: 9},
+			            {color: 'white', opacity: 0.8, weight: 6},
+			            {color: 'blue', opacity: 0.5, weight: 2}
+		            ]
+	            }
+            }).addTo(map);
+                       
+                     };
+                }
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+                
+                    map.invalidateSize();
+    }
     $(document).ready(function () {
+        $("#maps").hide();
         $('.release-date').each( function() {
   
           var format = ": " + "DD MMM YYYY";
@@ -197,19 +314,11 @@
                 if (data.data.length > 0) {
                     for (i = 0; i < data.data.length; i++) {
                         var num = i + 1;
+
                          table.append('<tr><td>' + num + '</td><td>' + data.data[i].customerName + '</td><td style="font-weight:bold;">' + data.data[i].volume + '</td><td class="formatNum">' + data.data[i].jarak + ' Km' + '</td><td  class="formatNum">' + data.data[i].hargaJual +' $/MMBtu ' + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].clusterSimulationID + '"); >Detail</a></td></tr>');
-                        //if (data.data[i].flagPrice == 2) {
-                        //    table.append('<tr><td>' + num + '</td><td>' + data.data[i].projectName + '</td><td style="font-weight:bold;">' + data.data[i].volume + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].jarak + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].infrastructure + '","' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
-                        //}else if (data.data[i].flagPrice == 0) {
-                        //    table.append('<tr style="color:green;"><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td style="font-weight:bold;">' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].infrastructure + '","' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
-                        //} else {
-                        //    table.append('<tr style="color:red;"><td>' + num + '</td><td>' + data.data[i].infrastructure + '</td><td style="font-weight:bold;">' + data.data[i].hargaJual + ' ' + "USD / MMBTU" + '</td><td>' + data.data[i].targetCOD + ' ' + "Month" + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].infrastructure + '","' + data.data[i].simulationID + '"); >Detail</a></td></tr>');
-                        //}
-                        }
-                    ;
+                        
+                     };
                 }
-
-
             },
             error: function (jqXHR) {
                 $('#divErrorText').text(jqXHR.responseText);

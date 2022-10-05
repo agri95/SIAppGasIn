@@ -531,12 +531,9 @@ namespace SiappGasIn.Controllers.Api
                 HeaderCluster parameter = cluster;
                 if (cluster != null)
                 {
-
-
                     parameter.CreatedBy = this.User.Identity.Name;
                     parameter.CreatedDate = DateTimeOffset.Now;
                     _dbContext.HeaderCluster.AddAsync(parameter);
-
 
                     _dbContext.SaveChanges();
 
@@ -564,12 +561,9 @@ namespace SiappGasIn.Controllers.Api
                 ClusterSimulation parameter = cluster;
                 if (cluster != null)
                 {
-
-
                     parameter.CreatedBy = this.User.Identity.Name;
                     parameter.CreatedDate = DateTimeOffset.Now;
                     _dbContext.ClusterSimulation.AddAsync(parameter);
-
 
                     _dbContext.SaveChanges();
                 }
