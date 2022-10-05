@@ -274,7 +274,6 @@ namespace SiappGasIn.Controllers.Api
 
                     var data = _dbContext.Set<SP_CostSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
 
-
                 }
             }
             catch (Exception ex)
@@ -510,9 +509,10 @@ namespace SiappGasIn.Controllers.Api
 
                     //var datass =  _dbContext.Set<SP_PipeCalculator>().FromSqlRaw(StoredProc).ToListAsync();
 
-                    string StoredProcs = "exec SP_PipeCalculator " + dataID + "," + "'" + type + "'" + "," + "'" + latitude + "'" + "," + "'" + longitude + "'" + "," + postal_code + "," + diameterValue + "," + distanceValue + "," + pressureValue + "," + volumeValue + "," + "'" + route + "'" + "," + volume2 + "," + operasiHari + "," + operasiBulan + "," + "'" + energyName + "'" + "," + pressure;
-                    var data = _dbContext.Set<SP_PipeCalculatorData>().FromSqlRaw(StoredProcs).AsEnumerable().FirstOrDefault();
-                    
+                    //string StoredProcs = "exec SP_PipeCalculator " + dataID + "," + "'" + type + "'" + "," + "'" + latitude + "'" + "," + "'" + longitude + "'" + "," + postal_code + "," + diameterValue + "," + distanceValue + "," + pressureValue + "," + volumeValue + "," + "'" + route + "'" + "," + volume2 + "," + operasiHari + "," + operasiBulan + "," + "'" + energyName + "'" + "," + pressure;
+                    //var data = _dbContext.Set<SP_PipeCalculatorData>().FromSqlRaw(StoredProcs).AsEnumerable().FirstOrDefault();
+                    _dbContext.Set<SP_PipeCalculatorData>().FromSqlRaw("SP_PipeCalculator @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14", dataID, type, latitude, longitude, postal_code, diameterValue, distanceValue, pressureValue, volumeValue, route, volume2, operasiHari, operasiBulan, energyName, pressure).ToList();
+
                 }
             }
             return Ok

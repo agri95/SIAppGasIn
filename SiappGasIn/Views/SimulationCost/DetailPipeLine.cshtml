@@ -22,16 +22,16 @@ ViewData["Title"] = "Detail Simulation Cost";
                                 <form class="form-horizontal form-label-left">
                                     <label>Detail Pipeline</label>
                                     <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Type</label>
-                                        <div class="col-md-9 col-sm-9 ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Type</label>
+                                        <div class="col-md-8 col-sm-8 ">
                                             <label class="control-label col-md-9 col-sm-9">: <span
                                                     style="font-weight:bold;"
                                                     id="projectName">@Model.type</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Distance</label>
-                                        <div class="col-md-9 col-sm-9 ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Distance</label>
+                                        <div class="col-md-8 col-sm-8 ">
                                             <label class="control-label col-md-9 col-sm-9">: <span
                                                     style="font-weight:bold;" id="projectName"
                                                     class="formatNum">@Model.distanceValue</span> <span>
@@ -39,8 +39,8 @@ ViewData["Title"] = "Detail Simulation Cost";
                                         </div>
                                     </div>
                                     <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Diameter Estimate</label>
-                                        <div class="col-md-9 col-sm-9 ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Diameter Estimate</label>
+                                        <div class="col-md-8 col-sm-8 ">
                                             <label class="control-label col-md-9 col-sm-9">: <span
                                                     style="font-weight:bold;"
                                                     id="projectName">@Model.diameterValue</span> <span>
@@ -48,8 +48,8 @@ ViewData["Title"] = "Detail Simulation Cost";
                                         </div>
                                     </div>
                                     <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Pressure</label>
-                                        <div class="col-md-9 col-sm-9 ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Pressure</label>
+                                        <div class="col-md-8 col-sm-8 ">
                                             <label class="control-label col-md-9 col-sm-9">: <span
                                                     style="font-weight:bold;"
                                                     id="projectName">@Model.pressureValue</span> <span>
@@ -57,8 +57,8 @@ ViewData["Title"] = "Detail Simulation Cost";
                                         </div>
                                     </div>
                                     <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Volume</label>
-                                        <div class="col-md-9 col-sm-9 ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Volume</label>
+                                        <div class="col-md-8 col-sm-8 ">
                                             <label class="control-label col-md-9 col-sm-9">: <span
                                                     style="font-weight:bold;" id="projectName"
                                                     class="formatNum">@Model.volumeValue</span> <span>
@@ -66,16 +66,32 @@ ViewData["Title"] = "Detail Simulation Cost";
                                         </div>
                                     </div>
                                     <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Tipe MRS</label>
-                                        <div class="col-md-9 col-sm-9 ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Tipe MRS</label>
+                                        <div class="col-md-8 col-sm-8 ">
                                             <label class="control-label col-md-9 col-sm-9">: <span
                                                     style="font-weight:bold;" id="projectName"
                                                     >@Model.mrsType</span> </label>
                                         </div>
                                     </div>
                                     <div class="form-group row ">
-                                        <label class="control-label col-md-3 col-sm-3 ">Cost</label>
-                                        <div class="col-md-9 col-sm-9 ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Tipe Pelanggan</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.custType</span> </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Tipe Konfigurasi MRS</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.mrsConfType</span> </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Cost</label>
+                                        <div class="col-md-8 col-sm-8 ">
                                             <label class="control-label col-md-9 col-sm-9">: <span
                                                     style="font-weight:bold;" id="projectName"
                                                     class="formatNum">@Model.costValue</span> <span>
