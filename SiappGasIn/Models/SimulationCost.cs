@@ -303,8 +303,8 @@ namespace SiappGasIn.Models
         public string costUnit { get; set; }
         public string route { get; set; }
         public string mrsType { get; set; }
-        public string custType { get; set; }
-        public string mrsConfType { get; set; }
+        public string? custType { get; set; }
+        public string? mrsConfType { get; set; }
         public string? CreatedBy { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }

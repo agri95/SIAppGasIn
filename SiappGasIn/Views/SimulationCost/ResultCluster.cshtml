@@ -102,7 +102,7 @@
                         <center><div id="map" class="map"></div></center>
                         <div class="row">
                             <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-                                <button type="submit" onclick="back()"
+                                <button type="submit" onclick="_back()"
                                     class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>                               
                             </div>
                         </div>
@@ -204,6 +204,11 @@
     function Details(Id) {
         var url = '@Url.Action("DetailCluster", "SimulationCost")?Id=' + Id;
             window.location.href = url;
+    }
+
+    function _back() {
+        $("#maps").hide();
+        $("#resultCluster").show();
     }
 
     function mapp() {
