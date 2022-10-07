@@ -20,8 +20,8 @@ namespace SiappGasIn.Models
         public decimal OutletMinBarg { get; set; }
         public decimal InletInch { get; set; }
         public decimal OutletInch { get; set; }
-        public decimal InletNPS { get; set; }
-        public decimal OutletNPS { get; set; }
+        public decimal? InletNPS { get; set; }
+        public decimal? OutletNPS { get; set; }
         public string CreatedBy { get; set; }
         public DateTimeOffset? CreatedDate { get; set; }
         public string? ModifiedBy { get; set; }
