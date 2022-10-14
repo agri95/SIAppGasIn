@@ -847,28 +847,36 @@
                 var operasiBulan = $("#workDay").val();
                 var energyName = $("#energyName").val();   
                 var pressure = $("#pressure").val();
+                var pressureX = "";
                 var gas = 8945.14;
-                var energyX = ""
+                var energyX = "";
+
+                    if (pressure <= 1) {
+                        pressureX = String(pressure).replaceAll('.', ',');
+                    } else {
+                        pressureX = parseFloat(pressure);
+                    }
+
                 if (energyName == "Gas Bumi") {
                     var _demand = (demandUsage / 30);
-                    var mmscfd = 28252.14;
-                    var _flowrate = (_demand / mmscfd).toFixed(2);
-                    
-                    if (_flowrate == 0.00) {
-                        energyX = "0,01";
-                    } else {
+                    var mmscfd = 0.00085;
+                    var _flowrate = (_demand * mmscfd).toFixed(2);
+
+                    if (_flowrate <= 1) {
                         energyX = String(_flowrate).replaceAll('.', ',');
+                    } else {
+                        energyX = parseFloat(_flowrate);
                     }
+
                 } else {
                     var _demand = (nilaiKalori / gas) * demandUsage;
                     var _demands = (_demand / 30);
-                    var mmscfd = 28252.14;
-                    var _flowrate = (_demands / mmscfd).toFixed(2);
-                    
-                    if (_flowrate == 0.00) {
-                        energyX = "0,01";
-                    } else {
+                    var mmscfd = 0.00085;
+                    var _flowrate = (_demands * mmscfd).toFixed(2);
+                    if (_flowrate <= 1) {
                         energyX = String(_flowrate).replaceAll('.', ',');
+                    } else {
+                        energyX = parseFloat(_flowrate);
                     }
                 } 
                 
@@ -890,7 +898,7 @@
                         "unit": "mmscfd"
                     },
                     "pressure": {
-                        "value": $("#pressure").val(),
+                        "value": pressureX,
                         "unit": "barg"
                     }
                 };
