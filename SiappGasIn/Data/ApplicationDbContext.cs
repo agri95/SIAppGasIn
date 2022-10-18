@@ -28,6 +28,7 @@ namespace SiappGasIn.Data
         public DbSet<HeaderSimulationCost> HeaderSimulationCost { get; set; }
         public DbSet<HeaderCluster> HeaderCluster { get; set; }
         public DbSet<SP_ClusterSimulation> SP_ClusterSimulation { get; set; }
+        public DbSet<SP_DetailRouteClusterSimulation> SP_DetailRouteClusterSimulation { get; set; }
         public DbSet<SP_GetGajiByLocationName> SP_GetGajiByLocationName { get; set; }
         public DbSet<MstGaji> MstGaji { get; set; }
         public DbSet<MstUnit> MstUnit { get; set; }
@@ -48,6 +49,7 @@ namespace SiappGasIn.Data
             builder.Entity<SP_HeaderSimulation>().HasNoKey();
             builder.Entity<SP_DetailSimulation>().HasNoKey();
             builder.Entity<SP_DetailClusterSimulation>().HasNoKey();
+            builder.Entity<SP_DetailRouteClusterSimulation>().HasNoKey();
             builder.Entity<SP_CostSimulation>().HasNoKey();
             builder.Entity<SP_PipeCalculator>().HasNoKey();
             builder.Entity<SP_ClusterSimulation>().HasNoKey();

@@ -201,9 +201,18 @@
         window.location.href = url;
     }
 
-    function Details(Id) {
-        var url = '@Url.Action("DetailCluster", "SimulationCost")?Id=' + Id;
+    function Details(Infra,Id) {
+        if (Infra == "CNG") {
+            var url = '@Url.Action("DetailCluster", "SimulationCost")?Id=' + Id;
             window.location.href = url;
+        }
+        else if (Infra == "Pipeline") {
+            var url = '@Url.Action("DetailPipe", "SimulationCost")?Id=' + Id;
+            window.location.href = url;
+        }
+        else {
+            console.log("error");
+        }
     }
 
     function _back() {
@@ -242,7 +251,7 @@
 
                     var ID = '@(Model.HeaderClusterID)';
         $.ajax({
-            url: '@Url.Action("RetrievesCluster", "SimulationCost")?id=' + ID,
+            url: '@Url.Action("RetrievesRouteCluster", "SimulationCost")?id=' + ID,
             type: 'POST',
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
@@ -320,7 +329,7 @@
                     for (i = 0; i < data.data.length; i++) {
                         var num = i + 1;
 
-                         table.append('<tr><td>' + num + '</td><td>' + data.data[i].customerName + '</td><td style="font-weight:bold;">' + data.data[i].volume + '</td><td class="formatNum">' + data.data[i].jarak + ' Km' + '</td><td  class="formatNum">' + data.data[i].hargaJual +' $/MMBtu ' + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].clusterSimulationID + '"); >Detail</a></td></tr>');
+                         table.append('<tr><td>' + num + '</td><td>' + data.data[i].customerName + '</td><td>' + data.data[i].infrastructure + '</td><td class="formatNum">' + data.data[i].jarak + ' Km' + '</td><td  style="font-weight:bold;" class="formatNum">' + data.data[i].hargaJual +' $/MMBtu ' + '</td><td>' + data.data[i].asalStation + '</td><td><a href="#" class="badge badge-danger" onclick=Details("' + data.data[i].infrastructure + '","' + data.data[i].clusterSimulationID + '"); >Detail</a></td></tr>');
                         
                      };
                 }

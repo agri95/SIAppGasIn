@@ -380,6 +380,23 @@ namespace SiappGasIn.Models
         public int ClusterSimulationID { get; set; }
         public int HeaderClusterID { get; set; }
         public string CustomerName { get; set; }
+        public string Infrastructure { get; set; }
+        public decimal? Volume { get; set; }
+        public decimal? Jarak { get; set; }
+        public decimal? HargaJual { get; set; }
+        public string AsalStation { get; set; }
+        //public string Latitude { get; set; }
+        //public string Longitude { get; set; }
+        //public string Latitude2 { get; set; }
+        //public string Longitude2 { get; set; }
+
+    }
+
+    public class SP_DetailRouteClusterSimulation
+    {
+        public int ClusterSimulationID { get; set; }
+        public int HeaderClusterID { get; set; }
+        public string CustomerName { get; set; }
         public decimal? Volume { get; set; }
         public decimal? Jarak { get; set; }
         public decimal? HargaJual { get; set; }
