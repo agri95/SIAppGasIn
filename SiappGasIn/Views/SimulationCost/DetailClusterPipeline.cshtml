@@ -1,0 +1,276 @@
+﻿@model SiappGasIn.Models.PipeCalculator
+@{
+ViewData["Title"] = "Detail Simulation Cost";
+}
+<div class="container body" style="padding-left:230px;padding-right:230px;margin-top:-7px;">
+    <div class="card">
+        <div class="row ">
+            <div class="col-md-12 px-3">
+                <div class="card-block" style="border: 1px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                        </div>
+                        <div class="col-md-5"><img src="@Url.Content("~/adminlte/images/logos.png")"
+                                class="image-responsive" style="width:120px; height:40px; float: right;"></div>
+                    </div>
+
+                    <div id="resultSimulation">
+                        <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
+                            style="margin-top: 7px;">
+                            <div class="card-body" style="margin: 15px ;">
+                                <form class="form-horizontal form-label-left">
+                                    <label>Detail Pipeline</label>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Type</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
+                                                    id="projectName">@Model.type</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Distance</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    class="formatNum">@Model.distanceValue</span> <span>
+                                                    @Model.distanceUnit</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Diameter Estimate</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
+                                                    id="projectName">@Model.diameterValue</span> <span>
+                                                    @Model.diameterUnit</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Pressure</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
+                                                    id="projectName">@Model.pressureValue</span> <span>
+                                                    @Model.pressureUnit</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Volume</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    class="formatNum">@Model.volumeValue</span> <span>
+                                                    @Model.volumeUnit</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Tipe MRS</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.mrsType</span> </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Tipe Pelanggan</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.custType</span> </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Tipe Konfigurasi MRS</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.mrsConfType</span> </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Cost</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    class="formatNum">@Model.costValue</span> <span>
+                                                    @Model.costUnit</span></label>
+                                        </div>
+                                    </div>
+                                    <label>Route Map</label>
+                                    <div class="form-group row ">
+
+                                        <div class="col-md-3 col-sm-3 ">
+                                            <a href="#" onclick="mapp()" class="btn btn-success btn-sm"
+                                                style="height:24px; width:100%; line-height:1;">Route Map</a>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                <button type="submit" onclick="backResult();"
+                                    class="btn btn-warning btn-sm pull-right RbtnMargin">Back</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="maps">
+                        <center>
+                            <div id="map" class="map"></div>
+                        </center>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                <button type="submit" onclick="back()"
+                                    class="btn btn-danger btn-sm pull-right RbtnMargin">Close</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<!-- Leaflet Map -->
+
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
+@*
+<link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
+<style>
+    .map {
+        height: 400px;
+        width: 640px;
+    }
+
+    .results {
+        background-color: white;
+        opacity: 0.8;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 320px;
+        height: 480px;
+        overflow-y: scroll;
+    }
+</style>
+}
+
+@section Scripts{
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+        $("#maps").hide();
+         L.mapbox.accessToken = 'pk.eyJ1IjoiZmFyYWRheTIiLCJhIjoiTUVHbDl5OCJ9.buFaqIdaIM3iXr1BOYKpsQ';
+
+            var mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
+                attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                tileSize: 512,
+                zoomOffset: -1
+            });
+
+            map = L.map('map')
+                .addLayer(mapboxTiles);
+
+       var data = '@Model.route';
+        var result = JSON.parse(data);
+
+        var rawPoints = []
+        for (i = 0; i < result.length; i++) {
+            var lat = result[i][1];
+            var lng = result[i][0];
+
+            rawPoints.push({ "latitude": lat, "longitude": lng });
+
+        }
+        console.log(rawPoints);
+        var greenIcon = new L.Icon({
+            iconUrl: '/plugins/map/images/user.png',
+            iconSize: [32, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -28]
+        });
+        var greenIcons = new L.Icon({
+            iconUrl: '/plugins/map/images/pertacon.png',
+            iconSize: [32, 37],
+            iconAnchor: [16, 37],
+            popupAnchor: [0, -28]
+        });
+        var coordinates = rawPoints.map(rawPoint => new L.LatLng(rawPoint["latitude"], rawPoint["longitude"]))
+
+        let polyline = L.polyline(
+            coordinates,
+            {
+                color: 'red',
+                weight: 3,
+                opacity: .7,
+                lineJoin: 'round'
+            }
+        );
+
+        polyline.addTo(map);
+
+        let lats = rawPoints.map(c => c.latitude).reduce((previous, current) => current += previous, 0.0);
+        let longs = rawPoints.map(c => c.longitude).reduce((previous, current) => current += previous, 0.0);
+
+
+        var _end = result.length - 1;
+        L.marker([result[0][1], result[0][0]], { icon: greenIcon }).addTo(map)
+        L.marker([result[_end][1], result[_end][0]], { icon: greenIcons }).addTo(map)
+        map.fitBounds(polyline.getBounds());
+        const position = [lats / rawPoints.length, longs / rawPoints.length];
+        map.setView(position, 13);
+
+        let x = document.querySelectorAll(".formatNum");
+        for (let i = 0, len = x.length; i < len; i++) {
+
+            let num = Number(x[i].textContent)
+                .toLocaleString('en');
+            x[i].textContent = num;
+        }
+
+
+
+    });
+</script>
+
+<script type="text/javascript">
+    //maps
+    function back() {
+        $("#maps").hide();
+        $("#resultSimulation").show();
+    }
+
+    function mapp() {
+        $("#maps").show();
+        $("#resultSimulation").hide();
+        map.invalidateSize();
+    }
+
+
+    function Details(Id) {
+        var url = '@Url.Action("Index", "SimulationCost")?Id=' + Id;
+        window.location.href = url;
+    }
+
+    function backResult() {
+        var ids = @(Model.HeaderSimulationID);
+        var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + ids;
+        window.location.href = url;
+    }
+</script>
+}

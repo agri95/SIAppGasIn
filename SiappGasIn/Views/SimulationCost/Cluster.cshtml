@@ -1445,7 +1445,7 @@
             </div>
 
         </div>
-        @*<div class="loading overlay" id="loading">
+        <div class="loading overlay" id="loading">
             <div class="lds-roller">
                 <div></div>
                 <div></div>
@@ -1456,7 +1456,7 @@
                 <div></div>
                 <div></div>
             </div>
-        </div>*@
+        </div>
 
         <span hidden id="gajiSupir"></span>
         <span hidden id="gajiOperator"></span>
@@ -1865,7 +1865,7 @@
             };
 
             $(document).ready(function () {
-
+                $('.loading').hide();
                 $("#findMap1").hide();
                 $("#findMap2").hide();
                 $("#findMap3").hide();
@@ -3144,7 +3144,7 @@
             //------------------------------- CALCULATE CLUSTER -------------------------------//
 
             function calculateCluster() {
-                
+                $('.loading').show();
                 results = [];
                 var countCapel = $('.input-number').val();
 
@@ -3298,9 +3298,16 @@
                                 calculatePipe(datas.data, demandUsage, _energyName, _nilaiKalori, hourDay, workDay, pressure, customerName, lat, long);
                             
                             }
+
+                            const wait = Math.round(Math.random()*80000);
+                            setTimeout(function() {
+
+                                var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + datas.data;
+                                window.location.href = url;
+
+                            },wait)
                                                                
-                            var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + datas.data;
-                            window.location.href = url;
+                            
 
                         }
                     },
@@ -3333,9 +3340,9 @@
                     }
 
                 if (energyName == "Gas Bumi") {
-                    var _demand = (demandUsage / 30);
+                    var _demand = (demandUsage / 30 / 24);
                     var mmscfd = 0.00085;
-                    var _flowrate = (_demand * mmscfd).toFixed(2);
+                    var _flowrate = (_demand * mmscfd).toFixed(3);
 
                     if (_flowrate <= 1) {
                         energyX = String(_flowrate).replaceAll('.', ',');
@@ -3345,9 +3352,9 @@
 
                 } else {
                     var _demand = (nilaiKalori / gas) * demandUsage;
-                    var _demands = (_demand / 30);
+                    var _demands = (_demand / 30 / 24);
                     var mmscfd = 0.00085;
-                    var _flowrate = (_demands * mmscfd).toFixed(2);
+                    var _flowrate = (_demands * mmscfd).toFixed(3);
                     if (_flowrate <= 1) {
                         energyX = String(_flowrate).replaceAll('.', ',');
                     } else {

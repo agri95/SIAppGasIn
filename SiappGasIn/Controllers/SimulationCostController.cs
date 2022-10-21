@@ -113,6 +113,15 @@ namespace SiappGasIn.Controllers
         }
 
         [HttpGet]
+        public IActionResult DetailClusterPipe(int Id)
+        {
+
+            PipeCalculator data = _dbContext.PipeCalculator.Where(x => x.PipeCalculatorID.Equals(Id)).FirstOrDefault<PipeCalculator>();
+
+            return View("~/Views/SimulationCost/DetailClusterPipeline.cshtml", data);
+        }
+
+        [HttpGet]
         public IActionResult DetailLNG(int Id)
         {
 

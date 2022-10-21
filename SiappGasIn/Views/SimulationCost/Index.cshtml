@@ -858,9 +858,9 @@
                     }
 
                 if (energyName == "Gas Bumi") {
-                    var _demand = (demandUsage / 30);
+                    var _demand = (demandUsage / 30 / 24);
                     var mmscfd = 0.00085;
-                    var _flowrate = (_demand * mmscfd).toFixed(2);
+                    var _flowrate = (_demand * mmscfd).toFixed(3);
 
                     if (_flowrate <= 1) {
                         energyX = String(_flowrate).replaceAll('.', ',');
@@ -870,9 +870,9 @@
 
                 } else {
                     var _demand = (nilaiKalori / gas) * demandUsage;
-                    var _demands = (_demand / 30);
+                    var _demands = (_demand / 30 / 24);
                     var mmscfd = 0.00085;
-                    var _flowrate = (_demands * mmscfd).toFixed(2);
+                    var _flowrate = (_demands * mmscfd).toFixed(3);
                     if (_flowrate <= 1) {
                         energyX = String(_flowrate).replaceAll('.', ',');
                     } else {
