@@ -226,8 +226,9 @@
                                                         id="pressure" name="pressure" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
-                                                 <span class="col-md-1 col-sm-1" style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
-                                                 <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-3 col-sm-3 ">
@@ -237,17 +238,10 @@
                                                         <option value="Rumah Tangga">Rumah Tangga</option>
                                                     </select>
                                                 </div>
-                                               @* <label class="control-label col-md-3 col-sm-3 ">Flow Rate</label>
-                                                <div class="col-md-3 col-sm-3 ">
-                                                    <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="flowrate" name="flowrate" placeholder="" autocomplete="off"
-                                                        aria-label=".form-control-sm example" min="0">
-                                                </div>*@
-
                                             </div>
                                             <div class="form-group row pipeLines">
 
-                                               
+
 
                                             </div>
                                             <label><strong>Supply Data</strong></label>
@@ -359,11 +353,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -390,11 +379,7 @@
         <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
         <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
         <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
-        <link rel="stylesheet" type="text/css"
-            href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
-
-        @*
-        <link rel="stylesheet" href="~/plugins/map/css/styles.css" />*@
+        <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
 
         <style>
             .lds-roller {
@@ -594,14 +579,11 @@
 
         @section Scripts{
         <script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>
-        @*
-        <script type="text/javascript" src="~/plugins/map/js/script.js"></script>*@
         <script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
         <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
         <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
         <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
-        <script
-            src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+        <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
             var results = [];
@@ -649,6 +631,7 @@
                 }
 
             }
+
             function chooseAddr(lat1, lng1, loc1) {
                 lat = lat1.toFixed(8);
                 lon = lng1.toFixed(8);
@@ -657,7 +640,7 @@
                 document.getElementById('longitude').value = lon;
                 document.getElementById('resultLocationName').value = loc;
                 $("#resultText").hide();
-            }            
+            }
 
             function pointMap(lat, long) {
                 var titik = L.latLng(lat, long);
@@ -672,7 +655,7 @@
             }
 
             function calculateCost() {
-                
+
                 results = [];
                 var projectName = $("#projectName").val();
                 var creator = $("#creator").val();
@@ -688,7 +671,7 @@
                 if (targetCOD == "" || targetCOD == null) {
                     targetCOD = "0001-01-01";
                 }
-                
+
                 if (projectName == "" || projectName == null) {
                     $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
                         $("#_alert1").slideUp(500);
@@ -724,7 +707,7 @@
                         $("#_alert6").slideUp(500);
                     });
                     $("#textError6").text("Work Day ");
-                }                
+                }
                 if (lat == "" || lat == null) {
                     $("#_alert7").fadeTo(8000, 500).slideUp(500, function () {
                         $("#_alert7").slideUp(500);
@@ -743,113 +726,113 @@
                 else {
                     pointMap(lat, long);
 
-                        if (results.length > 0) {
-                            var currentRadius = $("#radius").val();
-                            console.log(results);
-                            $.ajax({
-                                url: '@Url.Action("SaveDataHeader", "SimulationCost")',
-                                type: 'POST',
-                                dataType: 'json',
-                                contentType: "application/json; charset=utf-8",
-                                data: JSON.stringify(
-                                    {
-                                        "ProjectName": projectName,
-                                        "Creator": creator,
-                                        "ProjectDate": projectDate,
-                                        "CustomerName": customerName,
-                                        "TargetCOD": targetCOD,
-                                        "Latitude": lat,
-                                        "Longitude": long,
-                                    }
-                                ),
-                                success: function (data) {
-                                    if (data.status == true) {
-                                        $('.loading').show();
-                                        //if (document.getElementById("lng").checked == true) {
-                                        //    alert("LNG Ceklis");                                            
-                                        //}
-
-                                        //function task1() {
-                                        //  const wait = Math.round(Math.random()*1000);
-                                        //  setTimeout(function() {
-                                        //      calculate(data.data);                                             
-                                        //  },wait)
-                                        //}
- 
-                                        //function task2() {
-                                        //  const wait = Math.round(Math.random()*10000);
-                                        //  setTimeout(function() {
-                                        //      calculatePipe(data.data);                                             
-                                         
-                                        //  },wait)
-                                        //}
-
-                                       //function task3() {
-                                       //   const wait = Math.round(Math.random()*70000);
-                                       //   setTimeout(function() {
-                                       //      $('.loading').hide();
-                                       //         var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
-                                       //         window.location.href = url;
-                                       //   },wait)
-                                       // }
-                                        console.log("start header");
-                                        //if (document.getElementById("cng").checked == true) {
-                                              calculate(data.data);                     
-                                        //}
-                                        // if (document.getElementById("pipeLine").checked == true) {
-                                        //     task2()
-                                        //}
-                                        
-                                        //task3()
-                                        //
-
-                                        
-                                        //if (document.getElementById("cng").checked == true) {
-                                        //    calculate(data.data);                        
-                                        //} 
-
-                                        //
-                                    }
-                                },        
-                                
-                                error: function (jqXHR) {
-                                    $('#divErrorText').text(jqXHR.responseText);
-                                    $('#divError').show('fade');
-                                    console.log("error header");
+                    if (results.length > 0) {
+                        var currentRadius = $("#radius").val();
+                        console.log(results);
+                        $.ajax({
+                            url: '@Url.Action("SaveDataHeader", "SimulationCost")',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(
+                                {
+                                    "ProjectName": projectName,
+                                    "Creator": creator,
+                                    "ProjectDate": projectDate,
+                                    "CustomerName": customerName,
+                                    "TargetCOD": targetCOD,
+                                    "Latitude": lat,
+                                    "Longitude": long,
                                 }
-                            });
+                            ),
+                            success: function (data) {
+                                if (data.status == true) {
+                                    $('.loading').show();
+                                    //if (document.getElementById("lng").checked == true) {
+                                    //    alert("LNG Ceklis");                                            
+                                    //}
 
-                        } else {
-                            var currentRadius = $("#radius").val();
-                            var upRadius = parseInt(currentRadius) + 50;
-                            $("#radius").val(upRadius);
-                            calculateCost();
-                        }
+                                    //function task1() {
+                                    //  const wait = Math.round(Math.random()*1000);
+                                    //  setTimeout(function() {
+                                    //      calculate(data.data);                                             
+                                    //  },wait)
+                                    //}
+
+                                    //function task2() {
+                                    //  const wait = Math.round(Math.random()*10000);
+                                    //  setTimeout(function() {
+                                    //      calculatePipe(data.data);                                             
+
+                                    //  },wait)
+                                    //}
+
+                                    //function task3() {
+                                    //   const wait = Math.round(Math.random()*70000);
+                                    //   setTimeout(function() {
+                                    //      $('.loading').hide();
+                                    //         var url = '@Url.Action("Result", "SimulationCost")?Id=' + data.data;
+                                    //         window.location.href = url;
+                                    //   },wait)
+                                    // }
+                                    console.log("start header");
+                                    //if (document.getElementById("cng").checked == true) {
+                                    calculate(data.data);
+                                    //}
+                                    // if (document.getElementById("pipeLine").checked == true) {
+                                    //     task2()
+                                    //}
+
+                                    //task3()
+                                    //
+
+
+                                    //if (document.getElementById("cng").checked == true) {
+                                    //    calculate(data.data);                        
+                                    //} 
+
+                                    //
+                                }
+                            },
+
+                            error: function (jqXHR) {
+                                $('#divErrorText').text(jqXHR.responseText);
+                                $('#divError').show('fade');
+                                console.log("error header");
+                            }
+                        });
+
+                    } else {
+                        var currentRadius = $("#radius").val();
+                        var upRadius = parseInt(currentRadius) + 50;
+                        $("#radius").val(upRadius);
+                        calculateCost();
+                    }
 
 
                 }
 
             }
             function success(data) {
-                 $('.loading').hide();
-                 var url = '@Url.Action("Result", "SimulationCost")?Id=' + data;
-                 window.location.href = url;
+                $('.loading').hide();
+                var url = '@Url.Action("Result", "SimulationCost")?Id=' + data;
+                window.location.href = url;
             }
             function calculatePipe(dataID) {
                 console.log("startpipe header");
                 if (document.getElementById("pipeLine").checked == true) {
-                     var users = "nimo.siapgasin";
-                var passwords = "nimo.pgn645In";
-                 var demandUsage = $("#demandUsage").val();
-                var energyName = $("#energyName").val();
-                var nilaiKalori = $("#nilaiKalori").val();
-                var operasiHari = $("#hourDay").val();
-                var operasiBulan = $("#workDay").val();
-                var energyName = $("#energyName").val();   
-                var pressure = $("#pressure").val();
-                var pressureX = "";
-                var gas = 8945.14;
-                var energyX = "";
+                    var users = "nimo.siapgasin";
+                    var passwords = "nimo.pgn645In";
+                    var demandUsage = $("#demandUsage").val();
+                    var energyName = $("#energyName").val();
+                    var nilaiKalori = $("#nilaiKalori").val();
+                    var operasiHari = $("#hourDay").val();
+                    var operasiBulan = $("#workDay").val();
+                    var energyName = $("#energyName").val();
+                    var pressure = $("#pressure").val();
+                    var pressureX = "";
+                    var gas = 8945.14;
+                    var energyX = "";
 
                     if (pressure <= 1) {
                         pressureX = String(pressure).replaceAll('.', ',');
@@ -857,65 +840,62 @@
                         pressureX = parseFloat(pressure);
                     }
 
-                if (energyName == "Gas Bumi") {
-                    var _demand = (demandUsage / 30 / 24);
-                    var mmscfd = 0.00085;
-                    var _flowrate = (_demand * mmscfd).toFixed(2);
+                    if (energyName == "Gas Bumi") {
+                        var _demand = (demandUsage / 30 / 24);
+                        var mmscfd = 0.00085;
+                        var _flowrate = (_demand * mmscfd).toFixed(2);
 
-                    if (_flowrate < 1) {
-                        energyX = String(_flowrate).replaceAll('.', ',');
-                    } else {
-                        energyX = parseFloat(_flowrate);
-                    }
-
-                } else {
-                    var _demand = (nilaiKalori / gas) * demandUsage;
-                    var _demands = (_demand / 30 / 24);
-                    var mmscfd = 0.00085;
-                    var _flowrate = (_demands * mmscfd).toFixed(2);
-                    if (_flowrate <= 1) {
-                        energyX = String(_flowrate).replaceAll('.', ',');
-                    } else {
-                        energyX = parseFloat(_flowrate);
-                    }
-                } 
-                
-
-                var _data = {
-                    "Customer": {
-                        "name": $("#customerName").val(),
-                        "type": $("#Category").val(),
-                        "location": {
-                            "latitude": $("#latitude").val(),
-                            "longitude": $("#longitude").val(),
-                            "postal_code": "14210",
+                        if (_flowrate < 1) {
+                            energyX = String(_flowrate).replaceAll('.', ',');
+                        } else {
+                            energyX = parseFloat(_flowrate);
                         }
-                        ,
-                    },
-                    "flow_rate": {
-                        //"value": $("#flowrate").val(),
-                        "value": energyX,
-                        "unit": "mmscfd"
-                    },
-                    "pressure": {
-                        "value": pressureX,
-                        "unit": "barg"
-                    }
-                };
-                var _datas = JSON.stringify(_data);
-                console.log(_datas);
-                //var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxODIxNTU1LCJleHAiOjE2NjE5MDc5NTQsImlhdCI6MTY2MTgyMTU1NX0.iEM6hCBcYl7bObc8qfmr0nQC5WOOB2GFdYZ_2t0G4jw";
-                $.ajax({
-                            url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&user=' + users + '&password=' + passwords + '&dataID=' + dataID + '&volume2=' + demandUsage + '&operasiHari=' + operasiHari + '&operasiBulan=' + operasiBulan + '&energyName=' + energyName + '&pressure=' + pressure  ,//File Collection Endpoint
 
-                            type: 'get',
-                            dataType: 'json',
-                            contentType: "application/json; charset=utf-8",
-                            data: "{}",
-                            success: function (datas) {
-                                console.log("success pipe");
-                                success(dataID);
-                                 
+                    } else {
+                        var _demand = (nilaiKalori / gas) * demandUsage;
+                        var _demands = (_demand / 30 / 24);
+                        var mmscfd = 0.00085;
+                        var _flowrate = (_demands * mmscfd).toFixed(2);
+                        if (_flowrate <= 1) {
+                            energyX = String(_flowrate).replaceAll('.', ',');
+                        } else {
+                            energyX = parseFloat(_flowrate);
+                        }
+                    }
+
+                    var _data = {
+                        "Customer": {
+                            "name": $("#customerName").val(),
+                            "type": $("#Category").val(),
+                            "location": {
+                                "latitude": $("#latitude").val(),
+                                "longitude": $("#longitude").val(),
+                                "postal_code": "14210",
+                            }
+                            ,
+                        },
+                        "flow_rate": {
+                            "value": energyX,
+                            "unit": "mmscfd"
+                        },
+                        "pressure": {
+                            "value": pressureX,
+                            "unit": "barg"
+                        }
+                    };
+                    var _datas = JSON.stringify(_data);
+                    console.log(_datas);
+                    
+                    $.ajax({
+                        url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&user=' + users + '&password=' + passwords + '&dataID=' + dataID + '&volume2=' + demandUsage + '&operasiHari=' + operasiHari + '&operasiBulan=' + operasiBulan + '&energyName=' + energyName + '&pressure=' + pressure,//File Collection Endpoint
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        data: "{}",
+                        success: function (datas) {
+                            console.log("success pipe");
+                            success(dataID);
+
                             //    $.ajax({
                             //    url: '@Url.Action("SaveDataPipe", "SimulationCost")',
                             //    type: 'POST',
@@ -924,38 +904,38 @@
                             //    data: JSON.stringify(
                             //        {
                             //           "HeaderSimulationID" : dataID,
-	                           //         "type" : datas.data.type,
-	                           //         "latitude" : datas.data.location.latitude,
-	                           //         "longitude" : datas.data.location.longitude,
-	                           //         "postal_code" : datas.data.location.postal_code,
-	                           //         "distanceValue" : datas.data.distance.value,
-	                           //         "distanceUnit" : datas.data.distance.nit,
-	                           //         "pressureValue" : datas.data.pressure.value,
-	                           //         "pressureUnit" : datas.data.pressure.unit,
-	                           //         "volumeValue" : datas.data.volume.value,
-	                           //         "volumeUnit" : datas.data.volume.unit,
+                            //         "type" : datas.data.type,
+                            //         "latitude" : datas.data.location.latitude,
+                            //         "longitude" : datas.data.location.longitude,
+                            //         "postal_code" : datas.data.location.postal_code,
+                            //         "distanceValue" : datas.data.distance.value,
+                            //         "distanceUnit" : datas.data.distance.nit,
+                            //         "pressureValue" : datas.data.pressure.value,
+                            //         "pressureUnit" : datas.data.pressure.unit,
+                            //         "volumeValue" : datas.data.volume.value,
+                            //         "volumeUnit" : datas.data.volume.unit,
                             //            "diameterValue" : datas.data.diameter.value,
-	                           //         "diameterUnit" : datas.data.diameter.unit,
-	                           //         "route" : datas.data.route,
+                            //         "diameterUnit" : datas.data.diameter.unit,
+                            //         "route" : datas.data.route,
                             //        }
                             //    ),
                             //    success: function (data) {
                             //        console.log("great");                                    
                             //    },        
-                                
+
                             //    error: function (jqXHR) {
                             //        $('#divErrorText').text(jqXHR.responseText);
                             //        $('#divError').show('fade');
                             //    }
                             //});
 
-                            },
-                            
-                            error: function (datas) {
-                                success(dataID);
-                                console.log("error pipe");
-                            }
-                        });
+                        },
+
+                        error: function (datas) {
+                            success(dataID);
+                            console.log("error pipe");
+                        }
+                    });
                 } else {
                     success(dataID);
                 }
@@ -1091,21 +1071,21 @@
                                         "longitude": rsLongitude,
                                     }
                                 ),
-                                success: function(datas) {
+                                success: function (datas) {
                                     console.log("success cng");
                                     //success(data);
                                     if (data == true) {
-                                       
+
                                         $("#GTM").val("");
                                         $('#HargaSewa').val("");
                                         $('#RasioBBM').val("");
                                         $('#Kecepatan').val("");
 
-                                        
+
                                     }
                                 },
 
-                                error: function(jqXHR) {
+                                error: function (jqXHR) {
                                     $('#divErrorText').text(jqXHR.responseText);
                                     $('#divError').show('fade');
                                     console.log("error cng");
@@ -1114,8 +1094,8 @@
                         }
                     }
                     calculatePipe(data);
-                } 
-                
+                }
+
                 else {
                     calculatePipe(data);
                 }
@@ -1131,7 +1111,7 @@
             }
 
             $(document).ready(function () {
-                
+
                 $(".loading").hide();
                 $("#resultText").hide();
                 $("#_alert1").hide();

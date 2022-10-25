@@ -28,7 +28,7 @@
         ViewData["Title"] = "Simulation Cost";
         }
 
-        @*<div class="alert alert-warning alert-dismissible agri" id="_alert1">
+        <div class="alert alert-warning alert-dismissible agri" id="_alert1">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Warning!</strong> <span id="textError1"></span> is required.
         </div>
@@ -63,7 +63,7 @@
         <div class="alert alert-warning alert-dismissible agri" id="_alert9">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Warning!</strong> <span id="textError9"></span> is required.
-        </div>*@
+        </div>
         <div class="container body koes" style="padding-left:230px;padding-right:230px;right: 0px;left: 0px;">
 
             <div class="card">
@@ -1763,7 +1763,7 @@
                             }
                             locationMaps.features.push(temp);
                         }
-                        console.log(locationMaps);
+                        //console.log(locationMaps);
                         let mapping = [];
                         for (var i = 0; i < locationMaps.features.length; i++) {
                             var long = locationMaps.features[i].geometry.coordinates[0];
@@ -1879,6 +1879,15 @@
                 $("#costStructure5").hide();
                 $("#costStructure6").hide();
                 $("#costStructure7").hide();
+                $("#_alert1").hide();
+                $("#_alert2").hide();
+                $("#_alert3").hide();
+                $("#_alert4").hide();
+                $("#_alert5").hide();
+                $("#_alert6").hide();
+                $("#_alert7").hide();
+                $("#_alert8").hide();
+                $("#_alert9").hide();
 
                 //-------------------------------------------------------------------------//
 
@@ -2212,7 +2221,7 @@
                             }
                             locationMaps.features.push(temp);
                         }
-                        console.log(locationMaps);
+                        //console.log(locationMaps);
                         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                             osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
@@ -2341,7 +2350,7 @@
                             }
                             locationMaps.features.push(temp);
                         }
-                        console.log(locationMaps);
+                        //console.log(locationMaps);
                         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                             osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
@@ -2469,7 +2478,7 @@
                             }
                             locationMaps.features.push(temp);
                         }
-                        console.log(locationMaps);
+                        //console.log(locationMaps);
                         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                             osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
@@ -2597,7 +2606,7 @@
                             }
                             locationMaps.features.push(temp);
                         }
-                        console.log(locationMaps);
+                        //console.log(locationMaps);
                         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                             osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
@@ -2725,7 +2734,7 @@
                             }
                             locationMaps.features.push(temp);
                         }
-                        console.log(locationMaps);
+                        //console.log(locationMaps);
                         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                             osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
@@ -2853,7 +2862,7 @@
                             }
                             locationMaps.features.push(temp);
                         }
-                        console.log(locationMaps);
+                        //console.log(locationMaps);
                         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                             osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
@@ -2981,7 +2990,7 @@
                             }
                             locationMaps.features.push(temp);
                         }
-                        console.log(locationMaps);
+                        //console.log(locationMaps);
                         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                             osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                             osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
@@ -3185,7 +3194,88 @@
                     _data.push(temp);
                 }
 
-                var totalVolume = _data.reduce((accum, item) => accum + item.demandUsage, 0)
+
+               let result = true;
+
+                for (let i=0; i<_data.length; i++){
+                    let projectName = _data[i].projectName;
+                    let projectDate = _data[i].projectDate;
+                    let customerName = _data[i].customerName;
+                    let energyName = _data[i].energyName;
+                    let demandUsage = _data[i].demandUsage;
+                    let pressure = _data[i].pressure;
+                    let nilaiKalori = _data[i].nilaiKalori;
+                    let targetCOD = _data[i].targetCOD;
+                    let hourDay = _data[i].hourDay;
+                    let workDay = _data[i].workDay;
+                    let lat = _data[i].lat;
+                    let long = _data[i].long;
+                    var capel = i + 1;
+                    if (projectName == '' || projectName == null){
+                            $("#_alert1").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert1").slideUp(500);
+                            });
+                            $("#textError1").text('Pelanggan ' + capel + ': Project Name ');
+                    }
+                    else if (projectDate == '' || projectDate == null){
+                            $("#_alert2").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert2").slideUp(500);
+                            });
+                            $("#textError2").text('Pelanggan ' + capel + ': Project Date ');
+                    }
+                    else if (customerName == '' || customerName == null){
+                            $("#_alert3").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert3").slideUp(500);
+                            });
+                            $("#textError3").text('Pelanggan ' + capel + ': Customer Name ');
+                    }
+                    else if (demandUsage == '' || demandUsage == null){
+                            $("#_alert4").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert4").slideUp(500);
+                            });
+                            $("#textError4").text('Pelanggan ' + capel + ': Demand Usage ');
+                    }
+                    else if (pressure == '' || pressure == null){
+                            $("#_alert5").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert5").slideUp(500);
+                            });
+                            $("#textError5").text('Pelanggan ' + capel + ': Pressure ');
+                    }
+                    else if (hourDay == '' || hourDay == null){
+                            $("#_alert6").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert6").slideUp(500);
+                            });
+                            $("#textError6").text('Pelanggan ' + capel + ': Hour Day ');
+                    }
+                    else if (workDay == '' || workDay == null){
+                            $("#_alert7").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert7").slideUp(500);
+                            });
+                            $("#textError7").text('Pelanggan ' + capel + ': Work Day ');
+                    }
+                    else if (lat == '' || lat == null){
+                            $("#_alert8").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert8").slideUp(500);
+                            });
+                            $("#textError8").text('Pelanggan ' + capel + ': Latitude ');
+                    }
+                    else if (long == '' || long == null){
+                            $("#_alert9").fadeTo(2000, 500).slideUp(500, function () {
+                            $("#_alert9").slideUp(500);
+                            });
+                            $("#textError9").text('Pelanggan ' + capel + ': Longitude ');
+                    }
+
+                    
+                }
+               
+                function checkArray(array){
+                  return array.every(item => 
+                    !Object.values(item).some(value => value === "")
+                  );
+                }
+                if (checkArray(_data) == true) {
+                    var totalVolume = _data.reduce((accum, item) => accum + item.demandUsage, 0)
 
                 var rawPoints = []
                 for (i = 0; i < _data.length; i++) {
@@ -3218,6 +3308,69 @@
                 var time = today.getHours() + today.getMinutes() + today.getSeconds();
 
                 var clusterName = 'CL' + date + time + '-' + countCapel;
+
+                //var demandUsage = totalVolume;
+                //var energyName = energyName;
+                //var nilaiKalori = nilaiKalori;
+                //var operasiHari = _hourDay;
+                //var operasiBulan = _workDay;   
+                //var pressure = _pressure;
+                //var pressureX = "";
+                //var gas = 8945.14;
+                //var energyX = "";
+
+                //    if (pressure <= 1) {
+                //        pressureX = String(pressure).replaceAll('.', ',');
+                //    } else {
+                //        pressureX = parseFloat(pressure);
+                //    }
+
+                //if (energyName == "Gas Bumi") {
+                //    var _demand = (demandUsage / 30 / 24);
+                //    var mmscfd = 0.00085;
+                //    var _flowrate = (_demand * mmscfd).toFixed(3);
+
+                //    if (_flowrate <= 1) {
+                //        energyX = String(_flowrate).replaceAll('.', ',');
+                //    } else {
+                //        energyX = parseFloat(_flowrate);
+                //    }
+
+                //} else {
+                //    var _demand = (nilaiKalori / gas) * demandUsage;
+                //    var _demands = (_demand / 30 / 24);
+                //    var mmscfd = 0.00085;
+                //    var _flowrate = (_demands * mmscfd).toFixed(3);
+                //    if (_flowrate <= 1) {
+                //        energyX = String(_flowrate).replaceAll('.', ',');
+                //    } else {
+                //        energyX = parseFloat(_flowrate);
+                //    }
+                //} 
+                
+
+                //var _data = {
+                //    "Customer": {
+                //        "name": _customerName,
+                //        "type": "Industri",
+                //        "location": {
+                //            "latitude": _latitude,
+                //            "longitude": _longitude,
+                //            "postal_code": "14210",
+                //        }
+                //        ,
+                //    },
+                //    "flow_rate": {
+                //        //"value": $("#flowrate").val(),
+                //        "value": energyX,
+                //        "unit": "mmscfd"
+                //    },
+                //    "pressure": {
+                //        "value": pressureX,
+                //        "unit": "barg"
+                //    }
+                //};
+                //var _datas = JSON.stringify(_data);
 
                 $.ajax({
                     url: '@Url.Action("SaveDataHeaderCluster", "SimulationCost")',
@@ -3299,7 +3452,7 @@
                             
                             }
 
-                            const wait = Math.round(Math.random()*80000);
+                            const wait = Math.round(Math.random()*12000);
                             setTimeout(function() {
 
                                 var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + datas.data;
@@ -3317,6 +3470,43 @@
                         console.log("error header");
                     }
                 });
+                };
+                
+                //var totalVolume = _data.reduce((accum, item) => accum + item.demandUsage, 0)
+
+                //var rawPoints = []
+                //for (i = 0; i < _data.length; i++) {
+
+                //    var lat = parseFloat(_data[i].lat);
+                //    var long = parseFloat(_data[i].long);
+
+                //    let temp = {
+                //        "latitude": lat,
+                //        "longitude": long
+                //    }
+
+                //    rawPoints.push(temp);
+
+                //}
+
+                //let lats = rawPoints.map(c => c.latitude).reduce((previous, current) => current += previous, 0.0);
+                //let longs = rawPoints.map(c => c.longitude).reduce((previous, current) => current += previous, 0.0);
+
+                //const position = [lats / rawPoints.length, longs / rawPoints.length];
+                //spbgFinal = [];
+                //const configurations = pointMap(lats / rawPoints.length, longs / rawPoints.length);
+
+                //var latEnd = configurations[0].latitude;
+                //var longEnd = configurations[0].longitude;
+                //var lokasiEnd = configurations[0].lokasi;
+
+                //var today = new Date();
+                //var date = today.getFullYear() + (today.getMonth() + 1) + today.getDate();
+                //var time = today.getHours() + today.getMinutes() + today.getSeconds();
+
+                //var clusterName = 'CL' + date + time + '-' + countCapel;
+
+                
             }
 
             function calculatePipe(dataID, _demandUsage, _energyName, _nilaiKalori, _hourDay, _workDay, _pressure, _customerName, _latitude, _longitude) {
@@ -3385,7 +3575,7 @@
                     }
                 };
                 var _datas = JSON.stringify(_data);
-                console.log(_datas);
+
                 //var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im5pbW8uc2lhcGdhc2luIiwibmJmIjoxNjYxODIxNTU1LCJleHAiOjE2NjE5MDc5NTQsImlhdCI6MTY2MTgyMTU1NX0.iEM6hCBcYl7bObc8qfmr0nQC5WOOB2GFdYZ_2t0G4jw";
                 $.ajax({
                             url: '@Url.Action("getPipeCalculatorCluster", "SimulationCost")?datas=' + _datas + '&user=' + users + '&password=' + passwords + '&dataID=' + dataID + '&volume2=' + demandUsage + '&operasiHari=' + operasiHari + '&operasiBulan=' + operasiBulan + '&energyName=' + energyName + '&pressure=' + pressure  + '&customer=' + _customerName  ,//File Collection Endpoint

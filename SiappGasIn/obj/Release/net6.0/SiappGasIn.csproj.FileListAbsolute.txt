@@ -282,3 +282,4 @@ D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\refint\SiappGasIn.d
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\SiappGasIn.pdb
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\SiappGasIn.genruntimeconfig.cache
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\ref\SiappGasIn.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\bin\Release\net6.0\linq2db.dll

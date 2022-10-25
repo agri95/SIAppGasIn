@@ -6,6 +6,7 @@ D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\PubTmp\Out\SiappGas
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\PubTmp\Out\SiappGasIn.pdb
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\PubTmp\Out\DataTables-Editor-Server.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\PubTmp\Out\Humanizer.dll
+D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\PubTmp\Out\linq2db.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\PubTmp\Out\MessagePack.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\PubTmp\Out\MessagePack.Annotations.dll
 D:\SIApp Gas In\App\SIAppGasIn\SiappGasIn\obj\Release\net6.0\PubTmp\Out\System.Net.Http.Formatting.dll

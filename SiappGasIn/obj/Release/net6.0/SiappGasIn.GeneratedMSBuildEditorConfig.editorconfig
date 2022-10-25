@@ -107,6 +107,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdExva2FzaVNQQkdcTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/Master/MstMRS/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdE1SU1xMaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/Master/MstParameter/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWFzdGVyXE1zdFBhcmFtZXRlclxMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -139,8 +143,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/Cluster.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcQ2x1c3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcRGV0YWlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/DetailCluster.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcRGV0YWlsQ2x1c3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/DetailClusterPipeline.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcRGV0YWlsQ2x1c3RlclBpcGVsaW5lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/DetailLNG.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcRGV0YWlsTE5HLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/DetailPipeLine.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcRGV0YWlsUGlwZUxpbmUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/Index.cshtml]
@@ -149,6 +173,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/Result.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcUmVzdWx0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/SimulationCost/ResultCluster.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2ltdWxhdGlvbkNvc3RcUmVzdWx0Q2x1c3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/SIApp Gas In/App/SIAppGasIn/SiappGasIn/Views/Transaction/TransCNG.cshtml]
