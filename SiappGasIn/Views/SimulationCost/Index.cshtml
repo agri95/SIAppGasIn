@@ -379,7 +379,8 @@
         <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.mobile.min.css" />
         <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet-search.min.css" />
         <link rel="stylesheet" href="~/plugins/map/css/lib/leaflet.draw.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+        <link rel="stylesheet" type="text/css"
+            href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
 
         <style>
             .lds-roller {
@@ -578,12 +579,13 @@
 
 
         @section Scripts{
-        <script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>
+        @*<script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>*@
         <script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
         <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
         <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
         <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
-        <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+        <script
+            src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
             var results = [];
@@ -885,7 +887,7 @@
                     };
                     var _datas = JSON.stringify(_data);
                     console.log(_datas);
-                    
+
                     $.ajax({
                         url: '@Url.Action("getPipeCalculator", "SimulationCost")?datas=' + _datas + '&user=' + users + '&password=' + passwords + '&dataID=' + dataID + '&volume2=' + demandUsage + '&operasiHari=' + operasiHari + '&operasiBulan=' + operasiBulan + '&energyName=' + energyName + '&pressure=' + pressure,//File Collection Endpoint
                         type: 'get',
@@ -955,56 +957,111 @@
                 return miles * 1069.344;
             };
             function pointsInCircle(circle, meters_user_set) {
-                var locationMaps = ofi_paf;
-                let mapping = [];
-                for (var i = 0; i < locationMaps.features.length; i++) {
-                    var long = locationMaps.features[i].geometry.coordinates[0];
-                    var lat = locationMaps.features[i].geometry.coordinates[1];
-                    var loc = locationMaps.features[i].properties.oficina;
-                    let temp = {
-                        "loc": loc,
-                        "lat": lat,
-                        "long": long
-                    }
-                    mapping.push(temp);
-                }
+                obj = [];
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    success: function (response) {
 
-                if (circle !== undefined) {
-                    // Only run if we have an address entered
-                    // Lat, long of circle
-                    circle_lat_long = circle.getLatLng();
-                    var counter_points_in_circle = 0;
-                    // Loop through each point in JSON file
-                    for (var i = 0; i < mapping.length; i++) {
-                        // Lat, long of current point
-                        let latA = mapping[i].coord;
-                        var latlng = L.latLng(mapping[i].lat, mapping[i].long);
-                        layer_lat_long = latA;
+                        var len = response.data.length;
 
-                        // Distance from our circle marker
-                        // To current point in meters
-                        distance_from_layer_circle = latlng.distanceTo(circle_lat_long);
-                        //calculateDistance(latlng, latB)
-                        // See if meters is within raduis
-                        // The user has selected
-                        if (distance_from_layer_circle <= meters_user_set) {
-                            counter_points_in_circle += 1;
+                        for (var i = 0; i < len; i++) {
+
                             let temp = {
-                                "lokasi": mapping[i].loc,
-                                "jarak": (distance_from_layer_circle / 1000).toFixed(2),
-                                "latitude": mapping[i].lat,
-                                "longitude": mapping[i].long,
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
                             }
-                            results.push(temp);
+                            locationMaps.features.push(temp);
                         }
-                    };
-                    //farmacias.eachLayer(function (layer) {
+                        //console.log(locationMaps);
+                        let mapping = [];
+                        for (var i = 0; i < locationMaps.features.length; i++) {
+                            var long = locationMaps.features[i].geometry.coordinates[0];
+                            var lat = locationMaps.features[i].geometry.coordinates[1];
+                            var loc = locationMaps.features[i].properties.oficina;
+                            let temp = {
+                                "loc": loc,
+                                "lat": lat,
+                                "long": long
+                            }
+                            mapping.push(temp);
+                        }
 
-                    //});
-                    // Set number of results on main page
-                    $('#ofi_paf_results').html(counter_points_in_circle);
-                }
+                        if (circle !== undefined) {
+                            // Only run if we have an address entered
+                            // Lat, long of circle
+                            circle_lat_long = circle.getLatLng();
+                            var counter_points_in_circle = 0;
+                            // Loop through each point in JSON file
+                            for (var i = 0; i < mapping.length; i++) {
+                                // Lat, long of current point
+                                let latA = mapping[i].coord;
+                                var latlng = L.latLng(mapping[i].lat, mapping[i].long);
+                                layer_lat_long = latA;
 
+                                // Distance from our circle marker
+                                // To current point in meters
+                                distance_from_layer_circle = latlng.distanceTo(circle_lat_long);
+                                //calculateDistance(latlng, latB)
+                                // See if meters is within raduis
+                                // The user has selected
+                                if (distance_from_layer_circle <= meters_user_set) {
+                                    counter_points_in_circle += 1;
+                                    let temp = {
+                                        "lokasi": mapping[i].loc,
+                                        //"jarak": (distance_from_layer_circle / 1000).toFixed(2),
+                                        "jarak": parseFloat((distance_from_layer_circle / 1000).toFixed(2)),
+                                        "latitude": mapping[i].lat,
+                                        "longitude": mapping[i].long,
+                                    }
+                                    results.push(temp);
+                                }
+
+                            };
+                            //farmacias.eachLayer(function (layer) {
+
+                            //});
+                            // Set number of results on main page
+
+
+                        }
+
+                        var result = results.reduce(function (res, obj) {
+                            return (obj.jarak < res.jarak) ? obj : res;
+                        });
+                        const _obj = result;
+                        //const objs = {
+                        //  0: "foo",
+                        //  1: "bar",
+                        //};
+                        //return obj;
+                        //const temps = {
+                        //   "lokasi": _obj.lokasi,
+                        //   "jarak": _obj.jarak,
+                        //    "latitude":_obj.latitude,
+                        //    "longitude":_obj.longitude
+                        //}
+                        const aobj = {};
+                        aobj['lokasi'] = _obj.lokasi;
+                        aobj['jarak'] = _obj.jarak;
+                        aobj['latitude'] = _obj.latitude;
+                        aobj['longitude'] = _obj.longitude;
+
+                        obj.push(aobj);
+                        //obj.push(temps);
+
+                    }
+
+                });
+
+                //console.log(ob);
+                //localStorage.setItem("finalSPBG", JSON.stringify(obj));
+                return obj;
                 // Close pointsInCircle
             };
             function popup(feature, layer) {
@@ -1175,23 +1232,7 @@
                         }
                     });
                 });
-
-                //let range = $("#range-km");
-                //let rangeV = $("#radius-selected");
-                //const setValue = () => {
-                //    let newValue = Number(
-                //        ((range.val() - range.attr("min")) * 100) /
-                //        (range.attr("max") - range.attr("min"))
-                //    ),
-                //        newPosition = 10 - newValue * 0.2;
-                //    rangeV.html(`<span><strong>Radius : </strong>${range.val()} km</span>`);
-                //    rangeV.css("left", `calc(${newValue}% + (${newPosition}px))`);
-                //    $("#radius").val(range.val());
-                //    changeCircleRadius(range.val());
-                //};
-                //setValue();
-                //range.on("input", setValue);
-                //changeCircleRadius(50);
+               
                 $("#pipeLine").checked = true;
                 $("#lng").checked = true;
 
@@ -1207,7 +1248,28 @@
                 $("#calculateSimulation").hide();
 
                 // Base map styles
-                var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("GetStation", "MstLokasiSPBG")',
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response.data);
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaSPBG },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] },
+                                "typeModa": response.data[i].typeModa
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        //console.log(locationMaps);
+                        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                     osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                     osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
                 map = new L.Map('map', {
@@ -1228,7 +1290,13 @@
                     iconSize: [32, 37],
                     iconAnchor: [16, 37],
                     popupAnchor: [0, -28],
-                    iconUrl: '/plugins/map/images/pertacon.png'
+                    iconUrl: '/plugins/map/images/cng.png'
+                });
+                var ecos = L.icon({
+                    iconSize: [32, 37],
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -28],
+                    iconUrl: '/plugins/map/images/lng.png'
                 });
                 // When an icon is clicked
                 function popup(feature, layer) {
@@ -1312,30 +1380,20 @@
                     var layer = event.layer;
                     drawn_markers.addLayer(layer);
                 });
-                map.addControl(draw_control);
-                // Allow user to search through GeoJSON file
-                //var search_control = new L.Control.Search({
-                //	layer: farmacias,
-                //	propertyName: 'oficina',
-                //	circleLocation: true
-                //});
-                //map.addControl(search_control);
-                //L.control.scale().addTo(map);
-                //  var searchControl = new L.esri.Controls.Geosearch().addTo(map);
-                //  var results = new L.LayerGroup().addTo(map);
-                //  searchControl.on('results', function(data){
-                //	results.clearLayers();
-                //	for (var i = data.results.length - 1; i >= 0; i--) {
-                //	  results.addLayer(L.marker(data.results[i].latlng));
-                //	}
-                //  }).addTo(map);
-                //  L.control.scale().addTo(map);
-                //setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
-                // Add GeoJSON layer
-                var farmacias = L.geoJson(ofi_paf, {
+                map.addControl(draw_control);             
+                        console.log(locationMaps.features);
+                        console.log(locationMaps.features[16].typeModa);
+                var farmacias = L.geoJson(locationMaps, {
                     onEachFeature: popup,
                     pointToLayer: function (feature, latlng) {
-                        return L.marker(latlng, { icon: eco });
+
+                        if (feature.typeModa == 'CNG') {
+                                
+                                return L.marker(latlng, { icon: eco });
+                            }else {
+                                return L.marker(latlng, { icon: ecos });
+                            }
+                        
                     }
                 }).addTo(map);
                 // This is called after the marker is drawn
@@ -1377,6 +1435,11 @@
                     // Redraw: Leaflet function
                     circle.redraw();
                 });
+                    }
+
+                });
+
+
                 // Radius dropdown
                 //$("input", "change").change(function () {
                 //    changeCircleRadius();

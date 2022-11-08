@@ -35,6 +35,19 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpPost]
+        public IActionResult GetStation()
+        {
+            string StoredProc = "exec SP_GetStation";
+
+            var data = _dbContext.Set<SP_GetStation>().FromSqlRaw(StoredProc).AsEnumerable().ToList();
+
+            return Ok
+                    (
+                        new { data = data }
+                    );
+        }
+
+        [HttpPost]
         public IActionResult Retrieve()
         {
             var tempData = (from temp in _dbContext.MstLokasiSPBG

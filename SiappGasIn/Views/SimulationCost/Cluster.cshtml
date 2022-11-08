@@ -2033,7 +2033,6 @@
 
                 $("#bahanBakar1").change(function () {
                     var deptid = $(this).val();
-                    alert(deptid);
                     $.ajax({
                         url: '@Url.Action("Retrieve", "MstEnergy")',
                         type: 'post',
@@ -3194,7 +3193,6 @@
                     _data.push(temp);
                 }
 
-
                let result = true;
 
                 for (let i=0; i<_data.length; i++){
@@ -3282,10 +3280,16 @@
 
                     var lat = parseFloat(_data[i].lat);
                     var long = parseFloat(_data[i].long);
+                    var demand = parseFloat(_data[i].demandUsage);
+                    var hD = parseFloat(_data[i].hourDay);
+                    var wD = parseFloat(_data[i].workDay);
 
                     let temp = {
                         "latitude": lat,
-                        "longitude": long
+                        "longitude": long,
+                        "demand": demand,
+                        "opHari": hD,
+                        "opBulan": wD
                     }
 
                     rawPoints.push(temp);
@@ -3294,6 +3298,9 @@
 
                 let lats = rawPoints.map(c => c.latitude).reduce((previous, current) => current += previous, 0.0);
                 let longs = rawPoints.map(c => c.longitude).reduce((previous, current) => current += previous, 0.0);
+                let demands = rawPoints.map(c => c.demand).reduce((previous, current) => current += previous, 0.0);
+                let operasiHaris = rawPoints.map(c => c.opHari).reduce((previous, current) => current += previous, 0.0);
+                let operasiBulans = rawPoints.map(c => c.opBulan).reduce((previous, current) => current += previous, 0.0);
 
                 const position = [lats / rawPoints.length, longs / rawPoints.length];
                 spbgFinal = [];
@@ -3309,68 +3316,9 @@
 
                 var clusterName = 'CL' + date + time + '-' + countCapel;
 
-                //var demandUsage = totalVolume;
-                //var energyName = energyName;
-                //var nilaiKalori = nilaiKalori;
-                //var operasiHari = _hourDay;
-                //var operasiBulan = _workDay;   
-                //var pressure = _pressure;
-                //var pressureX = "";
-                //var gas = 8945.14;
-                //var energyX = "";
-
-                //    if (pressure <= 1) {
-                //        pressureX = String(pressure).replaceAll('.', ',');
-                //    } else {
-                //        pressureX = parseFloat(pressure);
-                //    }
-
-                //if (energyName == "Gas Bumi") {
-                //    var _demand = (demandUsage / 30 / 24);
-                //    var mmscfd = 0.00085;
-                //    var _flowrate = (_demand * mmscfd).toFixed(3);
-
-                //    if (_flowrate <= 1) {
-                //        energyX = String(_flowrate).replaceAll('.', ',');
-                //    } else {
-                //        energyX = parseFloat(_flowrate);
-                //    }
-
-                //} else {
-                //    var _demand = (nilaiKalori / gas) * demandUsage;
-                //    var _demands = (_demand / 30 / 24);
-                //    var mmscfd = 0.00085;
-                //    var _flowrate = (_demands * mmscfd).toFixed(3);
-                //    if (_flowrate <= 1) {
-                //        energyX = String(_flowrate).replaceAll('.', ',');
-                //    } else {
-                //        energyX = parseFloat(_flowrate);
-                //    }
-                //} 
+                var _latitude = lats / rawPoints.length;
+                var _longitude = longs / rawPoints.length;
                 
-
-                //var _data = {
-                //    "Customer": {
-                //        "name": _customerName,
-                //        "type": "Industri",
-                //        "location": {
-                //            "latitude": _latitude,
-                //            "longitude": _longitude,
-                //            "postal_code": "14210",
-                //        }
-                //        ,
-                //    },
-                //    "flow_rate": {
-                //        //"value": $("#flowrate").val(),
-                //        "value": energyX,
-                //        "unit": "mmscfd"
-                //    },
-                //    "pressure": {
-                //        "value": pressureX,
-                //        "unit": "barg"
-                //    }
-                //};
-                //var _datas = JSON.stringify(_data);
 
                 $.ajax({
                     url: '@Url.Action("SaveDataHeaderCluster", "SimulationCost")',
@@ -3385,7 +3333,7 @@
                         }
                     ),
                     success: function (datas) {
-                        if (datas.status == true) {
+                        if (datas.status == true) {                        
 
                             for (i = 0; i < _data.length; i++) {
 
@@ -3452,13 +3400,15 @@
                             
                             }
 
-                            const wait = Math.round(Math.random()*12000);
-                            setTimeout(function() {
+                            calculatePipeSektor(datas.data, demands, operasiHaris, operasiBulans, clusterName, _latitude, _longitude, countCapel);
 
-                                var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + datas.data;
-                                window.location.href = url;
+                            //const wait = Math.round(Math.random()*12000);
+                            //setTimeout(function() {
 
-                            },wait)
+                            //    var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + datas.data;
+                            //    window.location.href = url;
+
+                            //},wait)
                                                                
                             
 
@@ -3470,44 +3420,75 @@
                         console.log("error header");
                     }
                 });
-                };
-                
-                //var totalVolume = _data.reduce((accum, item) => accum + item.demandUsage, 0)
-
-                //var rawPoints = []
-                //for (i = 0; i < _data.length; i++) {
-
-                //    var lat = parseFloat(_data[i].lat);
-                //    var long = parseFloat(_data[i].long);
-
-                //    let temp = {
-                //        "latitude": lat,
-                //        "longitude": long
-                //    }
-
-                //    rawPoints.push(temp);
-
-                //}
-
-                //let lats = rawPoints.map(c => c.latitude).reduce((previous, current) => current += previous, 0.0);
-                //let longs = rawPoints.map(c => c.longitude).reduce((previous, current) => current += previous, 0.0);
-
-                //const position = [lats / rawPoints.length, longs / rawPoints.length];
-                //spbgFinal = [];
-                //const configurations = pointMap(lats / rawPoints.length, longs / rawPoints.length);
-
-                //var latEnd = configurations[0].latitude;
-                //var longEnd = configurations[0].longitude;
-                //var lokasiEnd = configurations[0].lokasi;
-
-                //var today = new Date();
-                //var date = today.getFullYear() + (today.getMonth() + 1) + today.getDate();
-                //var time = today.getHours() + today.getMinutes() + today.getSeconds();
-
-                //var clusterName = 'CL' + date + time + '-' + countCapel;
-
-                
+                };  
             }
+
+            function calculatePipeSektor(dataID, _demandUsage, operasiHaris, operasiBulans, _customerName, _latitude, _longitude, countCapel) {
+                
+                var _energy = "";
+
+                var xyz = _demandUsage + (_demandUsage * 0.3);
+                var _demand = (xyz / 30 / 24);
+                    var mmscfd = 0.00085;
+                    var _flowrate = (_demand * mmscfd).toFixed(2);
+
+                    if (_flowrate <= 1) {
+                        _energy = String(_flowrate).replaceAll('.', ',');
+                    } else {
+                        _energy = parseFloat(_flowrate);
+                    }
+
+                var _data = {
+                    "Customer": {
+                        "name": _customerName,
+                        "type": "Industri",
+                        "location": {
+                            "latitude": _latitude,
+                            "longitude": _longitude,
+                            "postal_code": "14210",
+                        }
+                        ,
+                    },
+                    "flow_rate": {
+                        //"value": $("#flowrate").val(),
+                        "value": _energy,
+                        "unit": "mmscfd"
+                    },
+                    "pressure": {
+                        "value": 4,
+                        "unit": "barg"
+                    }
+                };
+                var _datas = JSON.stringify(_data);
+
+                var users = "nimo.siapgasin";
+                var passwords = "nimo.pgn645In";
+                var _hourDays = operasiHaris / countCapel;             
+                var _workDays = operasiBulans / countCapel;   
+                
+                $.ajax({
+                            url: '@Url.Action("getPipeSektor", "SimulationCost")?datas=' + _datas + '&user=' + users + '&password=' + passwords + '&dataID=' + dataID + '&volume2=' + _demandUsage + '&operasiHari=' + _hourDays + '&operasiBulan=' + _workDays + '&energyName=' + 'Gas Bumi' + '&pressure=' + 4  + '&customer=' + _customerName  + '&countCapel=' + countCapel  ,//File Collection Endpoint
+
+                            type: 'get',
+                            dataType: 'json',
+                            contentType: "application/json; charset=utf-8",
+                            data: "{}",
+                            success: function (datas) {
+                                console.log("success pipe");
+                                var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + dataID;
+                                window.location.href = url;
+                            },
+                            
+                            error: function (datas) {
+                                success(dataID);
+                                console.log("error pipe");
+                            }
+                        });
+
+
+               
+            }
+
 
             function calculatePipe(dataID, _demandUsage, _energyName, _nilaiKalori, _hourDay, _workDay, _pressure, _customerName, _latitude, _longitude) {
                 

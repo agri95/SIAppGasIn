@@ -474,6 +474,32 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpGet]
+        public IActionResult getRouteMap(string user, string password)
+        {
+            string token = getTokens(user, password);
+            var tokens = token.Replace("\"", "");
+            var url = "http://10.129.10.191/nimo/api/pipecalculatormap?category=industri";
+            var dataMap = "";
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens);
+
+                HttpResponseMessage response = client.GetAsync(url).Result;
+                dataMap = response.Content.ReadAsStringAsync().Result;
+
+                //dynamic ceks = Newtonsoft.Json.JsonConvert.DeserializeObject(calculate);
+                //var childrenObjects = ceks.Children();
+
+                //JObject jObject = JObject.Parse(calculate);
+                //var jsonss = jObject["data"];
+
+            }
+            return Json(dataMap);
+
+        }
+
+        [HttpGet]
         public IActionResult getPipeCalculator(string datas, string user, string password, int dataID, decimal volume2, int operasiHari, int operasiBulan, string energyName, decimal pressure)
         {
             var calculate = "";
@@ -605,6 +631,76 @@ namespace SiappGasIn.Controllers.Api
                     //string StoredProcs = "exec SP_PipeCalculator " + dataID + "," + "'" + type + "'" + "," + "'" + latitude + "'" + "," + "'" + longitude + "'" + "," + postal_code + "," + diameterValue + "," + distanceValue + "," + pressureValue + "," + volumeValue + "," + "'" + route + "'" + "," + volume2 + "," + operasiHari + "," + operasiBulan + "," + "'" + energyName + "'" + "," + pressure;
                     //var data = _dbContext.Set<SP_PipeCalculatorData>().FromSqlRaw(StoredProcs).AsEnumerable().FirstOrDefault();
                     _dbContext.Set<SP_PipeCalculatorData>().FromSqlRaw("SP_PipeCalculatorCluster @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15", dataID, type, latitude, longitude, postal_code, diameterValue, distanceValue, pressureValue, volumeValue, route, volume2, operasiHari, operasiBulan, energyName, pressure, customer).ToList();
+
+                }
+            }
+            return Ok
+                    (new { data = calculate }
+                    );
+
+        }
+        [HttpGet]
+        public IActionResult getPipeSektor(string datas, string user, string password, int dataID, decimal volume2, int operasiHari, int operasiBulan, string energyName, decimal pressure, string customer, int countCapel)
+        {
+            var calculate = "";
+            string token = getTokens(user,password);
+            var tokens = token.Replace("\"", "");
+            var stringContent = new StringContent(datas, UnicodeEncoding.UTF8, "application/json");
+            var url = "http://10.129.10.191/nimo/api/PipeCalculatorRelyOn";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokens);
+
+                HttpResponseMessage response = client.PostAsync(url, stringContent).Result;
+                calculate = response.Content.ReadAsStringAsync().Result;
+
+                dynamic ceks = Newtonsoft.Json.JsonConvert.DeserializeObject(calculate);
+                var childrenObjects = ceks.Children();
+
+                JObject jObject = JObject.Parse(calculate);
+                var jsonss = jObject["data"];
+
+                if (jsonss.HasValues)
+                {
+                    
+                    var type = jObject["data"]["type"].ToString();
+                    var latitude = jObject["data"]["location"]["latitude"].ToString();
+                    var longitude = jObject["data"]["location"]["longitude"].ToString();
+                    var postal_code = jObject["data"]["location"]["postal_code"].ToString();
+                    var distanceValues = jObject["data"]["distance"]["value"].ToString();
+                    var distanceValue = Convert.ToDouble(distanceValues);
+                    var diameterValues = jObject["data"]["diameter"]["value"].ToString();
+                    var diameterValue = Convert.ToDouble(diameterValues);
+                    var pressureValues = jObject["data"]["pressure"]["value"].ToString();
+                    var pressureValue = Convert.ToDouble(pressureValues);
+                    var volumeValues = jObject["data"]["volume"][0]["value"].ToString();
+                    var volumeValue = Convert.ToDouble(volumeValues);
+                    var route = jObject["data"]["route"].ToString();
+
+                    //string StoredProc = "exec SP_PipeCalculator " +
+                    //"@headerSimulationID = " + dataID + "," +
+                    //"@type = '" + type + "'," +
+                    //"@latitude= '" + latitude + "'," +
+                    //"@longitude= '" + longitude + "'," +
+                    //"@postal_code= " + postal_code + "," +
+                    //"@distanceValue = " + distanceValue + "," +
+                    //"@diameterValue = " + diameterValue + "," +
+                    //"@pressureValue = " + pressureValue + "," +
+                    //"@volumeValue = " + volumeValue + "," +                    
+                    //"@route= '" + route + "'," +
+                    //"@volume2 = " + volume2 + "," +
+                    //"@operasiHari = " + operasiHari + "," +
+                    //"@operasiBulan = " + operasiBulan + "," +
+                    //"@energyName = '" + energyName + "'," +
+                    //"@pressure= " + pressure + "";
+
+                    //var datass =  _dbContext.Set<SP_PipeCalculator>().FromSqlRaw(StoredProc).ToListAsync();
+
+                    //string StoredProcs = "exec SP_PipeCalculator " + dataID + "," + "'" + type + "'" + "," + "'" + latitude + "'" + "," + "'" + longitude + "'" + "," + postal_code + "," + diameterValue + "," + distanceValue + "," + pressureValue + "," + volumeValue + "," + "'" + route + "'" + "," + volume2 + "," + operasiHari + "," + operasiBulan + "," + "'" + energyName + "'" + "," + pressure;
+                    //var data = _dbContext.Set<SP_PipeCalculatorData>().FromSqlRaw(StoredProcs).AsEnumerable().FirstOrDefault();
+                    _dbContext.Set<SP_PipeCalculatorData>().FromSqlRaw("SP_PipeSektorCalculator @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16", dataID, type, latitude, longitude, postal_code, diameterValue, distanceValue, pressureValue, volumeValue, route, volume2, operasiHari, operasiBulan, energyName, pressure, customer, countCapel).ToList();
 
                 }
             }

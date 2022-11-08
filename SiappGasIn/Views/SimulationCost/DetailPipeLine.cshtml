@@ -159,6 +159,7 @@ ViewData["Title"] = "Detail Simulation Cost";
 
 @section Scripts{
 <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<script type="text/javascript" src="~/plugins/map/js/RouteMapPipe.js"></script>
 <script
     src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
 
@@ -233,6 +234,37 @@ ViewData["Title"] = "Detail Simulation Cost";
                 .toLocaleString('en');
             x[i].textContent = num;
         }
+
+         var geojson = L.geoJSON(jalur, {
+                                            style: {
+                                                fillColor: '#0000',
+                                                weight: 3
+                                            },
+                                            onEachFeature: onEachFeature
+                                        }).addTo(map);
+
+                                        var selectedLayerId = null;
+                                        function toggleLayerVisibility(layer) {
+                                            if (selectedLayerId) {
+                                                geojson.resetStyle(layer);
+                                                selectedLayerId = null;
+                                            } else {
+                                                //hide a layer
+                                                layer.setStyle({
+                                                    opacity: 0,
+                                                    fillOpacity: 0.0
+                                                });
+                                                selectedLayerId = layer._leaflet_id;
+                                            }
+                                        }
+
+                                        function onEachFeature(feature, layer) {
+                                            layer.on({
+                                                click: function (e) {
+                                                    toggleLayerVisibility(e.target);
+                                                }
+                                            });
+                                        }
 
 
 

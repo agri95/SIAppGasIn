@@ -28,6 +28,12 @@ namespace SiappGasIn.Controllers
             return View("~/Views/Transaction/TransCNG.cshtml");
 
         }
+        [HttpGet]
+        public IActionResult PipeMap()
+        {
+            return View("~/Views/Transaction/PipeMap.cshtml");
+
+        }
     }
 }
   

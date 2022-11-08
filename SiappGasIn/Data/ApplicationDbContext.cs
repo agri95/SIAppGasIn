@@ -22,6 +22,7 @@ namespace SiappGasIn.Data
         public DbSet<MstCraddle> MstCraddle { get; set; }
         public DbSet<MstHeadTruck> MstHeadTruck { get; set; }
         public DbSet<MstLokasiSPBG> MstLokasiSPBG { get; set; }
+        public DbSet<MstHubLNG> MstHubLNG { get; set; }
         public DbSet<SimulationCost> SimulationCost { get; set; }
         public DbSet<PipeCalculator> PipeCalculator { get; set; }
         public DbSet<ClusterSimulation> ClusterSimulation { get; set; }
@@ -55,6 +56,7 @@ namespace SiappGasIn.Data
             builder.Entity<SP_ClusterSimulation>().HasNoKey();
             builder.Entity<SP_ClusterSimulations>().HasNoKey();
             builder.Entity<SP_PipeCalculatorData>().HasNoKey();
+            builder.Entity<SP_GetStation>().HasNoKey();
 
         }
 

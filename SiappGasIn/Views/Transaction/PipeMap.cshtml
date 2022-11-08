@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewData["Title"] = "Detail Simulation Cost";
+}
+<div class="container body" style="padding-left:30px;padding-right:30px;margin-top:-7px;">
+    <div class="card">
+        <div class="row ">
+            <div class="col-md-12 px-3">
+                <div class="card-block" style="border: 1px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
+                        </div>
+                        <div class="col-md-5">
+                            <img src="@Url.Content("~/adminlte/images/logos.png")"
+                                 class="image-responsive" style="width:120px; height:40px; float: right;">
+                        </div>
+                    </div>
+
+
+                    <div id="maps">
+                        <center>
+                            <div id="map" class="map"></div>
+                        </center>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                                <button type="submit" onclick="back()"
+                                        class="btn btn-danger btn-sm pull-right RbtnMargin">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles{
+
+    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+    <!-- Leaflet Map -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
+    @*
+        <link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
+    <style>
+        .map {
+            height: 580px;
+            width: 1040px;
+        }
+
+        .results {
+            background-color: white;
+            opacity: 0.8;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 320px;
+            height: 480px;
+            overflow-y: scroll;
+        }
+    </style>
+}
+
+@section Scripts{
+    <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+    <script type="text/javascript" src="~/plugins/map/js/RouteMapPipe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
+   
+    <script>
+
+    $(document).ready(function () {
+        L.mapbox.accessToken = 'pk.eyJ1IjoiZmFyYWRheTIiLCJhIjoiTUVHbDl5OCJ9.buFaqIdaIM3iXr1BOYKpsQ';
+
+        var mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
+            attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            tileSize: 512,
+            zoomOffset: -1
+        });
+                
+        var map = L.map('map')
+            .addLayer(mapboxTiles)
+            .setView([ 3.6151942749631445, 98.662105936589], 11);
+
+        function polystyle(feature) {
+    return {
+        fillColor: 'blue',
+        weight: 3,
+        opacity: 1,
+        color: 'red',  //Outline color
+        fillOpacity: 0.7
+    };
+}
+        //var geojson = L.geoJSON(jalur, {
+        //                                    style: {
+        //                                        fill: '#ff0000',
+        //                                        weight: 3
+        //                                    },
+        //                                    onEachFeature: onEachFeature
+        //                                }).addTo(map);
+                                       var geojson =  L.geoJson(jalur, {style: polystyle,onEachFeature: onEachFeature}).addTo(map);
+
+                                        var selectedLayerId = null;
+                                        function toggleLayerVisibility(layer) {
+                                            if (selectedLayerId) {
+                                                geojson.resetStyle(layer);
+                                                selectedLayerId = null;
+                                            } else {
+                                                //hide a layer
+                                                layer.setStyle({
+                                                    opacity: 0,
+                                                    fillOpacity: 0.0
+                                                });
+                                                selectedLayerId = layer._leaflet_id;
+                                            }
+                                        }
+
+                                        function onEachFeature(feature, layer) {
+                                            layer.on({
+                                                click: function (e) {
+                                                    toggleLayerVisibility(e.target);
+                                                }
+                                            });
+                                        }
+
+
+    });
+    </script>
+
+    <script type="text/javascript">
+        //maps
+        function back() {
+            $("#maps").hide();
+            $("#resultSimulation").show();
+        }
+
+        function mapp() {
+            $("#maps").show();
+            $("#resultSimulation").hide();
+            map.invalidateSize();
+        }
+
+    </script>
+}
