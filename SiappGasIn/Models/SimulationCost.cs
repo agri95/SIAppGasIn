@@ -282,6 +282,85 @@ namespace SiappGasIn.Models
         public string longitude { get; set; }
     }
 
+    public class SP_RetailSupply
+    {
+        public int headerSimulationID { get; set; }
+        public decimal demand { get; set; }
+        public decimal jarakSumber { get; set; }
+        public decimal jarakHub { get; set; }
+        public decimal jumlahPelanggan { get; set; }
+        public decimal size { get; set; }
+        public decimal volume { get; set; }
+        public decimal speed { get; set; }
+        public decimal qtyTruck { get; set; }
+        public decimal estRoundTrip { get; set; }
+        public decimal m3Day { get; set; }
+        public decimal isoTankDay { get; set; }
+        public decimal qtyVGL { get; set; }
+        public decimal isoTank { get; set; }
+        public string asalSumber { get; set; }
+        public string latitude { get; set; }
+        public string longitude { get; set; }
+        public string latitudePelanggan { get; set; }
+        public string longitudePelanggan { get; set; }
+    }
+    
+    public class HeaderRetail
+    {
+        [Key]
+        public int HeaderRetailId { get; set; }
+        public int HeaderSimulationID { get; set; }
+        public decimal demand { get; set; }
+        public decimal jarakSumber { get; set; }
+        public decimal jarakHub { get; set; }
+        public decimal jumlahPelanggan { get; set; }
+        public decimal size { get; set; }
+        public decimal volume { get; set; }
+        public decimal speed { get; set; }
+        public decimal qtyTruck { get; set; }
+        public decimal estRoundTrip { get; set; }
+        public decimal m3Day { get; set; }
+        public decimal isoTankDay { get; set; }
+        public decimal qtyVGL { get; set; }
+        public decimal isoTank { get; set; }
+        public decimal TransportCost { get; set; }
+        public decimal HubFillingCost { get; set; }
+        public decimal DistributionCost { get; set; }
+        public decimal ICPCost { get; set; }
+        public decimal TotalCost { get; set; }
+        public string asalSumber { get; set; }
+        public string latSumber { get; set; }
+        public string longSumber { get; set; }
+        public string latPelanggan { get; set; }
+        public string longPelanggan { get; set; }
+        public string? CreatedBy { get; set; }
+        public DateTimeOffset? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public DateTimeOffset? ModifiedDate { get; set; }
+    }
+
+    public class RetailSupplyChain
+    {
+        [Key]
+        public int RetailId { get; set; }
+        public int HeaderSimulationID { get; set; }
+        public string Type { get; set; }
+        public string Item { get; set; }
+        public string Description { get; set; }
+        public decimal PriceUnit { get; set; }
+        public decimal Qty { get; set; }
+        public decimal TotalPriceUSD { get; set; }
+        public decimal TotalPriceIDR { get; set; }
+        public decimal USDperMonth { get; set; }
+        public decimal IDRperMonth { get; set; }
+        public decimal USDperMMBTU { get; set; }
+        public decimal IDRperM3 { get; set; }
+        public string? CreatedBy { get; set; }
+        public DateTimeOffset? CreatedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public DateTimeOffset? ModifiedDate { get; set; }
+    }
+
     public class PipeCalculator
     {
         [Key]

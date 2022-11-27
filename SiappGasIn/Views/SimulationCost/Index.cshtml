@@ -216,7 +216,10 @@
                                                         aria-label=".form-control-sm example" min="0" max="31">
                                                 </div>
                                             </div>
+
                                             <div class="form-group row pipeLines">
+
+                                                <hr style="width:100%;text-align:left;margin-left:0">
 
                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
@@ -239,11 +242,76 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group row pipeLines">
 
 
 
+                                            <div id="lngRow">
+                                                <hr style="width:100%;text-align:left;margin-left:0">
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Total Customer <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="totalCustomer" name="totalCustomer"
+                                                            placeholder="" autocomplete="off"
+                                                            aria-label=".form-control-sm example" min="0">
+                                                    </div>
+                                                    <label class="control-label col-md-3 col-sm-3 ">Iso Tank <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select
+                                                            class="form-control form-control-sm frmInput first-select"
+                                                            id="Size" style="padding-top: 2px;padding-bottom: 2px;">
+                                                            <option value="20">20</option>
+                                                            <option value="40">40</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Volume <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select class="form-control form-control-sm frmInput"
+                                                            id="volumes" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Speed Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="speed" name="speed" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Quantity of Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="qtyTruck" name="qtyTruck" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
                                             </div>
+
                                             <label><strong>Supply Data</strong></label>
                                             <br />
                                             <div class="form-group row ">
@@ -266,7 +334,8 @@
                                                 <div class="control-label col-md-3 col-sm-3 ">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" id="lng" value=""> LNG
+                                                            <input type="checkbox" onclick="functionLNG()" id="lng"
+                                                                value=""> LNG
                                                         </label>
                                                     </div>
                                                 </div>
@@ -319,7 +388,8 @@
 
                                 <div class="row">
                                     <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-                                        <button type="submit" onclick="calculateCost()"
+                                        <button type="submit" onclick="calculateCost()" @*<button type="submit"
+                                            onclick="calculateCost()" *@
                                             class="btn btn-primary pull-right RbtnMargin">Run</button>
                                         <button type="reset"
                                             class="btn btn-warning pull-right RbtnMargin">Reset</button>
@@ -329,6 +399,7 @@
                             <!--Batas-->
                             <div id="findMap">
                                 <input type="text" id="radius" value="50" hidden />
+                                <input type="text" id="radiusLNG" value="50" hidden />
                                 <input type="text" id="resultLocationName" hidden />
                                 @* <div style="margin-bottom:10px;">
                                     <div class="form">
@@ -370,6 +441,86 @@
                 <div></div>
                 <div></div>
             </div>
+        </div>
+        <input type="hidden" class="form-control" id="demandBBTUD" value="2" name="lblTotal[]">
+        <input type="hidden" class="form-control" id="_roundTotal" value="2" name="lblTotal[]">
+        <input type="hidden" class="form-control" id="_m3day" value="2" name="lblTotal[]">
+        <input type="hidden" class="form-control" id="_isotankday" value="2" name="lblTotal[]">
+        <input type="hidden" class="form-control" id="_maxTotalIso" value="2" name="lblTotal[]">
+        <input type="hidden" class="form-control _fillingStation" id="_fillingStation" name="lblTotal">
+        <input type="hidden" class="form-control _regasPlan" id="_regasPlan" name="lblTotal">
+        <input type="hidden" class="form-control _onTheRoad" id="_onTheRoad" name="lblTotal">
+        <input type="hidden" class="form-control _totalIso" id="_totalIso" name="lblTotal">
+        <input type="hidden" class="form-control totalCall" id="_totalCall" name="lblTotal">
+        <input type="hidden" class="form-control totalCalls" id="totalCalls" name="lblTotal">
+        <input type="hidden" class="form-control totalCalls" id="dataID" name="lblTotal">
+        <div class="col-md-12" hidden>
+            <table class="table table-striped table-bordered display" style="width:100%" id="table">
+
+                <thead>
+                    <tr>
+                        <th>Nooo</th>
+                        <th>Voyage<span id="kurs"></span></th>
+                        <th>Drop</th>
+                        <th>Load</th>
+                        <th>Demand<span id="kurs"></span></th>
+                        <th>Remaining 1</th>
+                        <th>Remaining 2</th>
+                        <th>Empty 1</th>
+                        <th>Empty 2</th>
+                        <th>Filling Station<span id="kurs"></span></th>
+                        <th>Regas Plan</th>
+                        <th>On The Road</th>
+                        <th>Total ISO<span id="kurs"></span></th>
+
+                    </tr>
+                </thead>
+                <tr hidden>
+                    @*<td><input class="form-control" type="number" value="1" name="operationDay" readonly /></td>*@
+                    <td><input class="form-control price" id="voyage_" name="voyage_" type="text" style="width:100px;">
+                    </td>
+                    <td><input class="form-control price" id="drop_" name="drop_" type="number" style="width:50px;">
+                    </td>
+                    <td><input class="form-control price" id="load_" name="load_" type="number"></td>
+                    <td><input class="form-control price" id="demand_" name="demand_" type="number"
+                            style="width:100px;">
+                    </td>
+                    <td><input class="form-control price" id="remaining1_" name="remaining1_" type="number"
+                            style="width:100px;"></td>
+                    <td><input class="form-control price" id="remaining2_" name="remaining2_" type="number"
+                            style="width:50px;"></td>
+                    <td><input class="form-control price" id="empty1_" name="empty1_" type="number"
+                            style="width:100px;">
+                    </td>
+                    <td><input class="form-control price" id="empty2_" name="empty2_" type="number" style="width:50px;">
+                    </td>
+                    <td><input class="form-control price" id="fillingStation_" name="fillingStation_" type="number">
+                    </td>
+                    <td><input class="form-control price" id="regasPlan_" name="regasPlan_" type="number"></td>
+                    <td><input class="form-control price" id="onTheRoad_" name="onTheRoad_" type="number"></td>
+                    <td><input class="form-control amount" id="totalIso_" type="number" name="totalIso_" readonly />
+                    </td>
+                </tr>
+                <tr class="product">
+                    <td><input class="form-control noo" type="number" id="noo" name="noo[]" readonly /></td>
+                    <td><input class="form-control voyage" id="voyage" name="voyage[]" type="text"></td>
+                    <td><input class="form-control drop" id="drop" name="drop[]" type="number"></td>
+                    <td><input class="form-control price" id="load" name="load[]" type="number"></td>
+                    <td><input class="form-control demand" id="demand" name="demand[]" type="number"></td>
+                    <td><input class="form-control remaining1" id="remaining1" name="remaining1[]" type="number"></td>
+                    <td><input class="form-control remaining2" id="remaining2" name="remaining2[]" type="number"></td>
+                    <td><input class="form-control empty1" id="empty1" name="empty1[]" type="number"></td>
+                    <td><input class="form-control empty2" id="empty2" name="empty2[]" type="number"></td>
+                    <td><input class="form-control fillingStation" id="fillingStation" name="fillingStation[]"
+                            type="number"></td>
+                    <td><input class="form-control regasPlan" id="regasPlan" name="regasPlan[]" type="number"></td>
+                    <td><input class="form-control onTheRoad" id="onTheRoad" name="onTheRoad[]" type="number"></td>
+                    <td><input class="form-control totalIso" id="totalIso" type="number" name="totalIso[]" readonly />
+                    </td>
+
+                </tr>
+
+            </table>
         </div>
 
         <span hidden id="gajiSupir"></span>
@@ -579,7 +730,8 @@
 
 
         @section Scripts{
-        @*<script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>*@
+        @*
+        <script type="text/javascript" src="~/plugins/map/js/ofi_paf.js"></script>*@
         <script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
         <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.js"></script>
         <script type="text/javascript" src="~/plugins/map/js/lib/leaflet.draw.js"></script>
@@ -589,6 +741,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
             var results = [];
+            var resultsLNG = [];
 
             function addr_search() {
                 var inp = document.getElementById("locationName");
@@ -611,6 +764,16 @@
                     $(".pipeLines").show();
                 } else {
                     $(".pipeLines").hide();
+                }
+            }
+
+            function functionLNG() {
+                var checkBox = document.getElementById("lng");
+
+                if (checkBox.checked == true) {
+                    $("#lngRow").show();
+                } else {
+                    $("#lngRow").hide();
                 }
             }
 
@@ -656,6 +819,18 @@
                 pointsInCircle(circle, radius);
             }
 
+            function pointMapLNG(lat, long) {
+                var titik = L.latLng(lat, long);
+                L.marker(titik).addTo(map);
+
+                var circle;
+                var radius = milesToMeters($("#radiusLNG").val());
+                circle = L.circle(titik, radius);
+                circle.addTo(map);
+
+                pointsInCircleLNG(circle, radius);
+            }
+
             function calculateCost() {
 
                 results = [];
@@ -669,6 +844,12 @@
                 var workDay = $("#workDay").val();
                 var lat = $("#latitude").val();
                 var long = $("#longitude").val();
+
+                var totalCustomer = $("#totalCustomer").val();
+                var size = $("#Size").val();
+                var volumes = $("#volumes").val();
+                var speed = $("#speed").val();
+                var qtyTruck = $("#qtyTruck").val();
 
                 if (targetCOD == "" || targetCOD == null) {
                     targetCOD = "0001-01-01";
@@ -779,7 +960,9 @@
                                     // }
                                     console.log("start header");
                                     //if (document.getElementById("cng").checked == true) {
+                                    
                                     calculate(data.data);
+                                   
                                     //}
                                     // if (document.getElementById("pipeLine").checked == true) {
                                     //     task2()
@@ -815,11 +998,404 @@
                 }
 
             }
+
+            function calculateLNG(dataID) {
+
+                console.log("startlng header");
+                if (document.getElementById("lng").checked == true) {
+                    var projectName = $("#projectName").val();
+                var creator = $("#creator").val();
+                var projectDate = $("#projectDate").val();
+                var customerName = $("#customerName").val();
+                var demandUsage = $("#demandUsage").val();
+                var targetCOD = $("#targetCOD").val();
+                var hourDay = $("#hourDay").val();
+                var workDay = $("#workDay").val();
+                var lat = $("#latitude").val();
+                var long = $("#longitude").val();
+
+                var totalCustomer = $("#totalCustomer").val();
+                var size = $("#Size").val();
+                var volumes = $("#volumes").val();
+                var speeds = $("#speed").val();
+                var qtyTruck = $("#qtyTruck").val();
+                
+                var ids = $("#dataID").val();
+
+                pointMapLNG(lat, long);
+
+                if (resultsLNG.length > 0) {
+                    var rsLokasi = resultsLNG[0].lokasi;
+                    var rsJarak = resultsLNG[0].jarak;
+                    var rsLatitude = resultsLNG[0].latitude;
+                    var rsLongitude = resultsLNG[0].longitude;
+
+                    var demands = (demandUsage / 22.50 / 1000).toFixed(2);
+                    //var demands = existDemand ;
+                    $("#demandBBTUD").val(demands);
+                    var distance = resultsLNG[0].jarak;
+                    var hub = 0;
+                    var plg = totalCustomer;
+                    var isoTank = size;
+                    var volume = volumes;
+                    var speed = speeds;
+                    var trk = qtytruck;
+
+                    var filling = 0.5;
+                    var trucking = (distance / speed).toFixed(3);
+                    var bongkar = 0.5;
+                    var totalVoyage = parseFloat(filling) + parseFloat(trucking) + parseFloat(bongkar);
+                    var totalRoundVoyage = (totalVoyage * 2).toFixed(3);
+                    var roundTotal = Math.ceil(totalRoundVoyage);
+                      $("#_roundTotal").val(roundTotal);
+
+                    var mmbtu = 22.50;
+                    var m3day = ((demands * 1000) / mmbtu).toFixed(2);
+                    $("#_m3day").val(m3day);
+                   
+                    var isotankday = (m3day / volume).toFixed(2);
+                    $("#_isotankday").val(isotankday);
+                    var qtytruck = 2;
+                    var roundvoyagedays = (roundTotal / qtytruck).toFixed(0);
+                    var safetymargindays = 0;
+
+
+                    var tblDemand = (((demands * 1000) / mmbtu) / volume).toFixed(3);
+                    var tblDrop = (isotankday * roundvoyagedays).toFixed(0);
+
+                    var tblRemain1 = (parseFloat((isotankday * roundvoyagedays).toFixed(0)) - parseFloat(tblDemand)).toFixed(2);
+                    var c1 = parseFloat(Math.ceil(tblRemain1));
+                    var c2 = Math.floor((((demands * 1000) / mmbtu) / volume));
+                    var c3 = parseFloat(c1) + parseFloat(c2);
+
+                    var filStas = (isotankday * roundvoyagedays).toFixed(0);
+                    var empt1 = (((demands * 1000) / mmbtu) / volume).toFixed(2);
+                    var empt2 = Math.floor((((demands * 1000) / mmbtu) / volume));
+
+                    var totISO = parseFloat(filStas) + parseFloat(c3) + parseFloat(0);
+
+
+                    for (x = 1; x < 366; x++) {
+                        ads(x);
+                    }
+
+                    update_amounts();
+
+
+                    $("#demand_").val(tblDemand);
+                    $("#drop_").val(tblDrop);
+
+                    if (tblDrop == 0) {
+                        $("#voyage_").val("-");
+                    } else {
+                        $("#voyage_").val("Voyage");
+                    }
+
+                    $("#remaining1_").val(tblRemain1);
+                    $("#remaining2_").val(Math.ceil(tblRemain1));
+                    $("#empty1_").val((((demands * 1000) / mmbtu) / volume).toFixed(2));
+                    $("#empty2_").val(Math.floor((((demands * 1000) / mmbtu) / volume)));
+                    $("#fillingStation_").val((isotankday * roundvoyagedays).toFixed(0));
+
+                    $("#regasPlan_").val(c3);
+                    $("#onTheRoad_").val(0);
+                    $("#load_").val(0);
+                    $("#totalIso_").val(totISO);
+
+
+                    function update_amounts() {
+                        var sum = 0.0;
+                        var maxFillingStation = [];
+                        var maxRegasPlant = [];
+                        var maxOnTheRoad = [];
+                        var maxTotalIso = [];
+                        var maxDrop = [];
+                        var count = $('#table tr').length;
+                        $('.product').each(function () {
+
+                            var price = $(this).find('.price').val();
+                            var amount = (price * 1)
+                            sum += amount;
+
+
+                            var fillingStation = $(this).find('.fillingStation').val();
+                            var regasPlan = $(this).find('.regasPlan').val();
+                            var onTheRoad = $(this).find('.onTheRoad').val();
+                            var totalIso = $(this).find('.totalIso').val();
+                            var drop = $(this).find('.drop').val();
+                            maxFillingStation.push(fillingStation);
+                            maxRegasPlant.push(regasPlan);
+                            maxOnTheRoad.push(onTheRoad);
+                            maxTotalIso.push(totalIso);
+                            maxDrop.push(drop);
+                            //console.log(sum)
+                            gtotal = sum + count;
+                            $(this).find('.amount').val(amount);
+                        });
+                        $('.total').val((sum).toFixed(2));
+
+                        var maxFillingStation = Math.max.apply(null, maxFillingStation);
+                        var maxRegasPlant = Math.max.apply(null, maxRegasPlant);
+                        var maxOnTheRoad = Math.max.apply(null, maxOnTheRoad);
+                        var maxTotalIso = Math.max.apply(null, maxTotalIso);
+                        var maxDrops = Math.max.apply(null, maxDrop);
+
+                        const resultDrop = maxDrop.filter(i => i === "0").length;
+
+                        $('._fillingStation').val((maxFillingStation));
+                        $('._regasPlan').val((maxRegasPlant));
+                        $('._onTheRoad').val((maxOnTheRoad));
+                        $('._totalIso').val((maxTotalIso));
+                        $('.totalCall').val(365 - resultDrop);
+                        $('.totalCalls').val((365 - resultDrop) / qtytruck);
+                    }
+
+                    function ads(id) {
+                        var clone = $("#table tbody tr:last").clone();
+                        clone.addClass('newTR');
+                        clone.find('td.remTD input').removeClass('hidden');
+                        $("#table tbody").append(clone);
+
+                        var _id = x - 1;
+
+                        if (_id == 0) {
+                            var _no = document.getElementsByName('noo[]');
+                            var a00 = _no[x - 1];
+                            a00.value = x;
+
+                            var _demand = document.getElementsByName('demand[]');
+                            var a1 = _demand[x - 1];
+                            a1.value = tblDemand;
+
+                            var _drop = document.getElementsByName('drop[]');
+                            var a2 = _drop[x - 1];
+                            a2.value = tblDrop;
+
+                            if (tblDrop == 0) {
+                                var _voyage = document.getElementsByName('voyage[]');
+                                var a3 = _voyage[x - 1];
+                                a3.value = "-";
+                            } else {
+                                var _voyage = document.getElementsByName('voyage[]');
+                                var a3 = _voyage[x - 1];
+                                a3.value = "Voyage";
+                            }
+
+                            var _remaining1 = document.getElementsByName('remaining1[]');
+                            var a4 = _remaining1[x - 1];
+                            a4.value = tblRemain1;
+
+                            var _remaining2 = document.getElementsByName('remaining2[]');
+                            var a5 = _remaining2[x - 1];
+                            a5.value = Math.ceil(tblRemain1);
+
+                            var _empty1 = document.getElementsByName('empty1[]');
+                            var a6 = _empty1[x - 1];
+                            a6.value = empt1;
+
+                            var _empty2 = document.getElementsByName('empty2[]');
+                            var a7 = _empty2[x - 1];
+                            a7.value = empt2;
+
+                            var _fillingStation = document.getElementsByName('fillingStation[]');
+                            var a8 = _fillingStation[x - 1];
+                            a8.value = filStas;
+
+                            var _regasPlan = document.getElementsByName('regasPlan[]');
+                            var a9 = _regasPlan[x - 1];
+                            a9.value = c3;
+
+                            var _onTheRoad = document.getElementsByName('onTheRoad[]');
+                            var a10 = _onTheRoad[x - 1];
+                            a10.value = 0;
+
+                            var _totalIso = document.getElementsByName('totalIso[]');
+                            var a11 = _totalIso[x - 1];
+                            a11.value = totISO;
+
+                            var _load = document.getElementsByName('load[]');
+                            var a12 = _load[x - 1];
+                            a12.value = 0;
+
+                        } else {
+                            var _no = document.getElementsByName('noo[]');
+                            var a00 = _no[x - 1];
+                            a00.value = x;
+
+                            var _demand = document.getElementsByName('demand[]');
+                            var a1 = _demand[x - 1];
+                            a1.value = tblDemand;
+
+                            // Drop
+                            var _remaining1 = document.getElementsByName('remaining1[]');
+
+                            var arr = x - 2;
+                            var remainB = _remaining1[arr];
+
+                            var dropValue = remainB.value - tblDemand;
+
+                            var drops = 0;
+                            if (dropValue < isotankday) {
+                                var cal = ((isotankday * roundvoyagedays) + (isotankday * safetymargindays));
+                                drops = Math.ceil(cal);
+                            } else {
+                                drops = 0;
+                            }
+
+                            var _drop = document.getElementsByName('drop[]');
+                            var a2 = _drop[x - 1];
+                            a2.value = drops;
+
+                            // Voyage
+                            if (drops == 0) {
+                                var _voyage = document.getElementsByName('voyage[]');
+                                var a3 = _voyage[x - 1];
+                                a3.value = "-";
+                            } else {
+                                var _voyage = document.getElementsByName('voyage[]');
+                                var a3 = _voyage[x - 1];
+                                a3.value = "Voyage";
+                            }
+
+                            // Load
+                            var loadB = document.getElementsByName('empty2[]');
+                            var arrs = x - 2;
+                            var _emp2 = loadB[arrs].value;
+                            var empss = 0;
+
+                            if (drops == 0) {
+                                var _load = document.getElementsByName('load[]');
+                                var a4 = _load[x - 1];
+                                a4.value = 0;
+                                empss = 0;
+                            } else {
+                                var _load = document.getElementsByName('load[]');
+                                var a4 = _load[x - 1];
+                                a4.value = _emp2;
+                                empss = _emp2;
+                            }
+
+                            var in_ = parseFloat(remainB.value) + parseFloat(drops) - parseFloat(tblDemand);
+                            // Remaining 1
+                            var rem = (in_).toFixed(2);
+                            var _remain1 = document.getElementsByName('remaining1[]');
+                            var a5 = _remain1[x - 1];
+                            a5.value = rem;
+
+                            // Remaining 2
+                            var rems = Math.ceil(in_);
+                            var _remain2 = document.getElementsByName('remaining2[]');
+                            var a6 = _remain2[x - 1];
+                            a6.value = rems;
+
+                            // Empty 1
+                            var empB = document.getElementsByName('empty1[]');
+                            var _arr = x - 2;
+                            var _emp1s = empB[_arr].value;
+
+                            var inEmp_ = (parseFloat(_emp1s) + parseFloat(tblDemand) - parseFloat(empss)).toFixed(2);
+                            var _empty1 = document.getElementsByName('empty1[]');
+                            var a7 = _empty1[x - 1];
+                            a7.value = inEmp_;
+
+                            // Empty 2
+                            var _emp2 = Math.floor(inEmp_);
+                            var _empty2 = document.getElementsByName('empty2[]');
+                            var a8 = _empty2[x - 1];
+                            a8.value = _emp2;
+
+                            // Filling Station
+                            var _filSts = document.getElementsByName('fillingStation[]');
+                            var a9 = _filSts[x - 1];
+                            a9.value = filStas;
+
+                            //Regas Plant
+                            var numP = parseFloat(rems) + parseFloat(_emp2);
+                            var _regP = document.getElementsByName('regasPlan[]');
+                            var a10 = _regP[x - 1];
+                            a10.value = numP;
+
+                            //On The Road
+                            var otrB = document.getElementsByName('onTheRoad[]');
+                            var _arr_ = x - 2;
+                            var _otrB = otrB[_arr_].value;
+                            var otrr = 0;
+                            if (empss == 0) {
+                                otrr = _otrB;
+                            } else {
+                                otrr = empss;
+                            }
+                            var _otr = document.getElementsByName('onTheRoad[]');
+                            var a11 = _otr[x - 1];
+                            a11.value = otrr;
+
+                            //Total Iso
+                            var totSo = parseFloat(filStas) + parseFloat(numP) + parseFloat(otrr);
+                            var _iso = document.getElementsByName('totalIso[]');
+                            var a12 = _iso[x - 1];
+                            a12.value = totSo;
+                        }
+
+
+
+                    }
+
+                    var demandBBTUD = $("#demandBBTUD").val();
+                    var totalCustomer = $("#totalCustomer").val();
+                    var size = $("#Size").val();
+                    var volumes = $("#volumes").val();
+                    var speeds = $("#speed").val();
+                    var qtyTruck = $("#qtyTruck").val();
+
+                    var trk = $("#qtyTruckInput").val();
+                    var _m3day = $("#_m3day").val();
+                    var _roundTotal = $("#_roundTotal").val();
+                    var _isotankday = $("#_isotankday").val();
+                    var _maxTotalIso = $("#_maxTotalIso").val();
+                    var _totalIso = $("#_totalIso").val();
+
+
+                    var vgl = totalCustomer * 2;
+
+                    $.ajax({
+                        url: '@Url.Action("SaveDataRetailSupply", "SimulationCost")?headerSimulationID=' + ids + '&demand=' + demandBBTUD + '&jarakSumber=' + distance + '&jarakHub=' + hub + '&jumlahPelanggan=' + totalCustomer + '&size=' + size + '&volume=' + volumes + '&speed=' + speeds + '&qtyTruck=' + qtytruck + '&estRoundTrip=' + _roundTotal + '&m3Day=' + _m3day + '&isoTankDay=' + _isotankday + '&qtyVGL=' + vgl + '&isoTank=' + _totalIso + '&asalSumber=' + rsLokasi + '&latitude=' + rsLatitude + '&longitude=' + rsLongitude + '&latitudePelanggan=' + lat + '&longitudePelanggan=' + long,
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        data: "{}",
+
+                        success: function (datas) {
+                            console.log("success lng"); 
+                        },
+
+                        error: function (jqXHR) {
+                            $('#divErrorText').text(jqXHR.responseText);
+                            $('#divError').show('fade');
+                            console.log("error cng");
+                        }
+                    });
+
+                } else {
+                    var currentRadius = $("#radiusLNG").val();
+                    var upRadius = parseInt(currentRadius) + 50;
+                    $("#radiusLNG").val(upRadius);
+                    calculateLNG();
+                }
+                                           
+                            success(ids);
+                } 
+                else {
+                    success(ids);
+                }
+            }
+
             function success(data) {
                 $('.loading').hide();
                 var url = '@Url.Action("Result", "SimulationCost")?Id=' + data;
                 window.location.href = url;
             }
+
+            //Fungsi Calculate Pipeline
             function calculatePipe(dataID) {
                 console.log("startpipe header");
                 if (document.getElementById("pipeLine").checked == true) {
@@ -896,41 +1472,8 @@
                         data: "{}",
                         success: function (datas) {
                             console.log("success pipe");
-                            success(dataID);
-
-                            //    $.ajax({
-                            //    url: '@Url.Action("SaveDataPipe", "SimulationCost")',
-                            //    type: 'POST',
-                            //    dataType: 'json',
-                            //    contentType: "application/json; charset=utf-8",
-                            //    data: JSON.stringify(
-                            //        {
-                            //           "HeaderSimulationID" : dataID,
-                            //         "type" : datas.data.type,
-                            //         "latitude" : datas.data.location.latitude,
-                            //         "longitude" : datas.data.location.longitude,
-                            //         "postal_code" : datas.data.location.postal_code,
-                            //         "distanceValue" : datas.data.distance.value,
-                            //         "distanceUnit" : datas.data.distance.nit,
-                            //         "pressureValue" : datas.data.pressure.value,
-                            //         "pressureUnit" : datas.data.pressure.unit,
-                            //         "volumeValue" : datas.data.volume.value,
-                            //         "volumeUnit" : datas.data.volume.unit,
-                            //            "diameterValue" : datas.data.diameter.value,
-                            //         "diameterUnit" : datas.data.diameter.unit,
-                            //         "route" : datas.data.route,
-                            //        }
-                            //    ),
-                            //    success: function (data) {
-                            //        console.log("great");                                    
-                            //    },        
-
-                            //    error: function (jqXHR) {
-                            //        $('#divErrorText').text(jqXHR.responseText);
-                            //        $('#divError').show('fade');
-                            //    }
-                            //});
-
+                             $("#dataID").val(dataID);
+                            calculateLNG(dataID);                            
                         },
 
                         error: function (datas) {
@@ -938,10 +1481,13 @@
                             console.log("error pipe");
                         }
                     });
-                } else {
-                    success(dataID);
+                } 
+                else {
+                    $("#dataID").val(dataID);
+                    calculateLNG(dataID); 
                 }
             }
+
             function changeCircleRadius(jarak) {
                 //alert(jarak);
                 // Determine which geocode box is filled
@@ -953,9 +1499,12 @@
                     circle.setRadius(milesToMeters(jarak));
                 }
             }
+
             function milesToMeters(miles) {
                 return miles * 1069.344;
             };
+
+            //Radius CNG
             function pointsInCircle(circle, meters_user_set) {
                 obj = [];
                 var locationMaps = {};
@@ -1064,6 +1613,116 @@
                 return obj;
                 // Close pointsInCircle
             };
+
+            //Radius LNG
+            function pointsInCircleLNG(circle, meters_user_set) {
+                obj = [];
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstHubLNG")',
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    success: function (response) {
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaHub },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        //console.log(locationMaps);
+                        let mapping = [];
+                        for (var i = 0; i < locationMaps.features.length; i++) {
+                            var long = locationMaps.features[i].geometry.coordinates[0];
+                            var lat = locationMaps.features[i].geometry.coordinates[1];
+                            var loc = locationMaps.features[i].properties.oficina;
+                            let temp = {
+                                "loc": loc,
+                                "lat": lat,
+                                "long": long
+                            }
+                            mapping.push(temp);
+                        }
+
+                        if (circle !== undefined) {
+                            // Only run if we have an address entered
+                            // Lat, long of circle
+                            circle_lat_long = circle.getLatLng();
+                            var counter_points_in_circle = 0;
+                            // Loop through each point in JSON file
+                            for (var i = 0; i < mapping.length; i++) {
+                                // Lat, long of current point
+                                let latA = mapping[i].coord;
+                                var latlng = L.latLng(mapping[i].lat, mapping[i].long);
+                                layer_lat_long = latA;
+
+                                // Distance from our circle marker
+                                // To current point in meters
+                                distance_from_layer_circle = latlng.distanceTo(circle_lat_long);
+                                //calculateDistance(latlng, latB)
+                                // See if meters is within raduis
+                                // The user has selected
+                                if (distance_from_layer_circle <= meters_user_set) {
+                                    counter_points_in_circle += 1;
+                                    let temp = {
+                                        "lokasi": mapping[i].loc,
+                                        //"jarak": (distance_from_layer_circle / 1000).toFixed(2),
+                                        "jarak": parseFloat((distance_from_layer_circle / 1000).toFixed(2)),
+                                        "latitude": mapping[i].lat,
+                                        "longitude": mapping[i].long,
+                                    }
+                                    resultsLNG.push(temp);
+                                }
+
+                            };
+                            //farmacias.eachLayer(function (layer) {
+
+                            //});
+                            // Set number of results on main page
+
+
+                        }
+
+                        var result = resultsLNG.reduce(function (res, obj) {
+                            return (obj.jarak < res.jarak) ? obj : res;
+                        });
+                        const _obj = result;
+                        //const objs = {
+                        //  0: "foo",
+                        //  1: "bar",
+                        //};
+                        //return obj;
+                        //const temps = {
+                        //   "lokasi": _obj.lokasi,
+                        //   "jarak": _obj.jarak,
+                        //    "latitude":_obj.latitude,
+                        //    "longitude":_obj.longitude
+                        //}
+                        const aobj = {};
+                        aobj['lokasi'] = _obj.lokasi;
+                        aobj['jarak'] = _obj.jarak;
+                        aobj['latitude'] = _obj.latitude;
+                        aobj['longitude'] = _obj.longitude;
+
+                        obj.push(aobj);
+                        //obj.push(temps);
+
+                    }
+
+                });
+
+                //console.log(ob);
+                //localStorage.setItem("finalSPBG", JSON.stringify(obj));
+                return obj;
+                // Close pointsInCircle
+            };
+
             function popup(feature, layer) {
                 if (feature.properties && feature.properties.oficina) {
                     layer.bindPopup(feature.properties.oficina, {
@@ -1079,6 +1738,7 @@
                 }
             };
 
+            //Fungsi Calculate CNG
             function calculate(data) {
                 console.log("start cng header");
                 if (document.getElementById("cng").checked == true) {
@@ -1180,7 +1840,60 @@
                 $("#_alert7").hide();
                 $("#_alert8").hide();
                 $("#_alert9").hide();
+                $("#volumes").prop("disabled", true);
 
+                //Dropdown Iso Tank
+                $('.first-select').on('change', function () {
+                    if (this.value == '20') {
+                        $("#volumes").empty();
+                        $("#volumes").prop("disabled", false);
+                        $.ajax({
+                            url: '@Url.Action("Retrieve", "MstParameterLNG")',
+                            type: 'post',
+                            cache: false,
+                            dataType: 'json',
+                            success: function (response) {
+                                var len = response.data.length;
+                                for (var i = 0; i < len; i++) {
+                                    var id = response.data[i].paramId;
+                                    var volume = response.data[i].volume;
+                                    var size = response.data[i].size;
+                                    var name = response.data[i].paramName;
+                                    if (name == "ISO Tank Size" && size == 20) {
+                                        $("#volumes").append("<option value='" + volume + "'>" + volume + "</option>");
+                                    }
+                                    //$("#energyName").val(name);
+                                }
+                            }
+                        });
+                    }
+                    else if (this.value == '40') {
+                        $("#volumes").empty();
+                        $("#volumes").prop("disabled", false);
+                        $.ajax({
+                            url: '@Url.Action("Retrieve", "MstParameterLNG")',
+                            type: 'post',
+                            dataType: 'json',
+                            cache: false,
+                            success: function (response) {
+                                console.log(response);
+                                var len = response.data.length;
+                                for (var i = 0; i < len; i++) {
+                                    var id = response.data[i].paramId;
+                                    var volume = response.data[i].volume;
+                                    var size = response.data[i].size;
+                                    var name = response.data[i].paramName;
+                                    if (name == "ISO Tank Size" && size == 40) {
+                                        $("#volumes").append("<option value='" + volume + "'>" + volume + "</option>");
+                                    }
+                                    //$("#energyName").val(name);
+                                }
+                            }
+                        });
+                    }
+                });
+
+                // Master Energy
                 $.ajax({
                     url: '@Url.Action("Retrieve", "MstEnergy")',
                     type: 'post',
@@ -1232,7 +1945,7 @@
                         }
                     });
                 });
-               
+
                 $("#pipeLine").checked = true;
                 $("#lng").checked = true;
 
@@ -1249,7 +1962,9 @@
 
                 // Base map styles
                 var locationMaps = {};
+
                 locationMaps["features"] = [];
+
                 $.ajax({
                     url: '@Url.Action("GetStation", "MstLokasiSPBG")',
                     type: 'post',
@@ -1270,171 +1985,170 @@
                         }
                         //console.log(locationMaps);
                         var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                    osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
-                map = new L.Map('map', {
-                    minZoom: 6,
-                    zoom: 9,
-                    center: [-6.159907, 106.815383]
-                })
-                osm.addTo(map)
-                // This is the circle on the map that will be determine how many markers are around
-                var circle;
-                // The marker drawn onto the map
-                var drawn_marker = L.marker();
-                // Group for our markers
-                var drawn_markers = L.featureGroup();
-                map.addLayer(drawn_markers);
-                // Icons that get placed on map
-                var eco = L.icon({
-                    iconSize: [32, 37],
-                    iconAnchor: [16, 37],
-                    popupAnchor: [0, -28],
-                    iconUrl: '/plugins/map/images/cng.png'
-                });
-                var ecos = L.icon({
-                    iconSize: [32, 37],
-                    iconAnchor: [16, 37],
-                    popupAnchor: [0, -28],
-                    iconUrl: '/plugins/map/images/lng.png'
-                });
-                // When an icon is clicked
-                function popup(feature, layer) {
-                    if (feature.properties && feature.properties.oficina) {
-                        layer.bindPopup(feature.properties.oficina, {
-                            closeButton: false,
-                            offset: L.point(0, -20)
+                            osmAttrib = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            osm = L.tileLayer(osmUrl, { maxZoom: 18, attribution: osmAttrib });
+                        map = new L.Map('map', {
+                            minZoom: 6,
+                            zoom: 9,
+                            center: [-6.159907, 106.815383]
+                        })
+                        osm.addTo(map)
+                        // This is the circle on the map that will be determine how many markers are around
+                        var circle;
+                        // The marker drawn onto the map
+                        var drawn_marker = L.marker();
+                        // Group for our markers
+                        var drawn_markers = L.featureGroup();
+                        map.addLayer(drawn_markers);
+                        // Icons that get placed on map
+                        var eco = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/cng.png'
                         });
-                        layer.on('mouseover', function () {
-                            layer.openPopup();
+                        var ecos = L.icon({
+                            iconSize: [32, 37],
+                            iconAnchor: [16, 37],
+                            popupAnchor: [0, -28],
+                            iconUrl: '/plugins/map/images/lng.png'
                         });
-                        layer.on('mouseout', function () {
-                            layer.closePopup();
-                        });
-                    }
-                };
-                // Convert miles to meters to set radius of circle
-                function milesToMeters(miles) {
-                    return miles * 1069.344;
-                };
-                // This figures out how many points are within out circle
-                function pointsInCircle(circle, meters_user_set) {
-                    results = [];
-                    if (circle !== undefined) {
-                        // Only run if we have an address entered
-                        // Lat, long of circle
-                        circle_lat_long = circle.getLatLng();
-                        var counter_points_in_circle = 0;
-                        // Loop through each point in JSON file
-                        farmacias.eachLayer(function (layer) {
-                            // Lat, long of current point
-                            layer_lat_long = layer.getLatLng();
-                            // Distance from our circle marker
-                            // To current point in meters
-                            distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
-                            // See if meters is within raduis
-                            // The user has selected
-                            if (distance_from_layer_circle <= meters_user_set) {
-                                counter_points_in_circle += 1;
-                                var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
-                                // Convert to miles
-                                ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
-                                $('#ofi_paf').append(ofi_paf_html);
-                                let temp = {
-                                    "lokasi": layer.feature.properties.oficina,
-                                    "jarak": (distance_from_layer_circle / 1000).toFixed(2)
-                                }
-                                results.push(temp);
+                        // When an icon is clicked
+                        function popup(feature, layer) {
+                            if (feature.properties && feature.properties.oficina) {
+                                layer.bindPopup(feature.properties.oficina, {
+                                    closeButton: false,
+                                    offset: L.point(0, -20)
+                                });
+                                layer.on('mouseover', function () {
+                                    layer.openPopup();
+                                });
+                                layer.on('mouseout', function () {
+                                    layer.closePopup();
+                                });
+                            }
+                        };
+                        // Convert miles to meters to set radius of circle
+                        function milesToMeters(miles) {
+                            return miles * 1069.344;
+                        };
+                        // This figures out how many points are within out circle
+                        function pointsInCircle(circle, meters_user_set) {
+                            results = [];
+                            if (circle !== undefined) {
+                                // Only run if we have an address entered
+                                // Lat, long of circle
+                                circle_lat_long = circle.getLatLng();
+                                var counter_points_in_circle = 0;
+                                // Loop through each point in JSON file
+                                farmacias.eachLayer(function (layer) {
+                                    // Lat, long of current point
+                                    layer_lat_long = layer.getLatLng();
+                                    // Distance from our circle marker
+                                    // To current point in meters
+                                    distance_from_layer_circle = layer_lat_long.distanceTo(circle_lat_long);
+                                    // See if meters is within raduis
+                                    // The user has selected
+                                    if (distance_from_layer_circle <= meters_user_set) {
+                                        counter_points_in_circle += 1;
+                                        var ofi_paf_html = '<h4>' + counter_points_in_circle + '. ' + layer.feature.properties.oficina + '</h4>';
+                                        // Convert to miles
+                                        ofi_paf_html += 'Distance: ' + (distance_from_layer_circle / 1000).toFixed(2) + ' Km';
+                                        $('#ofi_paf').append(ofi_paf_html);
+                                        let temp = {
+                                            "lokasi": layer.feature.properties.oficina,
+                                            "jarak": (distance_from_layer_circle / 1000).toFixed(2)
+                                        }
+                                        results.push(temp);
+                                    }
+                                });
+                                // Set number of results on main page
+                                $('#ofi_paf_results').html(counter_points_in_circle);
+                            }
+                            // Close pointsInCircle
+                        };
+                        // Change circle radius when changed on page
+                        function changeCircleRadius(jarak) {
+                            // Determine which geocode box is filled
+                            // And fire click event
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters(jarak))
+                            // Set radius of circle only if we already have one on the map
+                            if (circle) {
+                                circle.setRadius(milesToMeters(jarak));
+                            }
+                        }
+                        // Allow user to add marker to map
+                        var draw_control = new L.Control.Draw({
+                            draw: {
+                                polyline: false,
+                                polygon: false,
+                                circle: true,
+                                marker: drawn_marker
+                            },
+                            edit: {
+                                featureGroup: drawn_markers,
+                                remove: true
                             }
                         });
-                        // Set number of results on main page
-                        $('#ofi_paf_results').html(counter_points_in_circle);
-                    }
-                    // Close pointsInCircle
-                };
-                // Change circle radius when changed on page
-                function changeCircleRadius(jarak) {
-                    // Determine which geocode box is filled
-                    // And fire click event
-                    // This will determine how many markers are within the circle
-                    pointsInCircle(circle, milesToMeters(jarak))
-                    // Set radius of circle only if we already have one on the map
-                    if (circle) {
-                        circle.setRadius(milesToMeters(jarak));
-                    }
-                }
-                // Allow user to add marker to map
-                var draw_control = new L.Control.Draw({
-                    draw: {
-                        polyline: false,
-                        polygon: false,
-                        circle: true,
-                        marker: drawn_marker
-                    },
-                    edit: {
-                        featureGroup: drawn_markers,
-                        remove: true
-                    }
-                });
-                map.on(L.Draw.Event.CREATED, function (event) {
-                    var layer = event.layer;
-                    drawn_markers.addLayer(layer);
-                });
-                map.addControl(draw_control);             
+                        map.on(L.Draw.Event.CREATED, function (event) {
+                            var layer = event.layer;
+                            drawn_markers.addLayer(layer);
+                        });
+                        map.addControl(draw_control);
                         console.log(locationMaps.features);
-                        console.log(locationMaps.features[16].typeModa);
-                var farmacias = L.geoJson(locationMaps, {
-                    onEachFeature: popup,
-                    pointToLayer: function (feature, latlng) {
+                        var farmacias = L.geoJson(locationMaps, {
+                            onEachFeature: popup,
+                            pointToLayer: function (feature, latlng) {
 
-                        if (feature.typeModa == 'CNG') {
-                                
-                                return L.marker(latlng, { icon: eco });
-                            }else {
-                                return L.marker(latlng, { icon: ecos });
+                                if (feature.typeModa == 'CNG') {
+
+                                    return L.marker(latlng, { icon: eco });
+                                } else {
+                                    return L.marker(latlng, { icon: ecos });
+                                }
+
                             }
-                        
-                    }
-                }).addTo(map);
-                // This is called after the marker is drawn
-                map.on('draw:created', function (e) {
-                    // Add a circle around the marker
-                    var marker_lat_long = e.layer._latlng
-                    $("#latitude").val(marker_lat_long.lat);
-                    $("#longitude").val(marker_lat_long.lng);
-                    var radius = milesToMeters($("#radius").val());
-                    circle = L.circle(marker_lat_long, radius)
-                    circle.addTo(map);
-                    // Calculate the number of eco icons within the circle
-                    // So we can put it on the DOM
-                    pointsInCircle(circle, radius)
-                    // Make the marker draggable
-                    e.layer.dragging.enable();
-                    // If you drag the marker, make sure the circle goes with it
-                    e.layer.on('dragend', function (event) {
+                        }).addTo(map);
+                        // This is called after the marker is drawn
+                        map.on('draw:created', function (e) {
+                            // Add a circle around the marker
+                            var marker_lat_long = e.layer._latlng
+                            $("#latitude").val(marker_lat_long.lat);
+                            $("#longitude").val(marker_lat_long.lng);
+                            var radius = milesToMeters($("#radius").val());
+                            circle = L.circle(marker_lat_long, radius)
+                            circle.addTo(map);
+                            // Calculate the number of eco icons within the circle
+                            // So we can put it on the DOM
+                            pointsInCircle(circle, radius)
+                            // Make the marker draggable
+                            e.layer.dragging.enable();
+                            // If you drag the marker, make sure the circle goes with it
+                            e.layer.on('dragend', function (event) {
 
-                        $("#latitude").val(event.target.getLatLng().lat);
-                        $("#longitude").val(event.target.getLatLng().lng);
-                        map.setView(event.target.getLatLng());
-                        circle.setLatLng(event.target.getLatLng());
-                        // Clear out results
-                        $('#ofi_paf').html('');
-                        // This will determine how many markers are within the circle
-                        pointsInCircle(circle, milesToMeters($('#radius').val()));
-                        // Redraw: Leaflet function
-                        circle.redraw();
-                    });
-                    $('.leaflet-draw-draw-marker').hide();
-                });
-                // Reset map view on marker drag
-                drawn_marker.on('dragend', function (event) {
-                    map.setView(event.target.getLatLng());
-                    circle.setLatLng(event.target.getLatLng());
-                    // This will determine how many markers are within the circle
-                    pointsInCircle(circle, milesToMeters($('#radius').val()));
-                    // Redraw: Leaflet function
-                    circle.redraw();
-                });
+                                $("#latitude").val(event.target.getLatLng().lat);
+                                $("#longitude").val(event.target.getLatLng().lng);
+                                map.setView(event.target.getLatLng());
+                                circle.setLatLng(event.target.getLatLng());
+                                // Clear out results
+                                $('#ofi_paf').html('');
+                                // This will determine how many markers are within the circle
+                                pointsInCircle(circle, milesToMeters($('#radius').val()));
+                                // Redraw: Leaflet function
+                                circle.redraw();
+                            });
+                            $('.leaflet-draw-draw-marker').hide();
+                        });
+                        // Reset map view on marker drag
+                        drawn_marker.on('dragend', function (event) {
+                            map.setView(event.target.getLatLng());
+                            circle.setLatLng(event.target.getLatLng());
+                            // This will determine how many markers are within the circle
+                            pointsInCircle(circle, milesToMeters($('#radius').val()));
+                            // Redraw: Leaflet function
+                            circle.redraw();
+                        });
                     }
 
                 });
@@ -1445,18 +2159,21 @@
                 //    changeCircleRadius();
                 //});
             });
+
             function mapp() {
                 $("#costStructure").hide();
                 $("#findMap").show();
                 $("#convertEnergy").hide();
                 map.invalidateSize();
             }
+
             function back() {
                 $("#costStructure").show();
                 $("#convertEnergy").hide();
                 $("#calculateSimulation").hide();
                 $("#findMap").hide();
             }
+
             function exchangeEnergy() {
                 $("#costStructure").hide();
                 $("#convertEnergy").show();

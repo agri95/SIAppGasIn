@@ -198,6 +198,10 @@
             var url = '@Url.Action("DetailPipe", "SimulationCost")?Id=' + Id;
             window.location.href = url;
         }
+        else if (Infra == "LNG") {
+            var url = '@Url.Action("DetailLNG", "SimulationCost")?Id=' + Id;
+            window.location.href = url;
+        }
         else {
             console.log("error");
         }

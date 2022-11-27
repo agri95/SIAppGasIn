@@ -25,7 +25,7 @@
         }
 
         @{
-        ViewData["Title"] = "Simulation Cost";
+        ViewData["Title"] = "Cluster Simulation Cost";
         }
 
         <div class="alert alert-warning alert-dismissible agri" id="_alert1">
@@ -103,20 +103,47 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3"></div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <label class="mr-3 font-size-lg mb-0"> Pilih Pelanggan </label>
                                                 <div class="input-group">
                                                     <select class="form-control input-sm frmInput"
-                                                        style="width:180px; height:30px; padding-top: 2px;padding-bottom: 2px;border-radius:5px;"
+                                                        style="width:150px; height:30px; padding-top: 2px;padding-bottom: 2px;border-radius:5px;"
                                                         id="list-capel" name="list_capel" onchange="changeCapel(this)">
                                                         <option value="costStructure1" selected> Pelanggan 1</option>
                                                     </select>
                                                 </div>
-
-
-
                                             </div>
+                                            <div class="col-md-6">
+                                                <label class="mr-3 font-size-lg mb-0">&nbsp;&nbsp; Gas Source </label>
+                                                <div class="input-group">
+                                                    
+                                                <div class="control-label col-md-4 col-sm-4 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="cng" value=""> CNG
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="control-label col-md-4 col-sm-4 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" onclick="functionLNG()" id="lng"
+                                                                value=""> LNG
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="control-label col-md-4 col-sm-4 ">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" id="pipeLine"
+                                                                onclick="functionPipe()" value=""> Pipeline
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                                
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -261,10 +288,11 @@
                                                         aria-label=".form-control-sm example" min="0" max="31">
                                                 </div>
                                                
-                                            </div>
+                                            </div>                                           
 
-                                            <div class="form-group row ">
-                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
+                                            <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-2 col-sm-2 ">
@@ -272,10 +300,84 @@
                                                         id="pressure1" name="pressure1" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <select class="form-control form-control-sm frmInput" id="Category1"
+                                                        style="padding-top: 2px;padding-bottom: 2px;">
+                                                        <option value="Industri">Industri</option>
+                                                        <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    </select>
+                                                </div>
                                             </div>
 
+                                            <div id="lngRow1">
+                                                <div class="form-group row">
 
+                                                    <label class="control-label col-md-3 col-sm-3 ">Total Customer <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="totalCustomer" name="totalCustomer1"
+                                                            placeholder="" autocomplete="off"
+                                                            aria-label=".form-control-sm example" min="0">
+                                                    </div>
+                                                    <label class="control-label col-md-3 col-sm-3 ">Iso Tank <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select
+                                                            class="form-control form-control-sm frmInput first-select"
+                                                            id="Size1" style="padding-top: 2px;padding-bottom: 2px;">
+                                                            <option value="20">20</option>
+                                                            <option value="40">40</option>
+                                                        </select>
+                                                    </div>
 
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Volume <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select class="form-control form-control-sm frmInput"
+                                                            id="volumes1" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Speed Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="speed1" name="speed1" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Quantity of Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="qtyTruck1" name="qtyTruck" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+                                            </div> 
 
                                             <div class="ln_solid"></div>
 
@@ -286,7 +388,9 @@
                                 </div>
 
                             </div>
+
                             <!--Batas-->
+
                             <div id="findMap1">
                                 <input type="text" id="radius1" value="50" hidden />
                                 <input type="text" id="resultLocationName1" hidden />
@@ -316,6 +420,7 @@
 
 
                             <!---------------------------------------- Cost 2 ---------------------------------------->
+
                             <div id="costStructure2">
                                 <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                                     style="margin-top: 7px;">
@@ -454,17 +559,94 @@
                                                 </div>
                                             </div>
 
-                                             <div class="form-group row ">
-                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
+                                            <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-2 col-sm-2 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="pressure2" name="pressure2" placeholder="" autocomplete="off"
+                                                        id="pressure1" name="pressure1" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
+                                                </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <select class="form-control form-control-sm frmInput" id="Category1"
+                                                        style="padding-top: 2px;padding-bottom: 2px;">
+                                                        <option value="Industri">Industri</option>
+                                                        <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
+                                            <div id="lngRow2">
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Total Customer <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="totalCustomer" name="totalCustomer1"
+                                                            placeholder="" autocomplete="off"
+                                                            aria-label=".form-control-sm example" min="0">
+                                                    </div>
+                                                    <label class="control-label col-md-3 col-sm-3 ">Iso Tank <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select
+                                                            class="form-control form-control-sm frmInput first-select"
+                                                            id="Size1" style="padding-top: 2px;padding-bottom: 2px;">
+                                                            <option value="20">20</option>
+                                                            <option value="40">40</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Volume <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select class="form-control form-control-sm frmInput"
+                                                            id="volumes1" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Speed Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="speed1" name="speed1" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Quantity of Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="qtyTruck1" name="qtyTruck" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+                                            </div> 
 
                                             <div class="ln_solid"></div>
 
@@ -475,7 +657,9 @@
                                 </div>
 
                             </div>
-                            <!---------------------------------------- Batas ---------------------------------------->
+
+                            <!---------------------------------------- Batas ----------------------------------------->
+
                             <div id="findMap2">
                                 <input type="text" id="radius2" value="50" hidden />
                                 <input type="text" id="resultLocationName2" hidden />
@@ -505,6 +689,7 @@
 
 
                             <!---------------------------------------- Cost 3 ---------------------------------------->
+
                             <div id="costStructure3">
                                 <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                                     style="margin-top: 7px;">
@@ -642,16 +827,94 @@
                                                         aria-label=".form-control-sm example" min="0" max="31">
                                                 </div>
                                             </div>
-                                             <div class="form-group row ">
-                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
+                                            <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-2 col-sm-2 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="pressure3" name="pressure3" placeholder="" autocomplete="off"
+                                                        id="pressure1" name="pressure1" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <select class="form-control form-control-sm frmInput" id="Category1"
+                                                        style="padding-top: 2px;padding-bottom: 2px;">
+                                                        <option value="Industri">Industri</option>
+                                                        <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    </select>
+                                                </div>
                                             </div>
+
+                                            <div id="lngRow3">
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Total Customer <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="totalCustomer" name="totalCustomer1"
+                                                            placeholder="" autocomplete="off"
+                                                            aria-label=".form-control-sm example" min="0">
+                                                    </div>
+                                                    <label class="control-label col-md-3 col-sm-3 ">Iso Tank <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select
+                                                            class="form-control form-control-sm frmInput first-select"
+                                                            id="Size1" style="padding-top: 2px;padding-bottom: 2px;">
+                                                            <option value="20">20</option>
+                                                            <option value="40">40</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Volume <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select class="form-control form-control-sm frmInput"
+                                                            id="volumes1" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Speed Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="speed1" name="speed1" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Quantity of Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="qtyTruck1" name="qtyTruck" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+                                            </div> 
                                             <div class="ln_solid"></div>
                                         </form>
                                     </div>
@@ -659,7 +922,9 @@
                                 </div>
 
                             </div>
-                            <!---------------------------------------- Batas ---------------------------------------->
+
+                            <!---------------------------------------- Batas ----------------------------------------->
+
                             <div id="findMap3">
                                 <input type="text" id="radius3" value="50" hidden />
                                 <input type="text" id="resultLocationName3" hidden />
@@ -687,8 +952,8 @@
                                 </div>
                             </div>
 
-
                             <!---------------------------------------- Cost 4 ---------------------------------------->
+
                             <div id="costStructure4">
                                 <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                                     style="margin-top: 7px;">
@@ -826,16 +1091,94 @@
                                                         aria-label=".form-control-sm example" min="0" max="31">
                                                 </div>
                                             </div>
-                                             <div class="form-group row ">
-                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
+                                             <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-2 col-sm-2 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="pressure4" name="pressure4" placeholder="" autocomplete="off"
+                                                        id="pressure1" name="pressure1" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <select class="form-control form-control-sm frmInput" id="Category1"
+                                                        style="padding-top: 2px;padding-bottom: 2px;">
+                                                        <option value="Industri">Industri</option>
+                                                        <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    </select>
+                                                </div>
                                             </div>
+
+                                            <div id="lngRow4">
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Total Customer <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="totalCustomer" name="totalCustomer1"
+                                                            placeholder="" autocomplete="off"
+                                                            aria-label=".form-control-sm example" min="0">
+                                                    </div>
+                                                    <label class="control-label col-md-3 col-sm-3 ">Iso Tank <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select
+                                                            class="form-control form-control-sm frmInput first-select"
+                                                            id="Size1" style="padding-top: 2px;padding-bottom: 2px;">
+                                                            <option value="20">20</option>
+                                                            <option value="40">40</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Volume <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select class="form-control form-control-sm frmInput"
+                                                            id="volumes1" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Speed Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="speed1" name="speed1" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Quantity of Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="qtyTruck1" name="qtyTruck" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+                                            </div> 
                                             <div class="ln_solid"></div>
                                         </form>
                                     </div>
@@ -843,7 +1186,9 @@
                                 </div>
 
                             </div>
-                            <!---------------------------------------- Batas ---------------------------------------->
+
+                            <!---------------------------------------- Batas ----------------------------------------->
+
                             <div id="findMap4">
                                 <input type="text" id="radius3" value="50" hidden />
                                 <input type="text" id="resultLocationName4" hidden />
@@ -870,7 +1215,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <!---------------------------------------- Cost 5 ---------------------------------------->
                             <div id="costStructure5">
@@ -1010,16 +1354,94 @@
                                                         aria-label=".form-control-sm example" min="0" max="31">
                                                 </div>
                                             </div>
-                                             <div class="form-group row ">
-                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
+                                            <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-2 col-sm-2 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="pressure5" name="pressure5" placeholder="" autocomplete="off"
+                                                        id="pressure1" name="pressure1" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <select class="form-control form-control-sm frmInput" id="Category1"
+                                                        style="padding-top: 2px;padding-bottom: 2px;">
+                                                        <option value="Industri">Industri</option>
+                                                        <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    </select>
+                                                </div>
                                             </div>
+
+                                            <div id="lngRow5">
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Total Customer <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="totalCustomer" name="totalCustomer1"
+                                                            placeholder="" autocomplete="off"
+                                                            aria-label=".form-control-sm example" min="0">
+                                                    </div>
+                                                    <label class="control-label col-md-3 col-sm-3 ">Iso Tank <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select
+                                                            class="form-control form-control-sm frmInput first-select"
+                                                            id="Size1" style="padding-top: 2px;padding-bottom: 2px;">
+                                                            <option value="20">20</option>
+                                                            <option value="40">40</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Volume <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select class="form-control form-control-sm frmInput"
+                                                            id="volumes1" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Speed Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="speed1" name="speed1" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Quantity of Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="qtyTruck1" name="qtyTruck" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+                                            </div> 
                                             <div class="ln_solid"></div>
                                         </form>
                                     </div>
@@ -1027,7 +1449,9 @@
                                 </div>
 
                             </div>
-                            <!---------------------------------------- Batas ---------------------------------------->
+
+                            <!---------------------------------------- Batas ----------------------------------------->
+
                             <div id="findMap5">
                                 <input type="text" id="radius5" value="50" hidden />
                                 <input type="text" id="resultLocationName4" hidden />
@@ -1055,8 +1479,8 @@
                                 </div>
                             </div>
 
-
                             <!---------------------------------------- Cost 6 ---------------------------------------->
+
                             <div id="costStructure6">
                                 <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                                     style="margin-top: 7px;">
@@ -1194,16 +1618,94 @@
                                                         aria-label=".form-control-sm example" min="0" max="31">
                                                 </div>
                                             </div>
-                                             <div class="form-group row ">
-                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
+                                            <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-2 col-sm-2 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="pressure6" name="pressure6" placeholder="" autocomplete="off"
+                                                        id="pressure1" name="pressure1" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <select class="form-control form-control-sm frmInput" id="Category1"
+                                                        style="padding-top: 2px;padding-bottom: 2px;">
+                                                        <option value="Industri">Industri</option>
+                                                        <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    </select>
+                                                </div>
                                             </div>
+
+                                            <div id="lngRow6">
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Total Customer <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="totalCustomer" name="totalCustomer1"
+                                                            placeholder="" autocomplete="off"
+                                                            aria-label=".form-control-sm example" min="0">
+                                                    </div>
+                                                    <label class="control-label col-md-3 col-sm-3 ">Iso Tank <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select
+                                                            class="form-control form-control-sm frmInput first-select"
+                                                            id="Size1" style="padding-top: 2px;padding-bottom: 2px;">
+                                                            <option value="20">20</option>
+                                                            <option value="40">40</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Volume <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select class="form-control form-control-sm frmInput"
+                                                            id="volumes1" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Speed Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="speed1" name="speed1" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Quantity of Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="qtyTruck1" name="qtyTruck" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+                                            </div> 
                                             <div class="ln_solid"></div>
                                         </form>
                                     </div>
@@ -1211,7 +1713,9 @@
                                 </div>
 
                             </div>
-                            <!---------------------------------------- Batas ---------------------------------------->
+
+                            <!---------------------------------------- Batas ----------------------------------------->
+
                             <div id="findMap6">
                                 <input type="text" id="radius6" value="50" hidden />
                                 <input type="text" id="resultLocationName6" hidden />
@@ -1241,6 +1745,7 @@
 
 
                             <!---------------------------------------- Cost 7 ---------------------------------------->
+
                             <div id="costStructure7">
                                 <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                                     style="margin-top: 7px;">
@@ -1378,16 +1883,94 @@
                                                         aria-label=".form-control-sm example" min="0" max="31">
                                                 </div>
                                             </div>
-                                             <div class="form-group row ">
-                                                 <label class="control-label col-md-3 col-sm-3 ">Pressure <i
+                                            <div class="form-group row pipeLines">
+
+                                                <label class="control-label col-md-3 col-sm-3 ">Pressure <i
                                                         class="fas fa-info-circle" data-toggle="tooltip"
                                                         data-placement="right" title="Khusus Pipeline"></i></label>
                                                 <div class="col-md-2 col-sm-2 ">
                                                     <input class="form-control form-control-sm frmInput" type="number"
-                                                        id="pressure7" name="pressure7" placeholder="" autocomplete="off"
+                                                        id="pressure1" name="pressure1" placeholder="" autocomplete="off"
                                                         aria-label=".form-control-sm example" min="0">
                                                 </div>
+                                                <span class="col-md-1 col-sm-1"
+                                                    style="padding-left: -10px; padding-left: -10px; padding-left: 0px;">barg</span>
+                                                <label class="control-label col-md-3 col-sm-3 ">Category <i
+                                                        class="fas fa-info-circle" data-toggle="tooltip"
+                                                        data-placement="right" title="Khusus Pipeline"></i></label>
+                                                <div class="col-md-3 col-sm-3 ">
+                                                    <select class="form-control form-control-sm frmInput" id="Category1"
+                                                        style="padding-top: 2px;padding-bottom: 2px;">
+                                                        <option value="Industri">Industri</option>
+                                                        <option value="Rumah Tangga">Rumah Tangga</option>
+                                                    </select>
+                                                </div>
                                             </div>
+
+                                            <div id="lngRow7">
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Total Customer <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="totalCustomer" name="totalCustomer1"
+                                                            placeholder="" autocomplete="off"
+                                                            aria-label=".form-control-sm example" min="0">
+                                                    </div>
+                                                    <label class="control-label col-md-3 col-sm-3 ">Iso Tank <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select
+                                                            class="form-control form-control-sm frmInput first-select"
+                                                            id="Size1" style="padding-top: 2px;padding-bottom: 2px;">
+                                                            <option value="20">20</option>
+                                                            <option value="40">40</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Volume <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <select class="form-control form-control-sm frmInput"
+                                                            id="volumes1" style="padding-top: 2px;padding-bottom: 2px;">
+
+                                                        </select>
+                                                    </div>
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Speed Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="speed1" name="speed1" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group row">
+
+                                                    <label class="control-label col-md-3 col-sm-3 ">Quantity of Truck <i
+                                                            class="fas fa-info-circle" data-toggle="tooltip"
+                                                            data-placement="right" title="Khusus LNG"></i></label>
+                                                    <div class="col-md-3 col-sm-3 ">
+                                                        <input class="form-control form-control-sm frmInput"
+                                                            type="number" id="qtyTruck1" name="qtyTruck" placeholder=""
+                                                            autocomplete="off" aria-label=".form-control-sm example"
+                                                            min="0">
+                                                    </div>
+
+                                                </div>
+                                            </div> 
                                             <div class="ln_solid"></div>
                                             <input type="hidden" id="finalLokasi" />
                                             <input type="hidden" id="finalLat" />
@@ -1398,7 +1981,9 @@
                                 </div>
 
                             </div>
+
                             <!---------------------------------------- Batas ---------------------------------------->
+
                             <div id="findMap7">
                                 <input type="text" id="radius7" value="50" hidden />
                                 <input type="text" id="resultLocationName7" hidden />
@@ -1711,7 +2296,7 @@
             var results = [];
             let spbgFinal = [];
             let obj = [];
-
+            var resultsLNG = [];
 
             function pointMap(lat, long) {
                 var titik = L.latLng(lat, long);
@@ -1888,6 +2473,10 @@
                 $("#_alert7").hide();
                 $("#_alert8").hide();
                 $("#_alert9").hide();
+
+                document.getElementById("pipeLine").checked = true;
+                document.getElementById("lng").checked = true;
+                document.getElementById("cng").checked = true;
 
                 //-------------------------------------------------------------------------//
 
@@ -3150,7 +3739,7 @@
             }
 
             //------------------------------- CALCULATE CLUSTER -------------------------------//
-
+           
             function calculateCluster() {
                 $('.loading').show();
                 results = [];
@@ -3396,12 +3985,27 @@
                                     }
                                 });
 
+                                if (document.getElementById("pipeLine").checked == true) {
                                 calculatePipe(datas.data, demandUsage, _energyName, _nilaiKalori, hourDay, workDay, pressure, customerName, lat, long);
-                            
+                                }
+
+                                if (document.getElementById("pipeLine").checked == true) {
+
+                                }
                             }
 
+                            if (document.getElementById("pipeLine").checked == true) {
                             calculatePipeSektor(datas.data, demands, operasiHaris, operasiBulans, clusterName, _latitude, _longitude, countCapel);
+                            }
 
+                            if (document.getElementById("lng").checked == true) {
+                            calculatePipeSektor(datas.data, demands, operasiHaris, operasiBulans, clusterName, _latitude, _longitude, countCapel);
+                            }
+
+                            var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + datas.data;
+                            window.location.href = url;
+                                
+                            
                             //const wait = Math.round(Math.random()*12000);
                             //setTimeout(function() {
 
@@ -3474,13 +4078,11 @@
                             contentType: "application/json; charset=utf-8",
                             data: "{}",
                             success: function (datas) {
-                                console.log("success pipe");
-                                var url = '@Url.Action("ResultCluster", "SimulationCost")?Id=' + dataID;
-                                window.location.href = url;
+                                console.log("success pipe");                               
                             },
                             
                             error: function (datas) {
-                                success(dataID);
+                                
                                 console.log("error pipe");
                             }
                         });
@@ -3612,9 +4214,550 @@
                
             }
 
+            function calculateLNG(dataID) {
 
+                console.log("startlng header");
+                if (document.getElementById("lng").checked == true) {
+                var projectName = $("#projectName").val();
+                var creator = $("#creator").val();
+                var projectDate = $("#projectDate").val();
+                var customerName = $("#customerName").val();
+                var demandUsage = $("#demandUsage").val();
+                var targetCOD = $("#targetCOD").val();
+                var hourDay = $("#hourDay").val();
+                var workDay = $("#workDay").val();
+                var lat = $("#latitude").val();
+                var long = $("#longitude").val();
+
+                var totalCustomer = $("#totalCustomer").val();
+                var size = $("#Size").val();
+                var volumes = $("#volumes").val();
+                var speeds = $("#speed").val();
+                var qtyTruck = $("#qtyTruck").val();
+                
+                var ids = $("#dataID").val();
+
+                pointMapLNG(lat, long);
+
+                if (resultsLNG.length > 0) {
+                    var rsLokasi = resultsLNG[0].lokasi;
+                    var rsJarak = resultsLNG[0].jarak;
+                    var rsLatitude = resultsLNG[0].latitude;
+                    var rsLongitude = resultsLNG[0].longitude;
+
+                    var demands = (demandUsage / 22.50 / 1000).toFixed(2);
+                    //var demands = existDemand ;
+                    $("#demandBBTUD").val(demands);
+                    var distance = resultsLNG[0].jarak;
+                    var hub = 0;
+                    var plg = totalCustomer;
+                    var isoTank = size;
+                    var volume = volumes;
+                    var speed = speeds;
+                    var trk = qtytruck;
+
+                    var filling = 0.5;
+                    var trucking = (distance / speed).toFixed(3);
+                    var bongkar = 0.5;
+                    var totalVoyage = parseFloat(filling) + parseFloat(trucking) + parseFloat(bongkar);
+                    var totalRoundVoyage = (totalVoyage * 2).toFixed(3);
+                    var roundTotal = Math.ceil(totalRoundVoyage);
+                      $("#_roundTotal").val(roundTotal);
+
+                    var mmbtu = 22.50;
+                    var m3day = ((demands * 1000) / mmbtu).toFixed(2);
+                    $("#_m3day").val(m3day);
+                   
+                    var isotankday = (m3day / volume).toFixed(2);
+                    $("#_isotankday").val(isotankday);
+                    var qtytruck = 2;
+                    var roundvoyagedays = (roundTotal / qtytruck).toFixed(0);
+                    var safetymargindays = 0;
+
+
+                    var tblDemand = (((demands * 1000) / mmbtu) / volume).toFixed(3);
+                    var tblDrop = (isotankday * roundvoyagedays).toFixed(0);
+
+                    var tblRemain1 = (parseFloat((isotankday * roundvoyagedays).toFixed(0)) - parseFloat(tblDemand)).toFixed(2);
+                    var c1 = parseFloat(Math.ceil(tblRemain1));
+                    var c2 = Math.floor((((demands * 1000) / mmbtu) / volume));
+                    var c3 = parseFloat(c1) + parseFloat(c2);
+
+                    var filStas = (isotankday * roundvoyagedays).toFixed(0);
+                    var empt1 = (((demands * 1000) / mmbtu) / volume).toFixed(2);
+                    var empt2 = Math.floor((((demands * 1000) / mmbtu) / volume));
+
+                    var totISO = parseFloat(filStas) + parseFloat(c3) + parseFloat(0);
+
+
+                    for (x = 1; x < 366; x++) {
+                        ads(x);
+                    }
+
+                    update_amounts();
+
+
+                    $("#demand_").val(tblDemand);
+                    $("#drop_").val(tblDrop);
+
+                    if (tblDrop == 0) {
+                        $("#voyage_").val("-");
+                    } else {
+                        $("#voyage_").val("Voyage");
+                    }
+
+                    $("#remaining1_").val(tblRemain1);
+                    $("#remaining2_").val(Math.ceil(tblRemain1));
+                    $("#empty1_").val((((demands * 1000) / mmbtu) / volume).toFixed(2));
+                    $("#empty2_").val(Math.floor((((demands * 1000) / mmbtu) / volume)));
+                    $("#fillingStation_").val((isotankday * roundvoyagedays).toFixed(0));
+
+                    $("#regasPlan_").val(c3);
+                    $("#onTheRoad_").val(0);
+                    $("#load_").val(0);
+                    $("#totalIso_").val(totISO);
+
+
+                    function update_amounts() {
+                        var sum = 0.0;
+                        var maxFillingStation = [];
+                        var maxRegasPlant = [];
+                        var maxOnTheRoad = [];
+                        var maxTotalIso = [];
+                        var maxDrop = [];
+                        var count = $('#table tr').length;
+                        $('.product').each(function () {
+
+                            var price = $(this).find('.price').val();
+                            var amount = (price * 1)
+                            sum += amount;
+
+
+                            var fillingStation = $(this).find('.fillingStation').val();
+                            var regasPlan = $(this).find('.regasPlan').val();
+                            var onTheRoad = $(this).find('.onTheRoad').val();
+                            var totalIso = $(this).find('.totalIso').val();
+                            var drop = $(this).find('.drop').val();
+                            maxFillingStation.push(fillingStation);
+                            maxRegasPlant.push(regasPlan);
+                            maxOnTheRoad.push(onTheRoad);
+                            maxTotalIso.push(totalIso);
+                            maxDrop.push(drop);
+                            //console.log(sum)
+                            gtotal = sum + count;
+                            $(this).find('.amount').val(amount);
+                        });
+                        $('.total').val((sum).toFixed(2));
+
+                        var maxFillingStation = Math.max.apply(null, maxFillingStation);
+                        var maxRegasPlant = Math.max.apply(null, maxRegasPlant);
+                        var maxOnTheRoad = Math.max.apply(null, maxOnTheRoad);
+                        var maxTotalIso = Math.max.apply(null, maxTotalIso);
+                        var maxDrops = Math.max.apply(null, maxDrop);
+
+                        const resultDrop = maxDrop.filter(i => i === "0").length;
+
+                        $('._fillingStation').val((maxFillingStation));
+                        $('._regasPlan').val((maxRegasPlant));
+                        $('._onTheRoad').val((maxOnTheRoad));
+                        $('._totalIso').val((maxTotalIso));
+                        $('.totalCall').val(365 - resultDrop);
+                        $('.totalCalls').val((365 - resultDrop) / qtytruck);
+                    }
+
+                    function ads(id) {
+                        var clone = $("#table tbody tr:last").clone();
+                        clone.addClass('newTR');
+                        clone.find('td.remTD input').removeClass('hidden');
+                        $("#table tbody").append(clone);
+
+                        var _id = x - 1;
+
+                        if (_id == 0) {
+                            var _no = document.getElementsByName('noo[]');
+                            var a00 = _no[x - 1];
+                            a00.value = x;
+
+                            var _demand = document.getElementsByName('demand[]');
+                            var a1 = _demand[x - 1];
+                            a1.value = tblDemand;
+
+                            var _drop = document.getElementsByName('drop[]');
+                            var a2 = _drop[x - 1];
+                            a2.value = tblDrop;
+
+                            if (tblDrop == 0) {
+                                var _voyage = document.getElementsByName('voyage[]');
+                                var a3 = _voyage[x - 1];
+                                a3.value = "-";
+                            } else {
+                                var _voyage = document.getElementsByName('voyage[]');
+                                var a3 = _voyage[x - 1];
+                                a3.value = "Voyage";
+                            }
+
+                            var _remaining1 = document.getElementsByName('remaining1[]');
+                            var a4 = _remaining1[x - 1];
+                            a4.value = tblRemain1;
+
+                            var _remaining2 = document.getElementsByName('remaining2[]');
+                            var a5 = _remaining2[x - 1];
+                            a5.value = Math.ceil(tblRemain1);
+
+                            var _empty1 = document.getElementsByName('empty1[]');
+                            var a6 = _empty1[x - 1];
+                            a6.value = empt1;
+
+                            var _empty2 = document.getElementsByName('empty2[]');
+                            var a7 = _empty2[x - 1];
+                            a7.value = empt2;
+
+                            var _fillingStation = document.getElementsByName('fillingStation[]');
+                            var a8 = _fillingStation[x - 1];
+                            a8.value = filStas;
+
+                            var _regasPlan = document.getElementsByName('regasPlan[]');
+                            var a9 = _regasPlan[x - 1];
+                            a9.value = c3;
+
+                            var _onTheRoad = document.getElementsByName('onTheRoad[]');
+                            var a10 = _onTheRoad[x - 1];
+                            a10.value = 0;
+
+                            var _totalIso = document.getElementsByName('totalIso[]');
+                            var a11 = _totalIso[x - 1];
+                            a11.value = totISO;
+
+                            var _load = document.getElementsByName('load[]');
+                            var a12 = _load[x - 1];
+                            a12.value = 0;
+
+                        } else {
+                            var _no = document.getElementsByName('noo[]');
+                            var a00 = _no[x - 1];
+                            a00.value = x;
+
+                            var _demand = document.getElementsByName('demand[]');
+                            var a1 = _demand[x - 1];
+                            a1.value = tblDemand;
+
+                            // Drop
+                            var _remaining1 = document.getElementsByName('remaining1[]');
+
+                            var arr = x - 2;
+                            var remainB = _remaining1[arr];
+
+                            var dropValue = remainB.value - tblDemand;
+
+                            var drops = 0;
+                            if (dropValue < isotankday) {
+                                var cal = ((isotankday * roundvoyagedays) + (isotankday * safetymargindays));
+                                drops = Math.ceil(cal);
+                            } else {
+                                drops = 0;
+                            }
+
+                            var _drop = document.getElementsByName('drop[]');
+                            var a2 = _drop[x - 1];
+                            a2.value = drops;
+
+                            // Voyage
+                            if (drops == 0) {
+                                var _voyage = document.getElementsByName('voyage[]');
+                                var a3 = _voyage[x - 1];
+                                a3.value = "-";
+                            } else {
+                                var _voyage = document.getElementsByName('voyage[]');
+                                var a3 = _voyage[x - 1];
+                                a3.value = "Voyage";
+                            }
+
+                            // Load
+                            var loadB = document.getElementsByName('empty2[]');
+                            var arrs = x - 2;
+                            var _emp2 = loadB[arrs].value;
+                            var empss = 0;
+
+                            if (drops == 0) {
+                                var _load = document.getElementsByName('load[]');
+                                var a4 = _load[x - 1];
+                                a4.value = 0;
+                                empss = 0;
+                            } else {
+                                var _load = document.getElementsByName('load[]');
+                                var a4 = _load[x - 1];
+                                a4.value = _emp2;
+                                empss = _emp2;
+                            }
+
+                            var in_ = parseFloat(remainB.value) + parseFloat(drops) - parseFloat(tblDemand);
+                            // Remaining 1
+                            var rem = (in_).toFixed(2);
+                            var _remain1 = document.getElementsByName('remaining1[]');
+                            var a5 = _remain1[x - 1];
+                            a5.value = rem;
+
+                            // Remaining 2
+                            var rems = Math.ceil(in_);
+                            var _remain2 = document.getElementsByName('remaining2[]');
+                            var a6 = _remain2[x - 1];
+                            a6.value = rems;
+
+                            // Empty 1
+                            var empB = document.getElementsByName('empty1[]');
+                            var _arr = x - 2;
+                            var _emp1s = empB[_arr].value;
+
+                            var inEmp_ = (parseFloat(_emp1s) + parseFloat(tblDemand) - parseFloat(empss)).toFixed(2);
+                            var _empty1 = document.getElementsByName('empty1[]');
+                            var a7 = _empty1[x - 1];
+                            a7.value = inEmp_;
+
+                            // Empty 2
+                            var _emp2 = Math.floor(inEmp_);
+                            var _empty2 = document.getElementsByName('empty2[]');
+                            var a8 = _empty2[x - 1];
+                            a8.value = _emp2;
+
+                            // Filling Station
+                            var _filSts = document.getElementsByName('fillingStation[]');
+                            var a9 = _filSts[x - 1];
+                            a9.value = filStas;
+
+                            //Regas Plant
+                            var numP = parseFloat(rems) + parseFloat(_emp2);
+                            var _regP = document.getElementsByName('regasPlan[]');
+                            var a10 = _regP[x - 1];
+                            a10.value = numP;
+
+                            //On The Road
+                            var otrB = document.getElementsByName('onTheRoad[]');
+                            var _arr_ = x - 2;
+                            var _otrB = otrB[_arr_].value;
+                            var otrr = 0;
+                            if (empss == 0) {
+                                otrr = _otrB;
+                            } else {
+                                otrr = empss;
+                            }
+                            var _otr = document.getElementsByName('onTheRoad[]');
+                            var a11 = _otr[x - 1];
+                            a11.value = otrr;
+
+                            //Total Iso
+                            var totSo = parseFloat(filStas) + parseFloat(numP) + parseFloat(otrr);
+                            var _iso = document.getElementsByName('totalIso[]');
+                            var a12 = _iso[x - 1];
+                            a12.value = totSo;
+                        }
+
+
+
+                    }
+
+                    var demandBBTUD = $("#demandBBTUD").val();
+                    var totalCustomer = $("#totalCustomer").val();
+                    var size = $("#Size").val();
+                    var volumes = $("#volumes").val();
+                    var speeds = $("#speed").val();
+                    var qtyTruck = $("#qtyTruck").val();
+
+                    var trk = $("#qtyTruckInput").val();
+                    var _m3day = $("#_m3day").val();
+                    var _roundTotal = $("#_roundTotal").val();
+                    var _isotankday = $("#_isotankday").val();
+                    var _maxTotalIso = $("#_maxTotalIso").val();
+                    var _totalIso = $("#_totalIso").val();
+
+
+                    var vgl = totalCustomer * 2;
+
+                    $.ajax({
+                        url: '@Url.Action("SaveDataRetailSupply", "SimulationCost")?headerSimulationID=' + ids + '&demand=' + demandBBTUD + '&jarakSumber=' + distance + '&jarakHub=' + hub + '&jumlahPelanggan=' + totalCustomer + '&size=' + size + '&volume=' + volumes + '&speed=' + speeds + '&qtyTruck=' + qtytruck + '&estRoundTrip=' + _roundTotal + '&m3Day=' + _m3day + '&isoTankDay=' + _isotankday + '&qtyVGL=' + vgl + '&isoTank=' + _totalIso + '&asalSumber=' + rsLokasi + '&latitude=' + rsLatitude + '&longitude=' + rsLongitude + '&latitudePelanggan=' + lat + '&longitudePelanggan=' + long,
+                        type: 'post',
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        data: "{}",
+
+                        success: function (datas) {
+                            console.log("success lng"); 
+                        },
+
+                        error: function (jqXHR) {
+                            $('#divErrorText').text(jqXHR.responseText);
+                            $('#divError').show('fade');
+                            console.log("error cng");
+                        }
+                    });
+
+                } else {
+                    var currentRadius = $("#radiusLNG").val();
+                    var upRadius = parseInt(currentRadius) + 50;
+                    $("#radiusLNG").val(upRadius);
+                    calculateLNG();
+                }
+                                           
+                            success(ids);
+                } 
+                else {
+                    success(ids);
+                }
+            }
             //------------------------------- POINT MAP -------------------------------//
 
+            function functionPipe() {
+                var checkBox = document.getElementById("pipeLine");
+
+                if (checkBox.checked == true) {
+                    $( "#pipeLine").prop('checked', true);
+
+                } else {
+                    $( "#pipeLine").prop('checked', false);
+
+                }
+            }
+
+            function functionLNG() {
+                var checkBox = document.getElementById("lng");
+
+                if (checkBox.checked == true) {
+                    $("#lngRow1").show();
+                    $("#lngRow2").show();
+                    $("#lngRow3").show();
+                    $("#lngRow4").show();
+                    $("#lngRow5").show();
+                    $("#lngRow6").show();
+                    $("#lngRow7").show();
+                } else {
+                    $("#lngRow1").hide();
+                    $("#lngRow2").hide();
+                    $("#lngRow3").hide();
+                    $("#lngRow4").hide();
+                    $("#lngRow5").hide();
+                    $("#lngRow6").hide();
+                    $("#lngRow7").hide();
+                }
+            }
+
+            function pointMapLNG(lat, long) {
+                var titik = L.latLng(lat, long);
+                L.marker(titik).addTo(map);
+
+                var circle;
+                var radius = milesToMeters($("#radiusLNG").val());
+                circle = L.circle(titik, radius);
+                circle.addTo(map);
+
+                pointsInCircleLNG(circle, radius);
+            }
+
+            function pointsInCircleLNG(circle, meters_user_set) {
+                obj = [];
+                var locationMaps = {};
+                locationMaps["features"] = [];
+                $.ajax({
+                    url: '@Url.Action("Retrieve", "MstHubLNG")',
+                    type: 'post',
+                    dataType: 'json',
+                    async: false,
+                    success: function (response) {
+                        var len = response.data.length;
+
+                        for (var i = 0; i < len; i++) {
+
+                            let temp = {
+                                "type": "Feature",
+                                "properties": { "oficina": response.data[i].namaHub },
+                                "geometry": { "type": "Point", "coordinates": [response.data[i].longitude, response.data[i].latitude] }
+                            }
+                            locationMaps.features.push(temp);
+                        }
+                        //console.log(locationMaps);
+                        let mapping = [];
+                        for (var i = 0; i < locationMaps.features.length; i++) {
+                            var long = locationMaps.features[i].geometry.coordinates[0];
+                            var lat = locationMaps.features[i].geometry.coordinates[1];
+                            var loc = locationMaps.features[i].properties.oficina;
+                            let temp = {
+                                "loc": loc,
+                                "lat": lat,
+                                "long": long
+                            }
+                            mapping.push(temp);
+                        }
+
+                        if (circle !== undefined) {
+                            // Only run if we have an address entered
+                            // Lat, long of circle
+                            circle_lat_long = circle.getLatLng();
+                            var counter_points_in_circle = 0;
+                            // Loop through each point in JSON file
+                            for (var i = 0; i < mapping.length; i++) {
+                                // Lat, long of current point
+                                let latA = mapping[i].coord;
+                                var latlng = L.latLng(mapping[i].lat, mapping[i].long);
+                                layer_lat_long = latA;
+
+                                // Distance from our circle marker
+                                // To current point in meters
+                                distance_from_layer_circle = latlng.distanceTo(circle_lat_long);
+                                //calculateDistance(latlng, latB)
+                                // See if meters is within raduis
+                                // The user has selected
+                                if (distance_from_layer_circle <= meters_user_set) {
+                                    counter_points_in_circle += 1;
+                                    let temp = {
+                                        "lokasi": mapping[i].loc,
+                                        //"jarak": (distance_from_layer_circle / 1000).toFixed(2),
+                                        "jarak": parseFloat((distance_from_layer_circle / 1000).toFixed(2)),
+                                        "latitude": mapping[i].lat,
+                                        "longitude": mapping[i].long,
+                                    }
+                                    resultsLNG.push(temp);
+                                }
+
+                            };
+                            //farmacias.eachLayer(function (layer) {
+
+                            //});
+                            // Set number of results on main page
+
+
+                        }
+
+                        var result = resultsLNG.reduce(function (res, obj) {
+                            return (obj.jarak < res.jarak) ? obj : res;
+                        });
+                        const _obj = result;
+                        //const objs = {
+                        //  0: "foo",
+                        //  1: "bar",
+                        //};
+                        //return obj;
+                        //const temps = {
+                        //   "lokasi": _obj.lokasi,
+                        //   "jarak": _obj.jarak,
+                        //    "latitude":_obj.latitude,
+                        //    "longitude":_obj.longitude
+                        //}
+                        const aobj = {};
+                        aobj['lokasi'] = _obj.lokasi;
+                        aobj['jarak'] = _obj.jarak;
+                        aobj['latitude'] = _obj.latitude;
+                        aobj['longitude'] = _obj.longitude;
+
+                        obj.push(aobj);
+                        //obj.push(temps);
+
+                    }
+
+                });
+
+                //console.log(ob);
+                //localStorage.setItem("finalSPBG", JSON.stringify(obj));
+                return obj;
+                // Close pointsInCircle
+            };
 
         </script>
         }

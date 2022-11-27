@@ -17,6 +17,8 @@ namespace SiappGasIn.Data
         { }
 
         public DbSet<MstParameter> MstParameter { get; set; }
+        public DbSet<MstParameterLNG> MstParameterLNG { get; set; }
+        public DbSet<MstPriceList> MstPriceList { get; set; }
         public DbSet<MstEnergy> MstEnergy { get; set; }
         public DbSet<MstHargaPRS> MstHargaPRS { get; set; }
         public DbSet<MstCraddle> MstCraddle { get; set; }
@@ -31,6 +33,8 @@ namespace SiappGasIn.Data
         public DbSet<SP_ClusterSimulation> SP_ClusterSimulation { get; set; }
         public DbSet<SP_DetailRouteClusterSimulation> SP_DetailRouteClusterSimulation { get; set; }
         public DbSet<SP_GetGajiByLocationName> SP_GetGajiByLocationName { get; set; }
+        public DbSet<HeaderRetail> HeaderRetail { get; set; }
+        public DbSet<RetailSupplyChain> RetailSupplyChain { get; set; }
         public DbSet<MstGaji> MstGaji { get; set; }
         public DbSet<MstUnit> MstUnit { get; set; }
         public DbSet<MstKlasifikasi> MstKlasifikasi { get; set; }
@@ -52,6 +56,7 @@ namespace SiappGasIn.Data
             builder.Entity<SP_DetailClusterSimulation>().HasNoKey();
             builder.Entity<SP_DetailRouteClusterSimulation>().HasNoKey();
             builder.Entity<SP_CostSimulation>().HasNoKey();
+            builder.Entity<SP_RetailSupply>().HasNoKey();
             builder.Entity<SP_PipeCalculator>().HasNoKey();
             builder.Entity<SP_ClusterSimulation>().HasNoKey();
             builder.Entity<SP_ClusterSimulations>().HasNoKey();

@@ -1,4 +1,4 @@
-﻿@model SiappGasIn.Models.SimulationCost
+﻿@model SiappGasIn.Models.HeaderRetail
 @{
 ViewData["Title"] = "Detail Simulation Cost";
 }
@@ -19,176 +19,310 @@ ViewData["Title"] = "Detail Simulation Cost";
                         <div class="card example-1 scrollbar-deep-purple bordered-deep-purple thin"
                             style="margin-top: 7px;">
                             <div class="card-body" style="margin: 15px ;">
+                                 <form class="form-horizontal form-label-left">
+                                      <label>Detail LNG</label>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Demand</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
+                                                    id="projectName">@Model.demand</span> <span>
+                                                    BBTUD</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Jarak Sumber Ke Pelanggan</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    class="formatNum">@Model.jarakSumber</span> <span>
+                                                    Km</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Jumlah Pelanggan</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
+                                                    id="projectName">@Model.jumlahPelanggan</span>  <span>
+                                                    pelanggan</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 " style="font-weight:bold;">ISO Tank</label>
+                                    </div> 
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">&nbsp; &nbsp; Size</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;"
+                                                    id="projectName">@Model.size</span> <span>
+                                                    ft</span></label>
+                                        </div>
+                                    </div>                                   
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">&nbsp; &nbsp; Volume</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.volume</span>  <span>
+                                                    m3</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Speed</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.speed</span>  <span>
+                                                    Km/Jam</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Quantity of Truck</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.qtyTruck</span>  <span>
+                                                    unit</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Est. Round Trip</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    class="formatNum">@Model.estRoundTrip</span> <span>
+                                                    days</span></label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Asal Sumber</label>
+                                        <div class="col-md-8 col-sm-8 ">
+                                            <label class="control-label col-md-9 col-sm-9">: <span
+                                                    style="font-weight:bold;" id="projectName"
+                                                    >@Model.asalSumber</span> </label>
+                                        </div>
+                                    </div>
+                                    <label>Result - Supply Chain</label>
+                                    <div class="search-table-outter wrapper">
+	                                            <table class="search-table inner">
+		                                            <tr>
+			                                            <th colspan="3" class="bg-col">Demand</th>
+			                                            <th rowspan="2" class="bg-col">Qty of Truck</th>
+			                                            <th rowspan="2" class="bg-col">Qty of VGL</th>
+			                                            <th rowspan="2" class="bg-col">ISO Tank Required</th>
+		                                            </tr>
+                                                    <tr>
+			                                            <th class="bg-col">(BBTUD)</th>
+			                                            <th class="bg-col">(m3/day)</th>
+			                                            <th class="bg-col">(ISO Tank/day)</th>
+		                                            </tr>
+                                                    <tr>
+			                                            <td>@Model.demand</td> 
+			                                            <td>@Model.m3Day</td> 
+			                                            <td>@Model.isoTankDay</td> 
+			                                            <td>@Model.qtyTruck</td> 
+			                                            <td>@Model.qtyVGL</td> 
+			                                            <td>@Model.isoTank</td> 
+		                                            </tr>
+
+	                                            </table>                                               
+                                            </div>
+                                            <br />
+                                    <label>Result - Cost Estimation</label>
+                                    <div class="search-table-outter wrapper">
+	                                            <table class="search-table inner">
+                                                    <tr>
+			                                            <th class="bg-col">Transportation Cost USD/MMBTU</th>
+			                                            <th class="bg-col">Hub/Filling Fee USD/MMBTU</th>
+			                                            <th class="bg-col">Distribution Cost USD/MMBTU</th>
+			                                            <th class="bg-col">ICP</th>
+			                                            <th class="bg-col">Total Cost USD/MMBTU</th>
+		                                            </tr>
+                                                    <tr>
+			                                            <td>@Model.TransportCost</td> 
+			                                            <td>@Model.HubFillingCost</td> 
+			                                            <td>@Model.DistributionCost</td> 
+			                                            <td>@Model.ICPCost</td> 
+			                                            <td style="font-weight:bold;">@Model.TotalCost</td> 
+		                                            </tr>
+
+	                                            </table>                                               
+                                            </div>
+                                            <br />
+                                    <label>Route Map</label>
+                                    <div class="form-group row ">
+
+                                        <div class="col-md-3 col-sm-3 ">
+                                            <a href="#" onclick="mapp()" class="btn btn-success btn-sm"
+                                                style="height:24px; width:100%; line-height:1;">Route Map</a>
+                                        </div>
+
+                                    </div>
+                                 </form>
+
+                                   
+
+
                                 <form class="form-horizontal form-label-left">
 
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="col-md-7">
-                                                <table class="table table-bordered">
-                                                    <thead class="thead-dark">
-                                                        <tr>
-                                                            <th scope="col">
-                                                                <center></center>
-                                                            </th>
-                                                            <th scope="col">
-                                                                <center>$/MMBtu</center>
-                                                            </th>
-                                                            <th scope="col">
-                                                                <center>Rp/M3</center>
-                                                            </th>
-                                                        </tr>
+                                        <div class="col-md-12" >
+                                            <div class="search-table-outter wrapper">
+                                                <label style="color:#2d500e"><strong>CAPEX</strong></label>
+                                                <br />
+                                                <label><strong>Transportation Cost</strong></label>
+                                                <br />
+	                                            <table class="search-table inner" id="tableCapex1">
+                                                    <thead>
+                                                       <tr>
+			                                            <th>Item</th>
+			                                            <th>Price per unit</th>
+			                                            <th>Quantity</th>
+			                                            <th>Total Price (USD)</th>
+			                                            <th>Total Price (IDR)</th>
+			                                            <th>USD/bln</th>
+			                                            <th>Rp/bln</th>
+			                                            <th>USD/MMBTUD</th>
+			                                            <th>Rp/m3</th>
+		                                            </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td style="font-weight:bold;">HARGA GAS</td>
-                                                            <td><span id="hargaGas">@Model.hargaGas</span></td>
-                                                            <td><span id="hargaGasRp"
-                                                                    class="formatNum">@Model.hargaGasRpM3</span></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold;">B. COMPRESSED</td>
-                                                            <td><span id="compressed">@Model.compressed</span></td>
-                                                            <td><span id="compressedRp"
-                                                                    class="formatNum">@Model.compressedRpM3</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold;">Total Transportasi Cost</td>
-                                                            <td><span
-                                                                    id="totalTransportasiCost">@Model.totalTransportasiCost</span>
-                                                            </td>
-                                                            <td><span id="totalTransportasiCostRp"
-                                                                    class="formatNum">@Model.totalTransportasiCostRpM3</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>PRS</td>
-                                                            <td><span id="prsCost">@Model.prsCost</span></td>
-                                                            <td><span id="prsCostRp"
-                                                                    class="formatNum">@Model.prsCostRpM3</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>OPERATOR</td>
-                                                            <td><span id="operatorCost">@Model.operatorCost</span></td>
-                                                            <td><span id="operatorCostRp"
-                                                                    class="formatNum">@Model.operatorCostRpM3</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>GTM (MILIK)</td>
-                                                            <td><span id="gtmCost">@Model.gtmCost</span></td>
-                                                            <td><span id="gtmCostRp"
-                                                                    class="formatNum">@Model.gtmCostRpM3</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>GTM (SEWA)</td>
-                                                            <td><span id="gtmSewaCost">@Model.gtmSewaCost</span></td>
-                                                            <td><span id="gtmSewaCostRp"
-                                                                    class="formatNum">@Model.gtmSewaCostRpM3</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>HEAD TRUCK (SEWA)</td>
-                                                            <td><span
-                                                                    id="headTruckSewaCost">@Model.headTruckSewaCost</span>
-                                                            </td>
-                                                            <td><span id="headTruckSewaCostRp"
-                                                                    class="formatNum">@Model.headTruckSewaCostRpM3</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>B. FUEL + LAIN-LAIN</td>
-                                                            <td><span id="lainLain">@Model.lainLain</span></td>
-                                                            <td><span id="lainLainRp"
-                                                                    class="formatNum">@Model.lainLainRpM3</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold;">OVERHEAD COST</td>
-                                                            <td><span id="overheadCost">@Model.overheadCost</span></td>
-                                                            <td><span id="overheadCostRp"
-                                                                    class="formatNum">@Model.overheadCostRpM3</span>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold;">MARGIN</td>
-                                                            <td><span id="marginCost">@Model.marginCost</span></td>
-                                                            <td><span id="marginCostRp"
-                                                                    class="formatNum">@Model.marginCostRpM3</span></td>
-                                                        </tr>
-
-
-                                                    </tbody>
-                                                </table>
+                                                    </tbody>   
+	                                            </table>                                               
                                             </div>
-                                            <div class="col-md-5">
-                                                <table class="table table-bordered">
-                                                    <thead class="thead-dark">
 
+                                            <br />
+
+                                            <div class="search-table-outter wrapper">
+                                                <label><strong>Hub/Filling Cost</strong></label>
+                                                <br />
+                                                <table class="search-table inner" id="tableCapex2">
+                                                    <thead>
+                                                       <tr>
+			                                            <th>Hub/Filling Cost</th>
+			                                            <th>Price per unit</th>
+			                                            <th>Quantity</th>
+			                                            <th>Total Price (USD)</th>
+			                                            <th>Total Price (IDR)</th>
+			                                            <th>USD/bln</th>
+			                                            <th>Rp/bln</th>
+			                                            <th>USD/MMBTUD</th>
+			                                            <th>Rp/m3</th>
+		                                            </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td style="font-weight:bold; font-size:12px;" rowspan="2">
-                                                                HARGA JUAL</td>
-                                                            <td><span id="hargaGas"
-                                                                    class="formatNum">@Model.hargaJual</span><span>
-                                                                    $/MMBtu</span></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td><span id="compressed"
-                                                                    class="formatNum">@Model.hargaM3</span><span>
-                                                                    Rp/M3</span>
-                                                            </td>
-                                                        </tr>
+                                                    </tbody>   
+	                                            </table>                                        
+                                            </div>
 
-                                                    </tbody>
-                                                </table>
+                                            <br />
 
-                                                <table class="table table-bordered">
-                                                    <thead class="thead-dark">
-
+                                            <div class="search-table-outter wrapper">
+                                                <label><strong>Distribution Cost</strong></label>
+                                                <br />
+                                                <table class="search-table inner" id="tableCapex3">
+                                                    <thead>
+                                                       <tr>
+			                                             <th>Distribution Cost</th>
+			                                            <th>Price per unit</th>
+			                                            <th>Quantity</th>
+			                                            <th>Total Price (USD)</th>
+			                                            <th>Total Price (IDR)</th>
+			                                            <th>USD/bln</th>
+			                                            <th>Rp/bln</th>
+			                                            <th>USD/MMBTUD</th>
+			                                            <th>Rp/m3</th>
+		                                            </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td style="font-weight:bold; font-size:12px;">PRS Type</td>
-                                                            <td><span id="hargaGas">@Model.PRS</span></td>
                                                         </tr>
+                                                    </tbody>   
+	                                            </table>                                        
+                                            </div>
+                                            <hr class="style11">
+                                            <div class="search-table-outter wrapper">
+                                                <label style="color:#2d500e"><strong>OPEX</strong></label>
+                                                <br />
+                                                <label><strong>Transportation Cost</strong></label>
+                                                <br />
+                                                <table class="search-table inner" id="tableOpex1">
+                                                    <thead>
+                                                       <tr>
+			                                            <th>Item</th>
+			                                            <th>Price per unit</th>
+			                                            <th>Quantity</th>
+			                                            <th>Total Price (USD)</th>
+			                                            <th>Total Price (IDR)</th>
+			                                            <th>USD/bln</th>
+			                                            <th>Rp/bln</th>
+			                                            <th>USD/MMBTUD</th>
+			                                            <th>Rp/m3</th>
+		                                            </tr>
+                                                    </thead>
+                                                    <tbody>
                                                         <tr>
-                                                            <td style="font-weight:bold; font-size:12px;">Ukuran Storage
-                                                            </td>
-                                                            <td><span id="hargaGas">@Model.UkuranGTM</span></td>
                                                         </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold; font-size:12px;">Trucking</td>
-                                                            <td><span id="hargaGas">@Model.GTM</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold; font-size:12px;">Jarak</td>
-                                                            <td><span id="hargaGas">@Model.jarakTempuh KM</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold; font-size:12px;">Lokasi SPBG
-                                                            </td>
-                                                            <td><span id="hargaGas">@Model.asalStation</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold; font-size:12px;">Jumlah
-                                                                Operator</td>
-                                                            <td><span id="hargaGas">@Model.jumlahOperator</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td style="font-weight:bold; font-size:12px;">Jumlah Supir
-                                                            </td>
-                                                            <td><span id="hargaGas">@Model.jmlSupir</span></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div class="form-group row ">
+                                                    </tbody>   
+	                                            </table>
+                                            </div>
+                                            <br />
 
-                                                    <div class="col-md-12 col-sm-12 ">
-                                                        <a href="#" onclick="mapp()" class="btn btn-success btn-sm"
-                                                            style="height:24px; width:100%; line-height:1;">Route
-                                                            Map</a>
-                                                    </div>
+                                            <div class="search-table-outter wrapper">
+                                                <label><strong>Hub/Filling Cost</strong></label>
+                                                <br />
+                                                <table class="search-table inner" id="tableOpex2">
+                                                    <thead>
+                                                       <tr>
+			                                            <th>Hub/Filling Cost</th>
+			                                            <th>Price per unit</th>
+			                                            <th>Quantity</th>
+			                                            <th>Total Price (USD)</th>
+			                                            <th>Total Price (IDR)</th>
+			                                            <th>USD/bln</th>
+			                                            <th>Rp/bln</th>
+			                                            <th>USD/MMBTUD</th>
+			                                            <th>Rp/m3</th>
+		                                            </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                        </tr>
+                                                    </tbody>   
+	                                            </table>                                       
+                                            </div>
+                                            
+                                            <br />
 
-                                                </div>
+                                            <div class="search-table-outter wrapper">
+                                                <label><strong>Distribution Cost</strong></label>
+                                                <br />
+                                                <table class="search-table inner" id="tableOpex3">
+                                                    <thead>
+                                                       <tr>
+			                                            <th>Distribution Cost</th>
+			                                            <th>Price per unit</th>
+			                                            <th>Quantity</th>
+			                                            <th>Total Price (USD)</th>
+			                                            <th>Total Price (IDR)</th>
+			                                            <th>USD/bln</th>
+			                                            <th>Rp/bln</th>
+			                                            <th>USD/MMBTUD</th>
+			                                            <th>Rp/m3</th>
+		                                            </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                        </tr>
+                                                    </tbody>   
+	                                            </table>                                       
                                             </div>
                                         </div>
                                     </div>
@@ -233,6 +367,17 @@ ViewData["Title"] = "Detail Simulation Cost";
 @*
 <link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
 <style>
+    .bg-col{
+        background:#c8c8cd;
+    }
+    /*.search-table-outter {border:2px solid red;}*/
+.search-table{table-layout: fixed; margin:0px auto 0px auto; }
+.search-table, td, th{border-collapse:collapse; border:1px solid #777;}
+th{padding:5px 5px; font-size:12px; color:#444; background:#ffeb3b;text-align: center;}
+td{padding:5px 10px; height:10px;text-align: center;}
+
+.search-table-outter { overflow-x: scroll; }
+th, td { min-width: 150px; }
     .map {
         height: 400px;
         width: 640px;
@@ -248,6 +393,15 @@ ViewData["Title"] = "Detail Simulation Cost";
         height: 480px;
         overflow-y: scroll;
     }
+
+    .style11{
+        border: 0; 
+  height: 1px; 
+  background-image: -webkit-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -moz-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -ms-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+  background-image: -o-linear-gradient(left, #f0f0f0, #8c8b8b, #f0f0f0);
+    }
 </style>
 }
 
@@ -259,9 +413,162 @@ ViewData["Title"] = "Detail Simulation Cost";
 <script>
 
     $(document).ready(function () {
+        var IDs = '@(Model.HeaderSimulationID)';
+         var tbody1 = $('#tableCapex1').children('tbody');
+         var tbody2 = $('#tableCapex2').children('tbody');
+         var tbody3 = $('#tableCapex3').children('tbody');
+         var tbody4 = $('#tableOpex1').children('tbody');
+         var tbody5 = $('#tableOpex2').children('tbody');
+         var tbody6 = $('#tableOpex3').children('tbody');
+
+        //Then if no tbody just select your table 
+        var table1 = tbody1.length ? tbody1 : $('#tableCapex1');
+        var table2 = tbody2.length ? tbody2 : $('#tableCapex2');
+        var table3 = tbody3.length ? tbody3 : $('#tableCapex3');
+        var table4 = tbody4.length ? tbody4 : $('#tableOpex1');
+        var table5 = tbody5.length ? tbody5 : $('#tableOpex2');
+        var table6 = tbody6.length ? tbody6 : $('#tableOpex3');
 
         $.ajax({
-        url: '@Url.Action("Retrieve", "MstLokasiSPBG")',
+            url: '@Url.Action("GetCapexOpex", "SimulationCost")?id=' + IDs + '&Type=' + 'Capex' + '&Item=' + 'Transportation Cost',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data) {
+                console.log(data.data.result);
+                if (data.data.result.length > 0) {
+                    for (i = 0; i < data.data.result.length; i++) {
+                        table1.append('<tr style="color:black;"><td>' + data.data.result[i].description + '</td><td>' + data.data.result[i].priceUnit + '</td><td>' + data.data.result[i].qty + '</td><td>' + data.data.result[i].totalPriceUSD + '</td><td>' + data.data.result[i].totalPriceIDR + '</td><td>' + data.data.result[i].usDperMonth + '</td><td>' + data.data.result[i].idRperMonth + '</td><td style="font-weight:bold;">' + data.data.result[i].usDperMMBTU + '</td><td>' + data.data.result[i].idRperM3 + '</td></tr>');
+                        }
+                    ;
+                }
+
+
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("GetCapexOpex", "SimulationCost")?id=' + IDs + '&Type=' + 'Capex' + '&Item=' + 'Hub Filling Cost',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data) {
+                console.log(data.data.result);
+                if (data.data.result.length > 0) {
+                    for (i = 0; i < data.data.result.length; i++) {
+                        table2.append('<tr style="color:black;"><td>' + data.data.result[i].description + '</td><td>' + data.data.result[i].priceUnit + '</td><td>' + data.data.result[i].qty + '</td><td>' + data.data.result[i].totalPriceUSD + '</td><td>' + data.data.result[i].totalPriceIDR + '</td><td>' + data.data.result[i].usDperMonth + '</td><td>' + data.data.result[i].idRperMonth + '</td><td style="font-weight:bold;">' + data.data.result[i].usDperMMBTU + '</td><td>' + data.data.result[i].idRperM3 + '</td></tr>');
+                        }
+                    ;
+                }
+
+
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("GetCapexOpex", "SimulationCost")?id=' + IDs + '&Type=' + 'Capex' + '&Item=' + 'Distribution Cost',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data) {
+                console.log(data.data.result);
+                if (data.data.result.length > 0) {
+                    for (i = 0; i < data.data.result.length; i++) {
+                        table3.append('<tr style="color:black;"><td>' + data.data.result[i].description + '</td><td>' + data.data.result[i].priceUnit + '</td><td>' + data.data.result[i].qty + '</td><td>' + data.data.result[i].totalPriceUSD + '</td><td>' + data.data.result[i].totalPriceIDR + '</td><td>' + data.data.result[i].usDperMonth + '</td><td>' + data.data.result[i].idRperMonth + '</td><td style="font-weight:bold;">' + data.data.result[i].usDperMMBTU + '</td><td>' + data.data.result[i].idRperM3 + '</td></tr>');
+                        }
+                    ;
+                }
+
+
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("GetCapexOpex", "SimulationCost")?id=' + IDs + '&Type=' + 'Opex' + '&Item=' + 'Transportation Cost',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data) {
+                console.log(data.data.result);
+                if (data.data.result.length > 0) {
+                    for (i = 0; i < data.data.result.length; i++) {
+                        table4.append('<tr style="color:black;"><td>' + data.data.result[i].description + '</td><td>' + data.data.result[i].priceUnit + '</td><td>' + data.data.result[i].qty + '</td><td>' + data.data.result[i].totalPriceUSD + '</td><td>' + data.data.result[i].totalPriceIDR + '</td><td>' + data.data.result[i].usDperMonth + '</td><td>' + data.data.result[i].idRperMonth + '</td><td style="font-weight:bold;">' + data.data.result[i].usDperMMBTU + '</td><td>' + data.data.result[i].idRperM3 + '</td></tr>');
+                        }
+                    ;
+                }
+
+
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("GetCapexOpex", "SimulationCost")?id=' + IDs + '&Type=' + 'Opex' + '&Item=' + 'Hub Filling Cost',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data) {
+                console.log(data.data.result);
+                if (data.data.result.length > 0) {
+                    for (i = 0; i < data.data.result.length; i++) {
+                        table5.append('<tr style="color:black;"><td>' + data.data.result[i].description + '</td><td>' + data.data.result[i].priceUnit + '</td><td>' + data.data.result[i].qty + '</td><td>' + data.data.result[i].totalPriceUSD + '</td><td>' + data.data.result[i].totalPriceIDR + '</td><td>' + data.data.result[i].usDperMonth + '</td><td>' + data.data.result[i].idRperMonth + '</td><td style="font-weight:bold;">' + data.data.result[i].usDperMMBTU + '</td><td>' + data.data.result[i].idRperM3 + '</td></tr>');
+                        }
+                    ;
+                }
+
+
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+
+        $.ajax({
+            url: '@Url.Action("GetCapexOpex", "SimulationCost")?id=' + IDs + '&Type=' + 'Opex' + '&Item=' + 'Distribution Cost',
+            type: 'POST',
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+
+            success: function (data) {
+                console.log(data.data.result);
+                if (data.data.result.length > 0) {
+                    for (i = 0; i < data.data.result.length; i++) {
+                        table6.append('<tr style="color:black;"><td>' + data.data.result[i].description + '</td><td>' + data.data.result[i].priceUnit + '</td><td>' + data.data.result[i].qty + '</td><td>' + data.data.result[i].totalPriceUSD + '</td><td>' + data.data.result[i].totalPriceIDR + '</td><td>' + data.data.result[i].usDperMonth + '</td><td>' + data.data.result[i].idRperMonth + '</td><td style="font-weight:bold;">' + data.data.result[i].usDperMMBTU + '</td><td>' + data.data.result[i].idRperM3 + '</td></tr>');
+                        }
+                    ;
+                }
+
+
+            },
+            error: function (jqXHR) {
+                $('#divErrorText').text(jqXHR.responseText);
+                $('#divError').show('fade');
+            }
+        });
+
+    $.ajax({
+        url: '@Url.Action("Retrieve", "MstHubLNG")',
         type: 'post',
         dataType: 'json',
         success: function (response) {
@@ -281,10 +588,10 @@ ViewData["Title"] = "Detail Simulation Cost";
             var ofi_paf = locationMaps;
 
            
-             var latSPBG = '@(Model.latitude)';
-            var longSPBG = '@(Model.longitude)';
-            var latPel = '@(Model.latitudePel)';
-            var longPel = '@(Model.longitudePel)';
+             var latSPBG = '@(Model.latSumber)';
+            var longSPBG = '@(Model.longSumber)';
+            var latPel = '@(Model.latPelanggan)';
+            var longPel = '@(Model.longPelanggan)';
 
             var greenIcon = new L.Icon({
                 iconUrl: '/plugins/map/images/user.png',
@@ -312,7 +619,7 @@ ViewData["Title"] = "Detail Simulation Cost";
                 .setView([42.3610, -71.0587], 15);
             L.Routing.control({
                 router: L.Routing.mapbox(L.mapbox.accessToken, {
-                    profile: 'mapbox/walking',
+                    profile: 'mapbox/driving',
                     language: 'en',
                 }),
                 waypoints: [
@@ -326,6 +633,16 @@ ViewData["Title"] = "Detail Simulation Cost";
                         return L.marker(wp.latLng, { icon: greenIcons }).bindPopup(`afafg`);
                     }
                 },
+                routeWhileDragging: true,
+	            reverseWaypoints: true,
+	            showAlternatives: true,
+	            altLineOptions: {
+		            styles: [
+			            {color: 'black', opacity: 0.15, weight: 9},
+			            {color: 'white', opacity: 0.8, weight: 6},
+			            {color: 'blue', opacity: 0.5, weight: 2}
+		            ]
+	            }
             }).addTo(map);
 
             $("#maps").hide();

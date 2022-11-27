@@ -1,148 +1,702 @@
-﻿
-@{
-    ViewData["Title"] = "Detail Simulation Cost";
+﻿@{
+ViewData["Title"] = "Detail Simulation Cost";
 }
-<div class="container body" style="padding-left:30px;padding-right:30px;margin-top:-7px;">
-    <div class="card">
-        <div class="row ">
-            <div class="col-md-12 px-3">
-                <div class="card-block" style="border: 1px;">
-                    <div class="row">
-                        <div class="col-md-7">
-                            <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
-                        </div>
-                        <div class="col-md-5">
-                            <img src="@Url.Content("~/adminlte/images/logos.png")"
-                                 class="image-responsive" style="width:120px; height:40px; float: right;">
-                        </div>
-                    </div>
-
-
-                    <div id="maps">
-                        <center>
-                            <div id="map" class="map"></div>
-                        </center>
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
-                                <button type="submit" onclick="back()"
-                                        class="btn btn-danger btn-sm pull-right RbtnMargin">
-                                    Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+<div class="container body" style="padding-left:0px;padding-right:0px;margin-top:-7px;">
+  <div class="card">
+    <div class="row ">
+      <div class="col-md-12 px-3">
+        <div class="card-block" style="border: 1px;">
+          <div class="row">
+            <div class="col-md-7">
+              <h5 class="card-title font-bold batasAtas">Cost Structure Simulation Software</h5>
             </div>
+            <div class="col-md-5">
+              <img src="@Url.Content("~/adminlte/images/logos.png")" class="image-responsive"
+                style="width:120px; height:40px; float: right;">
+            </div>
+          </div>
+
+          @*
+          <div id="maps">
+            <center>
+              <div id="map" class="map"></div>
+            </center>
+            <div class="row">
+              <div class="col-md-12 col-sm-12  offset-md-3" style="margin-top:10px ;">
+                <button type="submit" onclick="back()" class="btn btn-danger btn-sm pull-right RbtnMargin">
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>*@
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Demand</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control " id="demandInput" value="0.5" name="lblTotal[]">
+                <input type="hidden" class="form-control " id="demandBBTUD" value="0.5" name="lblTotal[]" >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Jarak Sumber Ke Hub</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control " id="sumberInput" value="122" name="lblTotal[]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Jarak Hub Ke Cluster</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control " id="hubInput" value="0" name="lblTotal[]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Jumlah Pelanggan</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control " id="jmlPelanggan" value="1" name="lblTotal[]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Size</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control " id="sizeInput" value="40" name="lblTotal[]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Volume</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control " id="volumeInput" value="40" name="lblTotal[]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Speed</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control " id="speedInput" value="60" name="lblTotal[]">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Quantity Of Truck</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control " id="qtyTruckInput" value="2" name="lblTotal[]">
+              </div>
+            </div>
+          </div>
+
+          <input type="hidden" class="form-control " id="_roundTotal" value="2" name="lblTotal[]">
+          <input type="hidden" class="form-control " id="_m3day" value="2" name="lblTotal[]">
+          <input type="hidden" class="form-control " id="_isotankday" value="2" name="lblTotal[]">
+          <input type="hidden" class="form-control " id="_maxTotalIso" value="2" name="lblTotal[]">
+
+
+          <center> <button type="button" onclick="exec()" class="btn btn-success btn-sm btnadd"><span
+                class="glyphicon glyphicon-plus"></span>asdasdas</button></center>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Filling Station</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control _fillingStation" id="_fillingStation" name="lblTotal" readonly
+                  required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Regas Plan</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control _regasPlan" id="_regasPlan" name="lblTotal" readonly required>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>On The Road</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control _onTheRoad" id="_onTheRoad" name="lblTotal" readonly required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Total ISO</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control _totalIso" id="_totalIso" name="lblTotal" readonly required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Total Call</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control totalCall" id="_totalCall" name="lblTotal" readonly required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+              <label></label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-usd"></i>
+                </div>
+                <input type="text" class="form-control totalCalls" id="totalCalls" name="lblTotal" readonly required>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <table class="table table-striped table-bordered display" style="width:100%" id="table">
+
+              <thead>
+                <tr>
+                  <th>Nooo</th>
+                  <th>Voyage<span id="kurs"></span></th>
+                  <th>Drop</th>
+                  <th>Load</th>
+                  <th>Demand<span id="kurs"></span></th>
+                  <th>Remaining 1</th>
+                  <th>Remaining 2</th>
+                  <th>Empty 1</th>
+                  <th>Empty 2</th>
+                  <th>Filling Station<span id="kurs"></span></th>
+                  <th>Regas Plan</th>
+                  <th>On The Road</th>
+                  <th>Total ISO<span id="kurs"></span></th>
+
+                </tr>
+              </thead>
+              <tr hidden>
+                @*<td><input class="form-control" type="number" value="1" name="operationDay" readonly /></td>*@
+                <td><input class="form-control price" id="voyage_" name="voyage_" type="text" style="width:100px;"></td>
+                <td><input class="form-control price" id="drop_" name="drop_" type="number" style="width:50px;"></td>
+                <td><input class="form-control price" id="load_" name="load_" type="number"></td>
+                <td><input class="form-control price" id="demand_" name="demand_" type="number" style="width:100px;">
+                </td>
+                <td><input class="form-control price" id="remaining1_" name="remaining1_" type="number"
+                    style="width:100px;"></td>
+                <td><input class="form-control price" id="remaining2_" name="remaining2_" type="number"
+                    style="width:50px;"></td>
+                <td><input class="form-control price" id="empty1_" name="empty1_" type="number" style="width:100px;">
+                </td>
+                <td><input class="form-control price" id="empty2_" name="empty2_" type="number" style="width:50px;">
+                </td>
+                <td><input class="form-control price" id="fillingStation_" name="fillingStation_" type="number"></td>
+                <td><input class="form-control price" id="regasPlan_" name="regasPlan_" type="number"></td>
+                <td><input class="form-control price" id="onTheRoad_" name="onTheRoad_" type="number"></td>
+                <td><input class="form-control amount" id="totalIso_" type="number" name="totalIso_" readonly /></td>
+              </tr>
+              <tr class="product">
+                <td><input class="form-control noo" type="number" id="noo" name="noo[]" readonly /></td>
+                <td><input class="form-control voyage" id="voyage" name="voyage[]" type="text"></td>
+                <td><input class="form-control drop" id="drop" name="drop[]" type="number"></td>
+                <td><input class="form-control price" id="load" name="load[]" type="number"></td>
+                <td><input class="form-control demand" id="demand" name="demand[]" type="number"></td>
+                <td><input class="form-control remaining1" id="remaining1" name="remaining1[]" type="number"></td>
+                <td><input class="form-control remaining2" id="remaining2" name="remaining2[]" type="number"></td>
+                <td><input class="form-control empty1" id="empty1" name="empty1[]" type="number"></td>
+                <td><input class="form-control empty2" id="empty2" name="empty2[]" type="number"></td>
+                <td><input class="form-control fillingStation" id="fillingStation" name="fillingStation[]"
+                    type="number"></td>
+                <td><input class="form-control regasPlan" id="regasPlan" name="regasPlan[]" type="number"></td>
+                <td><input class="form-control onTheRoad" id="onTheRoad" name="onTheRoad[]" type="number"></td>
+                <td><input class="form-control totalIso" id="totalIso" type="number" name="totalIso[]" readonly /></td>
+
+              </tr>
+
+            </table>
+          </div>
+
+
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 @section Styles{
 
-    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
-    <!-- Leaflet Map -->
+<link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+<!-- Leaflet Map -->
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
-    @*
-        <link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
-    <style>
-        .map {
-            height: 580px;
-            width: 1040px;
-        }
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.css" />
+@*
+<link rel="stylesheet" href="~/plugins/leaflet/index.css" />*@
+<style>
+  .map {
+    height: 580px;
+    width: 1040px;
+  }
 
-        .results {
-            background-color: white;
-            opacity: 0.8;
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 320px;
-            height: 480px;
-            overflow-y: scroll;
-        }
-    </style>
+  .results {
+    background-color: white;
+    opacity: 0.8;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 320px;
+    height: 480px;
+    overflow-y: scroll;
+  }
+</style>
 }
 
 @section Scripts{
-    <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
-    <script type="text/javascript" src="~/plugins/map/js/RouteMapPipe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
-   
-    <script>
+<script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+<script type="text/javascript" src="~/plugins/map/js/lib/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="~/plugins/map/js/RouteMapPipe.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-routing-machine/3.2.12/leaflet-routing-machine.min.js"></script>
 
-    $(document).ready(function () {
-        L.mapbox.accessToken = 'pk.eyJ1IjoiZmFyYWRheTIiLCJhIjoiTUVHbDl5OCJ9.buFaqIdaIM3iXr1BOYKpsQ';
+<script>
+    var keyupTimeoutID = 0;
+  $('#demandInput, #sumberInput, #hubInput, #jmlPelanggan, #sizeInput, #volumeInput, #speedInput, #qtyTruckInput').on('input', function () {
+       clearTimeout(keyupTimeoutID);
+    keyupTimeoutID = setTimeout(function() {
+        var existDemand =  parseFloat($('#demandInput').val());
+                    var demands = 0.67;
+                    //var demands = existDemand ;
+                    $("#demandBBTUD").val(0.67);
+                var distance = parseFloat($('#sumberInput').val());
+                var hub = parseFloat($('#hubInput').val());
+                var plg = parseFloat($('#jmlPelanggan').val());
+                var isoTank = parseFloat($('#sizeInput').val());
+                var volume = parseFloat($('#volumeInput').val());
+                var speed = parseFloat($('#speedInput').val());
+                var trk = parseFloat($('#qtyTruckInput').val());
 
-        var mapboxTiles = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + L.mapbox.accessToken, {
-            attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            tileSize: 512,
-            zoomOffset: -1
-        });
-                
-        var map = L.map('map')
-            .addLayer(mapboxTiles)
-            .setView([ 3.6151942749631445, 98.662105936589], 11);
+                var filling = 0.5;
+                var trucking = (distance / speed).toFixed(3);
+                var bongkar = 0.5;
+                var totalVoyage = parseFloat(filling) + parseFloat(trucking) + parseFloat(bongkar);
+                var totalRoundVoyage = (totalVoyage * 2).toFixed(3);
+                var roundTotal = Math.ceil(totalRoundVoyage);
+                  $("#_roundTotal").val(roundTotal);
 
-        function polystyle(feature) {
-    return {
-        fillColor: 'blue',
-        weight: 3,
-        opacity: 1,
-        color: 'red',  //Outline color
-        fillOpacity: 0.7
-    };
-}
-        //var geojson = L.geoJSON(jalur, {
-        //                                    style: {
-        //                                        fill: '#ff0000',
-        //                                        weight: 3
-        //                                    },
-        //                                    onEachFeature: onEachFeature
-        //                                }).addTo(map);
-                                       var geojson =  L.geoJson(jalur, {style: polystyle,onEachFeature: onEachFeature}).addTo(map);
-
-                                        var selectedLayerId = null;
-                                        function toggleLayerVisibility(layer) {
-                                            if (selectedLayerId) {
-                                                geojson.resetStyle(layer);
-                                                selectedLayerId = null;
-                                            } else {
-                                                //hide a layer
-                                                layer.setStyle({
-                                                    opacity: 0,
-                                                    fillOpacity: 0.0
-                                                });
-                                                selectedLayerId = layer._leaflet_id;
-                                            }
-                                        }
-
-                                        function onEachFeature(feature, layer) {
-                                            layer.on({
-                                                click: function (e) {
-                                                    toggleLayerVisibility(e.target);
-                                                }
-                                            });
-                                        }
+                  console.log(filling);
+                  console.log(trucking);
+                  console.log(bongkar);
+                  console.log(totalVoyage);
+                  console.log(totalRoundVoyage);
+                  console.log(roundTotal);
+                var mmbtu = 22.50;
+                var m3day = ((demands * 1000) / mmbtu).toFixed(2);
+                 console.log(demands);
+                 console.log(demands * 1000);
+                 console.log(mmbtu);
+                 console.log((demands * 1000) / mmbtu);
+                 console.log(m3day);
+                $("#_m3day").val(m3day);
+                var isotankday = (m3day / volume).toFixed(2);
+                $("#_isotankday").val(isotankday);
+                var qtytruck = 2;
+                var roundvoyagedays = (roundTotal / qtytruck).toFixed(0);
+                var safetymargindays = 0;
 
 
-    });
-    </script>
+                var tblDemand = (((demands * 1000) / mmbtu) / volume).toFixed(3);
+                var tblDrop = (isotankday * roundvoyagedays).toFixed(0);
 
-    <script type="text/javascript">
-        //maps
-        function back() {
-            $("#maps").hide();
-            $("#resultSimulation").show();
-        }
+                var tblRemain1 = (parseFloat((isotankday * roundvoyagedays).toFixed(0)) - parseFloat(tblDemand)).toFixed(2);
+                var c1 = parseFloat(Math.ceil(tblRemain1));
+                var c2 = Math.floor((((demands * 1000) / mmbtu) / volume));
+                var c3 = parseFloat(c1) + parseFloat(c2);
 
-        function mapp() {
-            $("#maps").show();
-            $("#resultSimulation").hide();
-            map.invalidateSize();
-        }
+                var filStas = (isotankday * roundvoyagedays).toFixed(0);
+                var empt1 = (((demands * 1000) / mmbtu) / volume).toFixed(2);
+                var empt2 = Math.floor((((demands * 1000) / mmbtu) / volume));
 
-    </script>
+                var totISO = parseFloat(filStas) + parseFloat(c3) + parseFloat(0);
+
+
+                for (x = 1; x < 366; x++) {
+                  ads(x);
+                }
+
+                update_amounts();
+
+
+                $("#demand_").val(tblDemand);
+                $("#drop_").val(tblDrop);
+
+                if (tblDrop == 0) {
+                  $("#voyage_").val("-");
+                } else {
+                  $("#voyage_").val("Voyage");
+                }
+
+                $("#remaining1_").val(tblRemain1);
+                $("#remaining2_").val(Math.ceil(tblRemain1));
+                $("#empty1_").val((((demands * 1000) / mmbtu) / volume).toFixed(2));
+                $("#empty2_").val(Math.floor((((demands * 1000) / mmbtu) / volume)));
+                $("#fillingStation_").val((isotankday * roundvoyagedays).toFixed(0));
+
+                $("#regasPlan_").val(c3);
+                $("#onTheRoad_").val(0);
+                $("#load_").val(0);
+                $("#totalIso_").val(totISO);
+
+    
+                function update_amounts() {
+                    var sum = 0.0;
+                    var maxFillingStation = [];
+                    var maxRegasPlant = [];
+                    var maxOnTheRoad = [];
+                    var maxTotalIso = [];
+                    var maxDrop = [];
+                    var count = $('#table tr').length;
+                    $('.product').each(function() {
+
+                        var price = $(this).find('.price').val();
+                        var amount = (price * 1)
+                        sum += amount;
+
+
+                        var fillingStation = $(this).find('.fillingStation').val();
+                        var regasPlan = $(this).find('.regasPlan').val();
+                        var onTheRoad = $(this).find('.onTheRoad').val();
+                        var totalIso = $(this).find('.totalIso').val();
+                        var drop = $(this).find('.drop').val();
+                        maxFillingStation.push(fillingStation);
+                        maxRegasPlant.push(regasPlan);
+                        maxOnTheRoad.push(onTheRoad);
+                        maxTotalIso.push(totalIso);
+                        maxDrop.push(drop);
+                        //console.log(sum)
+                        gtotal = sum + count;
+                        $(this).find('.amount').val(amount);
+                    });
+                    $('.total').val((sum).toFixed(2));
+
+                    var maxFillingStation = Math.max.apply(null, maxFillingStation);
+                    var maxRegasPlant = Math.max.apply(null, maxRegasPlant);
+                    var maxOnTheRoad = Math.max.apply(null, maxOnTheRoad);
+                    var maxTotalIso = Math.max.apply(null, maxTotalIso);
+                    var maxDrops = Math.max.apply(null, maxDrop);
+
+                    const resultDrop = maxDrop.filter(i => i === "0").length;
+
+                    $('._fillingStation').val((maxFillingStation));
+                    $('._regasPlan').val((maxRegasPlant));
+                    $('._onTheRoad').val((maxOnTheRoad));
+                    $('._totalIso').val((maxTotalIso));
+                    $('.totalCall').val(365 - resultDrop);
+                    $('.totalCalls').val((365 - resultDrop) / qtytruck);
+                }
+
+                function ads(id) {
+                  var clone = $("#table tbody tr:last").clone();
+                  clone.addClass('newTR');
+                  clone.find('td.remTD input').removeClass('hidden');
+                  $("#table tbody").append(clone);
+
+                  var _id = x - 1;
+
+                  if (_id == 0) {
+                    var _no = document.getElementsByName('noo[]');
+                    var a00 = _no[x - 1];
+                    a00.value = x;
+
+                    var _demand = document.getElementsByName('demand[]');
+                    var a1 = _demand[x - 1];
+                    a1.value = tblDemand;
+
+                    var _drop = document.getElementsByName('drop[]');
+                    var a2 = _drop[x - 1];
+                    a2.value = tblDrop;
+
+                    if (tblDrop == 0) {
+                      var _voyage = document.getElementsByName('voyage[]');
+                      var a3 = _voyage[x - 1];
+                      a3.value = "-";
+                    } else {
+                      var _voyage = document.getElementsByName('voyage[]');
+                      var a3 = _voyage[x - 1];
+                      a3.value = "Voyage";
+                    }
+
+                    var _remaining1 = document.getElementsByName('remaining1[]');
+                    var a4 = _remaining1[x - 1];
+                    a4.value = tblRemain1;
+
+                    var _remaining2 = document.getElementsByName('remaining2[]');
+                    var a5 = _remaining2[x - 1];
+                    a5.value = Math.ceil(tblRemain1);
+
+                    var _empty1 = document.getElementsByName('empty1[]');
+                    var a6 = _empty1[x - 1];
+                    a6.value = empt1;
+
+                    var _empty2 = document.getElementsByName('empty2[]');
+                    var a7 = _empty2[x - 1];
+                    a7.value = empt2;
+
+                    var _fillingStation = document.getElementsByName('fillingStation[]');
+                    var a8 = _fillingStation[x - 1];
+                    a8.value = filStas;
+
+                    var _regasPlan = document.getElementsByName('regasPlan[]');
+                    var a9 = _regasPlan[x - 1];
+                    a9.value = c3;
+
+                    var _onTheRoad = document.getElementsByName('onTheRoad[]');
+                    var a10 = _onTheRoad[x - 1];
+                    a10.value = 0;
+
+                    var _totalIso = document.getElementsByName('totalIso[]');
+                    var a11 = _totalIso[x - 1];
+                    a11.value = totISO;
+
+                    var _load = document.getElementsByName('load[]');
+                    var a12 = _load[x - 1];
+                    a12.value = 0;
+
+                  } else {
+                    var _no = document.getElementsByName('noo[]');
+                    var a00 = _no[x - 1];
+                    a00.value = x;
+
+                    var _demand = document.getElementsByName('demand[]');
+                    var a1 = _demand[x - 1];
+                    a1.value = tblDemand;
+
+                    // Drop
+                    var _remaining1 = document.getElementsByName('remaining1[]');
+
+                    var arr = x - 2;
+                    var remainB = _remaining1[arr];
+
+                    var dropValue = remainB.value - tblDemand;
+
+                    var drops = 0;
+                    if (dropValue < isotankday) {
+                      var cal = ((isotankday * roundvoyagedays) + (isotankday * safetymargindays));
+                      drops = Math.ceil(cal);
+                    } else {
+                      drops = 0;
+                    }
+
+                    var _drop = document.getElementsByName('drop[]');
+                    var a2 = _drop[x - 1];
+                    a2.value = drops;
+
+                    // Voyage
+                    if (drops == 0) {
+                      var _voyage = document.getElementsByName('voyage[]');
+                      var a3 = _voyage[x - 1];
+                      a3.value = "-";
+                    } else {
+                      var _voyage = document.getElementsByName('voyage[]');
+                      var a3 = _voyage[x - 1];
+                      a3.value = "Voyage";
+                    }
+
+                    // Load
+                    var loadB = document.getElementsByName('empty2[]');
+                    var arrs = x - 2;
+                    var _emp2 = loadB[arrs].value;
+                    var empss = 0;
+
+                    if (drops == 0) {
+                      var _load = document.getElementsByName('load[]');
+                      var a4 = _load[x - 1];
+                      a4.value = 0;
+                      empss = 0;
+                    } else {
+                      var _load = document.getElementsByName('load[]');
+                      var a4 = _load[x - 1];
+                      a4.value = _emp2;
+                      empss = _emp2;
+                    }
+
+                    var in_ = parseFloat(remainB.value) + parseFloat(drops) - parseFloat(tblDemand);
+                    // Remaining 1
+                    var rem = (in_).toFixed(2);
+                    var _remain1 = document.getElementsByName('remaining1[]');
+                    var a5 = _remain1[x - 1];
+                    a5.value = rem;
+
+                    // Remaining 2
+                    var rems = Math.ceil(in_);
+                    var _remain2 = document.getElementsByName('remaining2[]');
+                    var a6 = _remain2[x - 1];
+                    a6.value = rems;
+
+                    // Empty 1
+                    var empB = document.getElementsByName('empty1[]');
+                    var _arr = x - 2;
+                    var _emp1s = empB[_arr].value;
+
+                    var inEmp_ = (parseFloat(_emp1s) + parseFloat(tblDemand) - parseFloat(empss)).toFixed(2);
+                    var _empty1 = document.getElementsByName('empty1[]');
+                    var a7 = _empty1[x - 1];
+                    a7.value = inEmp_;
+
+                    // Empty 2
+                    var _emp2 = Math.floor(inEmp_);
+                    var _empty2 = document.getElementsByName('empty2[]');
+                    var a8 = _empty2[x - 1];
+                    a8.value = _emp2;
+
+                    // Filling Station
+                    var _filSts = document.getElementsByName('fillingStation[]');
+                    var a9 = _filSts[x - 1];
+                    a9.value = filStas;
+
+                    //Regas Plant
+                    var numP = parseFloat(rems) + parseFloat(_emp2);
+                    var _regP = document.getElementsByName('regasPlan[]');
+                    var a10 = _regP[x - 1];
+                    a10.value = numP;
+
+                    //On The Road
+                    var otrB = document.getElementsByName('onTheRoad[]');
+                    var _arr_ = x - 2;
+                    var _otrB = otrB[_arr_].value;
+                    var otrr = 0;
+                    if (empss == 0) {
+                      otrr = _otrB;
+                    } else {
+                      otrr = empss;
+                    }
+                    var _otr = document.getElementsByName('onTheRoad[]');
+                    var a11 = _otr[x - 1];
+                    a11.value = otrr;
+
+                    //Total Iso
+                    var totSo = parseFloat(filStas) + parseFloat(numP) + parseFloat(otrr);
+                    var _iso = document.getElementsByName('totalIso[]');
+                    var a12 = _iso[x - 1];
+                    a12.value = totSo;
+ }}
+    }, 1000);
+  });
+
+  function exec() {
+
+    //var dmd = $("#demandInput").val();
+    //var smb = $("#sumberInput").val();
+    var hub = $("#hubInput").val();
+    var plg = $("#jmlPelanggan").val();
+    //var inp = $("#sizeInput").val();
+    //var vlm = $("#volumeInput").val();
+    //var spd = $("#speedInput").val();
+    var trk = $("#qtyTruckInput").val();
+    var _m3day = $("#_m3day").val();
+    var _roundTotal = $("#_roundTotal").val();
+    var _isotankday = $("#_isotankday").val();
+    var _maxTotalIso = $("#_maxTotalIso").val();
+    var _totalIso = $("#_totalIso").val();
+
+
+    var demands = $("#demandBBTUD").val(); // BBTUD
+    var distance = $("#sumberInput").val(); // Distance
+    var isoTank = $("#sizeInput").val(); // Feet
+    var volume = $("#volumeInput").val(); // Volume
+    var speed = $("#speedInput").val(); // km/h    
+
+    var vgl = plg * 2;
+
+    console.log("demand : " + demands); //demand
+        console.log("jarak sumber : " + distance); //jarak sumber
+        console.log("jarak hub : " + hub); //jarak hub
+        console.log("jumlah pelanggan : " + plg); // jumlah pelanggan
+        console.log("size : " + isoTank); //size
+        console.log("volume : " + volume); //volume
+        console.log("speed : " + speed); //speed
+        console.log("qty truck : " + trk); //qty truck
+        console.log("est round trip : " + _roundTotal); //est round trip
+        console.log("m3 day : " + _m3day); //m3 day
+        console.log("isotank day : " + _isotankday); //isotank day
+        console.log("qty vgl : " + vgl); //qty vgl
+        console.log("iso tank : " + _totalIso); //iso tank
+    //$.ajax({
+    //  url: '@Url.Action("SaveDataRetailSupply", "SimulationCost")?headerSimulationID=' + 200 + '&demand=' + demands + '&jarakSumber=' + distance + '&jarakHub=' + hub + '&jumlahPelanggan=' + plg + '&size=' + isoTank + '&volume=' + volume + '&speed=' + speed + '&qtyTruck=' + trk + '&estRoundTrip=' + _roundTotal + '&m3Day=' + _m3day + '&isoTankDay=' + _isotankday + '&qtyVGL=' + vgl + '&isoTank=' + _totalIso + '&latitude=' + 0 + '&longitude=' + 0,
+    //  //url: '@Url.Action("SaveDataRetailSupply", "SimulationCost")',
+    //  type: 'post',
+    // dataType: 'json',
+    //                    contentType: "application/json; charset=utf-8",
+    //                    data: "{}",
+      
+    //  success: function (datas) {
+    //    console.log("success lng");
+        
+
+        
+    //  },
+
+    //  error: function (jqXHR) {
+    //    $('#divErrorText').text(jqXHR.responseText);
+    //    $('#divError').show('fade');
+    //    console.log("error cng");
+    //  }
+    //});
+
+
+  }
+
+
+
+
+
+
+
+</script>
 }

@@ -69,7 +69,7 @@
          ::-webkit-scrollbar{
         height: 5px;
         width: 5px;
-        background: red;
+        background: #fff;
         border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb:horizontal{
@@ -148,9 +148,15 @@
                                                         <a class="dropdown-item" href="@Url.Action("List", "MstHubLNG")"><i class="fas fa-map-marked-alt" aria-hidden="true"></i> Hub LNG</a>
                                                     </li> 
                                                     <li>
-                                                        <a class="dropdown-item" href="@Url.Action("PipeMap", "Transaction")"><i class="fas fa-comments-dollar" aria-hidden="true"></i> ISO Tank</a>
+                                                        <a class="dropdown-item" href="@Url.Action("List", "MstParameterLNG")"><i class="fas fa-comments-dollar" aria-hidden="true"></i> Parameter LNG</a>
+                                                    </li> 
+                                                    <li>
+                                                        <a class="dropdown-item" href="@Url.Action("PriceList", "MstParameterLNG")"><i class="fas fa-comments-dollar" aria-hidden="true"></i> Price List</a>
                                                     </li>
-                                                    
+                                                    <li>
+                                                        <a class="dropdown-item" href="@Url.Action("PipeMap", "Transaction")"><i class="fas fa-comments-dollar" aria-hidden="true"></i> Trial</a>
+                                                    </li>
+
 
                                                 </ul>
                                             </li>

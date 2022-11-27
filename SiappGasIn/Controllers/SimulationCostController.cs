@@ -40,7 +40,7 @@ namespace SiappGasIn.Controllers
         [HttpGet]
         public IActionResult Result(int Id)
         {
-            
+
             string StoredProc = "exec SP_HeaderSimulation " + Id;
 
             //var data = new SP_HeaderSimulation();
@@ -89,7 +89,7 @@ namespace SiappGasIn.Controllers
             SimulationCost model = null;
             //SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw("[dbo].[SP_HeaderSimulation] @Id", Id).AsEnumerable().FirstOrDefault();
             SimulationCost data = _dbContext.Set<SimulationCost>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
-           
+
             return View("~/Views/SimulationCost/Detail.cshtml", data);
         }
 
@@ -124,14 +124,8 @@ namespace SiappGasIn.Controllers
         [HttpGet]
         public IActionResult DetailLNG(int Id)
         {
-
-            string StoredProc = "exec SP_ResultDetailSimulation " + Id;
-
-            //var data = new SP_HeaderSimulation();
-            SimulationCost model = null;
-            //SP_HeaderSimulation data = _dbContext.Set<SP_HeaderSimulation>().FromSqlRaw("[dbo].[SP_HeaderSimulation] @Id", Id).AsEnumerable().FirstOrDefault();
-            SimulationCost data = _dbContext.Set<SimulationCost>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
-
+            HeaderRetail data = _dbContext.HeaderRetail.Where(x => x.HeaderRetailId.Equals(Id)).FirstOrDefault<HeaderRetail>();
+                       
             return View("~/Views/SimulationCost/DetailLNG.cshtml", data);
         }
 
@@ -159,7 +153,7 @@ namespace SiappGasIn.Controllers.Api
             string StoredProc = "exec SP_DetailSimulation " + id;
 
             var data = _dbContext.Set<SP_DetailSimulation>().FromSqlRaw(StoredProc).AsEnumerable().ToList();
-           
+
             return Ok
                     (
                         new { data = data }
@@ -284,18 +278,40 @@ namespace SiappGasIn.Controllers.Api
                        new { data = id, status = isStatus }
                    );
         }
-             
+
 
         [HttpPost]
         public IActionResult SaveData([FromBody] SP_CostSimulation energy)
         {
             try
-            {                
+            {
                 if (energy != null)
                 {
-                    string StoredProc = "exec SP_CostSimulation " + energy.headerSimulationID + "," + energy.volume2 + "," + energy.jarak + "," + energy.operasiHari + "," + energy.operasiBulan + "," + "'"+ energy.energyName +"'" + ","+ "'"+ energy.asalStation +"'" + ","+ "'" + energy.lokasiCapel + "'" + "," + energy.minPrice + "," + energy.maxPrice + "," + energy.latitude + "," + energy.longitude;
+                    string StoredProc = "exec SP_CostSimulation " + energy.headerSimulationID + "," + energy.volume2 + "," + energy.jarak + "," + energy.operasiHari + "," + energy.operasiBulan + "," + "'" + energy.energyName + "'" + "," + "'" + energy.asalStation + "'" + "," + "'" + energy.lokasiCapel + "'" + "," + energy.minPrice + "," + energy.maxPrice + "," + energy.latitude + "," + energy.longitude;
 
                     var data = _dbContext.Set<SP_CostSimulation>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(data: false);
+            }
+
+            return Json(data: true);
+        }
+
+        [HttpPost]
+        public IActionResult SaveDataRetailSupply(int headerSimulationID, decimal demand, decimal jarakSumber, decimal jarakHub, decimal jumlahPelanggan, decimal size, decimal volume, decimal speed, decimal qtyTruck, decimal estRoundTrip, decimal m3Day, decimal isoTankDay, decimal qtyVGL, decimal isoTank, string asalSumber, string latitude, string longitude, string latitudePelanggan, string longitudePelanggan)
+        {
+            try
+            {
+                if (headerSimulationID != null)
+                {
+                    //string StoredProc = "exec SP_RetailSupply " + headerSimulationID;
+                    string StoredProc = "exec SP_RetailSupply " + headerSimulationID + "," + demand + "," + jarakSumber + "," + jarakHub + "," + jumlahPelanggan + "," + size + "," + volume + "," + speed + "," + qtyTruck + "," + estRoundTrip + "," + m3Day + "," + isoTankDay + "," + qtyVGL + "," + isoTank + "," + "'" + asalSumber + "'" + "," + latitude + "," + longitude + "," + latitudePelanggan + "," + longitudePelanggan;
+
+                    var data = _dbContext.Set<SP_RetailSupply>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
 
                 }
             }
@@ -414,23 +430,35 @@ namespace SiappGasIn.Controllers.Api
         }
 
         [HttpPost]
+        public IActionResult GetCapexOpex(int Id, string Type, string Item)
+        {
+
+            var details = _dbContext.RetailSupplyChain.Where(x => x.HeaderSimulationID == Id && x.Type == Type && x.Item == Item).ToListAsync<RetailSupplyChain>();
+         
+            return Ok
+                    (
+                        new { data = details }
+                    );
+        }
+
+        [HttpPost]
         public IActionResult GetGaji(string NamaSPBG)
         {
-            string StoredProc = "exec SP_GetGajiByLocationName '"+NamaSPBG+"'" ;
+            string StoredProc = "exec SP_GetGajiByLocationName '" + NamaSPBG + "'";
 
-           var data = _dbContext.Set<SP_GetGajiByLocationName>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+            var data = _dbContext.Set<SP_GetGajiByLocationName>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
             return Ok
                     (
                         new { data = data }
                     );
         }
-        
+
         [HttpPost]
         public IActionResult GetPRS(int flowRate)
         {
             string StoredProc = "exec SP_GetHargaPRS" + flowRate;
 
-           var data = _dbContext.Set<MstHargaPRS>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
+            var data = _dbContext.Set<MstHargaPRS>().FromSqlRaw(StoredProc).AsEnumerable().FirstOrDefault();
             return Ok
                     (
                         new { data = data }
@@ -503,7 +531,7 @@ namespace SiappGasIn.Controllers.Api
         public IActionResult getPipeCalculator(string datas, string user, string password, int dataID, decimal volume2, int operasiHari, int operasiBulan, string energyName, decimal pressure)
         {
             var calculate = "";
-            string token = getTokens(user,password);
+            string token = getTokens(user, password);
             var tokens = token.Replace("\"", "");
             var stringContent = new StringContent(datas, UnicodeEncoding.UTF8, "application/json");
             var url = "http://10.129.10.191/nimo/api/PipeCalculatorRelyOn";
@@ -524,7 +552,7 @@ namespace SiappGasIn.Controllers.Api
 
                 if (jsonss.HasValues)
                 {
-                    
+
                     var type = jObject["data"]["type"].ToString();
                     var latitude = jObject["data"]["location"]["latitude"].ToString();
                     var longitude = jObject["data"]["location"]["longitude"].ToString();
@@ -573,7 +601,7 @@ namespace SiappGasIn.Controllers.Api
         public IActionResult getPipeCalculatorCluster(string datas, string user, string password, int dataID, decimal volume2, int operasiHari, int operasiBulan, string energyName, decimal pressure, string customer)
         {
             var calculate = "";
-            string token = getTokens(user,password);
+            string token = getTokens(user, password);
             var tokens = token.Replace("\"", "");
             var stringContent = new StringContent(datas, UnicodeEncoding.UTF8, "application/json");
             var url = "http://10.129.10.191/nimo/api/PipeCalculatorRelyOn";
@@ -594,7 +622,7 @@ namespace SiappGasIn.Controllers.Api
 
                 if (jsonss.HasValues)
                 {
-                    
+
                     var type = jObject["data"]["type"].ToString();
                     var latitude = jObject["data"]["location"]["latitude"].ToString();
                     var longitude = jObject["data"]["location"]["longitude"].ToString();
@@ -643,7 +671,7 @@ namespace SiappGasIn.Controllers.Api
         public IActionResult getPipeSektor(string datas, string user, string password, int dataID, decimal volume2, int operasiHari, int operasiBulan, string energyName, decimal pressure, string customer, int countCapel)
         {
             var calculate = "";
-            string token = getTokens(user,password);
+            string token = getTokens(user, password);
             var tokens = token.Replace("\"", "");
             var stringContent = new StringContent(datas, UnicodeEncoding.UTF8, "application/json");
             var url = "http://10.129.10.191/nimo/api/PipeCalculatorRelyOn";
@@ -664,7 +692,7 @@ namespace SiappGasIn.Controllers.Api
 
                 if (jsonss.HasValues)
                 {
-                    
+
                     var type = jObject["data"]["type"].ToString();
                     var latitude = jObject["data"]["location"]["latitude"].ToString();
                     var longitude = jObject["data"]["location"]["longitude"].ToString();
@@ -783,7 +811,7 @@ namespace SiappGasIn.Controllers.Api
 
                     //var data = _dbContext.Set<SP_ClusterSimulation>().FromSqlRaw(StoredProc).ToList();
 
-                    _dbContext.Set<SP_ClusterSimulation>().FromSqlRaw("SP_ClusterCostSimulation @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18", energy.HeaderClusterID , energy.ProjectName, energy.Creator, createdDate, energy.CustomerName, energy.Volume, targetDate, energy.OperasiHari, energy.OperasiBulan, energy.EnergyName, energy.Latitude, energy.Longitude, energy.Jarak, energy.Latitude2, energy.Longitude2, energy.AsalStation, energy.LokasiCapel, energy.TotalVolume, energy.CountCapel).ToList();
+                    _dbContext.Set<SP_ClusterSimulation>().FromSqlRaw("SP_ClusterCostSimulation @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17, @p18", energy.HeaderClusterID, energy.ProjectName, energy.Creator, createdDate, energy.CustomerName, energy.Volume, targetDate, energy.OperasiHari, energy.OperasiBulan, energy.EnergyName, energy.Latitude, energy.Longitude, energy.Jarak, energy.Latitude2, energy.Longitude2, energy.AsalStation, energy.LokasiCapel, energy.TotalVolume, energy.CountCapel).ToList();
 
                 }
             }
@@ -794,7 +822,7 @@ namespace SiappGasIn.Controllers.Api
 
             return Ok
                   (
-                      new {status = isStatus }
+                      new { status = isStatus }
                   );
         }
 
